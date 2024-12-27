@@ -1,0 +1,611 @@
+<style>
+    .classReport{
+        width: 100%;
+    }
+
+</style>
+
+<div id="page-title" ng-controller="reportesCtrl as reportesCtrl">
+    <br>
+    <h2>Menú Administrativo</h2>
+    <br>
+    <div class="clearfix"></div>
+    <div class="content-box">
+
+        <div class="content-box-wrapper">
+            <div class="row">
+                <div class="form form-horizontal">
+                    <div class="col-xs-1 col-sm-3">
+                        <label for="periodo" class="control-label">{{appConstantsView.LABEL_PERIODO_ACTUAL}}</label><label class="text-danger">*</label>
+                    </div>
+                    <div class="col-lg-8 col-sm-6">
+                        <ui-select name="periodo" ng-model="reportesCtrl.idPeriodo" ng-change="reportesCtrl.onChangePeriodoAcademico()"  class="form-control" >
+                            <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombre}}</ui-select-match>
+                            <ui-select-choices repeat="periodo in reportesCtrl.listadoPeriodos | filter: {nombre: $select.search}">
+                                <div ng-bind-html="periodo.nombre"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-lg-2 col-sm-3">
+                        <a ng-click="reportesCtrl.onChangePeriodoAcademico();" class="btn btn-sm btn-info icon-tool-add back-button" data-animation="flipOutX" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                            <div class="glyph-icon">
+                                <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">Consultar</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6" ng-show="reportesCtrl.listaSIET.length > 0">
+                    <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                            ng-json-export-excel 
+                            data="reportesCtrl.listaSIET"
+                            report-fields="{
+                            NOMBRE_PROGRAMA:'NOMBRE_PROGRAMA',
+                            CONSECUTIVO:'CONSECUTIVO',
+                            FECHA_DE_INGRESO:'FECHA_DE_INGRESO',
+                            JORNADA:'FECHA_DE_INGRESO',
+                            TIPO_DE_IDENTIFICACION:'TIPO_DE_IDENTIFICACION',
+                            NUMERO_DE_IDENTIFICACION:'NUMERO_IDENTIFICACION',
+                            NOMBRES:'NOMBRES',
+                            APELLIDOS:'APELLIDOS',
+                            GENERO:'GENERO',
+                            ESTADO_CIVIL:'ESTADO_CIVIL',
+                            FECHA_NACIMIENTO:'FECHA_NACIMIENTO',
+                            LUGAR_ORIGEN:'LUGAR_DE_ORIGEN',
+                            ESTRATO:'ESTRATO',
+                            REGIMEN_DE_SALUD:'REGIMEN_DE_SALUD',
+                            NIVEL_DE_FORMACION:'NIVEL_DE_FORMACION',
+                            OCUPACION:'OCUPACION',
+                            DISCAPACIDAD:'DISCAPACIDAD'
+                            }"
+                            filename=" 'Listado de Estudiantes SIET' " 
+                            title="Listado de Estudiantes SIET"
+                            >
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Estudiantes SIET</button>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6" ng-show="reportesCtrl.listaEstudiantesMatricula.length > 0">
+                    <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                            ng-json-export-excel 
+                            data="reportesCtrl.listaEstudiantesMatricula"
+                            report-fields="{
+                            estudiante:'Estudiante',
+                            nombre:'Programa',
+                            semestre:'semestre',
+                            celular:'celular',
+                            telefono:'telefono',
+                            identificacion:'identificacion',
+                            concepto:'concepto',
+                            valor_liquidado:'valor liquidado',
+                            saldo_abonado:'abonado',
+                            saldo_pendiente:'saldo',
+                            referencia:'referencia',
+                            estado_liquidacion:'estado liquidacion'
+                            }"
+                            filename=" 'Listado de Estudiantes Matriculados' " 
+                            title="Listado de Estudiantes Matriculados"
+                            >
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Estudiantes Matriculados</button>
+                </div>
+            </div>
+            <br>
+            <div class="row"  >
+
+                <form method="POST" novalidate name="formFechaBusqueda">
+                    <div id="fechaCampanha" class="input-daterange input-group">
+                        <div class="col-lg-2 col-sm-2"></div>
+                        <div class="col-lg-4 col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label pull-left">{{appConstantsView.LABEL_FECHA}}</label>
+                                <div id="fecha-inicio" class="input-group date">
+                                    <input id="fechaBusqueda" name="fechaBusqueda" style="text-align: left;" mask="39/19/9999" restrict="reject" readonly="true" placeholder="dd/mm/aaaa" type="text" ng-model="reportesCtrl.fechaBusqueda"
+                                           validation-error-to="validacionFechaBusqueda" class="form-control date" validation="required"
+                                           >
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                                <span id="validacionFechaBusqueda" class="validation text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label pull-left">{{appConstantsView.LABEL_FECHA}}</label>
+                                <div id="fecha-fin" class="input-group date">
+                                    <input id="fechaBusqueda2" name="fechaBusqueda2" style="text-align: left;" mask="39/19/9999" restrict="reject" readonly="true" placeholder="dd/mm/aaaa" type="text" ng-model="reportesCtrl.fechaBusqueda2"
+                                           validation-error-to="validacionFechaBusqueda2" class="form-control date" validation="required"
+                                           >
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                                <span id="validacionFechaBusqueda2" class="validation text-danger"></span>
+                            </div>
+                        </div>
+                </form>
+
+                <div class="col-xs-12">
+                    <form method="POST" novalidate >
+                        <div class="content-box">
+                            <div class="button-pane button-pane-top">
+                                <div class="col-lg-12 col-sm-12">
+                                    <a ng-click="reportesCtrl.onChangeFechas();" class="btn btn-sm btn-info icon-tool-add" data-animation="flipOutX" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                                        <div class="glyph-icon">
+                                            <i class="glyphicon glyphicon-search"></i><span class="info-icon-tool">Consultar</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-left text-uppercase content-box-header-title btn-sm">Listado de Estudiantes Admitidos (No tiene en cuenta Período)</h3>
+                                <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                                        ng-json-export-excel 
+                                        data="reportesCtrl.listaEstudiantesAdmitidosSinPeriodo"
+                                        report-fields="{
+                                        estudiante:'Estudiante',
+                                        nombre:'Programa',
+                                        semestre:'semestre',
+                                        celular:'celular',
+                                        telefono:'telefono',
+                                        identificacion:'identificacion',
+                                        concepto:'concepto',
+                                        valor_liquidado:'valor liquidado',
+                                        saldo_abonado:'abonado',
+                                        saldo_pendiente:'saldo',
+                                        referencia:'referencia',
+                                        estado_liquidacion:'estado liquidacion'
+                                        }"
+                                        filename=" 'Listado de Estudiantes Matriculados' " 
+                                        title="Listado de Estudiantes Matriculados"
+                                        >
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Estudiantes Matriculados</button>
+                                <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                                        ng-json-export-excel 
+                                        data="reportesCtrl.listProgramaConcepto"
+                                        report-fields="{
+                                        nombre:'Programa',
+                                        semestre:'Semestre',
+                                        nombre_perido_academico:'Período',
+                                        concepto:'Concepto',
+                                        cantidad:'Cantidad'
+                                        }"
+                                        filename=" 'Listado de Conceptos Por Programa' " 
+                                        title="Listado de Conceptos Por Programa"
+                                        >
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Conceptos Por Programa</button>
+                                <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                                        ng-json-export-excel 
+                                        data="reportesCtrl.listaEstudianteReferencia"
+                                        report-fields="{
+                                        nombreEstudiante:'Estudiante',
+                                        nombrePrograma:'Programa',
+                                        semestre:'Semestre',
+                                        nombrePeriodo:'Período',
+                                        referencia:'Referencia',
+                                        nombreConcepto:'Concepto',
+                                        estado_liquidacion:'Estado',
+                                        saldo_abonado:'Abonado',
+                                        saldo_pendiente:'Saldo'
+                                        }"
+                                        filename=" 'Listado de Estudiantes Referencia' " 
+                                        title="Listado de Estudiantes Referencia"
+                                        >
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Estudiantes Por Referencia</button>
+                                <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                                        ng-json-export-excel 
+                                        data="reportesCtrl.listCarteraCastigada"
+                                        report-fields="{
+                                        nombreEstudiante:'Estudiante',
+                                        nombrePrograma:'Programa',
+                                        semestre:'Semestre',
+                                        nombrePeriodo:'Período',
+                                        referencia:'Referencia',
+                                        nombreConcepto:'Concepto',
+                                        estado_liquidacion:'Estado',
+                                        valor_liquidado:'Valor Liquidado',
+                                        saldo_abonado:'Abonado',
+                                        saldo_pendiente:'Saldo'
+                                        }"
+                                        filename=" 'Listado de Estudiantes Cartera Castigada' " 
+                                        title="Listado de Estudiantes Cartera Castigada"
+                                        >
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Estudiantes Cartera Castigada</button>
+                                <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                                        ng-json-export-excel 
+                                        data="reportesCtrl.listFormatoInterfaz"
+                                        report-fields="{
+                                        IdCuentaContableDocumento:'IdCuentaContableDocumento',
+                                        prefijo:'prefijo',
+                                        DocumentoNumero:'DocumentoNumero',
+                                        CodigoCuentaContable:'CodigoCuentaContable',
+                                        Debito:'Debito',
+                                        Credito:'Credito',
+                                        Identificacion:'Identificacion',
+                                        Vencimiento:'Vencimiento',
+                                        Nota:'Nota',
+                                        FormaDePago:'FormaDePago',
+                                        Verificado:'Verificado',
+
+                                        Banco_Cheque:'Banco_Cheque',
+                                        AbonaCheque:'AbonaCheque',
+                                        Porcentaje_Reten:'Porcentaje_Reten',
+                                        Clasificacion:'Clasificacion',
+                                        DocumentoDePago:'DocumentoDePago',
+                                        Empresa:'Empresa'
+                                        }"
+                                        filename=" 'Listado de cuentas contables' " 
+                                        title="Listado de cuentas contables"
+                                        >
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de cuentas contables</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-xs-6">
+                    <form method="POST" novalidate name="lista20">
+                        <div class="content-box">
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-left text-uppercase content-box-header-title btn-sm">Modulos liquidados Noctura</h3>
+                            </div>
+                            <table object-table class="hover-column" 
+                                   display="10" 
+                                   data="reportesCtrl.lista20" 
+                                   headers="#,Módulo,Cantidad, Valor Total"
+                                   fields="numero,modulo,cantidad, valorLiquidado"
+                                   sorting="compound" search="false"
+                                   resize="false" >
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center; vertical-align: middle;width:20%">
+                                            {{::item.numero}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.modulo}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.cantidad}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.valorLiquidado}}
+                                        </td>
+                                        <td ng-hide="true">{{ $owner.reportesCtrl.obtenerFiltrados($filtered)}}</td>
+                                    </tr>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.reportesCtrl.listadoEstudiantes.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.reportesCtrl.listadoEstudiantes.length === $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-6">
+                    <form method="POST" novalidate name="lista21">
+                        <div class="content-box">
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-left text-uppercase content-box-header-title btn-sm">Modulos Liquidados Presencial</h3>
+                            </div>
+                            <table object-table class="hover-column" 
+                                   display="10" 
+                                   data="reportesCtrl.lista21" 
+                                   headers="#,Módulo,Cantidad, Valor Total"
+                                   fields="numero,modulo,cantidad, valorLiquidado"
+                                   sorting="compound" search="false"
+                                   resize="false" >
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center; vertical-align: middle;width:20%">
+                                            {{::item.numero}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.modulo}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.cantidad}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.valorLiquidado}}
+                                        </td>
+                                        <td ng-hide="true">{{ $owner.reportesCtrl.obtenerFiltrados($filtered)}}</td>
+                                    </tr>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.reportesCtrl.listadoEstudiantes.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.reportesCtrl.listadoEstudiantes.length === $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-6">
+                    <form method="POST" novalidate name="lista66">
+                        <div class="content-box">
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-left text-uppercase content-box-header-title btn-sm">Modulos Liquidados Semipresencial</h3>
+                            </div>
+                            <table object-table class="hover-column" 
+                                   display="10" 
+                                   data="reportesCtrl.lista66" 
+                                   headers="#,Módulo,Cantidad, Valor Total"
+                                   fields="numero,modulo,cantidad, valorLiquidado"
+                                   sorting="compound" search="false"
+                                   resize="false" >
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center; vertical-align: middle;width:20%">
+                                            {{::item.numero}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.modulo}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.cantidad}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.valorLiquidado}}
+                                        </td>
+                                        <td ng-hide="true">{{ $owner.reportesCtrl.obtenerFiltrados($filtered)}}</td>
+                                    </tr>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.reportesCtrl.listadoEstudiantes.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.reportesCtrl.listadoEstudiantes.length === $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-6">
+                    <form method="POST" novalidate name="lista66">
+                        <div class="content-box">
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-left text-uppercase content-box-header-title btn-sm">Listado de Conceptos</h3>
+                            </div>
+                            <table object-table class="hover-column" 
+                                   display="10" 
+                                   data="reportesCtrl.listaConceptos" 
+                                   headers="Concepto,Cantidad, Valor Total"
+                                   fields="nombre,Cantidad,sumatoria"
+                                   sorting="compound" search="false"
+                                   resize="false" >
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center; vertical-align: middle;width:20%">
+                                            {{::item.nombre}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.Cantidad}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;width:60%">
+                                            {{::item.sumatoria}}
+                                        </td>
+                                        <td ng-hide="true">{{ $owner.reportesCtrl.obtenerFiltrados($filtered)}}</td>
+                                    </tr>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.reportesCtrl.listadoEstudiantes.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.reportesCtrl.listadoEstudiantes.length === $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-12">
+                    <form method="POST" novalidate >
+                        <div class="content-box">
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-left text-uppercase content-box-header-title btn-sm">Listado de Estudiantes por Concepto</h3>
+                                <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                                        ng-json-export-excel 
+                                        data="reportesCtrl.listaEstudiantesConcepto"
+                                        report-fields="{
+                                        nombreEstudiante:'Estudiante',
+                                        nombrePrograma:'Programa',
+                                        nombreConcepto:'Concepto',
+                                        referencia: 'Referencia',
+                                        estadoLiquidacion:'Estado Liquidacion',
+                                        saldoAbonado:'Abono',
+                                        saldoPendiente:'Saldo'
+                                        }"
+                                        filename=" 'Listado de Estudiantes Referencia' " 
+                                        title="Listado de Estudiantes Matriculados"
+                                        >
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Estudiantes por Concepto</button>
+                            </div>
+                            <table object-table class="hover-column" 
+                                   display="10" 
+                                   data="reportesCtrl.listaEstudiantesConcepto" 
+                                   headers="Estudiante,Programa,Concepto, Referencia, Estado, Saldo Abonado, Saldo Pendiente"
+                                   fields="nombreEstudiante,nombrePrograma,nombreConcepto,referencia,estadoLiquidacion,saldoAbonado,saldoPendiente"
+                                   sorting="compound" search="separate" 
+                                   resize="false" >
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.nombreEstudiante}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.nombrePrograma}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.nombreConcepto}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.referencia}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.estadoLiquidacion}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.saldoAbonado| currency}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.saldoPendiente| currency}}
+                                        </td>
+                                        <!--<td ng-hide="true">{{ $owner.reportesCtrl.obtenerFiltrados($filtered)}}</td>-->
+                                    </tr>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.reportesCtrl.listaEstudiantesConcepto.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.reportesCtrl.listaEstudiantesConcepto.length === $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-xs-12">
+                    <form method="POST" novalidate >
+                        <div class="content-box">
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-left text-uppercase content-box-header-title btn-sm">Listado de Estudiantes Deuda Abono</h3>
+                                <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                                        ng-json-export-excel 
+                                        data="reportesCtrl.listaReferenciaDeudaAbono"
+                                        report-fields="{
+                                        nombreEstudiante:'Estudiante',
+                                        nombrePrograma:'Programa',
+                                        semestre:'semestre',
+                                        totalSaldoAbonado:'Total Abonado',
+                                        totalSaldoPendiente:'Total Pendiente'
+                                        }"
+                                        filename=" 'Listado de Estudiantes Referencia' " 
+                                        title="Listado de Estudiantes Matriculados"
+                                        >
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Estudiantes Deuda Abono</button>
+                            </div>
+                            <table object-table class="hover-column" 
+                                   display="10" 
+                                   data="reportesCtrl.listaReferenciaDeudaAbono" 
+                                   headers="Estudiante,Programa,Semestre,Total Abono,Total Deuda"
+                                   fields="nombreEstudiante,nombrePrograma,semestre,totalSaldoAbonado,totalSaldoPendiente"
+                                   sorting="compound" search="separate" 
+                                   resize="false" >
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.nombreEstudiante}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.nombrePrograma}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.semestre}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.totalSaldoAbonado| currency}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.totalSaldoPendiente| currency}}
+                                        </td>
+                                        <td ng-hide="true">{{ $owner.reportesCtrl.obtenerFiltrados($filtered)}}</td>
+                                    </tr>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.reportesCtrl.listaReferenciaDeudaAbono.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.reportesCtrl.listaReferenciaDeudaAbono.length === $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-xs-12">
+                    <form method="POST" novalidate >
+                        <div class="content-box">
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-left text-uppercase content-box-header-title btn-sm">Listado de Estudiantes por Referencia</h3>
+                                <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                                        ng-json-export-excel 
+                                        data="reportesCtrl.listaEstudianteReferencia"
+                                        report-fields="{
+                                        nombreEstudiante:'Estudiante',
+                                        nombrePrograma:'Programa',
+                                        semestre:'semestre',
+                                        referencia:'Referencia',
+                                        nombreConcepto:'Concepto',
+                                        estado_liquidacion:'Estado',
+                                        saldo_abonado:'Abonado',
+                                        saldo_pendiente:'Saldo'
+                                        }"
+                                        filename=" 'Listado de Estudiantes Referencia' " 
+                                        title="Listado de Estudiantes Matriculados"
+                                        >
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Estudiantes Por Referencia</button>
+                            </div>
+                            <table object-table class="hover-column" 
+                                   display="10" 
+                                   data="reportesCtrl.listaEstudianteReferencia" 
+                                   headers="Estudiante,Programa,Semestre,Referencia,Concepto,Estado,Saldo Abonado, Saldo Pendiente"
+                                   fields="nombreEstudiante,nombrePrograma,semestre,referencia,nombreConcepto,estado_liquidacion,saldo_abonado,saldo_pendiente"
+                                   sorting="compound" search="separate" 
+                                   resize="false" >
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.nombreEstudiante}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.nombrePrograma}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.semestre}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.referencia}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.nombreConcepto}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.estado_liquidacion}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.saldo_abonado| currency}}
+                                        </td>
+                                        <td style="text-align:center; vertical-align: middle;">
+                                            {{::item.saldo_pendiente| currency}}
+                                        </td>
+                                        <td ng-hide="true">{{ $owner.reportesCtrl.obtenerFiltrados($filtered)}}</td>
+                                    </tr>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.reportesCtrl.listaEstudianteReferencia.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.reportesCtrl.listaEstudianteReferencia.length === $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

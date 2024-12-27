@@ -1,0 +1,275 @@
+<script src="../../../../styles/assets/widgets/popover/popover.js" type="text/javascript"></script>
+<script src="../../../../js/main-app.js" type="text/javascript"></script>
+<style>
+    .panel {
+        padding: 10px;
+        border-width: 1px 0 0 0;
+        border-style: solid;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .btn-consultar-inscritos {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
+
+    .btn-consultar-inscritos:hover {
+        color: #fff;
+        background-color: #5B90BD;
+        border-color: #2e6da4;
+    }
+
+    @media screen and (max-width: 1135px) {
+        .table-scroll-x {
+            overflow-x: scroll;
+        }
+    }
+</style>
+<div id="page-title" ng-controller="HistorialCreditoCtrl as hisotiralCrtl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.TITLE_CREDITO_FINANCIERO}}</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.HISTORIAL_CREDITO}}</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/financiero')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.LABEL_ESTUDIANTE}}</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <form method="POST" name="buscarEstudiante" novalidate>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{appConstantsView.LABEL_CODIGO_ESTUDIANTIL}}</label>
+                                        <div class="input-group">
+                                            <input id="inputCodigo" type="text" validation="required" mask="9" restrict="reject" repeat="15" ng-model="hisotiralCrtl.identificacionConsultar"
+                                                   class="form-control" name="inputCodigo" validation-error-to="errorConsultaSolicitud">
+                                            <span class="input-group-btn" style="position: static">
+                                                <button type="submit" title="Consultar" id="btnCodigoConsultar"
+                                                        ng-click="hisotiralCrtl.onConsultarEstudiante(hisotiralCrtl.identificacionConsultar)"  
+                                                        class="btn btn-primary btn-group-plus" ><i class="glyphicon glyphicon-search"></i></button>
+                                            </span>
+                                        </div>
+                                        <span id="errorConsultaSolicitud" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divNombre">
+                                        <label for="nombre" class="control-label pull-left">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                        <input type="text" ng-disabled="true" id="nombre" class="form-control upper" name="nombre" ng-model="hisotiralCrtl.estudiante.nombre"
+                                               validation="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divIdentificacion">
+                                        <label for="identificacion" class="control-label pull-left">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                        <input type="text" ng-disabled="true" id="identificacion" class="form-control upper" name="identificacion" ng-model="hisotiralCrtl.estudiante.identificacion"
+                                               validation="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper" ng-hide="hisotiralCrtl.solicitudesEstudiante.length === appConstantsView.CERO">
+            <div class="panel-body">
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.LISTADO_SOLICITUDES}}</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="dataTables_length" id="datatable-example_length">
+                                    <label>
+                                        <select ng-model="hisotiralCrtl.display" 
+                                                ng-init="hisotiralCrtl.display = hisotiralCrtl.display || hisotiralCrtl.options[appConstantsView.CERO].value"
+                                                ng-options="option.value as option.name for option in hisotiralCrtl.options"
+                                                ng-change="hisotiralCrtl.display <= hisotiralCrtl.inscritos ? loadDat(n - 1) : ''">
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table object-table class="hover-column" display=hisotiralCrtl.display data="hisotiralCrtl.solicitudesEstudiante" headers="Número Solicitud,Fecha de Solicitud,Programa Académico,Período Académico,Estado,Opciones"
+                                   fields="numeroSolicitud,fecha,nombrePrograma,nombrePeriodo,estadoSolicitud" search="separate"
+                                   sorting="compound" selected-model="hisotiralCrtl.report.selected" editable="false" search="false"
+                                   resize="false" select="false">
+                                <tbody>
+                                    <tr style="height: 60px;">
+                                        <td>{{::item.numeroSolicitud}}</td>
+                                        <td>{{::item.fecha}}</td>
+                                        <td>{{::item.nombrePrograma}}</td>
+                                        <td>{{::item.nombrePeriodo}}</td>
+                                        <td><span class="{{$owner.hisotiralCrtl.onEstadoEstilo(item.estadoSolicitud)}}">{{::item.estadoSolicitud}}</span></td>
+                                        <td class="text-center opciones-table">
+                                            <button class="btn btn-primary btn-tools-table" title="Ver Detalle" ng-click="$owner.hisotiralCrtl.ModalUsuario(item)">
+                                                <i class="glyphicon glyphicon-eye-open "></i>
+                                            </button>
+                                            <button class="btn btn-primary btn-tools-table" title="Cruzar Brilla" 
+                                                    ng-show="item.isBrilla"
+                                                    ng-click="$owner.hisotiralCrtl.ModalUsuarioBrilla(item)">
+                                                <i class="glyphicon glyphicon-pencil "></i>
+                                            </button>
+                                        </td>
+                                        <td ng-hide="true">{{$owner.hisotiralCrtl.filtrados = $filtered}}</td>
+                                    </tr>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.hisotiralCrtl.solicitudesEstudiante.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.hisotiralCrtl.solicitudesEstudiante.length === $owner.appConstantsView.CERO">
+                                        <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">D{{appConstantsView.DETALLE_SOLICITUD}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="formDetalleSolicitud" name="formDetalleSolicitud" novalidate>
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                                <label for="nombre" class="control-label pull-left">{{appConstantsView.LABEL_NUMERO_SOLICITUD}}</label>
+                                <input id="inputCodigo" type="text" ng-disabled="true" ng-model="hisotiralCrtl.numeroSolicitudAmortizacion" class="form-control">
+                            </div>
+
+                            <div class="col-sm-12">
+
+                                <table object-table class="hover-column" display=h isotiralCrtl.display data="hisotiralCrtl.tablaAmortizacionDetalle" headers="Cuotas,Fecha de Vencimiento,Fecha Pago,Préstamo,Interés,Amortización,Cuota Fija,Saldo,Estado"
+                                       fields="cuota,fecha,fechaPago,prestamo,interes,amortizacion,cuotaFija,saldoRestante,estadoAmortizacion"
+                                       search="false" sorting="simple" editable="false" resize="false">
+                                    <tbody>
+                                        <tr style="height: 60px;">
+                                            <td>{{::item.cuota}}</td>
+                                            <td>{{::item.fecha}}</td>
+                                            <td>{{::item.fechaPago}}</td>
+                                            <td class="money">{{::item.prestamo| currency}}</td>
+                                            <td class="money">{{::item.interes| currency}}</td>
+                                            <td class="money">{{::item.amortizacion| currency}}</td>
+                                            <td class="money">{{::item.cuotaFija| currency}}</td>
+                                            <td class="money">{{::item.saldoRestante| currency}}</td>
+                                            <td><span class="{{$owner.hisotiralCrtl.onEstadoEstiloAmorti(item.estadoAmortizacion)}}">{{::item.estadoAmortizacion}}</span></td>
+                                            <td ng-hide="true">{{$owner.hisotiralCrtl.filtrados = $filtered}}</td>
+                                        </tr>
+                                    <tfoot>
+                                        <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.hisotiralCrtl.solicitudesEstudiante.length !== $owner.appConstantsView.CERO">
+                                            <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                        </tr>
+                                        <tr ng-if="$owner.hisotiralCrtl.solicitudesEstudiante.length === $owner.appConstantsView.CERO">
+                                            <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                        </tr>
+                                    </tfoot>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModalCruceBrilla" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Cruce Referencia Credito Externo</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="formDetalleCruceBrilla" name="formDetalleSolicitud" novalidate>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group" id="divValor">
+                                    <label for="valorTotal" class="control-label pull-left">Valor Financiado</label>
+                                    <input type="text" ng-disabled="true" id="nombre" class="form-control upper" name="valorTotal"
+                                           ng-value="hisotiralCrtl.cruceDTO.valorFinanciar | currency">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group" id="divValor">
+                                    <label for="nombre" class="control-label pull-left">Valor Aprobado</label>
+                                    <input type="text"  id="nombre" class="form-control upper" name="valorTotalBrilla"
+                                           ng-change="hisotiralCrtl.onChangeInput()"
+                                           ng-model="hisotiralCrtl.cruceDTO.valorTotalBrilla"
+                                           validation="required">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group" id="divReferencia">
+                                    <label for="identificacion" class="control-label pull-left">Número de Aprobación </label>
+                                    <input type="text" id="identificacion" class="form-control upper" name="numeroAprobacion" 
+                                           ng-change="hisotiralCrtl.onChangeInput()"
+                                           ng-model="hisotiralCrtl.cruceDTO.referenciaBrilla"
+                                           validation="required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-pane">
+                            <input type="submit" class="btn" 
+                                   ng-disabled="hisotiralCrtl.disabledConsultar"
+                                   style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1; " 
+                                   ng-click="hisotiralCrtl.cruzarBrilla()"
+                                   value="Guardar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+    $('#inputCodigo').keyup(function () {
+    if ($(this).val().length !== 0)
+            $('.btnCodigoConsultar').prop('disabled', false);
+    else
+            $('.btnCodigoConsultar').prop('disabled', true);
+    });
+    });</script>

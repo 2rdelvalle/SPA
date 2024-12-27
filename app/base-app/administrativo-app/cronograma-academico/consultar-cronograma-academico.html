@@ -1,0 +1,87 @@
+<style>
+    .info-icon-tool{
+        padding: 5px;
+    }
+</style>
+<script src="../../../js/main-app.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="cronogramaCtrl as cronoCtrl">
+    <h2>{{appConstantsView.TITLE_CRONOGRAMA_ACADEMICO}}</h2>
+    <br>
+    <div class="content-box">
+        <h3 class="content-box-header bg-default">
+            <br/>
+            <span class="header-buttons-separator">
+                <a ng-click="cronoCtrl.onIrRegistrar()" class="icon-separator icon-tool-add" style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool">{{appConstantsView.BOTON_AGREGAR}}</span>
+                    </div>
+                </a>
+                <!--<a href="" class="icon-separator icon-tool-add {{cronoCtrl.report.selected.length === appConstantsView.CERO|| cronoCtrl.report.selected.length === appConstantsView.UNO?'disabled':' '}}"  
+                   ng-click="cronoCtrl.report.selected.length === appConstantsView.CERO || cronoCtrl.report.selected.length === appConstantsView.UNO? ' ' : cronoCtrl.onEliminarMasivo()" 
+                   data-style="dark" data-theme="bg-white" data-opacity="40" style="background-color: #e74c3c ; color: #ffffff ; border: 0px solid #dfe8f1 ;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-remove"></i><span class="info-icon-tool">Eliminar Masivo</span>
+                    </div>
+                </a>-->
+                <a href="#/adminstrativo" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </span>
+        </h3>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">     
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="cronoCtrl.display" 
+                                        ng-init="cronoCtrl.display = cronoCtrl.display || cronoCtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in cronoCtrl.options">
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <table  object-table
+                        data = "cronoCtrl.cronogramas"
+                        display = "cronoCtrl.display"
+                        headers = "Codigo,Nombre,Periodo Académico,Estado,Opciones"
+                        fields = "codigo,nombre,periodo.nombre,estado.valor"
+                        sorting = "compound"  
+                        selected-model="cronoCtrl.report.selected"
+                        editable = "false" 
+                        search="separate"
+                        resize="false"  
+                        select="multiply">
+                    <tbody>
+                        <tr>
+                            <td style="max-width: 28em;word-wrap: break-word;" >{{::item.codigo}}</td>
+                            <td>{{::item.nombre}}</td>
+                            <td>{{::item.periodocompleto}}</td>
+                            <td>{{::item.estadocompleto}}</td>
+                            <td class="text-center opciones-table">
+                                <a class="btn btn-primary btn-tools-table"  ng-click="$owner.cronoCtrl.onIrVerDetalle(item)">
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </a>
+                                <a class="btn btn-info btn-tools-table"  ng-click="$owner.cronoCtrl.onIrEditar(item)">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-danger btn-tools-table"  ng-click="$owner.cronoCtrl.onIrVerDetalle(item)">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tfoot ng-hide="!$filtered.length === $owner.appConstantsView.CERO || !cronoCtrl.cronogramas.length === $owner.appConstantsView.CERO" ng-show="$filtered.length === $owner.appConstantsView.CERO || cronoCtrl.cronogramas.length === $owner.appConstantsView.CERO">
+                           <tr>
+                               <td class="footer-no-search" colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                           </tr>
+                       </tfoot>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

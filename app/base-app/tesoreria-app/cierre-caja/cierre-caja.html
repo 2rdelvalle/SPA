@@ -1,0 +1,806 @@
+<style>
+    .info-icon-tool{
+        padding: 5px;
+    }
+    a.tooltip-content > span:hover > i{
+        visibility: visible;
+        opacity: 1;
+        z-index: 100;
+    }
+    a.tooltip-content > span > i{
+        width: 300px;
+    }
+
+    table{
+        table-layout: fixed;
+    }
+
+    td{
+        word-wrap:break-word
+    }
+
+    .popup-apertura{
+        top: 35% !important;
+        margin: auto ! important;
+        left: 10% !important;
+        right: 0px ! important;
+        width: auto !important;
+        min-width: 250px !important;
+    }
+
+    .diferenciaEnContra{
+        border-color: red;
+        color: red;
+    }
+
+    .diferenciaFavor{
+        border-color: green;
+        color: green;
+    }
+
+    .iconsRender {
+        font-size: 18px;
+        display: block;
+        float: none;
+        margin: 0 auto;
+        margin-bottom: 4px;
+    }
+
+    @media (min-width: 992px) {
+        .responsive-col-md-2{
+            width: 20% !important;
+        }
+    }
+
+    .pruebaI{
+        font-size: 40px !important;
+        float: none !important;
+        margin-top: 15px;
+        margin-left: 0px !important;
+    }
+
+    .pruebaB{
+        text-align: center;
+        margin-bottom: 10px;
+        border: #dfe8f1 solid 2px;
+        border-radius: 4px;
+        width: 100%;
+        height: 100px;
+        padding: 0 5px 0 0 !important;
+    }
+
+</style>
+
+<div id="page-title" ng-controller="CierreCajaCtrl as cjCtrl">
+
+    <h2>Caja</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Cierre de Caja</h3>
+            <div class="float-right">
+                <a href="#/apertura-cierre-caja" id="btnVolver" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">     
+                <div class="row">
+                    <form method="POST" novalidate name="formCierreCaja">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <label class="control-label pull-left">{{appConstantsView.LABEL_CODIGO}}</label>
+                                <input  repeat="10"
+                                        id="codigo"
+                                        class="form-control" 
+                                        name="Codigo"
+                                        maxlength="10" 
+                                        ng-disabled="true" 
+                                        ng-model="cjCtrl.CierreCaja.codigo">
+                            </div>
+                            <div class="col-lg-6 col-sm-6"> 
+                                <div class="form-group">
+                                    <label class="control-label pull-left" >{{appConstantsView.LABEL_NOMBRE}}</label>
+                                    <input name="Nombre" 
+                                           repeat="50"   
+                                           id="nombre"
+                                           class="form-control" 
+                                           ng-disabled="true" 
+                                           ng-model="cjCtrl.CierreCaja.nombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div  class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_UBICACION}}</label>
+                                    <input name="Ubicacion" 
+                                           repeat="50"   
+                                           id="ubicacion"
+                                           class="form-control" 
+                                           ng-disabled="true" 
+                                           ng-model="cjCtrl.CierreCaja.ubicacion">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="control-label pull-left">{{appConstantsView.LABEL_ESTADO}}</label>
+                                        <input type="text"
+                                               id="estado"
+                                               class="form-control" 
+                                               ng-disabled="true"
+                                               ng-model="cjCtrl.CierreCaja.estado">
+                                    </div>
+                                </div>
+                            </div>   
+                        </div> 
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">Cajero</label>
+                                    <input type="text" 
+                                           id="cajero"
+                                           class="form-control" 
+                                           ng-disabled="true" 
+                                           ng-model="cjCtrl.CierreCaja.nombreCajero">
+                                </div>
+                            </div>
+                            <div  class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">Base Caja</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="position: static" >
+                                            $
+                                        </span>
+                                        <input id="baseCaja"
+                                               type="text"
+                                               ng-disabled="true"
+                                               ng-model="cjCtrl.CierreCaja.totalApertura"
+                                               class="form-control" 
+                                               ui-money-mask>
+                                    </div>                              
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">Fecha y Hora de Apertura</label>
+                                    <span 
+                                        class="form-control pull-left" 
+                                        id="fechaApertura"
+                                        ng-disabled="true">
+                                        {{cjCtrl.CierreCaja.fechaApertura| date:"dd/MM/yyyy h:mm:ss a"}}</span>
+                                </div>
+                            </div>
+                            <div  class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label left">Fecha y Hora de Cierre</label>
+                                    <span  current-time="cjCtrl.format"
+                                           class="form-control" ng-disabled="true" name="fechaCierre"
+                                           ng-model="cjCtrl.CierreCaja.fechaCierre" id="fechaCierre"></span>                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_DESCRIPCION}}</label>
+                                    <textarea id="descripcion" 
+                                              class="form-control textarea-no-resize" 
+                                              name="descripcion" 
+                                              max-length="500"
+                                              ng-model="cjCtrl.CierreCaja.descripcion"
+                                              style="height: 100px"></textarea>
+                                    <span class="pull-right">{{500 - cjCtrl.CierreCaja.descripcion.length}} de 500</span>
+                                </div> 
+                            </div>
+                        </div>
+                        </br>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12"> 
+                                <div class="content-box">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#demo2">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> Resumen de Ventas</h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demo2">
+                                        <div class="panel-body"> 
+                                            <div class=" table-scroll-x" >
+                                                <div class="row">
+                                                    <table class="table table-hover table-condensed dias"  style=" min-width: 1000px;">
+                                                        <thead>
+                                                            <tr style="font-weight: bold">
+                                                                <th style="width:25%">Formas de Pago</th>
+                                                                <th style="width:25%">Valor del Sistema</th>
+                                                                <th style="width:25%">Valor Real</th>
+                                                                <th style="width:25%">Diferencia</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tr ng-repeat="item in cjCtrl.formasPago">
+                                                            <td style="text-align:center; ">
+                                                                {{item.nombre}}
+                                                            </td>
+                                                            <td > 
+                                                                <div class="input-group">
+                                                                    <input id="inputValorTotalPorFormasPago{{item.idFormaPago}}" 
+                                                                           type="text" 
+                                                                           class="form-control" 
+                                                                           ng-model="item.totalValorSistema"
+                                                                           ng-disabled="true"
+                                                                           ui-money-mask
+                                                                           style="text-align: right; min-width: 200px;">
+                                                                </div>
+                                                            </td>
+                                                            <td style="text-align:center; min-width: 250px;"> 
+                                                                <div class="input-group">
+                                                                    <input id="inputValorTotalPorFormasPagoValorReal{{item.idFormaPago}}" 
+                                                                           type="text" 
+                                                                           class="form-control" 
+                                                                           ng-model="item.totalValorReal"
+                                                                           ng-disabled="true"
+                                                                           ui-money-mask
+                                                                           style="text-align: right;  min-width: 200px;">
+                                                                </div>
+                                                            </td>
+                                                            <td style="text-align:center; min-width: 250px;"> 
+                                                                <div class="input-group">
+                                                                    <input id="inputValorTotalPorFormasPagoDiferencia{{item.idFormaPago}}" 
+                                                                           type="text" 
+                                                                           class="form-control {{item.diferencia < 0 ? 'diferenciaEnContra' : 'diferenciaFavor'}}" 
+                                                                           ng-model="item.diferencia"
+                                                                           ng-disabled="true"
+                                                                           ui-money-mask
+                                                                           ui-negative-number
+                                                                           style="text-align: right;  min-width: 200px;">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td style="text-align:right; vertical-align: middle;">
+                                                                    Total
+                                                                </td>
+                                                                <td style="text-align:center; min-width: 200px;">
+                                                                    <div class="input-group">
+                                                                        <input id="inputTotalFormasPago" 
+                                                                               type="text" 
+                                                                               class="form-control borderTotales" 
+                                                                               ng-model="cjCtrl.totalFormasPago"
+                                                                               ui-money-mask
+                                                                               style="text-align: right;  min-width: 200px;">
+                                                                    </div>
+                                                                </td>
+                                                                <td style="text-align:center; min-width: 200px;">
+                                                                    <div class="input-group">
+                                                                        <input id="inputTotalFormasPagoValorReal" 
+                                                                               type="text" 
+                                                                               class="form-control borderTotales" 
+                                                                               ng-model="cjCtrl.totalFormasPagoValorReal"
+                                                                               ui-money-mask
+                                                                               style="text-align: right;  min-width: 200px;">
+                                                                    </div>
+                                                                </td>
+                                                                <td style="text-align:center; min-width: 250px;">
+                                                                    <div class="input-group">
+                                                                        <input id="inputTotalFormasPagoDiferencia" 
+                                                                               type="text" 
+                                                                               class="form-control " 
+                                                                               ng-model="cjCtrl.totalFormasPagoDiferencia"
+                                                                               ui-money-mask
+                                                                               ui-negative-number
+                                                                               style="text-align: right;  min-width: 200px;">
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-xs-12"> 
+                                <div class="content-box" >
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title  btn-xs"><button class="btn btn-xs btn-info icon-tool-add" id="btnCuadreCaja"  data-toggle="collapse" data-target="#demo"><i class="glyphicon glyphicon-collapse-down" ></i></button>  Arqueo</h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demo">
+                                        <div class="panel-body">
+                                            <div class="example-box-wrapper" id="tabss">
+                                                <ul class="list-group list-group-separator row list-group-icons">
+                                                    <li class="{{cjCtrl.ClassTab}}" ng-if="cjCtrl.btnEfectivo">
+                                                        <button data-toggle="tab" class="list-group-item" ng-click="cjCtrl.ChangeTabs(1)">
+                                                            <i class="glyph-icon icon-linecons-money pruebaI" style="color: green"></i>
+                                                            Efectivo
+                                                        </button>
+                                                    </li>
+                                                    <li class="{{cjCtrl.ClassTab}}" ng-if="cjCtrl.btnCheque">
+                                                        <button data-toggle="tab" class="list-group-item" ng-click="cjCtrl.ChangeTabs(2)">
+                                                            <i class="glyphicon glyphicon-list-alt iconsRender pruebaI" ></i>
+                                                            Cheques
+                                                        </button>
+                                                    </li>
+                                                    <li class="{{cjCtrl.ClassTab}}" ng-if="cjCtrl.btnTarjeta">
+                                                        <button data-toggle="tab" class="list-group-item" ng-click="cjCtrl.ChangeTabs(3)">
+                                                            <i class="glyphicon glyphicon-credit-card iconsRender pruebaI" style="color: red"></i>
+                                                            Tarjeta Crédito 
+                                                        </button>
+                                                    </li>
+                                                    <li class="{{cjCtrl.ClassTab}}" ng-if="cjCtrl.btnTarjeta">
+                                                        <button data-toggle="tab" class="list-group-item" ng-click="cjCtrl.ChangeTabs(4)">
+                                                            <i class="glyphicon glyphicon-credit-card iconsRender pruebaI" style="color: black"></i>
+                                                            Tarjeta Débito
+                                                        </button>
+                                                    </li>
+                                                    <li class="{{cjCtrl.ClassTab}}" ng-if="cjCtrl.btnSupergiros">
+                                                        <button data-toggle="tab" class="list-group-item" ng-click="cjCtrl.ChangeTabs(6)">
+                                                            <i class="glyphicon glyphicon-credit-card iconsRender pruebaI" style="color: black"></i>
+                                                            Super Giros
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="tab-example-1" >
+
+                                                        <div class="back-cover table-scroll-x">
+                                                            <table class="table table-hover table-condensed dias " style="min-width: 500px; ">
+                                                                <thead>
+                                                                    <tr style="font-weight: bold">
+                                                                        <th style="width:25%">Denominaciones</th>
+                                                                        <th style="width:40%">Cantidad</th>
+                                                                        <th style="width:35%">Subtotal</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <!--ng-repeat="item in cjCtrl.denominaciones" ng-class="{'selected': actividades.selected}" ng-click="adCtrl.onSelect(actividades, $index)"-->
+                                                                <tr ng-repeat="item in cjCtrl.denominaciones">
+                                                                    <td style="text-align:center; vertical-align: middle;">
+                                                                        {{item.nombreDenominacion}}
+                                                                    </td>
+                                                                    <td style="min-width: 200px;">
+                                                                        <div class="input-group" >
+                                                                            <input type="text" restrict='reject' id="inputHid{{item.idDenominacion}}" ng-model="item.cantidad" class="form-control" onfocus="false" ng-keyup="cjCtrl.changeSubtotal(item)" maxlength="10" ng-focus="cjCtrl.focusCampo(item)" ng-disabled="!cjCtrl.disabledInput" >
+                                                                            <span class="input-group-btn">
+                                                                                <button id="btnComd{{item.idDenominacion}}"  ng-click="cjCtrl.mostrarCampo(item)" ng-show="!cjCtrl.disabledInput" class="btn btn-primary btn-group-plus" ><i class="glyphicon glyphicon-edit"></i></button>
+                                                                                <button id="btnCheck{{item.idDenominacion}}" style="display: none;" type="submit" class="btn btn-primary btn-group-plus" ng-click="cjCtrl.ocultarCampo(item.idDenominacion)"  >
+                                                                                    <i class="glyphicon glyphicon-ok"></i>
+                                                                                </button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="min-width: 200px;">
+                                                                        <div class="input-group">
+                                                                            <input ui-money-mask  
+                                                                                   id="inputSubtotalArqueoEfectivo{{item.idDenominacion}}" 
+                                                                                   type="text" ng-disabled="true"
+                                                                                   class="form-control"
+                                                                                   ng-model="item.valor"
+                                                                                   style="text-align: right">
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td style="text-align:right; ">
+
+                                                                        </td>
+                                                                        <td style="text-align:right; vertical-align: middle;">
+                                                                            Total
+                                                                        </td>
+                                                                        <td style="text-align:center;">
+                                                                            <div class="input-group">
+                                                                                <input ui-money-mask 
+                                                                                       type="text"
+                                                                                       ng-disabled="true"
+                                                                                       class="form-control borderTotales" 
+                                                                                       ng-model="cjCtrl.totalArqueoEfectivo"
+                                                                                       style="text-align: right">
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane" id="tab-example-2">
+                                                        <div class="back-cover table-scroll-x">
+                                                            <table class="table table-hover table-condensed dias " style="min-width: 600px;">
+                                                                <thead>
+                                                                    <tr style="font-weight: bold">
+                                                                        <th style="width:25%">Cheque</th>
+                                                                        <th style="width:30%">{{appConstantsView.LABEL_BANCO}}</th>
+                                                                        <th style="width:40%">Valor</th>
+                                                                        <th style="width:5%"><input type="checkbox" id="selectAll" ng-click="cjCtrl.checkAllCheques('selectAll', 'checkbox1')">  </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tr ng-repeat="item in cjCtrl.listaCheques">
+                                                                    <td style="text-align:justify; vertical-align: middle;">
+                                                                        {{item.voucher}}
+                                                                    </td>
+                                                                    <td style="text-align:justify; vertical-align: middle;">
+                                                                        {{item.banco}}
+                                                                    </td>
+                                                                    <td style="min-width: 200px;">
+                                                                        <div class="input-group">
+                                                                            <input ui-money-mask  
+                                                                                   id="inputValorCheques{{item.id}}" 
+                                                                                   type="text" ng-disabled="true"
+                                                                                   class="form-control"
+                                                                                   ng-model="item.valorPagado"
+                                                                                   style="text-align: right">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="text-align:center;">
+                                                                        <input type="checkbox" 
+                                                                               id="chekValor{{item.id}}" 
+                                                                               ng-model="item.seleccionado"
+                                                                               ng-change="cjCtrl.checkCheques(item, 'selectAll', 'checkbox1', 'chekValor')"
+                                                                               class="checkbox1">
+                                                                    </td>
+                                                                </tr>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td style="text-align:right; ">
+                                                                        </td>
+                                                                        <td style="text-align:right; vertical-align: middle;">
+                                                                            Total
+                                                                        </td>
+                                                                        <td style="text-align:center;">
+                                                                            <div class="input-group">
+                                                                                <input ui-money-mask  
+                                                                                       type="text"
+                                                                                       ng-disabled="true"
+                                                                                       class="form-control borderTotales" 
+                                                                                       ng-model="cjCtrl.totalArqueoCheque"
+                                                                                       style="text-align: right">
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane" id="tab-example-3">
+                                                        <div class="back-cover table-scroll-x">
+                                                            <table class="table table-hover table-condensed dias " style="min-width: 665px;">
+                                                                <thead>
+                                                                    <tr style="font-weight: bold">
+                                                                        <th style="width:45%">Vouchers</th>
+                                                                        <th style="width:50%">Valor</th>
+                                                                        <th style="width:5%"><input type="checkbox" id="selectAllTarjetas" ng-click="cjCtrl.checkAllTarjetas('selectAllTarjetas', 'checkboxTarjetaCredito')">  </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <!--ng-repeat="item in cjCtrl.denominaciones" ng-class="{'selected': actividades.selected}" ng-click="adCtrl.onSelect(actividades, $index)"-->
+                                                                <tr ng-repeat="item in cjCtrl.listaTarjetaCreditos">
+
+                                                                    <td style="text-align:justify; vertical-align: middle;">
+                                                                        {{item.voucher}}
+                                                                    </td>
+                                                                    <td style="min-width: 200px;">
+                                                                        <div class="input-group">
+                                                                            <input ui-money-mask  
+                                                                                   id="inputValorCheques{{item.id}}" 
+                                                                                   type="text" ng-disabled="true"
+                                                                                   class="form-control"
+                                                                                   ng-model="item.valorPagado"
+                                                                                   style="text-align: right">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="text-align:center;">
+                                                                        <input type="checkbox" 
+                                                                               ng-true-value='true'
+                                                                               ng-false-value='false'
+                                                                               id="chekValorTarjetaCredito{{item.id}}" 
+                                                                               ng-model="item.seleccionado"
+                                                                               class="checkboxTarjetaCredito"
+                                                                               ng-change="cjCtrl.checkTarjetas(item, 'selectAllTarjetas', 'checkboxTarjetaCredito', 'chekValorTarjetaCredito')" >
+                                                                    </td>
+                                                                </tr>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td style="text-align:right; vertical-align: middle;">
+                                                                            Total
+                                                                        </td>
+                                                                        <td style="text-align:center;">
+                                                                            <div class="input-group">
+                                                                                <input ui-money-mask 
+                                                                                       type="text"
+                                                                                       ng-disabled="true"
+                                                                                       class="form-control borderTotales" 
+                                                                                       ng-model="cjCtrl.totalArqueoTarjetaCredito"
+                                                                                       style="text-align: right">
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="tab-pane" id="tab-example-4">
+                                                        <div class="back-cover table-scroll-x">
+                                                            <table class="table table-hover table-condensed dias " style="min-width: 665px;">
+                                                                <thead>
+                                                                    <tr style="font-weight: bold">
+                                                                        <th style="width:45%">Vouchers</th>
+                                                                        <th style="width:50%">Valor</th>
+                                                                        <th style="width:5%"><input type="checkbox" id="selectAllTarjetasDebito" ng-click="cjCtrl.checkAllTarjetasDebito('selectAllTarjetasDebito', 'checkboxTarjetaDebito')">  </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tr ng-repeat="item in cjCtrl.listaTarjetaDebito">
+                                                                    <td style="text-align:justify; vertical-align: middle; ">
+                                                                        {{item.voucher}}
+                                                                    </td>
+                                                                    <td style="min-width: 200px;">
+                                                                        <div class="input-group">
+                                                                            <input ui-money-mask  
+                                                                                   id="inputValorTarjetaDebito{{item.id}}" 
+                                                                                   type="text" ng-disabled="true"
+                                                                                   class="form-control"
+                                                                                   ng-model="item.valorPagado"
+                                                                                   style="text-align: right">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="text-align:center;">
+                                                                        <input type="checkbox" 
+                                                                               ng-true-value='true'
+                                                                               ng-false-value='false'
+                                                                               id="chekValorTarjetaDebito{{item.id}}"
+                                                                               ng-model="item.seleccionado"
+                                                                               class="checkboxTarjetaDebito" 
+                                                                               ng-change="cjCtrl.checkTarjetasDebito(item, 'selectAllTarjetasDebito', 'checkboxTarjetaDebito', 'chekValorTarjetaDebito')" >
+                                                                    </td>
+                                                                </tr>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td style="text-align:right; vertical-align: middle;">
+                                                                            Total
+                                                                        </td>
+                                                                        <td style="text-align:center;">
+                                                                            <div class="input-group">
+                                                                                <input ui-money-mask 
+                                                                                       type="text"
+                                                                                       ng-disabled="true"
+                                                                                       class="form-control borderTotales" 
+                                                                                       ng-model="cjCtrl.totalArqueoTarjetaDebito"
+                                                                                       style="text-align: right">
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="tab-pane" id="tab-example-5">
+                                                        <div class="back-cover table-scroll-x">
+                                                            <table class="table table-hover table-condensed dias " style="min-width: 665px;">
+                                                                <thead>
+                                                                    <tr style="font-weight: bold">
+                                                                        <th style="width:45%">Otras Formas de Pago</th>
+                                                                        <th style="width:50%">Valor</th>
+                                                                        <th style="width:5%"><input type="checkbox" id="selectAllOtro" ng-click="cjCtrl.checkAllOtros('selectAllOtro', 'checkboxOtro')">  </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tr ng-repeat="item in cjCtrl.listaOtros">
+                                                                    <td style="text-align:justify; vertical-align: middle;">
+                                                                        {{item.nombre}}
+                                                                    </td>
+                                                                    <td style="min-width: 200px;">
+                                                                        <div class="input-group">
+                                                                            <input ui-money-mask  
+                                                                                   id="inputValorOtrasFP{{item.id}}" 
+                                                                                   type="text" ng-disabled="true"
+                                                                                   class="form-control"
+                                                                                   ng-model="item.valor"
+                                                                                   style="text-align: right">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="text-align:center;">
+                                                                        <input type="checkbox" 
+                                                                               ng-true-value='true'
+                                                                               ng-false-value='false'
+                                                                               id="chekValorOtro{{item.id}}"
+                                                                               ng-model="item.seleccionado"
+                                                                               class="checkboxOtro"
+                                                                               ng-change="cjCtrl.checkOtros(item, 'selectAllOtro', 'checkboxOtro', 'chekValorOtro')" >
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td style="text-align:right; vertical-align: middle;">
+                                                                            Total
+                                                                        </td>
+                                                                        <td style="text-align:center;">
+                                                                            <div class="input-group">
+                                                                                <input ui-money-mask 
+                                                                                       type="text"
+                                                                                       ng-disabled="true"
+                                                                                       class="form-control borderTotales" 
+                                                                                       ng-model="cjCtrl.totalArqueoOtro"
+                                                                                       style="text-align: right">
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane" id="tab-example-6">
+                                                        <div class="back-cover table-scroll-x">
+                                                            <table class="table table-hover table-condensed dias " style="min-width: 600px;">
+                                                                <thead>
+                                                                    <tr style="font-weight: bold">
+                                                                        <th style="width:25"></th>
+                                                                        <th style="width:30%">{{appConstantsView.LABEL_SUPERGIROS}}</th>
+                                                                        <th style="width:40%">Valor</th>
+                                                                        <th style="width:5%"><input type="checkbox" id="selectAllSupergiros" ng-click="cjCtrl.checkAllSupergiros('selectAllSupergiros', 'checkbox1')">  </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tr ng-repeat="item in cjCtrl.listaSupergiros">
+                                                                    <td style="text-align:justify; vertical-align: middle;">
+                                                                        {{item.voucher}}
+                                                                    </td>
+                                                                    <td style="text-align:justify; vertical-align: middle;">
+                                                                        {{item.banco}}
+                                                                    </td>
+                                                                    <td style="min-width: 200px;">
+                                                                        <div class="input-group">
+                                                                            <input ui-money-mask  
+                                                                                   id="inputValorSupergiros{{item.id}}" 
+                                                                                   type="text" ng-disabled="true"
+                                                                                   class="form-control"
+                                                                                   ng-model="item.valorPagado"
+                                                                                   style="text-align: right">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="text-align:center;">
+                                                                        <input type="checkbox" 
+                                                                               id="chekValorSuperGiros{{item.id}}" 
+                                                                               ng-model="item.seleccionado"
+                                                                               ng-change="cjCtrl.checkSupergiros(item, 'selectAllSupergiros', 'checkboxSupergiros', 'chekValorSuperGiros')"
+                                                                               class="checkboxSupergiros">
+                                                                    </td>
+                                                                </tr>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td style="text-align:right; ">
+                                                                        </td>
+                                                                        <td style="text-align:right; vertical-align: middle;">
+                                                                            Total
+                                                                        </td>
+                                                                        <td style="text-align:center;">
+                                                                            <div class="input-group">
+                                                                                <input ui-money-mask  
+                                                                                       type="text"
+                                                                                       ng-disabled="true"
+                                                                                       class="form-control borderTotales" 
+                                                                                       ng-model="cjCtrl.totalArqueoSupergiros"
+                                                                                       style="text-align: right">
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-xs-12"> 
+                                <div class="content-box">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#demoEgreso">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> Resumen Egreso de Caja</h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demoEgreso">
+                                        <div class="panel-body"> 
+                                            <div class="row" >
+                                                <table  object-table class="hover-column"
+                                                        data = "cjCtrl.conceptoEgresoList"
+                                                        display = "cjCtrl.display"
+                                                        headers = "Concepto,Valor,Fecha,Descripción"
+                                                        fields = "nombreConcepto,monto,fechaEgreso,descripcion"
+                                                        sorting = "single"  
+                                                        selected-model="cjCtrl.report.selected"
+                                                        editable = "false" 
+                                                        search="separate"
+                                                        resize="false"  
+                                                        select="multiply">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{{item.nombreConcepto}}</td>
+                                                            <td class="text-center">{{item.monto|currency}}</td>
+                                                            <td class="text-center">{{item.fechaEgreso}}</td>
+                                                            <td>{{item.descripcion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr ng-show="$owner.cjCtrl.conceptoEgresoList.length === $owner.appConstantsView.CERO">
+                                                            <td colspan="4">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                        </tr>
+                                                        <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.cjCtrl.conceptoEgresoList.length !== $owner.appConstantsView.CERO">
+                                                            <td colspan="4">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <input class="btn btn-success" type="submit" value="Guardar y Cerrar Caja" ng-click="cjCtrl.onSubmitForm()" >
+                        </div>
+                    </form>
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-sm">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                                    <h4 class="modal-title">Confirmar Segunda Clave</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" id="formConfirmarClave" name="formConfirmarClave" novalidate> 
+                                        <div class="control-group form-group">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label pull-left">Usuario</label><label class="text-danger pull-left">*</label>
+                                                        <input type="text" maxlength="50" class="form-control" 
+                                                               id="usuario" mask='H' repeat='50' restrict='reject'
+                                                               ng-model="cjCtrl.aperturaCierreCaja.usuario" 
+                                                               name="usuario" validation="required">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label pull-left">Contraseña</label><label class="text-danger pull-left">*</label>
+                                                        <input type="password" name="password" ng-model="cjCtrl.aperturaCierreCaja.password"
+                                                               style="resize: none" id="password" class="form-control" validation="required" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="editable-error-block help-block" style="display: none;"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer btnCenter">
+                                    <input class="btn btn-primary"  type="submit" value="Aceptar" ng-click="cjCtrl.confirmarSegundaClave()"/>
+                                    <input class="btn btn-danger"  type="submit" value="Cancelar"  ng-click="cjCtrl.onCloseModal()" id="btnCancelModal"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>

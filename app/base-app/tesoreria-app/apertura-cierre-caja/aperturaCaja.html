@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<div id="page-title" ng-controller="aperturaCierreCajaCtrl as aperturaCierreCtrl">
+    <style>
+        .popup-apertura{
+            top: 35% !important;
+            margin: auto ! important;
+            left: 10% !important;
+            right: 0px ! important;
+            width: auto !important;
+            min-width: 250px !important;
+        }
+    </style>
+    <h2>{{appConstantsView.APERTURA_Y_CIERRE_CAJA}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{aperturaCierreCtrl.aperturaCierreCajaAuxiliar.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/apertura-cierre-caja" ng-click="aperturaCierreCtrl.limpiar()" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">     
+                <div class="row">
+                    <form method="POST" novalidate name="formAperturaCaja" >
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <label class="control-label">{{appConstantsView.LABEL_CODIGO}}</label>
+                                <input  mask="X" repeat="10"   restrict="reject" 
+                                        class="form-control" name="Codigo" maxlength="10" 
+                                        ng-disabled="true"
+                                        ng-model="aperturaCierreCtrl.aperturaCierreCaja.codigo" >
+                            </div>
+                            <div class="col-lg-6 col-sm-6"> 
+                                <div class="form-group">
+                                    <label class="control-label" >{{appConstantsView.LABEL_NOMBRE}}</label>
+                                    <input name="Nombre" mask="H" repeat="50"   restrict="reject"  class="form-control" 
+                                           ng-disabled="true" ng-model="aperturaCierreCtrl.aperturaCierreCaja.nombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div  class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_UBICACION}}</label>
+                                    <input name="Ubicacion"  mask="%" repeat="50"   restrict="reject"   class="form-control" 
+                                           ng-disabled="true" ng-model="aperturaCierreCtrl.aperturaCierreCaja.ubicacion" >
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="control-label">{{appConstantsView.LABEL_ESTADO}}</label>
+                                        <input type="text" class="form-control" ng-model="aperturaCierreCtrl.aperturaCierreCaja.estadoMovimiento"
+                                               ng-disabled="true" >
+                                    </div>
+                                </div>
+                            </div>   
+                        </div> 
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_CAJERO}}</label>
+                                    <input type="text" ng-model="aperturaCierreCtrl.aperturaCierreCaja.cajero"  class="form-control"
+                                           name="cajero" id="cajero" ng-disabled="true">
+                                    </select>
+                                </div>
+                            </div>
+                            <div  class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.FECHA_HORA_APERTURA}}</label>
+                                    <span  current-time="aperturaCierreCtrl.format"
+                                           class="form-control" ng-disabled="true" name="fechaApertura"
+                                           id="fechaApertura"></span>                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-box">
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-none text-uppercase content-box-header-title btn-sm"> {{appConstantsView.IMPORTE}}</h3>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="panel-body"> 
+                                <span class="col-lg-3 col-sm-3"></span>
+                                <div class="content-box-wrapper col-lg-12 col-sm-12">
+                                    <div class="row ">
+                                        <div class="back-cover">
+                                            <table class="table table-hover table-condensed dias" >
+                                                <thead>
+                                                    <tr style="font-weight: bold">
+                                                        <th style="width:25%">{{appConstantsView.DENOMINACIONES}}</th>
+                                                        <th style="width:40%">{{appConstantsView.CANTIDAD}}</th>
+                                                        <th style="width:35%">{{appConstantsView.SUBTOTAL}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <!--ng-repeat="item in aperturaCierreCtrl.denominaciones" ng-class="{'selected': actividades.selected}" ng-click="adCtrl.onSelect(actividades, $index)"-->
+                                                <tr ng-repeat="item in aperturaCierreCtrl.aperturaCierreCaja.denominaciones">
+                                                    <td style="text-align:center; vertical-align: middle;">
+                                                        {{item.nombreDenominacion}}
+                                                    </td>
+                                                    <td style="min-width: 200px;">
+                                                        <div class="input-group" >
+                                                            <input type="text" id="inputHid{{item.idDenominacion}}" ng-model="item.cantidad" class="form-control" mask="999" restrict="reject" onfocus="false" ng-keyup="aperturaCierreCtrl.changeSubtotal(item)" maxlength="10" ng-focus="aperturaCierreCtrl.focusCampo(item)" ng-disabled="!aperturaCierreCtrl.disabledInput" >
+                                                            <span class="input-group-btn">
+                                                                <button id="btnComd{{item.idDenominacion}}"  ng-click="aperturaCierreCtrl.mostrarCampo(item)" ng-show="!aperturaCierreCtrl.disabledInput" class="btn btn-primary btn-group-plus" ><i class="glyphicon glyphicon-edit"></i></button>
+                                                                <button id="btnCheck{{item.idDenominacion}}" style="display: none;" type="submit" class="btn btn-primary btn-group-plus" ng-click="aperturaCierreCtrl.ocultarCampo(item.idDenominacion)"  >
+                                                                    <i class="glyphicon glyphicon-ok"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td style="min-width: 200px;">
+                                                        <div class="input-group">
+                                                            <input id="inputPDM" type="text" ng-disabled="true"
+                                                                   ui-money-mask class="form-control" ng-model="item.valor" style="text-align: right">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td style="text-align:right; ">
+                                                        </td>
+                                                        <td style="text-align:right; vertical-align: middle;">
+                                                            Total
+                                                        </td>
+                                                        <td style="text-align:center;">
+                                                            <div class="input-group">
+                                                                <input id="inputPDM" type="text" ng-disabled="true"
+                                                                       ui-money-mask class="form-control borderTotales" ng-model="aperturaCierreCtrl.totalApertura" style="text-align: right">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="col-lg-3 col-sm-3"></span>
+
+                        <div class="row">
+                            <ul class="col-lg-12 col-sm-12"></ul>
+                            <div class="content-box-wrapper bg-default">
+
+                                <div style="text-align:center" class="col-lg-12 col-sm-12">
+                                    <div class="button-pane">
+                                        <input type="submit" class="btn btn-success" value="Guardar y Abrir Caja" ng-click="aperturaCierreCtrl.onSubmitForm()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-sm">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                            <h4 class="modal-title">{{appConstantsView.LABEL_CONFIRMAR_CONTRASENA}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" id="formConfirmarClave" name="formConfirmarClave" novalidate> 
+                                <div class="control-group form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="control-label pull-left">{{appConstantsView.USUARIO}}</label><label class="text-danger pull-left">*</label>
+                                                <input type="text" maxlength="50" class="form-control" 
+                                                       id="usuario" mask='H' repeat='50' restrict='reject'
+                                                       ng-model="aperturaCierreCtrl.aperturaCierreCaja.usuario" 
+                                                       name="usuario" validation="required">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="control-label pull-left">{{appConstantsView.CONTRASENA}}</label><label class="text-danger pull-left">*</label>
+                                                <input type="password" name="password" ng-model="aperturaCierreCtrl.aperturaCierreCaja.password"
+                                                       style="resize: none" id="password" class="form-control" validation="required" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="editable-error-block help-block" style="display: none;"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer btnCenter">
+                            <input class="btn btn-primary"  type="submit" value="Aceptar" ng-click="aperturaCierreCtrl.confir()"/>
+                            <input class="btn btn-danger"  type="submit" value="Cancelar"  ng-click="aperturaCierreCtrl.onCloseModal()" id="btnCancelModal"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

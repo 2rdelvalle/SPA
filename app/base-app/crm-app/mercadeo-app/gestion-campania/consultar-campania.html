@@ -1,0 +1,560 @@
+<style>
+    .info-icon-tool {
+        padding: 5px;
+    }
+</style>
+<script src="../../../js/main-app.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="campaniaCtrl as campCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.TITLE_CAMPANAS}}</h2>
+        </div>
+        <div class="float-right" style="margin-right: 10px">
+
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_LISTADO_CAMAPANAS}}</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-show="campCtrl.isDirector === 1" href="#/crm-mercadeo-gestion-campania-cud" class="btn btn-sm btn-info icon-tool-add" ng-click="campCtrl.onIrRegistrar()"
+                   style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.BOTON_AGREGAR}}</span>
+                    </div>
+                </a>
+                <a ng-click="mCtrl.onListarOPciones('/#/crm-mercadeo')"  class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="content-box border-top border-yellow" ng-if="!campCtrl.mensajeValidacion">
+                    <h3 class="content-box-header clearfix title-resumen-yellow">
+                        <div class="col-xs-12">
+                            <a ng-click="campCtrl.mensajeValidacion = true" class="btn btn-xs btn-danger pull-right">
+                                <i class="glyph-icon icon-remove"></i>
+                            </a>
+                            {{appConstantsView.LABEL_ADVERTENCIA}}
+                        </div>
+                    </h3>
+                    <div class="content-box-wrapper">
+                        <h5> {{appConstantsView.ERROR_REGISTROS_NO_ELIMINADOS}}</h5>
+                        <br>
+                        <ul class="todo-box" style="overflow-y: scroll;max-height: 230px;">
+                            <li class="border-yellow" ng-repeat="noEliminiado in campCtrl.listNoEliminados| orderBy:'nombre' track by noEliminiado.id">
+                                <label for="todo-1">{{appConstantsView.LABEL_NOMBRE}}: {{noEliminiado.nombre}}, {{appConstantsView.LABEL_ESTADO}}: {{noEliminiado.estadocampania}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="campCtrl.display" 
+                                        ng-init="campCtrl.display = campCtrl.display || campCtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in campCtrl.options">
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <table object-table class="hover-column" data="campCtrl.campanias" display="campCtrl.display" headers="Nombre,Fecha Inicio,Fecha Fin,Tipo,Estado,Opciones"
+                       fields="nombre,fechainicio,fechafin,tipocampania,estadocampania" sorting="compound" selected-model="campCtrl.report.selected"
+                       editable="false" search="separate" resize="false" select="multiply">
+                    <tbody>
+                        <tr>
+                            <td style="max-width: 28em;word-wrap: break-word;">{{::item.nombre}}</td>
+                            <td>{{::item.fechainicio}}</td>
+                            <td>{{::item.fechafin}}</td>
+                            <td>{{::item.tipocampania}}</td>
+                            <td style="max-width: 28em;word-wrap: break-word;">{{::item.estadocampania}}</td>
+                            <td class="text-center opciones-table">
+                                <a class="btn btn-primary btn-tools-table" 
+                                   ng-show="$owner.campCtrl.isDirector === 1" 
+                                   title="Agregar Candidatos Pendientes" 
+                                   ng-click="$owner.campCtrl.onModalAgregarCandidatos(item)">
+                                    <i class="glyphicon glyphicon-circle-arrow-up"></i>
+                                </a>
+                                <a class="btn btn-info btn-tools-table" 
+                                   ng-show="$owner.campCtrl.isDirector === 1" 
+                                   title="Modificar" ng-click="$owner.campCtrl.onIrEditar(item)">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-danger btn-tools-table" title="Gestionar Candidatos" ng-click="$owner.campCtrl.onGestionarCandidatos(item)">
+                                    <i class="glyphicon glyphicon-asterisk"></i>
+                                </a>
+                                <a class="btn btn-warning btn-tools-table" title="Gestionar Resultados"
+                                   ng-click="$owner.campCtrl.onOpenModalDashboardSeguiemineto(item.id)" >
+                                    <i class="glyphicon glyphicon-align-right"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.campCtrl.campanias.length !== $owner.appConstantsView.CERO">
+                            <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                        </tr>
+                        <tr ng-if="$owner.campCtrl.campanias.length === $owner.appConstantsView.CERO">
+                            <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modalDashboard" class="modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <form method="POST" novalidate name="seguimiento">
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                        <h4 class="modal-title">{{campCtrl.tituloModal}} Dashboard </h4>
+                        <h4 class="modal-title text-uppercase">{{campCtrl.nuevoSeguimiento.nombrecompleto}}</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="profile-box content-box ">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#demo01">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> Resultado Llamada</h3>
+
+                                        <a href="" 
+                                           ng-json-export-excel 
+                                           data="campCtrl.listDashLLamadasRealizadas"
+                                           report-fields="{
+                                           diaLlamada:'Día',
+                                           cantidadPendiente:'Cantidad Pendiente',
+                                           cantidadMatriculado:'Cantidad Matriculado',
+                                           cantidadInstituto:'Cantidad Instituto',
+                                           cantidadNoInteresa:'Cantidad No Interesa'
+                                           }"
+                                           filename=" 'Listado Pendientes Campaña' " 
+                                           title="Listado Pendientes Campaña"
+                                           data-style="dark" 
+                                           data-theme="bg-white" 
+                                           class="float-right btn btn-sm btn-success icon-tool-add back-button "
+                                           data-animation="flipOutX" style="color: #ffffff; border: 0px solid #dfe8f1;">
+                                            <div class="glyph-icon">
+                                                <i class="glyphicon glyphicon-print"></i><span class="info-icon-tool">{{appConstantsView.BOTON_IMPRIMIR}}</span>
+                                            </div>
+                                        </a>
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demo01">
+                                        <div class="panel-body">
+                                            <table object-table class="hover-column"
+                                                   display=10 data="campCtrl.listDashLLamadasRealizadas" 
+                                                   headers="Día, Pendiente, Matriculado, Instituto, No Interesa, Total"
+                                                   fields="diaLlamada,cantidadPendiente,cantidadMatriculado,cantidadInstituto,cantidadNoInteresa"
+                                                   search="separate" 
+                                                   sorting="compound"
+                                                   editable="false" 
+                                                   resize="false"
+                                                   select="false" >
+                                                <tbody>
+                                                    <tr style="height: 60px;">
+                                                        <td style="text-align: center">{{::item.diaLlamada}}</td>
+                                                        <td style="text-align: center">{{::item.cantidadPendiente}}</td>
+                                                        <td style="text-align: center">{{::item.cantidadMatriculado}}</td>
+                                                        <td style="text-align: center">{{::item.cantidadInstituto}}</td>
+                                                        <td style="text-align: center">{{::item.cantidadNoInteresa}}</td>
+                                                        <td style="text-align: center">{{::item.cantidadPendiente + item.cantidadMatriculado + item.cantidadInstituto + item.cantidadNoInteresa}}</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="profile-box content-box ">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#demo">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> Resultado Pendiente</h3>
+
+                                        <a href="" 
+                                           ng-json-export-excel 
+                                           data="campCtrl.listDashPendiente"
+                                           report-fields="{
+                                           motivo:'Motivo',
+                                           cantidad:'Cantidad',
+                                           porcentaje:'Porcentaje'
+                                           }"
+                                           filename=" 'Listado Pendientes Campaña' " 
+                                           title="Listado Pendientes Campaña"
+                                           data-style="dark" 
+                                           data-theme="bg-white" 
+                                           class="float-right btn btn-sm btn-success icon-tool-add back-button "
+                                           data-animation="flipOutX" style="color: #ffffff; border: 0px solid #dfe8f1;">
+                                            <div class="glyph-icon">
+                                                <i class="glyphicon glyphicon-print"></i><span class="info-icon-tool">{{appConstantsView.BOTON_IMPRIMIR}}</span>
+                                            </div>
+                                        </a>
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demo">
+                                        <div class="panel-body">
+                                            <table object-table class="hover-column"
+                                                   display=10 data="campCtrl.listDashPendiente" 
+                                                   headers="Motivo, Cantidad, Porcentaje"
+                                                   fields="motivo,cantidad,porcentaje"
+                                                   search="separate" 
+                                                   sorting="compound"
+                                                   editable="false" 
+                                                   resize="false"
+                                                   select="false" >
+                                                <tbody>
+                                                    <tr style="height: 60px;">
+                                                        <td style="text-align: center">{{::item.motivo}}</td>
+                                                        <td style="text-align: center">{{::item.cantidad}}</td>
+                                                        <td style="text-align: center">{{::item.porcentaje}}%</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td style="text-align: center"></td>
+                                                        <td style="text-align: center">{{$owner.campCtrl.getTotalDashPendiente($filtered)}}</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="profile-box content-box ">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#demo2">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> Resultado No Interesa Oferta</h3>
+
+                                        <a href="" 
+                                           ng-json-export-excel 
+                                           data="campCtrl.listDashNoInteresa"
+                                           report-fields="{
+                                           motivo:'Motivo',
+                                           cantidad:'Cantidad',
+                                           porcentaje:'Porcentaje'
+                                           }"
+                                           filename=" 'Listado No Interesa Oferta' " 
+                                           title="Listado No Interesa Oferta"
+                                           data-style="dark" 
+                                           data-theme="bg-white" 
+                                           class="float-right btn btn-sm btn-success icon-tool-add back-button "
+                                           data-animation="flipOutX" style="color: #ffffff; border: 0px solid #dfe8f1;">
+                                            <div class="glyph-icon">
+                                                <i class="glyphicon glyphicon-print"></i><span class="info-icon-tool">{{appConstantsView.BOTON_IMPRIMIR}}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demo2">
+                                        <div class="panel-body">
+                                            <table object-table class="hover-column"
+                                                   display=10 data="campCtrl.listDashNoInteresa" 
+                                                   headers="Motivo, Cantidad, Porcentaje"
+                                                   fields="motivo,cantidad,porcentaje"
+                                                   search="separate" 
+                                                   sorting="compound"
+                                                   editable="false" 
+                                                   resize="false"
+                                                   select="false" >
+                                                <tbody>
+                                                    <tr style="height: 60px;">
+                                                        <td style="text-align: center">{{::item.motivo}}</td>
+                                                        <td style="text-align: center">{{::item.cantidad}}</td>
+                                                        <td style="text-align: center">{{::item.porcentaje}}%</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td style="text-align: center"></td>
+                                                        <td style="text-align: center">{{$owner.campCtrl.getTotalDashNoLeInteresa($filtered)}}</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="profile-box content-box ">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#demo3">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> Resultado Otra Institución</h3>
+
+                                        <a href="" 
+                                           ng-json-export-excel 
+                                           data="campCtrl.listDashOtroInstituto"
+                                           report-fields="{
+                                           motivo:'Instituto',
+                                           cantidad:'Cantidad',
+                                           porcentaje:'Porcentaje'
+                                           }"
+                                           filename=" 'Listado Otro Instituto' " 
+                                           title="Listado Otro instituto"
+                                           data-style="dark" 
+                                           data-theme="bg-white" 
+                                           class="float-right btn btn-sm btn-success icon-tool-add back-button "
+                                           data-animation="flipOutX" style="color: #ffffff; border: 0px solid #dfe8f1;">
+                                            <div class="glyph-icon">
+                                                <i class="glyphicon glyphicon-print"></i><span class="info-icon-tool">{{appConstantsView.BOTON_IMPRIMIR}}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demo3">
+                                        <div class="panel-body">
+                                            <table object-table class="hover-column"
+                                                   display=10 data="campCtrl.listDashOtroInstituto" 
+                                                   headers="Motivo, Cantidad, Porcentaje"
+                                                   fields="motivo,cantidad,porcentaje"
+                                                   search="separate" 
+                                                   sorting="compound"
+                                                   editable="false" 
+                                                   resize="false"
+                                                   select="false" >
+                                                <tbody>
+                                                    <tr style="height: 60px;">
+                                                        <td style="text-align: center">{{::item.motivo}}</td>
+                                                        <td style="text-align: center">{{::item.cantidad}}</td>
+                                                        <td style="text-align: center">{{::item.porcentaje}}%</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td style="text-align: center"></td>
+                                                        <td style="text-align: center">{{$owner.campCtrl.getTotalDashOtraInsti($filtered)}}</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="profile-box content-box ">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#demo4">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> Resultado Matriculados</h3>
+
+                                        <a href="" 
+                                           ng-json-export-excel 
+                                           data="campCtrl.listDashMatriculado"
+                                           report-fields="{
+                                           motivo:'Instituto',
+                                           cantidad:'Cantidad',
+                                           porcentaje:'Porcentaje'
+                                           }"
+                                           filename=" 'Listado Matriculado' " 
+                                           title="Listado Matriculado"
+                                           data-style="dark" 
+                                           data-theme="bg-white" 
+                                           class="float-right btn btn-sm btn-success icon-tool-add back-button "
+                                           data-animation="flipOutX" style="color: #ffffff; border: 0px solid #dfe8f1;">
+                                            <div class="glyph-icon">
+                                                <i class="glyphicon glyphicon-print"></i><span class="info-icon-tool">{{appConstantsView.BOTON_IMPRIMIR}}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demo4">
+                                        <div class="panel-body">
+                                            <table object-table class="hover-column"
+                                                   display=10 data="campCtrl.listDashMatriculado" 
+                                                   headers="Motivo, Cantidad, Porcentaje"
+                                                   fields="motivo,cantidad,porcentaje"
+                                                   search="separate" 
+                                                   sorting="compound"
+                                                   editable="false" 
+                                                   resize="false"
+                                                   select="false" >
+                                                <tbody>
+                                                    <tr style="height: 60px;">
+                                                        <td style="text-align: center">{{::item.motivo}}</td>
+                                                        <td style="text-align: center">{{::item.cantidad}}</td>
+                                                        <td style="text-align: center">{{::item.porcentaje}}%</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td style="text-align: center"></td>
+                                                        <td style="text-align: center">{{$owner.campCtrl.getTotalDashMatriculado($filtered)}}</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div id="modalEditarCandidatoDetalle" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!--Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" ng-click="campCtrl.onCloseModal()" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Candidato Detalle</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="content-box">
+                        <div class="panel-body">
+                            <div class="row" >
+                                <div class="row" >
+                                    <div class="col-lg-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Origen de datos</label><label class="text-danger">*</label>
+                                            <select  ng-options="estado.id as estado.nombre for estado in campCtrl.listaOrigen| orderBy:'nombre'" 
+                                                     name="selectCampaniaa" id="selectCampaniaa" 
+                                                     debounce="5000"
+                                                     validation="required" class="form-control"
+                                                     ng-disabled="campCtrl.esvisible.eseditable"
+                                                     ng-model="campCtrl.nuevaCampania.origen"
+                                                     ng-change="campCtrl.onChangeOrigenDato()"> 
+                                                <option ng-if="campCtrl.listaOrigen.length >= appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-show="campCtrl.mostrarVentana" >
+                                    <div class="col-lg-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Candidatos</label><label class="text-danger">*</label>
+                                            <select  ng-options="estado.id as estado.nombre for estado in campCtrl.listaCandidatos| orderBy:'nombre'" 
+                                                     name="candidatosSelect" id="candidatosSelect" 
+                                                     debounce="5000"
+                                                     validation="required" class="form-control"
+                                                     ng-disabled="campCtrl.esvisible.eseditable"
+                                                     ng-model="campCtrl.nuevaCampania.candidato"
+                                                     ng-change="campCtrl.onChangeCandidato(campCtrl.nuevaCampania.candidato)"> 
+                                                <option ng-if="campCtrl.listaCandidatos.length >= appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-8 col-sm-8">
+                                        <div class="form-group">
+                                            <label class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label><label class="text-danger">*</label>
+                                            <ui-select name="programa"
+                                                       ng-model="campCtrl.programasInteres"
+                                                       on-select="campCtrl.onChangeProgramaInteres();"
+                                                       class="form-control">
+                                                <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombrePrograma}}</ui-select-match>
+                                                <ui-select-choices ui-disable-choice="programa.select === '1'" repeat="programa in campCtrl.programas | filter: {nombrePrograma: $select.search}  | orderBy:'nombrePrograma' | limitTo: ($select.search.length <= 1) ? 50 : 20">
+                                                    <small ng-bind="programa.nombrePrograma"></small>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span id="errorIdPrograma" class="validation text-danger form-span-danger position-danger"></span>
+                                            <input type="text" 
+                                                   name="fakeInputIdPrograma"
+                                                   class="hidden" 
+                                                   ng-model="campCtrl.programasInteres"
+
+                                                   validation-error-to="errorIdPrograma"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4" style="    margin-top: 23px;">
+                                        <input type="submit" 
+                                               class="btn" 
+                                               style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1;" 
+                                               ng-click="campCtrl.onAgregarCampaniaDetalle()" value="Asignar Candidatos {{campCtrl.conteoLista}}">
+                                    </div>
+
+
+                                    <table object-table 
+                                           class="hover-column" 
+                                           data="campCtrl.listaDetalleCandidatosAux" 
+                                           display="10" 
+                                           headers="Nombre,Celular,Direccion,E-mail"
+                                           fields="nombreEstudiante,celularEstudiante,direccion,email" 
+                                           sorting="compound" 
+                                           editable="false" 
+                                           search="separate"
+                                           resize="false" 
+                                           select="none">
+                                        <tbody>
+                                            <tr>
+                                                <td>{{::item.nombreEstudiante}}</td>
+                                                <td>{{::(item.celularEstudiante === null||item.celularEstudiante ===""||item.celularEstudiante===undefined)?"No Tiene":item.celularEstudiante}}</td>
+                                                <td>{{::(item.direccion === null||item.direccion ===""||item.direccion===undefined)?"No Tiene":item.direccion}}</td>
+                                                <td>{{::(item.email === null||item.email ===""||item.email===undefined)?"No Tiene":item.email}}</td>
+                                            </tr>
+                                        </tbody>
+
+                                        <tfoot>
+                                            <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.campCtrl.campanias.length !== $owner.appConstantsView.CERO">
+                                                <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                            </tr>
+                                            <tr ng-if="$owner.campCtrl.campanias.length === $owner.appConstantsView.CERO">
+                                                <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="button-pane" >
+                        <button type="submit" class="btn btn-success" 
+                                ng-click="campCtrl.guardarCandidatoDetalleCamapana()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

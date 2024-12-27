@@ -1,0 +1,835 @@
+<style>
+  @media screen and (max-width: 1135px) {
+    .table-scroll-x {
+      overflow-x: scroll;
+    }
+  }
+
+  th.sortable:before,
+  th.sortable:after {
+    display: none;
+  }
+</style>
+<div
+  id="page-title"
+  ng-controller="SolicitudCreditoCtrl
+            as
+            SolicitudCtrl"
+>
+  <h2>{{appConstantsView.TITLE_CREDITO_FINANCIERO}}</h2>
+  <br />
+  <div class="content-box">
+    <div class="button-pane button-pane-top">
+      <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+        {{appConstantsView.CREDITO_SOLICITUD}}
+      </h3>
+      <div class="float-right">
+        <a
+          href=""
+          ng-click="SolicitudCtrl.onLimpiar()"
+          class="btn btn-sm btn-info icon-tool-add back-button"
+          data-animation="flipOutX"
+          style="
+            background-color: #0096d4;
+            color: #ffffff;
+            border: 0px solid #dfe8f1;
+          "
+        >
+          <div class="glyph-icon">
+            <i class="glyphicon glyphicon-arrow-left"></i
+            ><span class="info-icon-tool"
+              >{{appConstantsView.BOTON_VOLVER}}</span
+            >
+          </div>
+        </a>
+        <a
+          href=""
+          ng-click="SolicitudCtrl.onGenerarReporteVista()"
+          ng-if="SolicitudCtrl.solicitudCreditoAuxiliar.solicitudRealizada"
+          class="btn btn-sm btn-success icon-tool-add back-button"
+          data-animation="flipOutX"
+          style="color: #ffffff; border: 0px solid #dfe8f1"
+        >
+          <div class="glyph-icon">
+            <i class="glyphicon glyphicon-download-alt"></i
+            ><span class="info-icon-tool"
+              >{{appConstantsView.CONVENIO_CREDITO}}</span
+            >
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="content-box-wrapper">
+      <div class="panel-body">
+        <form method="POST" novalidate name="formSolicitud">
+          <div class="content-box">
+            <div class="button-pane button-pane-top">
+              <h3
+                class="float-left text-uppercase content-box-header-title btn-sm"
+              >
+                {{appConstantsView.INFORMACION_SOLICITANTE}}
+              </h3>
+            </div>
+            <div class="clearfix"></div>
+            <div class="content-box-wrapper">
+              <fieldset>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="codigoEstudiantil" class="control-label"
+                          >{{appConstantsView.LABEL_CODIGO_ESTUDIANTIL}}</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="codigoEstudiantil"
+                          ng-model="SolicitudCtrl.solicitudCredito.codigoEstudiante"
+                          ng-disabled="true"
+                          name="codigoEstudiantil"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="nombre" class="control-label"
+                          >{{appConstantsView.LABEL_NOMBRE}}</label
+                        >
+                        <input
+                          type="text"
+                          maxlength="50"
+                          class="form-control text-uppercase"
+                          id="nombre"
+                          ng-model="SolicitudCtrl.solicitudCredito.nombreCompleto"
+                          ng-disabled="true"
+                          name="nombre"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="programaAcademico" class="control-label"
+                          >{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label
+                        >
+                        <input
+                          type="text"
+                          maxlength="100"
+                          class="form-control text-uppercase"
+                          id="programaAcademico"
+                          ng-model="SolicitudCtrl.solicitudCredito.programaAcademico"
+                          ng-disabled="true"
+                          name="programaAcademico"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="semestre" class="control-label"
+                          >{{appConstantsView.LABEL_NIVEL}}</label
+                        >
+                        <input
+                          type="text"
+                          maxlength="100"
+                          class="form-control"
+                          id="semestre"
+                          ng-model="SolicitudCtrl.solicitudCredito.semestre"
+                          ng-disabled="true"
+                          name="semestre"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="modalidad" class="control-label"
+                          >{{appConstantsView.LABEL_MODALIDAD}}</label
+                        >
+                        <input
+                          type="text"
+                          maxlength="100"
+                          class="form-control"
+                          id="modalidad"
+                          ng-model="SolicitudCtrl.solicitudCredito.modalidad"
+                          ng-disabled="true"
+                          name="modalidad"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="input-sw-codeudor" class="control-label"
+                          >{{appConstantsView.ESTUDIANTE_CODEUDOR}}</label
+                        >
+                        <br />
+                        <input
+                          bs-switch
+                          ng-model="SolicitudCtrl.solicitudCredito.esCodeudor"
+                          switch-active="{{!SolicitudCtrl.solicitudCreditoAuxiliar.solicitudRealizada}}"
+                          switch-change="SolicitudCtrl.gestionarCodeudor()"
+                          type="checkbox"
+                          ng-true-value="'si'"
+                          ng-false-value="'no'"
+                          switch-on-text="si"
+                          switch-off-text="no"
+                          id="input-sw-codeudor"
+                          class="form-control input-sw-codeudor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="barrio" class="control-label">Barrio</label
+                        ><label class="text-danger">*</label>
+                        <input
+                          type="text"
+                          maxlength="100"
+                          class="form-control text-uppercase"
+                          id="barrio"
+                          ng-model="SolicitudCtrl.solicitudCredito.barrio"
+                          name="barrio"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="direccion" class="control-label"
+                          >Dirección</label
+                        ><label class="text-danger">*</label>
+                        <input
+                          type="text"
+                          maxlength="100"
+                          class="form-control"
+                          id="direccion"
+                          ng-model="SolicitudCtrl.solicitudCredito.direccion"
+                          name="direccion"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="telefono" class="control-label"
+                          >Celular</label
+                        ><label class="text-danger">*</label>
+                        <input
+                          type="text"
+                          class="form-control text-uppercase"
+                          maxlength="14"
+                          name="celuTitular"
+                          mask="(999)-9999-999"
+                          clean="true"
+                          restrict="reject"
+                          ng-model="SolicitudCtrl.solicitudCredito.telefono"
+                          repeat="14"
+                          validation="exact_len:10:alt=Debe contener exactamente 10 dígitos|required"
+                          id="telefono"
+                          ng-model="SolicitudCtrl.solicitudCredito.telefono"
+                          name="telefono"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label for="ciudadMunicipio" class="control-label"
+                          >Ciudad/Municipio</label
+                        ><label class="text-danger">*</label>
+                        <input
+                          type="text"
+                          maxlength="100"
+                          class="form-control"
+                          id="ciudadMunicipio"
+                          ng-model="SolicitudCtrl.solicitudCredito.ciudadMunicipio"
+                          name="ciudadMunicipio"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div
+            class="content-box"
+            ng-show="SolicitudCtrl.solicitudCredito.esCodeudor === 'no'"
+          >
+            <div class="button-pane button-pane-top">
+              <h3
+                class="float-left text-uppercase content-box-header-title btn-sm"
+              >
+                INFORMACIÓN DEL CODEUDOR
+              </h3>
+            </div>
+            <div class="clearfix"></div>
+            <div class="content-box-wrapper">
+              <form method="POST" name="formwizarfamiliaracudiente" novalidate>
+                <div class="row">
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label"
+                        >{{appConstantsView.LABEL_TIPO_DOCUMENTO}}</label
+                      ><label class="text-danger">*</label>
+                      <select
+                        ng-options="tipodoc.codigo as tipodoc.valor for tipodoc in SolicitudCtrl.lsttipodocumentos"
+                        name="tipodocacudiente"
+                        id="tipodocacudiente"
+                        validation="required"
+                        class="form-control"
+                        ng-model="SolicitudCtrl.solicitudCredito.acudiente.idTipoIdentificacion"
+                      >
+                        <option
+                          ng-if="SolicitudCtrl.lsttipodocumentos.length >= appConstantsView.CERO"
+                          value=""
+                        >
+                          {{appConstantsView.SELECCION_SELECT}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >{{appConstantsView.LABEL_NUMERO_DOCUMENTO}}</label
+                        ><label class="text-danger">*</label>
+                        <input
+                          type="text"
+                          id="numdoc"
+                          class="form-control"
+                          name="numdoc"
+                          mask="9"
+                          restrict="reject"
+                          repeat="20"
+                          ng-model="SolicitudCtrl.solicitudCredito.acudiente.identificacion"
+                          validation="required"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Ciudad Expedición</label
+                      ><label class="text-danger">*</label>
+                      <input
+                        type="text"
+                        id="nombre"
+                        class="form-control text-uppercase"
+                        name="nombreacudiente"
+                        mask="H"
+                        restrict="reject"
+                        repeat="100"
+                        ng-model="SolicitudCtrl.solicitudCredito.acudiente.ciudadExpedicion"
+                        validation="required"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label"
+                        >{{appConstantsView.LABEL_NOMBRES}}</label
+                      ><label class="text-danger">*</label>
+                      <input
+                        type="text"
+                        id="nombre"
+                        class="form-control text-uppercase"
+                        name="nombreacudiente"
+                        mask="H"
+                        restrict="reject"
+                        repeat="100"
+                        ng-model="SolicitudCtrl.solicitudCredito.acudiente.nombre"
+                        validation="required"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >{{appConstantsView.LABEL_APELLIDOS}}</label
+                        ><label class="text-danger">*</label>
+                        <input
+                          type="text"
+                          id="apellidos"
+                          class="form-control text-uppercase"
+                          name="apellidosacudiente"
+                          mask="H"
+                          restrict="reject"
+                          repeat="100"
+                          ng-model="SolicitudCtrl.solicitudCredito.acudiente.apellido"
+                          validation="required"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                      <div class="form-group">
+                        <label for="emailacudiente" class="control-label"
+                          >{{appConstantsView.LABEL_EMAIL}}</label
+                        ><label class="text-danger">*</label>
+                        <input
+                          type="emailacudiente"
+                          id="emailacudiente"
+                          placeholder="ejemplo@correo.com"
+                          class="form-control"
+                          maxlength="50"
+                          name="emailacudiente"
+                          restrict="reject"
+                          repeat="50"
+                          ng-model="SolicitudCtrl.solicitudCredito.acudiente.email"
+                          validation="email|required"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                      <div class="form-group">
+                        <label>{{appConstantsView.LABEL_TELEFONO}}</label
+                        ><label class="text-danger">*</label>
+                        <input
+                          type="text"
+                          id="telfacudiente"
+                          class="form-control"
+                          name="telfacudiente"
+                          placeholder="9999-999"
+                          maxlength="12"
+                          mask="9999-999"
+                          clean="true"
+                          restrict="reject"
+                          repeat="12"
+                          ng-model="SolicitudCtrl.solicitudCredito.acudiente.telefono"
+                          validation="exact_len:7:alt=Debe contener exactamente 7 dígitos"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >{{appConstantsView.LABEL_CELULAR}}</label
+                        ><label class="text-danger">*</label>
+                        <input
+                          type="text"
+                          id="celmadre"
+                          class="form-control"
+                          placeholder="(999)-9999-999"
+                          maxlength="14"
+                          name="celacudiente"
+                          mask="(999)-9999-999"
+                          clean="true"
+                          restrict="reject"
+                          ng-model="SolicitudCtrl.solicitudCredito.acudiente.celular"
+                          repeat="14"
+                          validation="exact_len:10:alt=Debe contener exactamente 10 dígitos|required"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="content-box">
+            <div class="button-pane button-pane-top">
+              <h3
+                class="float-left text-uppercase content-box-header-title btn-sm"
+              >
+                {{appConstantsView.DETALLES_DEL_CREDITO}}
+              </h3>
+            </div>
+            <div class="content-box-wrapper">
+              <div class="clearfix"></div>
+              <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                  <div class="form-group">
+                    <label for="linea" class="control-label"
+                      >Línea De Crédito</label
+                    ><label class="text-danger">*</label>
+                    <select
+                      class="form-control"
+                      ng-model="SolicitudCtrl.solicitudCredito.linea"
+                      ng-options="linea as linea.valor for linea in SolicitudCtrl.listadoLineasDeCredito2  | orderBy:'valor'"
+                      ng-disabled="!SolicitudCtrl.solicitudCreditoAuxiliar.disabledLinea"
+                      name="linea"
+                      ng-change="SolicitudCtrl.onChangeLineaCredito()"
+                      id="linea"
+                      validation="required"
+                    >
+                      <option
+                        ng-if="SolicitudCtrl.listadoLineasDeCredito2.length >= appConstantsView.CERO"
+                        value=""
+                      >
+                        {{appConstantsView.SELECCION_SELECT}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-6">
+                  <div class="form-group">
+                    <label for="totalCartera" class="control-label"
+                      >{{appConstantsView.TOTAL_CARTERA}}</label
+                    >
+                    <div class="input-group fecha-inicio">
+                      <span class="input-group-addon"> $ </span>
+                      <input
+                        type="text"
+                        ng-disabled="true"
+                        class="form-control money"
+                        name="totalCartera"
+                        id="totalCartera"
+                        ui-money-mask="2"
+                        restrict="reject"
+                        ng-model="SolicitudCtrl.solicitudCredito.totalCartera"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                  <div class="form-group">
+                    <label for="numeroCuota" class="control-label"
+                      >{{appConstantsView.NUMERO_CUOTAS}}</label
+                    ><label class="text-danger">*</label>
+                    <input
+                      type="text"
+                      mask="99"
+                      restrict="reject"
+                      validation="required"
+                      ng-disabled="(SolicitudCtrl.solicitudCredito.linea.idLinea !== SolicitudCtrl.formal)"
+                      name="numeroCuota"
+                      id="numeroCuota"
+                      ng-blur="SolicitudCtrl.onBlurNumeroCuotas()"
+                      validation-error-to="validacionNumeroCuotas"
+                      ng-model="SolicitudCtrl.solicitudCredito.numeroCuotas"
+                      class="form-control"
+                    />
+                    <span
+                      id="validacionNumeroCuotas"
+                      class="validation text-danger"
+                    ></span>
+                  </div>
+                </div>
+                <div
+                  class="col-lg-6 col-sm-6"
+                  ng-if="SolicitudCtrl.solicitudCredito.linea.idLinea === SolicitudCtrl.formal && !SolicitudCtrl.solicitudCreditoAuxiliar.solicitudRealizada"
+                >
+                  <div class="form-group">
+                    <label for="periodo" class="control-label"
+                      >{{appConstantsView.PERIODICIDAD}}</label
+                    ><label class="text-danger">*</label>
+                    <select
+                      class="form-control"
+                      ng-model="SolicitudCtrl.solicitudCredito.periodo"
+                      name="periodo"
+                      id="periodo"
+                      validation="required"
+                    >
+                      <option value="">
+                        {{appConstantsView.SELECCION_SELECT}}
+                      </option>
+                      <option value="15">{{appConstantsView.QUINCENAL}}</option>
+                      <option value="30">{{appConstantsView.MENSUAL}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                  <div class="form-group">
+                    <label for="valorModulo" class="control-label"
+                      >Valor Modulo</label
+                    ><label class="text-danger">*</label>
+                    <input
+                      type="text"
+                      ui-money-mask="0"
+                      ng-disabled="true"
+                      id="valorModulo"
+                      ng-model="SolicitudCtrl.solicitudCredito.valorModulo"
+                      class="form-control money"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                  <div class="form-group">
+                    <label class="control-label">Descuento</label>
+                    <select class="form-control" id="discount">
+                      <option value="0">
+                        {{appConstantsView.SELECCION_SELECT}}
+                      </option>
+                      <option value="10">10%</option>
+                      <option value="25">25%</option>
+                      <option value="30">30%</option>
+                      <option value="40">40%</option>
+                      <option value="50">50%</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                  <button
+                    type="submit"
+                    class="btn btn-info pull-right"
+                    ng-if="!SolicitudCtrl.solicitudCreditoAuxiliar.solicitudRealizada"
+                    ng-click="SolicitudCtrl.simulacion()"
+                  >
+                    {{appConstantsView.BUTTON_SIMULAR}}
+                  </button>
+                </div>
+              </div>
+              <div ng-show="SolicitudCtrl.solicitudCreditoAuxiliar.hideTable">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div
+                      class="dataTables_length"
+                      id="datatable-example_length"
+                    >
+                      <label>
+                        <select
+                          ng-model="SolicitudCtrl.displayNivel"
+                          ng-init="SolicitudCtrl.displayNivel = SolicitudCtrl.displayNivel || SolicitudCtrl.options[appConstantsView.CERO].value"
+                          ng-options="option.value as option.name for option in SolicitudCtrl.options"
+                        ></select>
+                      </label>
+                    </div>
+                    <div
+                      class="form-group"
+                      ng-if="SolicitudCtrl.solicitudCredito.linea.idLinea !== SolicitudCtrl.simple && !SolicitudCtrl.solicitudCreditoAuxiliar.solicitudRealizada"
+                    >
+                      <label for="todos" class="control-label">
+                        {{appConstantsView.SELECCIONAR_TODOS}}</label
+                      >
+                      <input
+                        bs-switch
+                        ng-model="SolicitudCtrl.solicitudCredito.seleccionarTodos"
+                        switch-active="true"
+                        type="checkbox"
+                        ng-true-value="true"
+                        ng-false-value="false"
+                        ng-change="SolicitudCtrl.onSeleccionarTodos()"
+                        switch-on-text="si"
+                        switch-off-text="no"
+                        id="input-sw-codeudor"
+                        class="form-control input-sw-codeudor"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <table
+                  object-table
+                  class="hover-column"
+                  id="listaNiveles"
+                  data="SolicitudCtrl.listaNiveles"
+                  display="SolicitudCtrl.displayNivel"
+                  headers="Nº,Módulo,Fechas,Parcial 1,Parcial 2,Parcial 3"
+                  fields="index,nombreModulo,fechas,fecha1,fecha2,fecha3"
+                  sorting="false"
+                  selected-model="SolicitudCtrl.report.selectedNivel"
+                  editable="false"
+                  search="false"
+                  resize="false"
+                  select="{{SolicitudCtrl.solicitudCredito.multiple}}"
+                >
+                  <tbody>
+                    <tr
+                      class="{{$owner.SolicitudCtrl.solicitudCreditoAuxiliar.solicitudRealizada?'disabled':''}}"
+                      ng-click="$owner.SolicitudCtrl.onCalcularValorMetodo(ifSelected(item), item); setSelected(item)"
+                    >
+                      <td>{{$index + 1}}</td>
+                      <td>{{::item.nombreModulo}}</td>
+                      <td>{{::item.fechas}}</td>
+                      <td>{{::item.fecha1| date: 'dd/MM/yyyy'}}</td>
+                      <td>{{::item.fecha2}}</td>
+                      <td>{{::item.fecha3}}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr
+                      ng-show="$filtered.length !== $owner.appConstantsView.CERO"
+                    >
+                      <td colspan="7" class="text-right">
+                        <strong>
+                          {{$owner.SolicitudCtrl.solicitudCredito.valorTotalModulos|
+                          currency}}</strong
+                        >
+                      </td>
+                    </tr>
+                    <tr
+                      ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.SolicitudCtrl.listaNiveles.length !== $owner.appConstantsView.CERO"
+                    >
+                      <td colspan="7">
+                        {{$owner.appConstantsView.SIN_COINCIDENCIAS}}
+                      </td>
+                    </tr>
+                    <tr
+                      ng-show="$owner.SolicitudCtrl.listaNiveles.length === $owner.appConstantsView.CERO"
+                    >
+                      <td colspan="7">
+                        {{$owner.appConstantsView.SIN_REGISTROS}}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div
+                ng-hide="SolicitudCtrl.solicitudCredito.listaPlanAmortizacion.length === appConstantsView.CERO"
+              >
+                <h3 style="top: 10px">
+                  {{appConstantsView.TOTAL_A_FINANCIAR}}
+                </h3>
+                <hr style="margin-top: 10px" />
+                <div class="row">
+                  <div class="col-lg-12 col-sm-12">
+                    <button
+                      type="submit"
+                      class="btn btn-success pull-right"
+                      ng-if="SolicitudCtrl.solicitudCreditoAuxiliar.solicitudRealizada && (!SolicitudCtrl.solicitudCredito.estadoSolicitud === SolicitudCtrl.estadoPagada || SolicitudCtrl.solicitudCredito.estadoSolicitud === SolicitudCtrl.estadoPagada ?false:SolicitudCtrl.solicitudCredito.esPeriodoActual)"
+                      ng-click="SolicitudCtrl.onUpdateAmortizacion()"
+                    >
+                      {{appConstantsView.BUTTON_MODIFICAR}}
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div
+                      class="dataTables_length"
+                      id="datatable-example_length"
+                    >
+                      <label>
+                        <select
+                          ng-model="SolicitudCtrl.display"
+                          ng-init="SolicitudCtrl.display = SolicitudCtrl.display || SolicitudCtrl.options[appConstantsView.CERO].value"
+                          ng-options="option.value as option.name for option in SolicitudCtrl.options"
+                        ></select>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <table
+                  object-table
+                  class="hover-column"
+                  id="tablaAmortizacion"
+                  data="SolicitudCtrl.solicitudCredito.listaPlanAmortizacion"
+                  display="SolicitudCtrl.display"
+                  headers="Cuotas,Fecha de Vencimiento,Préstamo,Interés,Amortización,Cuota Fija,Saldo,Estado"
+                  fields="cuota,fecha,prestamo,interes,amortizacion,cuotaFija,saldoRestante,estadoAmortizacion"
+                  sorting="false"
+                  selected-model="SolicitudCtrl.report.selected"
+                  editable="false"
+                  search="false"
+                  resize="false"
+                  select="false"
+                >
+                  <tbody>
+                    <tr>
+                      <td>{{::item.cuota}}</td>
+                      <td style="width: 200px; min-width: 200px">
+                        <div
+                          class="form-group"
+                          bootstrap-validation-decorator="fechaPago"
+                        >
+                          <div class="input-group date" id="fechaP">
+                            <span class="input-group-addon">
+                              <i class="glyph-icon icon-calendar"></i>
+                            </span>
+                            <input
+                              type="text"
+                              class="form-control date fecha-item"
+                              mask="39/19/9999"
+                              restrict="reject"
+                              placeholder="dd/mm/aaaa"
+                              name="{{'fechaPago' + item.cuota}}"
+                              id="fechaPago{{item.cuota}}"
+                              data-date-format="dd/mm/yyyy"
+                              autocomplete="off"
+                              validation="required"
+                              ng-init="$owner.SolicitudCtrl.onClickFechaPago()"
+                              ng-model="item.fecha"
+                              validation-error-to="{{'validacionFechaPago' + item.cuota}}"
+                              readonly="true"
+                            />
+                          </div>
+                          <span
+                            id="{{'validacionFechaPago' + item.cuota}}"
+                            class="validation text-danger"
+                          ></span>
+                        </div>
+                      </td>
+                      <td class="money">{{::item.prestamo| currency}}</td>
+                      <td class="money">{{::item.interes| currency}}</td>
+                      <td class="money">{{::item.amortizacion| currency}}</td>
+                      <td class="money">{{::item.cuotaFija| currency}}</td>
+                      <td class="money">{{::item.saldoRestante| currency}}</td>
+                      <td>
+                        <span
+                          class="{{$owner.SolicitudCtrl.onEstadoEstilo(item.estadoAmortizacion)}}"
+                          >{{::item.estadoAmortizacion}}</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr
+                      ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.SolicitudCtrl.solicitudCredito.listaPlanAmortizacion.length !== $owner.appConstantsView.CERO"
+                    >
+                      <td colspan="7">
+                        {{$owner.appConstantsView.SIN_COINCIDENCIAS}}
+                      </td>
+                    </tr>
+                    <tr
+                      ng-show="$owner.SolicitudCtrl.solicitudCredito.listaPlanAmortizacion.length === $owner.appConstantsView.CERO"
+                    >
+                      <td colspan="7">
+                        {{$owner.appConstantsView.SIN_REGISTROS}}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <div class="row">
+                  <button
+                    type="submit"
+                    class="btn btn-danger pull-right"
+                    style="margin-left: 5px"
+                    ng-click="SolicitudCtrl.onLimpiar()"
+                  >
+                    {{appConstantsView.BUTTON_CANCELAR}}
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-success pull-right"
+                    ng-if="!SolicitudCtrl.solicitudCreditoAuxiliar.solicitudRealizada"
+                    ng-click="SolicitudCtrl.onSubmitForm()"
+                  >
+                    {{appConstantsView.BUTTON_LIQUIDAR}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,727 @@
+<script src="../../../../styles/assets/widgets/popover/popover.js" type="text/javascript"></script>
+<script src="../../../../js/main-app.js" type="text/javascript"></script>
+<style>
+    .panel {
+        padding: 10px;
+        border-width: 1px 0 0 0;
+        border-style: solid;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .btn-consultar-inscritos {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
+
+    .btn-consultar-inscritos:hover {
+        color: #fff;
+        background-color: #5B90BD;
+        border-color: #2e6da4;
+    }
+
+    @media screen and (max-width: 1135px) {
+        .table-scroll-x {
+            overflow-x: scroll;
+        }
+    }
+</style>
+<div id="page-title" ng-controller="HistorialLiquidacionCtrl as hisotiralCrtl">
+    <h2>{{appConstantsView.HISTORICO_LIQUIDACIONES}}</h2>
+    <p></p>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+                {{appConstantsView.HISTORIAL_CONCEPTOS_LIQUIDADOS}}</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/financiero')"
+                    class="btn btn-sm btn-info icon-tool-add back-button"
+                    style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span
+                            class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+                            {{appConstantsView.CONSULTA_ESTUDIANTE}}</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <form method="POST" name="buscarEstudiante" novalidate>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label">{{appConstantsView.LABEL_CODIGO_ESTUDIANTIL}}</label>
+                                        <div class="input-group">
+                                            <input id="inputCodigo" type="text" validation="required" mask="9"
+                                                restrict="reject" repeat="15"
+                                                ng-model="hisotiralCrtl.identificacionConsultar" class="form-control"
+                                                ng-model-options="{bounce: 0}" name="inputCodigo"
+                                                validation-error-to="errorConsultaSolicitud"
+                                                ng-keyup="hisotiralCrtl.onKeyUpCleanField()">
+                                            <span class="input-group-btn" style="position: static" >
+                                                <button type="submit" title="Consultar" id="btnCodigoConsultar"
+                                                    ng-click="hisotiralCrtl.onConsultarHistorialEstudiante(hisotiralCrtl.identificacionConsultar)"
+                                                    class="btn btn-primary btn-group-plus">
+                                                    <i class="glyphicon glyphicon-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <span id="errorConsultaSolicitud" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divNombre">
+                                        <label for="nombre"
+                                            class="control-label pull-left">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                        <input type="text" ng-disabled="true" id="nombre"
+                                            class="form-control text-uppercase" name="nombre"
+                                            ng-model="hisotiralCrtl.estudiante.nombre" validation="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-4">
+                                    <div class="form-group" id="divIdentificacion">
+                                        <label for="identificacion"
+                                            class="control-label pull-left">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                        <input type="text" ng-disabled="true" id="identificacion"
+                                            class="form-control upper" name="identificacion"
+                                            ng-model="hisotiralCrtl.estudiante.identificacion" validation="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-box-wrapper" ng-hide="hisotiralCrtl.liquidacionEstudiante.length === appConstantsView.CERO">
+            <div class="panel-body">
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+                            {{appConstantsView.TITLE_LISTADO_LIQUIDACIONES}}</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <div class="clearfix"></div>
+                        <uib-tabset justify="false">
+                            <uib-tab index="0" heading="Activas">
+                                <div class="content-box-wrapper">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="dataTables_length" id="datatable-example_length">
+                                                <label>
+                                                    <select ng-model="hisotiralCrtl.display"
+                                                        ng-init="hisotiralCrtl.display = hisotiralCrtl.display || hisotiralCrtl.options[appConstantsView.CERO].value"
+                                                        ng-options="option.value as option.name for option in hisotiralCrtl.options"
+                                                        ng-change="hisotiralCrtl.display <= hisotiralCrtl.liquidacionEstudiante ? loadDat(n - 1) : ''">
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <table object-table class="hover-column" display=hisotiralCrtl.display
+                                            data="hisotiralCrtl.liquidacionEstudiante"
+                                            headers="Referencia,Período,Programa,Concepto,Estado,Valor,Abonado,Saldo,Opciones"
+                                            fields="referencia,nombrePeriodo,nombrePrograma,nombreConcepto,estadoLiquidacion,valorLiquidado,saldoAbonado,saldoPendiente,"
+                                            search="separate" sorting="compound"
+                                            selected-model="hisotiralCrtl.report.selected" editable="false"
+                                            resize="false" select="false" id="obj-table-hisotiral_vigentes">
+                                            <tbody>
+                                                <tr style="height: 60px;">
+                                                    <td>{{::item.referencia}}</td>
+                                                    <td>{{::item.nombrePeriodo}}</td>
+                                                    <td>{{::item.nombrePrograma}}</td>
+                                                    <td>{{::item.nombreConcepto}}</td>
+                                                    <td style="text-align: center"><span
+                                                            class="{{item.estadoLiquidacion === 'ABIERTA' ? 'bs-label label-danger' :  item.estadoLiquidacion === 'ANULADA' ?  'bs-label label-black' : item.estadoLiquidacion === 'CASTIGADA' ? 'bs-label label-danger' :  'bs-label label-success'}}">{{::item.estadoLiquidacion}}</span>
+                                                    </td>
+                                                    <td class="money" style="background-color: #29b765;color: white;">
+                                                        {{::item.valorLiquidado| currency}}</td>
+                                                    <td class="money" style="background-color: #29b765;color: white;">
+                                                        {{::item.saldoAbonado| currency}}</td>
+                                                    <td class="money"
+                                                        style="background-color: {{item.saldoPendiente > 0 ? '#cf4436' : '#29b765'}}; color: {{item.saldoPendiente > 0 ? 'white' : 'white'}};">
+                                                        {{::item.saldoPendiente| currency}}</td>
+                                                    <td class="text-center opciones-table">
+                                                        <button class="btn btn-primary btn-tools-table"
+                                                            title="Ver Detalle"
+                                                            ng-click="$owner.hisotiralCrtl.ModalUsuario(item)">
+                                                            <i class="glyphicon glyphicon-eye-open "></i>
+                                                        </button>
+                                                        <button class="btn btn-primary btn-tools-table"
+                                                            ng-disabled="!item.reimprimir || item.reimrpimirEstado"
+                                                            title="Imprimir"
+                                                            ng-click="$owner.hisotiralCrtl.onGenerarReporte(item.liquidacionReporteDTO)">
+                                                            <i class="glyphicon glyphicon-print "></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-tools-table"
+                                                            ng-hide="!item.reimprimir || item.reimrpimirEstado"
+                                                            title="Anular"
+                                                            ng-click="$owner.hisotiralCrtl.anularLiquidacion(item)">
+                                                            <i class="glyphicon glyphicon-remove-circle "></i>
+                                                        </button>
+                                                    </td>
+                                                    <td ng-hide="true">{{$owner.hisotiralCrtl.filtrados = $filtered}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td style="text-align: center">Totales</td>
+                                                    <td style="text-align: center" class="money">
+                                                        {{$owner.hisotiralCrtl.getTotalValorLiquidado($filtered) | currency}}
+                                                    </td>
+                                                    <td style="text-align: center" class="money">
+                                                        {{$owner.hisotiralCrtl.getTotalSaldoAbonado($filtered) | currency}}
+                                                    </td>
+                                                    <td style="text-align: center" class="money">
+                                                        {{$owner.hisotiralCrtl.getTotalSaldoPendiente($filtered) | currency}}
+                                                    </td>
+                                                </tr>
+                                                <tr
+                                                    ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.hisotiralCrtl.liquidacionEstudiante.length !== $owner.appConstantsView.CERO">
+                                                    <td colspan="9">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                                </tr>
+                                                <tr
+                                                    ng-if="$owner.hisotiralCrtl.liquidacionEstudiante.length === $owner.appConstantsView.CERO">
+                                                    <td colspan="9">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab index="1" heading="Anuladas">
+                                <div class="content-box-wrapper">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="dataTables_length" id="datatable-example_length2">
+                                                <label>
+                                                    <select ng-model="hisotiralCrtl.display"
+                                                        ng-init="hisotiralCrtl.display = hisotiralCrtl.display || hisotiralCrtl.options[appConstantsView.CERO].value"
+                                                        ng-options="option.value as option.name for option in hisotiralCrtl.options"
+                                                        ng-change="hisotiralCrtl.display <= hisotiralCrtl.liquidacionEstudiante ? loadDat(n - 1) : ''">
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <table object-table class="hover-column" display=hisotiralCrtl.display
+                                            data="hisotiralCrtl.liquidacionEstudianteAnuladas"
+                                            headers="Número de Referencia,Período Académico,Programa,Concepto,Anulado Por,Fecha Anulacion ,Opciones"
+                                            fields="referencia,nombrePeriodo,nombrePrograma,nombreConcepto,usuarioAnulacion,fechaAnulacion"
+                                            search="separate" sorting="compound"
+                                            selected-model="hisotiralCrtl.report.selected" editable="false"
+                                            resize="false" select="false" id="obj-table-hisotiral_anulados">
+                                            <tbody>
+                                                <tr style="height: 60px;">
+                                                    <td>{{::item.referencia}}</td>
+                                                    <td>{{::item.nombrePeriodo}}</td>
+                                                    <td>{{::item.nombrePrograma}}</td>
+                                                    <td>{{::item.nombreConcepto}}</td>
+                                                    <td>{{::item.usuarioAnulacion}}</td>
+                                                    <td>{{::item.fechaAnulacion| date:'dd/MM/yyyy'}}</td>
+                                                    <td class="text-center opciones-table">
+                                                        <button class="btn btn-primary btn-tools-table"
+                                                            title="Ver Detalle"
+                                                            ng-click="$owner.hisotiralCrtl.ModalUsuario(item)">
+                                                            <i class="glyphicon glyphicon-eye-open "></i>
+                                                        </button>
+                                                    </td>
+                                                    <td ng-hide="true">{{$owner.hisotiralCrtl.filtrados = $filtered}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr
+                                                    ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.hisotiralCrtl.liquidacionEstudiante.length !== $owner.appConstantsView.CERO">
+                                                    <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                                </tr>
+                                                <tr
+                                                    ng-if="$owner.hisotiralCrtl.liquidacionEstudiante.length === $owner.appConstantsView.CERO">
+                                                    <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab index="2" heading="Creditos">
+                                <div class="row">
+                                    <table object-table class="hover-column" display=10
+                                        data="hisotiralCrtl.liquidaconHistorialConvenio"
+                                        headers="Número de Solicitud,Cuotas,Programa,Semestre,Valor,Opciones"
+                                        fields="numeroSolicitud,numeroCuota,nombrePrograma,semestre,valorFinanciar"
+                                        search="separate" sorting="compound" editable="false" resize="false"
+                                        select="false" id="obj-table-hisotiral_creditos">
+                                        <tbody>
+                                            <tr style="height: 60px;">
+                                                <td>{{::item.numeroSolicitud}}</td>
+                                                <td>{{::item.numeroCuota}}</td>
+                                                <td>{{::item.nombrePrograma}}</td>
+                                                <td>{{::item.semestre}}</td>
+                                                <td>{{::item.valorFinanciar}}</td>
+                                                <td class="text-center opciones-table">
+                                                    <button class="btn btn-primary btn-tools-table" title="Ver Detalle"
+                                                        ng-click="$owner.hisotiralCrtl.ModalUsuarioConvenio(item)">
+                                                        <i class="glyphicon glyphicon-eye-open "></i>
+                                                    </button>
+                                                    <button class="btn btn-primary btn-tools-table" title="Generar"
+                                                        ng-click="$owner.hisotiralCrtl.onGenerarReporteConvenio(item)">
+                                                        <i class="glyphicon glyphicon-print "></i>
+                                                    </button>
+                                                </td>
+                                                <td ng-hide="true">{{$owner.hisotiralCrtl.filtrados = $filtered}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr
+                                                ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.hisotiralCrtl.liquidaconHistorialConvenio.length !== $owner.appConstantsView.CERO">
+                                                <td colspan="7">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                            </tr>
+                                            <tr
+                                                ng-if="$owner.hisotiralCrtl.liquidaconHistorialConvenio.length === $owner.appConstantsView.CERO">
+                                                <td colspan="7">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </uib-tab>
+                        </uib-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">{{appConstantsView.DETALLE_LIQUIDACION}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="formDetalleSolicitud" name="formDetalleSolicitud" novalidate>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="content-box">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add" data-toggle="collapse"
+                                                data-target="#demo">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> {{appConstantsView.DETALLE_ESTUDIANTE}}</h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demo">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="pAcademico"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}</label>
+                                                        <input id="pAcademico" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.periodoAcademico"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="identificacion"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                                        <input id="identificacion" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.tipoDocumentoConcat"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+
+                                                        <label for="nombreDetalle"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                                        <input id="nombreDetalle" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.estudianteNombre"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+
+                                                        <label for="codigo"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_CODIGO}}</label>
+                                                        <input id="codigo" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.codigo"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="programa"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                                                        <input id="programa" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.programa"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+
+                                                        <label for="semestre"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_SEMESTRE}}</label>
+                                                        <input id="semestre" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.semestre"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+
+                                                        <label for="seccional"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_SECCIONAL}}</label>
+                                                        <input id="seccional" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.seccional"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="telefono"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_TELEFONO}}</label>
+                                                        <input id="telefono" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.estudianteTelefono"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="content-box">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add" data-toggle="collapse"
+                                                data-target="#demo2">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> {{appConstantsView.RESUMEN_LIQUIDACION}}</h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demo2">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+
+                                                        <label for="referenciaPago"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_REFERENCIA_PAGO}}</label>
+                                                        <input id="referenciaPago" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.referenciaPago"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+
+                                                        <label for="totalPagar"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_TOTAL_PAGAR}}</label>
+                                                        <input id="totalPagar" ui-money-mask="2" type="text"
+                                                            ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.totalPagar"
+                                                            class="form-control money">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <table object-table class="hover-column" display=3
+                                                data="hisotiralCrtl.detalleConceptoLiquidacion"
+                                                headers="Código de Concepto,Nombre de Concepto,Valor"
+                                                fields="codigoConcepto,nombreConcepto,valor" search="false"
+                                                sorting="compound" editable="false" resize="false">
+                                                <tbody>
+                                                    <tr style="height: 60px;">
+                                                        <td>{{::item.codigoConcepto}}</td>
+                                                        <td>{{::item.nombreConcepto}}</td>
+                                                        <td class="money">{{::item.valor| currency}}</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr
+                                                        ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.hisotiralCrtl.detalleConceptoLiquidacion.length !== $owner.appConstantsView.CERO">
+                                                        <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr
+                                                        ng-if="$owner.hisotiralCrtl.detalleConceptoLiquidacion.length === $owner.appConstantsView.CERO">
+                                                        <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+
+                                            <!--                                            <div class="row" ng-if="hisotiralCrtl.formaPagoLiquidacionDTOs.length !== $owner.appConstantsView.CERO">
+                                                                                            <div class="col-sm-6">
+                                                                                                <div class="form-group">
+                                            
+                                                                                                    <label for="numero" class="control-label pull-left">{{appConstantsView.LABEL_RECIBO_PAGO}}</label>
+                                                                                                    <input id="numero" type="text" ng-disabled="true" ng-model="hisotiralCrtl.verDetalle.numero" class="form-control">
+                                                                                                </div>
+                                                                                            </div>
+                                            
+                                                                                            <div class="col-sm-6">
+                                                                                                <div class="form-group">
+                                            
+                                                                                                    <label for="fechaPago" class="control-label pull-left">{{appConstantsView.LABEL_TOTAL_PAGADO}}</label>
+                                                                                                    <input id="fechaPago" ui-money-mask="2" type="text" ng-disabled="true" ng-model="hisotiralCrtl.verDetalle.valorPagado" class="form-control money">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            <table object-table class="hover-column" display=3
+                                                                                                   data="hisotiralCrtl.formaPagoLiquidacionDTOs" headers="Forma de Pago,Valor,Voucher,Fecha de Pago"
+                                                                                                   fields="formaPago,valorPagado,voucher,fechaPago" search="false" sorting="compound" editable="false" resize="false"
+                                                                                                   ng-if="hisotiralCrtl.formaPagoLiquidacionDTOs.length !== $owner.appConstantsView.CERO">
+                                                                                                <tbody>
+                                                                                                    <tr style="height: 60px;">
+                                                                                                        <td>{{::item.formaPago}}</td>
+                                                                                                        <td class="money">{{::item.valorPagado| currency}}</td>
+                                                                                                        <td >{{::item.voucher}}</td>
+                                                                                                        <td>{{::item.fechaPago}}</td>
+                                                                                                    </tr>
+                                                                                                <tfoot>
+                                                                                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.formaPagoLiquidacionDTOs.length !== $owner.appConstantsView.CERO">
+                                                                                                        <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                                                                                    </tr>
+                                                                                                    <tr ng-if="$owner.formaPagoLiquidacionDTOs.length === $owner.appConstantsView.CERO">
+                                                                                                        <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                                                                    </tr>
+                                                                                                </tfoot>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>-->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="content-box">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add" data-toggle="collapse"
+                                                data-target="#detalleRecibos">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> Listado de Recibos</h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="detalleRecibos">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <table object-table class="hover-column" display=3
+                                                    data="hisotiralCrtl.verDetalle.recibosDePago"
+                                                    headers="Referencia,Valor,Fecha de Pago, Ver Detalle"
+                                                    fields="numero,valorPagado,voucher,fechaPago, " search="false"
+                                                    sorting="compound" editable="false" resize="false"
+                                                    ng-if="hisotiralCrtl.formaPagoLiquidacionDTOs.length !== $owner.appConstantsView.CERO">
+                                                    <tbody>
+                                                        <tr style="height: 60px;">
+                                                            <td>{{::item.numero}}</td>
+                                                            <td class="money">{{::item.valorPagado| currency}}</td>
+                                                            <td style="text-align: center;">
+                                                                {{::item.fechaPago| date: "dd/MM/yyyy"}}</td>
+                                                            <td class="text-center opciones-table">
+                                                                <button class="btn btn-primary btn-tools-table"
+                                                                    title="Ver Detalle"
+                                                                    ng-click="$owner.hisotiralCrtl.onVerDetalleFormasPago(item.formaPagoLiquidacionDTOs)">
+                                                                    <i class="glyphicon glyphicon-eye-open "></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr
+                                                            ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.hisotiralCrtl.verDetalle.recibosDePago.length !== $owner.appConstantsView.CERO">
+                                                            <td colspan="8">
+                                                                {{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                                        </tr>
+                                                        <tr
+                                                            ng-if="$owner.hisotiralCrtl.verDetalle.recibosDePago.length === $owner.appConstantsView.CERO">
+                                                            <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+
+
+                                                <table object-table class="hover-column" display=3
+                                                    data="hisotiralCrtl.formaPagoLiquidacionDTOs"
+                                                    headers="Forma de Pago,Valor,Voucher"
+                                                    fields="formaPago,valorPagado,voucher" search="false"
+                                                    sorting="compound" editable="false" resize="false"
+                                                    ng-if="hisotiralCrtl.formaPagoLiquidacionDTOs.length !== $owner.appConstantsView.CERO">
+                                                    <tbody>
+                                                        <tr style="height: 60px;">
+                                                            <td>{{::item.formaPago}}</td>
+                                                            <td class="money">{{::item.valorPagado| currency}}</td>
+                                                            <td>{{::item.voucher}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr
+                                                            ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.formaPagoLiquidacionDTOs.length !== $owner.appConstantsView.CERO">
+                                                            <td colspan="8">
+                                                                {{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                                        </tr>
+                                                        <tr
+                                                            ng-if="$owner.formaPagoLiquidacionDTOs.length === $owner.appConstantsView.CERO">
+                                                            <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" ng-hide="!hisotiralCrtl.verDetalle.view">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="content-box">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add" data-toggle="collapse"
+                                                data-target="#anulacion">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> {{appConstantsView.DETALLE_ANULACION_LIQUIDACION}}</h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="anulacion">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="fechaAnulacion"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_FECHA_ANULACION}}</label>
+                                                        <input id="fechaAnulacion" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.fechaAnulacion"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="anuladopor"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_USUARIO_ANULACION}}</label>
+                                                        <input id="anuladopor" type="text" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.usuarioAnulacion"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="motivo"
+                                                            class="control-label pull-left">{{appConstantsView.LABEL_MOTIVO_ANULACION}}</label>
+                                                        <textarea id="motivo" ng-disabled="true"
+                                                            ng-model="hisotiralCrtl.verDetalle.motivoAnulacion"
+                                                            class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModalCredito" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">{{appConstantsView.DETALLE_LIQUIDACION}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <table object-table class="hover-column" display=10 data="hisotiralCrtl.listTablaAmortizacion"
+                            headers="Cuota,Valor Cuota,Fecha" fields="cuota,cuotaFija,fechaString" search="false"
+                            sorting="compound" editable="false" resize="false" select="false"
+                            id="obj-table-hisotiral_creditos">
+                            <tbody>
+                                <tr style="height: 60px;">
+                                    <td>{{::item.cuota}}</td>
+                                    <td>{{::item.cuotaFija}}</td>
+                                    <td>{{::item.fechaString}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr
+                                    ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.hisotiralCrtl.listTablaAmortizacion.length !== $owner.appConstantsView.CERO">
+                                    <td colspan="3">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                </tr>
+                                <tr
+                                    ng-if="$owner.hisotiralCrtl.listTablaAmortizacion.length === $owner.appConstantsView.CERO">
+                                    <td colspan="3">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#inputCodigo').keyup(function () {
+            if ($(this).val().length !== 0)
+                $('.btnCodigoConsultar').prop('disabled', false);
+            else
+                $('.btnCodigoConsultar').prop('disabled', true);
+        });
+    });</script>

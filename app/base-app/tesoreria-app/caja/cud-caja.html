@@ -1,0 +1,236 @@
+<style>
+    .info-icon-tool{
+        padding: 5px;
+    }
+    a.tooltip-content > span:hover > i{
+        visibility: visible;
+        opacity: 1;
+        z-index: 100;
+    }
+    @media screen and (max-width: 1135px){
+        .table-scroll-x {
+            overflow-x: scroll;
+        }
+
+        a.tooltip-content > span > i:before, span > i:after {
+            content: "";
+            position: absolute;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid transparent;
+            top: 100%;
+            left: 85%;
+            margin-left: 5px;
+            transform: rotate(-90deg);
+        }
+
+        a.tooltip-content > span > i {
+            height: 85px;
+            top: -75px;
+            left: -1586%;
+        }
+    }
+</style>
+
+<div id="page-title" ng-controller="CajaCtrl as cjCtrl">
+    <h2>{{appConstantsView.LABEL_CAJA}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{cjCtrl.cajaEntityAuxiliar.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/gestionar-caja" ng-click="cjCtrl.limpiar()" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">     
+                <div class="row">
+                    <form method="POST" novalidate name="formRegistrarCaja" >
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <label class="control-label">{{appConstantsView.LABEL_CODIGO}}<span class="text-danger">*</span></label>
+                                <input  validation="required" mask="X" repeat="10"   restrict="reject" 
+                                        class="form-control text-uppercase" name="Codigo"  maxlength="10" 
+                                        ng-disabled="cjCtrl.cajaEntityAuxiliar.disableVerDetalle || cjCtrl.cajaEntityAuxiliar.disableCodigo"
+                                        ng-model="cjCtrl.cajaEntity.codigo" >
+                            </div>
+                            <div class="col-lg-6 col-sm-6"> 
+                                <div class="form-group">
+                                    <label class="control-label" >{{appConstantsView.LABEL_NOMBRE}}<span class="text-danger">*</span></label>
+                                    <input required validation="required" name="Nombre" 
+                                           mask="H" repeat="50"   restrict="reject"  class="form-control text-uppercase" 
+                                           ng-disabled="cjCtrl.cajaEntityAuxiliar.disableVerDetalle"
+                                           ng-model="cjCtrl.cajaEntity.nombre" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label  class="control-label">Identificación del equipo:<span class="text-danger">*</span></label>
+                                    <a hi-help-text="mac" class="tooltip-content"></a>
+                                    <input required validation="required" 
+                                           placeholder='--:--:--:--:--:--'  class="form-control text-uppercase"
+                                           name="idcaja" ng-model="cjCtrl.cajaEntity.identificacionEquipo" 
+                                           ng-disabled="cjCtrl.cajaEntityAuxiliar.disableVerDetalle"
+                                           mask="xx:xx:xx:xx:xx:xx" Limit='true'  restrict="reject"
+                                           ng-blur="cjCtrl.ValidarIdEquipo()">
+                                    <span ng-if="cjCtrl.visible.validaIdEquipo" class="validation text-danger">Campo requiere 12 caracteres.</span>
+                                </div>
+                            </div>
+                            <div  class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_UBICACION}}<span class="text-danger">*</span></label>
+                                    <input required validation="required" 
+                                           name="Ubicacion" mask="%" repeat="50"   restrict="reject"   class="form-control text-uppercase" 
+                                           ng-disabled="cjCtrl.cajaEntityAuxiliar.disableVerDetalle"
+                                           ng-model="cjCtrl.cajaEntity.ubicacion" >
+                                </div>
+                            </div >
+
+                        </div> 
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6" ng-if="!cjCtrl.cajaEntityAuxiliar.disableTablas">
+                                <div class="form-group">
+                                    <label for="estado" class="control-label">{{appConstantsView.LABEL_ESTADO}}<label class="text-danger">*</label></label>
+                                    <select ng-options="item.valor as item.valor for item in cjCtrl.listaEstados" class="form-control" required ng-model="cjCtrl.cajaEntity.estado"
+                                            ng-disabled="cjCtrl.cajaEntityAuxiliar.disableVerDetalle" name="estado" id="estado" validation="required"
+                                            ng-selected="{{item.nombre === 'ACTIVO'}}">
+                                        <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div  class="col-lg-6 col-sm-6" ng-show="cjCtrl.cajaEntityAuxiliar.disableVerDetalle">
+                                <div class="form-group">
+                                    <label class="control-label">Cajero(s)</label>
+                                    <select disabled="" class="form-control"  multiple >
+                                        <option  ng-repeat="x in cjCtrl.cajaEntity.cajero">{{appConstantsView.LABEL_NOMBRE}}: {{x.nombre}} {{x.apellido}} - Identificacion: {{x.idUsuario}}</option>
+                                    </select>
+                                </div >
+                            </div>
+                        </div>
+                        <div class="row" ng-hide="cjCtrl.cajaEntityAuxiliar.disableVerDetalle || cjCtrl.cajaEntityAuxiliar.disableTablas">
+                            <div class="content-box">
+                                <div class="content-box-wrapper">  
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+                                            <i class="glyph-icon icon-cog"></i>
+                                           {{appConstantsView.LABEL_CAJEROS}}
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">     
+                                        <table  object-table
+                                                id="sel1"
+                                                data = cjCtrl.cajaEntity.listaCajeros class="hover-column"
+                                                display = "5"
+                                                headers = "Nombre,Apellido,Identificación,Opciones"
+                                                fields = "nombre,apellido,identificacion"
+                                                sorting = "compound"  
+                                                editable = "false" 
+                                                search="separate"
+                                                resize="false"  
+                                                add-filter="| filter:$owner.all">
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{item.nombre}}</td>
+                                                    <td>{{item.apellido}}</td>
+                                                    <td>{{item.identificacion}}</td>
+                                                    <td class="text-center opciones-table back-button">
+                                                        <a ng-click="$owner.cjCtrl.selectCajeros(item)" href="">
+                                                            <button class="btn  btn-primary">
+                                                                <i class="glyphicon glyphicon-plus" title="Asociar cajero"></i>
+                                                            </button>
+                                                        </a>                                
+                                                    </td>
+                                                </tr>
+                                            <tfoot >
+                                                <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.cjCtrl.cajaEntity.listaCajeros.length !== $owner.appConstantsView.CERO">
+                                                    <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                                                </tr>
+                                                <tr ng-show="$owner.cjCtrl.cajaEntity.listaCajeros.length === $owner.appConstantsView.CERO">
+                                                    <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                </tr>
+                                            </tfoot>  
+                                            </tbody>  
+                                        </table>
+                                    </div>
+                                </div>  
+                            </div>  
+                            <div class="content-box">
+                                <div  class="content-box-wrapper">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+                                            <i class="glyph-icon icon-cog"></i>
+                                            {{appConstantsView.CAJEROS_SELECCIONADOS}} 
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">     
+                                        <table  object-table class="hover-column"
+                                                data = cjCtrl.cajaEntity.cajero
+                                                display = cjCtrl.display
+                                                headers = "Nombre,Apellido,Identificación,Opciones"
+                                                fields = "nombre,apellido,identificacion"
+                                                sorting = "compound"  
+                                                selected-model="cjCtrl.cajaEntity.cajerosSelect"
+                                                editable = "false" 
+                                                search="separate"
+                                                resize="false"  
+                                                select="multiply"
+                                                add-filter="| filter:$owner.all">
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{item.nombre}}</td>
+                                                    <td>{{item.apellido}}</td>
+                                                    <td>{{item.identificacion}}</td>
+                                                    <td class="text-center opciones-table back-button">
+                                                        <a class="btn-tools-table "  ng-click="$owner.cjCtrl.removeCajerosEdit(item)" href="">
+                                                            <button class="btn btn-danger">
+                                                                <i class="glyphicon glyphicon-remove " title="Quitar cajero"></i>
+                                                            </button>
+                                                        </a>                                
+                                                    </td>
+                                                </tr>
+                                            <tfoot >
+                                                <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.cjCtrl.cajaEntity.cajero.length !== $owner.appConstantsView.CERO">
+                                                    <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                                                </tr>
+                                                <tr ng-show="$owner.cjCtrl.cajaEntity.cajero.length === $owner.appConstantsView.CERO">
+                                                    <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                </tr>
+                                            </tfoot>                                                
+                                            </tbody>  
+                                        </table>
+                                    </div >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <ul class="col-lg-12 col-sm-12"></ul>
+                            <div class="content-box-wrapper bg-default">
+                                <div style="text-align:center" class="col-lg-12 col-sm-12">
+                                    <div class="button-pane">
+                                        <input type="submit" class="btn btn-success" ng-hide="cjCtrl.cajaEntityAuxiliar.disableVerDetalle && cjCtrl.cajaEntityAuxiliar.disableCodigo" value="Guardar" ng-click="cjCtrl.onSubmitForm()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Register My Custom Help Template -->
+    <script type="text/ng-template" id="helpMe.directiveHTML">
+        <span class="glyphicon glyphicon-info-sign"
+        ng-show="showHelpText">
+        <i data-ng-bind="helpText"></i>
+        </span>
+    </script>  
+</div>

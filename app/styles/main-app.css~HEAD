@@ -1,0 +1,205 @@
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+body {
+    padding: 0;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+/* Custom page header */
+.header {
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 10px;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 40px 0;
+}
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
+/* Responsive: Small Phones and up */
+@media screen and (max-width: 1366px) {
+    .ngdialog.ngdialog-theme-default .ngdialog-content {
+        width: 88% !important;
+        overflow-y: scroll !important; 
+        max-height: 120% !important;
+    }
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 320px) {
+    .container {
+        max-width: 730px;
+    }
+    
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
+
+    .btn-default {
+        transition: all 0.3s ease 0s !important;
+    }
+
+    .btn-default:hover {
+        color: white !important; 
+        background-color: #e74c3c !important;
+    }
+
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 88% !important;
+    overflow-y: scroll !important; 
+    max-height: 102% !important;
+}
+.panel-default > .panel-heading  > span{
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    font-size: 30px;
+}
+.select-display{
+    width: 10% !important;
+    margin: 0 0 15px 10px !important;
+}
+.ngdialog-registrar-recurso .ngdialog-content{
+    width: 50% !important;
+    overflow-y: scroll !important; 
+    max-height: 102% !important;
+}
+.alert-dismissable .close, .alert-dismissible .close {
+    position: relative !important;
+    top: 0px !important;
+    right: 0px !important;
+    color: inherit !important;
+}
+
+.info-icon-tool{
+    padding: 5px;
+}
+
+.form-control-area{
+    font-size: 13px;
+    display: block;
+    float: none;
+    background: #fff;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    color: #2b2f33;
+    border: #FFFFFF solid 1px;
+    -webkit-box-shadow: inset 1px 1px 3px #f6f6f6;
+    -moz-box-shadow: inset 1px 1px 3px #f6f6f6;
+    box-shadow: inset 1px 1px 3px #FFFFFF;
+
+}
+
+}
+.required{
+    color: red;
+}
+.ngdialog-registrar-recurso .ngdialog-content{
+    width: 50% !important;
+    overflow-y: scroll !important; 
+    max-height: 102% !important;
+}
+.alert-dismissable .close, .alert-dismissible .close {
+    position: relative !important;
+    top: 0px !important;
+    right: 0px !important;
+    color: inherit !important;
+}
+
+.btn-tools-table{
+    line-height: 20px !important; 
+    height: 20px !important;
+    min-width: 20px !important;   
+}
+
+.alert-success-toast{
+    color: #fff;
+    border-color: #29b765;
+    background: #2ecc71;
+}
+
+.alert-error-toast{
+    color: #fff;
+    border-color: #cf4436;
+    background: #e74c3c;
+}
+
+.alert-danger-toast{
+    color: #fff;
+    border-color: #29b765;
+    background: #2ecc71;
+}
+
+.alert-info-toast{
+    color: #fff;
+    background: #65a6ff;
+    border-color: #5388d1;
+}
+
+.alert-warning-toast{
+    color: #fff;
+    background: #fc0;
+    border-color: #deb200;
+}
+
+
+

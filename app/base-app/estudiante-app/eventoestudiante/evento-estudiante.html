@@ -1,0 +1,197 @@
+<div ng-controller="inscripcionCtrl as inspCtrl">
+    <h2>{{appConstantsView.TITLE_INSCRIPCION}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">Formulario Inscripción</h3>
+            </div>
+            <div class="float-right" ng-if="true">
+                <a href="#/inscripcion" ng-click="inspCtrl.onSalir()" 
+                   class="btn btn-sm btn-info icon-tool-add back-button" 
+                   style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i>
+                        <span class="info-icon-tool">{{appConstantsView.BOTON_SALIR}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="panel-default">
+            <div class="panel-body">
+                <form method="POST" name="formcudinscripcion" novalidate>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="periodo" class="control-label">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}</label><label class="text-danger">*</label>
+                                <ui-select name="selectPeriodoAcademico" 
+                                           id="selectPeriodoAcademico" 
+                                           ng-model="inspCtrl.nuevaInscripcion.idPeriodoAcademico" 
+                                           class="form-control" 
+                                           on-select="inspCtrl.onFiltrarProgramaPorNivelFormacion(inspCtrl.nuevaInscripcion.idNivelFormacion,inspCtrl.nuevaInscripcion.idPeriodoAcademico);"
+                                           ng-disabled="inspCtrl.nuevaInscripcion.id !== null">
+                                    <ui-select-match placeholder="--Seleccione--" >{{$select.selected.nombre}}</ui-select-match>
+                                    <ui-select-choices repeat="periodo.id as periodo in inspCtrl.periodosAcademicos | filter: {nombre: $select.search} | orderBy: 'nombre'">
+                                        <div ng-bind-html="periodo.nombre"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <div ng-if='preCtrl.visible.validoPeriodo'>
+                                    <div class="text-danger" style="margin-top: -10px;" >{{appConstantsView.ERROR_CAMPO_REQUERIDO}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_SECCIONAL}}</label><label class="text-danger">*</label>
+                                <ui-select name="nivelforma" 
+                                           ng-disabled="false" 
+                                           ng-model="inspCtrl.nuevaInscripcion.idSeccional" 
+                                           class="form-control">
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreSeccional}}</ui-select-match>
+                                    <ui-select-choices repeat="seccional.id as seccional in inspCtrl.seccionales | filter: {nombreSeccional: $select.search}">
+                                        <small ng-bind="seccional.nombreSeccional"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdSeccional" class="validation text-danger"></span>
+                                <input type="text" 
+                                       name="fakeInputIdSeccional"
+                                       class="hidden" 
+                                       ng-model="inspCtrl.nuevaInscripcion.idSeccional" 
+                                       validation="required" 
+                                       validation-error-to="errorIdSeccional"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_NIVEL_FORMACION}}</label><label class="text-danger">*</label>
+                                <ui-select name="nivelforma" 
+                                           ng-disabled="false" 
+                                           ng-model="inspCtrl.nuevaInscripcion.idNivelFormacion" 
+                                           class="form-control"
+                                           on-select="inspCtrl.onChangeSelectNivelFormacion(); inspCtrl.onFiltrarProgramaPorNivelFormacion(inspCtrl.nuevaInscripcion.idNivelFormacion,inspCtrl.nuevaInscripcion.idPeriodoAcademico);">
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreNivelFormacion}}</ui-select-match>
+                                    <ui-select-choices  repeat="nivelform.id as nivelform in inspCtrl.nivelesformacion | filter: {nombreNivelFormacion: $select.search}">
+                                        <small ng-bind="nivelform.nombreNivelFormacion"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdNivelFormacion" class="validation text-danger"></span>
+                                <input type="text" 
+                                       name="fakeInputIdNivelFormacion"
+                                       class="hidden" 
+                                       ng-model="inspCtrl.nuevaInscripcion.idNivelFormacion" 
+                                       validation="required" 
+                                       validation-error-to="errorIdNivelFormacion"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label><label class="text-danger">*</label>
+                                <ui-select name="programa"
+                                           ng-disabled="inspCtrl.visible.disableSelectPrograma" 
+                                           ng-model="inspCtrl.nuevaInscripcion.programaDTO" 
+                                           class="form-control" 
+                                           on-select="inspCtrl.onChangeSelectPrograma(); inspCtrl.onFiltrarModalidadYHorarioPorPorgrama(inspCtrl.nuevaInscripcion.programaDTO);">
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombrePrograma}}</ui-select-match>
+                                    <ui-select-choices repeat="programa in inspCtrl.programas | filter: {nombrePrograma: $select.search}">
+                                        <small ng-bind="programa.nombrePrograma"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdPrograma" class="validation text-danger form-span-danger position-danger"></span>
+                                <span ng-if='inspCtrl.visible.esvacialistaprograma' class="form-span-danger text-danger position-danger">{{appConstantsView.SIN_PROGRAMAS_DE_PLANEACION}}</span>
+                                <input type="text" 
+                                       name="fakeInputIdPrograma"
+                                       class="hidden" 
+                                       ng-model="inspCtrl.nuevaInscripcion.programaDTO" 
+                                       validation="required" 
+                                       validation-error-to="errorIdPrograma"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_MODALIDAD}}</label><label class="text-danger">*</label>
+                                <!--ng-disabled="inspCtrl.visible.disableSelectModalidad"--> 
+                                <ui-select name="modalidad" 
+                                           ng-model="inspCtrl.nuevaInscripcion.modalidadDTO" 
+                                           class="form-control" 
+                                           on-select="inspCtrl.onChangeSelectModalidad();">
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreModalidad}}</ui-select-match>
+                                    <ui-select-choices  repeat="modalidad in inspCtrl.lstmodalidad | filter: {nombreModalidad: $select.search}">
+                                        <small ng-bind="modalidad.nombreModalidad"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdModalidad" class="validation text-danger"></span>
+                                <input type="text" 
+                                       name="fakeInputIdModalidad"
+                                       class="hidden" 
+                                       ng-model="inspCtrl.nuevaInscripcion.modalidadDTO" 
+                                       validation="required" 
+                                       validation-error-to="errorIdModalidad"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <!--ng-disabled="inspCtrl.visible.disableSelectHorario"--> 
+                                <label class="control-label">{{appConstantsView.LABEL_HORARIO}}</label><label class="text-danger">*</label>
+                                <ui-select name="horario" 
+                                           ng-disabled="inspCtrl.visible.disableSelectHorario" 
+                                           ng-model="inspCtrl.nuevaInscripcion.horarioDTO" 
+                                           class="form-control"
+                                           on-select="inspCtrl.onChangeSelectHorario();">
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreHorario}}</ui-select-match>
+                                    <ui-select-choices  repeat="horario in inspCtrl.lsthorario | filter: {nombreHorario: $select.search}">
+                                        <small ng-bind="horario.nombreHorario"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdHorario" class="validation text-danger"></span>
+                                <input type="text" 
+                                       name="fakeInputIdHorario"
+                                       class="hidden" 
+                                       ng-model="inspCtrl.nuevaInscripcion.horarioDTO" 
+                                       validation="required" 
+                                       validation-error-to="errorIdHorario"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_TIPO_CONVENIO}}</label><label class="text-danger">*</label>
+                                <ui-select name="convenios" 
+                                           ng-disabled="inspCtrl.visible.disableSelectTipoConvenio" 
+                                           ng-model="inspCtrl.nuevaInscripcion.idTipoConvenio" 
+                                           class="form-control" 
+                                           ng-change="inspCtrl.onChangeTipoConvenio()">
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreTipoConvenio}}</ui-select-match>
+                                    <ui-select-choices  repeat="conven.id as conven in inspCtrl.convenios | filter: {nombreTipoConvenio: $select.search}">
+                                        <small ng-bind="conven.nombreTipoConvenio"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdTipoConvenio" class="validation text-danger"></span>
+                                <input type="text" 
+                                       name="fakeInputIdTipoConvenio"
+                                       class="hidden" 
+                                       ng-model="inspCtrl.nuevaInscripcion.idTipoConvenio"
+                                       validation="required" 
+                                       validation-error-to="errorIdTipoConvenio"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <br/>
+                <div class="clearfix"></div>
+                <div class="button-pane">
+                    <input type="submit" 
+                           class="btn" 
+                           style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1;" 
+                           ng-click="inspCtrl.onIrWizarInscripcion()" 
+                           value="Continuar">
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>

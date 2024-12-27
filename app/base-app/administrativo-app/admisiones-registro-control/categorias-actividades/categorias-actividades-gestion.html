@@ -1,0 +1,153 @@
+<style>
+    .info-icon-tool {
+        padding: 5px;
+    }
+    
+    .table-hover > tbody > tr.selected:hover > td,
+    .selected {
+        background-color: #d7f1a0;
+        color: black;
+        cursor: pointer;
+    }
+    
+    .table-hover > tbody > tr:hover > td {
+        background-color: #ddd;
+        color: black;
+        cursor: pointer;
+    }
+
+    .table > thead > tr > th {
+        color: #4b5056;
+        background-color: #f9fafe;
+        font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+</style>
+
+<div id="page-title" ng-controller="categoriaActividadesCtrl as CACtrl">
+    <h2>{{appConstantsView.MAESTRO_CATEGORIA_ACTIVIDADES}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{CACtrl.categoriaActividadesVisor.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/categorias-actividades" ng-click="CACtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add back-button"
+                    data-animation="flipOutX" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <form method="POST" novalidate name="formAgregarCategoria">
+                <fieldset ng-disabled="CACtrl.categoriaActividadesVisor.onDeshabilitar">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="codigo" class="control-label">{{appConstantsView.LABEL_CODIGO_OBLIGATORIO}}</label>
+                                    <input ng-disabled="CACtrl.categoriaActividadesVisor.onDeshabilitar || CACtrl.categoriaActividadesVisor.onDeshabilitarCodigo"
+                                        type="text" class="form-control" id="codigo" name="codigo" ng-model="CACtrl.categoriaActividadesEntity.codigo"
+                                        mask="%" repeat="10" restrict="reject" validation="required|alpha_num">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE_OBLIGATORIO}}</label>
+                                    <input ng-disabled="CACtrl.categoriaActividadesVisor.onDeshabilitar" type="text" class="form-control" id="nombre" name="nombre"
+                                        ng-model="CACtrl.categoriaActividadesEntity.nombreCat" validation="required|alpha_spaces"
+                                        mask="%" repeat="99" restrict="reject">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="estado" class="control-label">{{appConstantsView.LABEL_ESTADO_OBLIGATORIO}}</label>
+                                    <select ng-disabled="CACtrl.categoriaActividadesVisor.onDeshabilitar" class="form-control" ng-model="CACtrl.categoriaActividadesEntity.estado"
+                                        required name="estado" id="estado" validation="required: alt=Seleccione un estado.">
+                                <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                <option value="Activo">{{appConstantsView.LABEL_INACTIVO}}</option>
+                                <option value="Inactivo">{{appConstantsView.LABEL_ACTIVO}}</option>
+                            </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-pane" ng-hide="CACtrl.categoriaActividadesVisor.onDeshabilitar">
+                            <button type="submit" class="btn btn-success" ng-click="CACtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                            <button class="btn btn-info" ng-click="CACtrl.onLimpiarRegistro()" ng-hide="CACtrl.categoriaActividadesVisor.onDeshabilitarCodigo">Limpiar</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="content-box" ng-hide="CACtrl.categoriaActividadesVisor.onDeshabilitarTabla">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.LABEL_ACTIVIDADES_RELACIONADAS}}</h3>
+            <div class="float-right" ng-hide="CACtrl.categoriaActividadesVisor.onDeshabilitarOpciones">
+                <a href="" ng-click="CACtrl.onAgregarActividad();" class="btn btn-sm btn-info icon-tool-add" style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.BOTON_AGREGAR}}</span>
+                    </div>
+                </a>
+                <a href="" class="btn btn-sm btn-info icon-tool-add {{CACtrl.filasSeleccionadas.length === appConstantsView.CERO || CACtrl.filasSeleccionadas.length === appConstantsView.UNO?'disabled':' '}}"
+                    ng-click="CACtrl.onEliminarActividadMasivo()" data-style="dark" data-theme="bg-white" data-opacity="40" style="background-color: #e74c3c; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-remove"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.SPAN_ELIMINAR_MASIVO}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="back-cover table-scroll-x">
+                <table class="table table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr style="font-weight: bold">
+                            <th style="width:20%"{{appConstantsView.LABEL_CODIGO}}/th>
+                            <th style="width:20%">{{appConstantsView.LABEL_NOMBRE}}</th>
+                            <th style="width:3%">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="actividades in CACtrl.listaActividades" ng-class="{'selected': actividades.selected}" ng-click="CACtrl.onSelect(actividades,$index)">
+                        <td>
+                            <span editable-text="actividades.codigo" e-ng-readonly="onEdit" onbeforesave="CACtrl.onComprobarActividad($data)" ng-hide="onEdit"
+                                e-name="codigo" e-form="rowform">
+                                {{actividades.codigo || ''}}
+                            </span>
+                        </td>
+                        <td>
+                            <span editable-text="actividades.nombre" onbeforesave="CACtrl.onComprobarActividad($data)" ng-hide="onEdit" e-name="nombre" e-form="rowform">
+                                {{actividades.nombre || ''}}
+                            </span>
+                        </td>
+                        <td style="white-space: nowrap">
+                            <form editable-form name="rowform" onbeforesave="CACtrl.onGuardarActividad($data, $index+1)" ng-show="rowform.$visible" class="form-buttons form-inline text-center"
+                                shown="CACtrl.initialConfigActividad.initial" oncancel="CACtrl.onCancelarGuardadoActividad($index+1)">
+                                <button type="submit" ng-disabled="rowform.$waiting" ng-click="onEdit=false;" class="btn btn-success btn-tools-table"><i class="glyphicon glyphicon-ok"></i></button>
+                                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();onEdit=false" class="btn btn-danger btn-tools-table"><i class="glyphicon glyphicon-ban-circle"></i></button>
+                            </form>
+                            <div class="buttons text-center" ng-show="!rowform.$visible">
+                                <button title="Modificar" class="btn btn-info btn-tools-table" ng-disabled="CACtrl.categoriaActividadesVisor.onDeshabilitarOpciones"
+                                    ng-click="rowform.$show();onEdit=true"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button title="Eliminar" class="btn btn-danger btn-tools-table" ng-disabled="CACtrl.categoriaActividadesVisor.onDeshabilitarOpciones"
+                                    ng-click="CACtrl.onEliminarActividad($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tfoot>
+                        <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && CACtrl.listaActividades.length !== $owner.appConstantsView.CERO">
+                            <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                        </tr>
+                        <tr ng-show="CACtrl.listaActividades.length === $owner.appConstantsView.CERO">
+                            <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

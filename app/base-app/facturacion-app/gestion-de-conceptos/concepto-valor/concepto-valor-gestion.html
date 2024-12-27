@@ -1,0 +1,127 @@
+<div id="page-title" ng-controller="conceptoValorCtrl as CVCtrl">
+    <h2>{{appConstantsView.TITLE_CONFIGURAR_CONCEPTOS_VALOR}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{CVCtrl.conceptoValorVisor.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/concepto-valor" ng-click="CVCtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add back-button" data-animation="flipOutX"
+                   style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <form method="POST" novalidate name="formAgregarConceptoValor">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="periodo" class="control-label">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}<label class="text-danger">*</label></label>
+                                <select ng-options="item as item.nombrePeriodoAcademico for item in CVCtrl.listaPeriodos" class="form-control" ng-model="CVCtrl.conceptoValorEntity.periodo"
+                                        ng-disabled="" name="periodo" id="periodo" validation="required" 
+                                        ng-change="CVCtrl.onConsultarConceptoValorConf(CVCtrl.conceptoValorEntity.periodo)">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6" ng-if="CVCtrl.conceptoValorVisor.campoConceptoFacturacion">
+                            <div class="form-group">
+                                <label for="conceptoFacturacionVer" class="control-label">{{appConstantsView.LABEL_CONCEPTO_FACTURACION}}<label>&#8203</label></label>
+                                <input class="text-uppercase form-control" ng-disabled="true" type="text" ng-model="CVCtrl.conceptoValorEntity.conceptoFacturacionVer">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="tipoConceptoFacturacion" class="control-label">{{appConstantsView.LABEL_TIPO}}<label>&#8203</label></label>
+                                <input class="text-uppercase form-control" ng-disabled="true" type="text" ng-model="CVCtrl.conceptoValorEntity.tipoConceptoFacturacion">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-box-wrapper" ng-if="!CVCtrl.conceptoValorVisor.onDeshabilitarPanel">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="valorConceptoValor" class="control-label">{{appConstantsView.LABEL_VALOR}}<label class="text-danger">*</label></label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            $
+                                        </span>
+                                        <input class="form-control money" maxlength="15" ng-disabled="CVCtrl.conceptoValorVisor.onDeshabilitar || CVCtrl.conceptoValorVisor.onDeshabilitarCerrado" type="text"
+                                               id="valorConceptoValor" name="valorConceptoValor" ui-money-mask="0" ng-model="CVCtrl.conceptoValorEntity.valorConceptoValor"
+                                               validation="required" restrict="reject" validation-error-to="validacionValorConceptoValor">
+                                    </div>
+                                    <span id="validacionValorConceptoValor" class="validation text-danger"> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-box">
+                            <div class="button-pane button-pane-top">
+                                <div class="float-left">
+                                    <h3 class="text-uppercase content-box-header-title btn-sm">{{appConstantsView.LABEL_FECHA_VIGENCIA}}</h3>
+                                </div>
+                            </div>
+                            <div class="content-box-wrapper">
+                                <div class="row">
+                                    <div id="fechaConceptoValor" class="input-daterange input-group">
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{appConstantsView.LABEL_FECHA_INICIO}}<label class="text-danger">*</label></label>
+                                                <div id="fecha-inicio" class="input-group date">
+                                                    <input id="fechaInicio" name="fechaInicio" validation="required" mask="39/19/9999" restrict="reject" readonly="true" 
+                                                           ng-disabled="CVCtrl.conceptoValorVisor.onDeshabilitar || CVCtrl.conceptoValorVisor.onDeshabilitarCerrado"
+                                                           placeholder="dd/mm/aaaa" type="text" ng-model="CVCtrl.conceptoValorEntity.fechaInicio"ng-click="CVCtrl.onFocus('#fechaInicio')" ng-blur="CVCtrl.onBlur('#fechaInicio')"
+                                                           validation-error-to="validacionFechaInicial" class="form-control date" ng-init="CVCtrl.datapiker()">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                                <span id="validacionFechaInicial" class="validation text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="form-group">
+                                                <label for="fechaFin" class="control-label">{{appConstantsView.LABEL_FECHA_FIN}}<label class="text-danger">*</label></label>
+                                                <div id="fecha-fin" class="input-group date">
+                                                    <input id="fechaFin" name="fechaFin" validation="required" mask="39/19/9999" restrict="reject" readonly="true"
+                                                           ng-disabled="CVCtrl.conceptoValorVisor.onDeshabilitar || CVCtrl.conceptoValorVisor.onDeshabilitarCerrado"
+                                                           placeholder="dd/mm/aaaa" type="text" ng-model="CVCtrl.conceptoValorEntity.fechaFin" ng-init="CVCtrl.datapiker()" 
+                                                           validation-error-to="validacionFechaFin" class="form-control date" >
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                                <span id="validacionFechaFin" class="validation text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-pane" ng-if="!CVCtrl.conceptoValorVisor.onDeshabilitarActualizar">
+                            <button type="submit" class="btn btn-success" ng-click="CVCtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../../../../styles/assets/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" type="text/javascript"></script>
+<script src="../../../../js/main-app.js" type="text/javascript"></script>
+<script>
+                                        $("#fechaInicio").focus(function () {
+                                value = $("#fechaInicio").val();
+                                        alert(value);
+                                });
+                                        $("#fechaInicio").blur(function () {
+                                $("#fechaInicio").val(value);
+                                });
+                                        $("#fechaFin").focus(function () {
+                                value = $("#fechaFin").val();
+                                });
+                                        $("#fechaFin").blur(function () {
+                                $("#fechaFin").val(value);
+                                });
+</script>

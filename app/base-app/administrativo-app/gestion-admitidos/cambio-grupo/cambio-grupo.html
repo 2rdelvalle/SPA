@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<div id="page-title" ng-controller="consultarGrupoCtrl as asignarNotaCtrl">
+    <h2>CAMBIO DE GRUPO</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Cambiar Grupo</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/gestion-admitidos')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <form method="POST" novalidate name="formAsignarNota">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_MODULO}}</label><label class="text-danger">*</label>                                                                
+                                <input class="form-control hidden" ng-model="asignarNotaCtrl.idModulo"
+                                       name="modulo"
+                                       id="modulo" validation="required" validation-error-to="validacionModulo">
+                                <ui-select name="modulos" id="modulos"  
+                                           title="{{$select.selected.nombre}}"
+                                           ng-model="asignarNotaCtrl.idModulo"  ng-change="asignarNotaCtrl.onBuscarGruposByModulo()" class="form-control">
+                                    <ui-select-match   placeholder="--Seleccione--">{{$select.selected.nombre}}</ui-select-match>
+                                    <ui-select-choices  repeat="modulo.id as modulo in asignarNotaCtrl.listadoModulos | filter: {nombre: $select.search} | orderBy:'nombre' | limitTo: ($select.search.length <= 1) ? 50 : 20">
+                                        <small class="text-uppercase" title="{{modulo.nombre}}">
+                                            {{modulo.nombre}}
+                                        </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="validacionModulo" class="validation validation-select text-danger pull-left"></span>
+                            </div>  
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Grupo Actual</label>
+                                <select class="form-control" ng-model="asignarNotaCtrl.idGrupo" ng-change="asignarNotaCtrl.onConsultarEstudiantes()" name="grupo" id="grupo" validation="required"
+                                        ng-options="grupo.id as grupo.nombreGrupo +      ' ' +      grupo.nombreDocente +      ' ' +      grupo.numeroModulo  for grupo in asignarNotaCtrl.listadoGrupos| orderBy:'nombreGrupo'" 
+                                        >
+                                    <option ng-if="mcCtrl.listadoGrupos.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Grupo Destino</label>
+                                <select class="form-control" ng-model="asignarNotaCtrl.idGrupoDestino" ng-change="asignarNotaCtrl.asignarGrupoDestino()"  name="grupoD" id="grupoD" validation="required"
+                                        ng-options="grupo.id as grupo.nombreGrupo +      ' ' +      grupo.nombreDocente +      ' ' +      grupo.numeroModulo for grupo in asignarNotaCtrl.listadoGruposDestino| orderBy:'nombreGrupo'">
+                                    <option ng-if="mcCtrl.listadoGrupos.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-box-wrapper">
+                        SELECCIONAR TODOS
+                        <input type="checkbox" 
+                               ng-model="asignarNotaCtrl.selectTodos"
+                               name="selectTodos"
+                               ng-disabled="asignarNotaCtrl.listadoEstudiantes.length === appConstantsView.CERO "
+                               ng-true-value="true"
+                               ng-false-value="false"
+                               ng-change="asignarNotaCtrl.onSelectTodos()">
+
+                        <table object-table class="hover-column" id="listaModulo" data="asignarNotaCtrl.listadoEstudiantes" headers="Estudiante"
+                               fields="estudiante"
+                               display="1000"
+                               selected-model="asignarNotaCtrl.report.selectedModulo"
+                               sorting="false" editable="false" search="separate"
+                               resize="false" select="multiply">
+                            <tbody>
+                                <tr ng-click="$owner.asignarNotaCtrl.onSelectTodosTable(ifSelected(item)); setSelected(item)">
+                                    <td style="text-align:center; vertical-align: middle;">
+                                        {{::item.estudiante}}
+                                    </td>
+                                    <td ng-hide="true">{{ $owner.asignarNotaCtrl.obtenerFiltrados($filtered)}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.asignarNotaCtrl.listadoEstudiantes.length !== $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                </tr>
+                                <tr ng-if="$owner.asignarNotaCtrl.listadoEstudiantes.length === $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                </tr>
+                            </tfoot>
+
+                        </table>
+
+                        <div class=" button-pane ">
+                            <button type="submit " class="btn btn-success " ng-hide="asignarNotaCtrl.listadoEstudiantes.length === appConstantsView.CERO" ng-click="asignarNotaCtrl.guardarNota()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

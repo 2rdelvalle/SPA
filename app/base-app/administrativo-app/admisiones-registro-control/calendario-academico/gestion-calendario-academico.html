@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<script src="../../../../styles/assets/widgets/input-switch/inputswitch.js" type="text/javascript"></script>
+<script src="../../../../styles/assets/widgets/input-switch/inputswitch-alt.js" type="text/javascript"></script>
+<script src="../../../../styles/assets/widgets/uniform/uniform-CalenAcademiCtrl.js" type="text/javascript"></script>
+<script src="../../../../styles/assets/widgets/timepicker/timepicker.js" type="text/javascript"></script>
+
+<div id="page-title" ng-controller="calendarioAcademicoCtrl as CalenAcademiCtrl">
+
+
+    <h2>{{appConstantsView.TITLE_CALENDARIO_ACADEMICO}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{CalenAcademiCtrl.calendariosAcademicosVisor.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/calendario-academico" ng-click="CalenAcademiCtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add back-button"
+                   data-animation="flipOutX" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <form method="POST" novalidate name="formAgregarCalendario">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="codigo" class="control-label">{{appConstantsView.LABEL_CODIGO}}<label class="text-danger">*</label></label>
+                                <input class="text-uppercase form-control" ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitarCodigos"
+                                       mask="X" repeat="10" restrict="reject" id="codigo" name="codigo" ng-model="CalenAcademiCtrl.calendarioAcademicosEntity.codigo"
+                                       validation="required">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}<label class="text-danger">*</label></label>
+                                <input type="text" class="text-uppercase form-control" ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar"
+                                       id="nombre" name="nombre" ng-model="CalenAcademiCtrl.calendarioAcademicosEntity.nombreCalendario" validation="required"
+                                       maxlength="100" restrict="reject">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label" for="modalidad">{{appConstantsView.LABEL_MODALIDAD}}<label class="text-danger">*</label></label>
+                                <select ng-options="item.codigo as item.valor for item in CalenAcademiCtrl.listaModalidades" class="form-control" ng-model="CalenAcademiCtrl.calendarioAcademicosEntity.modalidad"
+                                        ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitarCodigos" name="modalidad" id="modalidad" validation="required">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label" for="periodoAcademico">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}<label class="text-danger">*</label></label>
+                                <select ng-options="item.id as item.nombrePeriodoAcademico for item in CalenAcademiCtrl.periodosAcademicos" class="form-control"
+                                        ng-model="CalenAcademiCtrl.calendarioAcademicosEntity.periodoAcademico" ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitarCodigos"
+                                        name="periodoAcademico" id="periodoAcademico" validation="required">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6" ng-if="!CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitarCampoEstado">
+                            <div class="form-group">
+                                <label for="estado" class="control-label">{{appConstantsView.LABEL_ESTADO}}<label class="text-danger">*</label></label>
+                                <select ng-options="item.codigo as item.valor for item in CalenAcademiCtrl.listaEstados" class="form-control" ng-model="CalenAcademiCtrl.calendarioAcademicosEntity.estado"
+                                        ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar" name="estado" id="estado" validation="required">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-none text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_CALENDARIO}}</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="content-box-wrapper">
+
+                            <div class="back-cover table-scroll-x">
+
+                                <a href="" ng-click="CalenAcademiCtrl.addUser()" class="btn btn-sm btn-info icon-tool-add float-right" ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar || (CalenAcademiCtrl.maximoNivel === CalenAcademiCtrl.calendarioAcademicosEntity.calendario.length)"
+                                   style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1; margin-bottom: 6px;">
+                                    <div class="glyph-icon">
+                                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.SPAN_AGREGAR_MODULO}}</span>
+                                    </div>
+                                </a>
+                                <table class="table table-hover table-condensed dias">
+                                    <thead>
+                                        <tr style="font-weight: bold">
+                                            <th style="width:12%">Módulo</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Fin</th>
+                                            <th ng-hide="{{!(CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.UNO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.DOS || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.TRES || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CUATRO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CINCO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SEIS || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SIETE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.OCHO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.NUEVE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.DIEZ)}}">
+                                                Parcial 1
+                                            </th>
+                                            <th ng-hide="{{!(CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.DOS || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.TRES || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CUATRO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CINCO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SEIS || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SIETE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.OCHO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.NUEVE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.DIEZ)}}">
+                                                Parcial 2
+                                            </th>
+                                            <th ng-hide="{{!(CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.TRES || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CUATRO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CINCO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SEIS || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SIETE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.OCHO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.NUEVE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.DIEZ)}}">
+                                                Parcial 3
+                                            </th>
+
+                                            <th style="width:10%">
+                                                Opciones
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tr ng-repeat="datos in CalenAcademiCtrl.calendarioAcademicosEntity.calendario| filter:search as filtered" ng-class="{'selected': datos.selected}">
+                                        <td>
+                                            <div class="form-group">
+                                                <input class="form-control" name="{{'modulo' + $index}}" id="{{'modulo' + $index}}" ng-model="datos.modulo" ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar"
+                                                       validation="required" mask="H" repeat="50" restrict="reject" placeholder="Nombre" </div>
+                                        </td>
+                                        <td>
+
+                                            <div class="form-group" ng-init="CalenAcademiCtrl.dataPikerRange(datos.fechaInicioCalendario, 'fechaInicioCalendario' + $index)">
+                                                <div class="input-group fecha-inicio">
+                                                    <span class="input-group-addon">
+                                                        <i class="glyph-icon icon-calendar"></i>
+                                                    </span>
+                                                    <input type="text" class="form-control date text-left" mask="39/19/9999" restrict="reject" placeholder='dd/mm/aaaa' name="{{'fechaInicioCalendario' + $index}}"
+                                                           id="{{'fechaInicioCalendario' + $index}}" autocomplete="off" ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar"
+                                                           readonly="true" ng-click="CalenAcademiCtrl.onFocus('#fechaInicioCalendario' + $index)" ng-blur="CalenAcademiCtrl.onBlur('#fechaInicioCalendario' + $index)"
+                                                           ng-model="datos.fechaInicioCalendario" validation="required" validation-error-to="{{'ValidaFechaInicioCalendario' + $index}}"
+                                                           />
+                                                </div>
+                                                <span id="{{'ValidaFechaInicioCalendario' + $index}}" class="validation text-danger"></span>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div class="form-group" ng-init="CalenAcademiCtrl.dataPikerRange(datos.fechaFinCalendario, 'fechaFinCalendario' + $index)">
+                                                <div class="input-group fecha-fin">
+                                                    <span class="input-group-addon">
+                                                        <i class="glyph-icon icon-calendar"></i>
+                                                    </span>
+                                                    <input type="text" class="form-control date text-left" mask="39/19/9999" restrict="reject" placeholder='dd/mm/aaaa' name="{{'fechaFinCalendario' + $index}}"
+                                                           id="{{'fechaFinCalendario' + $index}}" autocomplete="off" ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar"
+                                                           readonly="true" ng-click="CalenAcademiCtrl.onFocus('#fechaFinCalendario' + $index)" ng-blur="CalenAcademiCtrl.onBlur('#fechaFinCalendario' + $index)"
+                                                           ng-model="datos.fechaFinCalendario" validation="required" validation-error-to="{{'ValidaFechaFinCalendario' + $index}}"
+                                                           />
+                                                </div>
+                                                <span id="{{'ValidaFechaFinCalendario' + $index}}" class="validation text-danger"></span>
+                                            </div>
+
+                                        </td>
+                                        <td ng-hide="{{!(CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.UNO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.DOS || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.TRES || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CUATRO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CINCO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SEIS || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SIETE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.OCHO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.NUEVE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.DIEZ)}}">
+                                            <div class="form-group" ng-init="CalenAcademiCtrl.dataPikerRange(datos.fecha1, 'fecha1' + $index)">
+                                                <div class="input-group fecha-fin">
+                                                    <span class="input-group-addon">
+                                                        <i class="glyph-icon icon-calendar"></i>
+                                                    </span>
+                                                    <input type="text" class="form-control date text-left" mask="39/19/9999" restrict="reject" placeholder='dd/mm/aaaa' name="{{'fecha1' + $index}}"
+                                                           id="{{'fecha1' + $index}}" autocomplete="off" ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar"
+                                                           readonly="true" ng-click="CalenAcademiCtrl.onFocus('#fecha1' + $index)" ng-blur="CalenAcademiCtrl.onBlur('#fecha1' + $index)"
+                                                           ng-click="CalenAcademiCtrl.dataPikerRange()" ng-model="datos.fecha1" validation="required" validation-error-to="{{'ValidaFecha1' + $index}}"
+                                                           />
+                                                </div>
+                                                <span id="{{'ValidaFecha1' + $index}}" class="validation text-danger"></span>
+                                            </div>
+                                        </td>
+                                        <td ng-hide="{{!(CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.DOS || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.TRES || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CUATRO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CINCO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SEIS || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SIETE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.OCHO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.NUEVE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.DIEZ)}}">
+
+                                            <div class="form-group" ng-init="CalenAcademiCtrl.dataPikerRange(datos.fecha2, 'fecha2' + $index)">
+                                                <div class="input-group fecha-fin">
+                                                    <span class="input-group-addon">
+                                                        <i class="glyph-icon icon-calendar"></i>
+                                                    </span>
+                                                    <input type="text" class="form-control date text-left" mask="39/19/9999" restrict="reject" placeholder='dd/mm/aaaa' name="{{'fecha2' + $index}}"
+                                                           id="{{'fecha2' + $index}}" autocomplete="off" ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar"
+                                                           readonly="true" ng-click="CalenAcademiCtrl.onFocus('#fecha2' + $index)" ng-blur="CalenAcademiCtrl.onBlur('#fecha2' + $index)"
+                                                           ng-model="datos.fecha2" validation="required" validation-error-to="{{'ValidaFecha2' + $index}}" />
+                                                </div>
+                                                <span id="{{'ValidaFecha2' + $index}}" class="validation text-danger"></span>
+                                            </div>
+                                        </td>
+                                        <td ng-hide="{{!(CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.TRES || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CUATRO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.CINCO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SEIS || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.SIETE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.OCHO || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.NUEVE || CalenAcademiCtrl.calendariosAcademicosVisor.maxCortes === appConstantsView.DIEZ)}}">
+                                            <div class="form-group" ng-init="CalenAcademiCtrl.dataPikerRange(datos.fecha3, 'fecha3' + $index)">
+                                                <div class="input-group fecha-fin">
+                                                    <span class="input-group-addon">
+                                                        <i class="glyph-icon icon-calendar"></i>
+                                                    </span>
+                                                    <input type="text" class="form-control date text-left" mask="39/19/9999" restrict="reject" placeholder='dd/mm/aaaa' name="{{'fecha3' + $index}}"
+                                                           id="{{'fecha3' + $index}}" autocomplete="off" ng-disabled="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar"
+                                                           readonly="true" ng-click="CalenAcademiCtrl.onFocus('#fecha3' + $index)" ng-blur="CalenAcademiCtrl.onBlur('#fecha3' + $index)"
+                                                           ng-model="datos.fecha3" validation="required" validation-error-to="{{'ValidaFecha3' + $index}}" />
+                                                </div>
+                                                <span id="{{'ValidaFecha3' + $index}}" class="validation text-danger"></span>
+                                            </div>
+                                        </td>
+
+
+                                        <td style=" margin-bottom: 14px; border-bottom-width: 19px;">
+                                            <div class="opciones-table text-center" ng-show="!rowform.$visible">
+                                                <button ng-hide="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar || $index === appConstantsView.CERO" title="Eliminar" class="btn btn-danger btn-tools-table"
+                                                        ng-click="CalenAcademiCtrl.removeUser($index); CalenAcademiCtrl.eliminarDetalle(datos.id)">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class=" button-pane ">
+                <button type="submit " class="btn btn-success " ng-hide="CalenAcademiCtrl.calendariosAcademicosVisor.onDeshabilitar
+                        " ng-click="CalenAcademiCtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(".spinner-input").TouchSpin({
+        verticalbuttons: true,
+                min: 1,
+                max: 999
+        });
+        $('.input-group.date').datepicker({
+        format: "dd/mm/yyyy",
+                language: "es",
+                autoclose: true,
+                todayBtn: "linked",
+                beforeShowYear: function (date) {
+                if (date.getFullYear() < 1900) {
+                return false;
+                }
+                }
+        });
+        $("#tabs").tabs();
+        $(function () {
+        "use strict";
+        $('.input-switch').bootstrapSwitch();
+        });</script>
+</div>

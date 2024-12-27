@@ -1,0 +1,282 @@
+<style>
+    .info-icon-tool {
+        padding: 5px;
+    }
+
+    tr {
+        height: 0px !important
+    }
+</style>
+<div id="page-title" ng-controller="DashboardClienteCtrl as dashClienteCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.TITLE_CLIENTES}}</h2>
+        </div>
+        <div class="float-right" style="margin-right: 10px" ng-controller="menuCtrl as mCtrl">
+            <a ng-click="mCtrl.onListarOPciones('/#/dashboard-interno')"  class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                <div class="glyph-icon">
+                    <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <form class="form form-horizontal">
+            <div class="col-lg-4 col-sm-4 col-xs-6">
+                <label for="valorPeriodoAcademico" class="control-label pull-right">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}</label>
+            </div>
+            <div class="col-lg-5 col-sm-5 col-xs-4">
+                <div class="form-group">
+                    <select ng-options="item.id as item.nombrePeriodoAcademico for item in dashClienteCtrl.listaPeriodoAcademicosCartera" name="valorPeriodoAcademico"
+                            id="valorPeriodoAcademico" class="form-control" ng-model="dashClienteCtrl.dashboardCliente.periodoAcademico" ng-change="dashClienteCtrl.onCambiarSelectPeriodoAcademico()">
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-4">
+
+            </div>
+        </form>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="panel">
+            <div class="panel-body">
+                <h3 class="title-hero">
+                    <span class="header-chart ">{{appConstantsView.TITLE_DEMANDA_PROGRAMAS}}</span>
+                </h3>
+                <hr>
+                <div class="example-box-wrapper text-center">
+                    <form class="form form-horizontal">
+                        <div class="col-sm-offset-1 col-xs-offset-1 col-lg-offset-1 col-lg-2 col-sm-2 col-xs-1">
+                            <label class="control-label pull-right">{{appConstantsView.LABEL_MODALIDAD}}</label>
+                        </div>
+                        <div class="col-sm-offset-2 col-xs-offset-2 col-lg-offset-1 col-lg-6 col-sm-6 col-xs-6">
+                            <div class="form-group">
+                                <select ng-options="modalidad.codigo as modalidad.valor for modalidad in dashClienteCtrl.listaModalidadesCartera| orderBy:'valor'"
+                                        name="valorModalidad" id="valorModalidad1" class="form-control" ng-model="dashClienteCtrl.dashboardCliente.modalidad1"
+                                        ng-change="dashClienteCtrl.onCambiarSelectModalidadPreinscritosMatriculados()">
+                                    <option ng-if="dashClienteCtrl.listaModalidadesCartera.length >= 0" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+
+                        <div class="content-box-wrapper" >
+                            <div class="col-md-12" style="padding-top: 6px;" ng-repeat="dashUbicacion in dashClienteCtrl.dataPreinscritosMatriculados">
+                                <div class="profile-box content-box ">
+                                    <div class="content-box-header clearfix bg-primary">
+                                        <div class="user-details">
+                                            <div class="col-xs-4">
+                                                {{dashUbicacion.key}} 
+                                            </div>
+
+                                            <div class="col-xs-4">
+                                                <a href="" 
+                                                   ng-json-export-excel 
+                                                   data="dashUbicacion.values"
+                                                   report-fields="{
+                                                   label:'Programa',
+                                                   value:'Cantidad'
+                                                   }"
+                                                   filename=" 'Listado demanda por programa' " 
+                                                   title="Listado demanda por programa"
+                                                   data-style="dark" 
+                                                   data-theme="bg-white" 
+                                                   class="float-right btn btn-sm btn-success icon-tool-add back-button {{dashUbicacion.values.length === appConstantsView.CERO?'disabled':' '}}"
+                                                   data-animation="flipOutX" style="color: #ffffff; border: 0px solid #dfe8f1;">
+                                                    <div class="glyph-icon">
+                                                        <i class="glyphicon glyphicon-print"></i><span class="info-icon-tool">{{appConstantsView.BOTON_IMPRIMIR}}</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+
+                                            <div class="col-xs-4">
+                                                <button class="float-right btn btn-abs btn-success collapsed icon-tool-add back-button" title="" 
+                                                   id="btnListadoPrograma{{dashUbicacion.key}}"
+                                                   data-toggle="collapse" data-target="#Pro{{dashUbicacion.key.replace(':', '').split(' ').join('')}}">
+                                                    <i class="glyph-icon icon-arrow-down"></i>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="collapse" id="Pro{{dashUbicacion.key.replace(':', '').split(' ').join('')}}">
+                                        <ul class="list-group list-group-separator row list-group-icons">
+                                            <li class="col-md-12" style="padding-top: 6px;">
+                                                <table object-table class="hover-column"
+                                                       display=10 data="dashUbicacion.values" 
+                                                       headers="Programa, Cantidad"
+                                                       fields="label,value"
+                                                       search="separate" 
+                                                       sorting="compound"
+                                                       editable="false" 
+                                                       resize="false"
+                                                       select="false" >
+                                                    <tbody>
+                                                        <tr style="height: 60px;">
+                                                            <td style="text-align: center">{{::item.label}}</td>
+                                                            <td style="text-align: center">{{::item.value}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td style="text-align: center"></td>
+                                                            <td style="text-align: center">{{$owner.dashClienteCtrl.getTotalBarriosPrograma($filtered)}}</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <nvd3 options="dashClienteCtrl.opcionesBarHorizontal" data="dashClienteCtrl.dataPreinscritosMatriculados" class="with-3d-shadow with-transitions"
+                              config="config"></nvd3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel">
+            <div class="panel-body">
+                <h3 class="title-hero">
+                    <span class="header-chart ">{{appConstantsView.TITLE_INGRESOS_MEDIO_DIFUSION}} </span>
+                </h3>
+                <hr>
+                <div class="example-box-wrapper text-center">
+                    <form class="form form-horizontal">
+                        <div class="col-sm-offset-1 col-xs-offset-1 col-lg-offset-1 col-lg-2 col-sm-2 col-xs-1">
+                            <label class="control-label pull-right">{{appConstantsView.LABEL_MODALIDAD}}</label>
+                        </div>
+                        <div class="col-sm-offset-2 col-xs-offset-2 col-lg-offset-1 col-lg-6 col-sm-6 col-xs-6">
+                            <div class="form-group">
+                                <select ng-options="modalidad.codigo as modalidad.valor for modalidad in dashClienteCtrl.listaModalidadesCartera| orderBy:'valor'"
+                                        name="valorModalidad2" id="valorModalidad2" class="form-control" ng-model="dashClienteCtrl.dashboardCliente.modalidad2"
+                                        ng-change="dashClienteCtrl.onCambiarSelectModalidadIngresosDifusion()">
+                                    <option ng-if="dashClienteCtrl.listaModalidadesCartera.length >= 0" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <nvd3 options="dashClienteCtrl.opcionesBarVertical" data="dashClienteCtrl.dataIngresosDifusion" class="with-3d-shadow with-transitions"
+                              config="config"></nvd3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="panel">
+            <div class="panel-body">
+                <h3 class="title-hero">
+                    <span class="header-chart ">{{appConstantsView.TITLE_INGRESOS_UBICACION}}</span>
+                </h3>
+                <hr>
+                <div class="example-box-wrapper text-center">
+                    <form class="form form-horizontal">
+                        <div class="col-lg-1 col-sm-1 col-xs-1">
+                            <label class="control-label pull-right">{{appConstantsView.LABEL_MODALIDAD}}</label>
+                        </div>
+                        <div class="col-lg-5 col-sm-5 col-xs-5">
+                            <div class="form-group">
+                                <select ng-options="modalidad.codigo as modalidad.valor for modalidad in dashClienteCtrl.listaModalidadesCartera| orderBy:'valor'"
+                                        name="valorModalidad3" id="valorModalidad3" class="form-control" ng-model="dashClienteCtrl.dashboardCliente.modalidad3"
+                                        ng-change="dashClienteCtrl.onCambiarSelectMatriculadosUbicacion()">
+                                    <option ng-if="dashClienteCtrl.listaModalidadesCartera.length >= 0" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-sm-2 col-xs-2">
+                            <label class="control-label pull-right">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                        </div>
+                        <div class="col-lg-4 col-sm-4 col-xs-4">
+                            <div class="form-group">
+                                <select ng-options="item.id as item.nombrePrograma for item in dashClienteCtrl.listaProgramasAcademicos| orderBy:'nombrePrograma'"
+                                        name="valorModalidad3" id="valorModalidad3" class="form-control" ng-model="dashClienteCtrl.dashboardCliente.programaAcademico"
+                                        ng-change="dashClienteCtrl.onCambiarSelectMatriculadosUbicacionPorPrograma()">
+                                    <option ng-if="dashClienteCtrl.listaModalidadesCartera.length >= 0" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="content-box-wrapper" >
+                            <div class="col-md-12" style="padding-top: 6px;" ng-repeat="dashUbicacion in dashClienteCtrl.dataMatriculadosUbicacion">
+                                <div class="profile-box content-box ">
+                                    <div class="content-box-header clearfix bg-primary">
+                                        <div class="user-details">
+                                            {{dashUbicacion.key}} 
+                                            <a href="" 
+                                               ng-json-export-excel 
+                                               data="dashUbicacion.values"
+                                               report-fields="{
+                                               label:'Barrio',
+                                               value:'Cantidad'
+                                               }"
+                                               filename=" 'Listado Ingresos por Ubicacion' " 
+                                               title="Listado Ingresos por Ubicacion"
+                                               data-style="dark" 
+                                               data-theme="bg-white" 
+                                               class="float-right btn btn-sm btn-success icon-tool-add back-button {{dashUbicacion.values.length === appConstantsView.CERO?'disabled':' '}}"
+                                               data-animation="flipOutX" style="color: #ffffff; border: 0px solid #dfe8f1;">
+                                                <div class="glyph-icon">
+                                                    <i class="glyphicon glyphicon-print"></i><span class="info-icon-tool">{{appConstantsView.BOTON_IMPRIMIR}}</span>
+                                                </div>
+                                            </a>
+                                            <a class="btn btn-abs btn-success collapsed" title="" 
+                                               id="btnListadoPrograma{{dashUbicacion.key}}"
+                                               data-toggle="collapse" data-target="#ubi{{dashUbicacion.key.replace(':', '').split(' ').join('')}}">
+                                                <i class="glyph-icon icon-arrow-down"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="collapse" id="ubi{{dashUbicacion.key.replace(':', '').split(' ').join('')}}">
+                                        <ul class="list-group list-group-separator row list-group-icons">
+                                            <li class="col-md-12" style="padding-top: 6px;">
+                                                <table object-table class="hover-column"
+                                                       display=10 data="dashUbicacion.values" 
+                                                       headers="Barrio, Cantidad"
+                                                       fields="label,value"
+                                                       search="separate" 
+                                                       sorting="compound"
+                                                       editable="false" 
+                                                       resize="false"
+                                                       select="false" >
+                                                    <tbody>
+                                                        <tr style="height: 60px;">
+                                                            <td style="text-align: center">{{::item.label}}</td>
+                                                            <td style="text-align: center">{{::item.value}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td style="text-align: center"></td>
+                                                            <td style="text-align: center">{{$owner.dashClienteCtrl.getTotalBarrios($filtered)}}</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <nvd3 options="dashClienteCtrl.opcionesBarHorizontal" data="dashClienteCtrl.dataMatriculadosUbicacion" class="with-3d-shadow with-transitions"
+                              config="config"></nvd3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

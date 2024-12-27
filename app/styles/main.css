@@ -1,0 +1,735 @@
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body {
+  padding: 0;
+}
+
+.wrapping-text {
+  width: 400px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+}
+
+.header-chart {
+  border-bottom: 1px solid #ffffff;
+  margin-bottom: 10px;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Small Phones and up */
+@media screen and (min-width: 320px) {
+  .ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 88% !important;
+    overflow-y: scroll !important;
+    max-height: 120% !important;
+  }
+  .wrapping-text {
+    width: 50px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 320px) {
+  .container {
+    max-width: 730px;
+  }
+  .wrapping-text {
+    width: 50px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+
+  .btn-default {
+    transition: all 0.3s ease 0s !important;
+  }
+
+  .btn-default:hover {
+    color: white !important;
+    /*background-color: rgb(0, 188, 164) !important;*/
+  }
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  width: 88% !important;
+  overflow-y: scroll !important;
+  max-height: 102% !important;
+}
+.panel-default > .panel-heading > span {
+  color: #333;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+  font-size: 30px;
+}
+.select-display {
+  width: 10% !important;
+  margin: 0 0 15px 10px !important;
+}
+.required {
+  color: red;
+}
+.ngdialog-registrar-recurso .ngdialog-content {
+  width: 50% !important;
+  overflow-y: scroll !important;
+  max-height: 102% !important;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative !important;
+  top: 0px !important;
+  right: 0px !important;
+  color: inherit !important;
+}
+
+.ngdialog-registrar-recurso .ngdialog-content {
+  width: 50% !important;
+  overflow-y: scroll !important;
+  max-height: 102% !important;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative !important;
+  top: 0px !important;
+  right: 0px !important;
+  color: inherit !important;
+}
+
+.ngdialog-registrar-recurso .ngdialog-content {
+  width: 50% !important;
+  overflow-y: scroll !important;
+  max-height: 102% !important;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative !important;
+  top: 0px !important;
+  right: 0px !important;
+  color: inherit !important;
+}
+
+.info-icon-tool {
+  padding: 5px;
+}
+
+.form-control-area {
+  font-size: 13px;
+  display: block;
+  float: none;
+  background: #fff;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  color: #2b2f33;
+  border: #ffffff solid 1px;
+  -webkit-box-shadow: inset 1px 1px 3px #f6f6f6;
+  -moz-box-shadow: inset 1px 1px 3px #f6f6f6;
+  box-shadow: inset 1px 1px 3px #ffffff;
+}
+
+.btn-tools-table {
+  line-height: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+}
+
+.alert-success-toast {
+  color: #fff;
+  border-color: #29b765;
+  background: #2ecc71;
+  padding-top: 0px !important;
+}
+
+.alert-error-toast {
+  color: #fff;
+  border-color: #cf4436;
+  background: #e74c3c;
+  padding-top: 0px !important;
+}
+
+.alert-danger-toast {
+  color: #fff;
+  border-color: #cf4436;
+  background: #e74c3c;
+  padding-top: 0px !important;
+}
+
+.alert-info-toast {
+  color: #fff;
+  background: #65a6ff;
+  border-color: #5388d1;
+  padding-top: 0px !important;
+}
+
+.alert-warning-toast {
+  color: #fff;
+  background: #fc0;
+  border-color: #deb200;
+  padding-top: 0px !important;
+}
+
+.btn-group-plus {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+.btn-group-field {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.wrapping-text {
+  width: 50px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.select-group-field {
+  -webkit-appearance: none;
+  -webkit-border-top-right-radius: 0px !important;
+  -webkit-border-bottom-right-radius: 0px !important;
+  -moz-appearance: none;
+  -moz-border-top-right-radius: 0px !important;
+  -moz-border-bottom-right-radius: 0px !important;
+}
+
+.bootstrap .tags {
+  font-size: 13px;
+  height: 34px;
+  color: #2b2f33;
+
+  background-color: #fff;
+  border: #dfe8f1 solid 1px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 1px 1px 3px #f6f6f6;
+  -moz-box-shadow: inset 1px 1px 3px #f6f6f6;
+  box-shadow: inset 1px 1px 3px #f6f6f6;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.bootstrap .tags.focused {
+  border-color: #3da6ff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.bootstrap .tags .tag-item {
+  background: #428bca;
+  border: 1px solid #357ebd;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.bootstrap .tags .tag-item.selected {
+  background: #d9534f;
+  border: 1px solid #d43f3a;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.bootstrap .tags .tag-item button {
+  background: transparent;
+  color: #000;
+  opacity: 0.4;
+}
+
+.bootstrap .autocomplete {
+  border-radius: 4px;
+}
+
+.bootstrap .autocomplete .suggestion-item.selected {
+  color: #262626;
+  background-color: #e9e9e9;
+}
+
+.bootstrap .autocomplete .suggestion-item em {
+  font-weight: normal;
+  background-color: #ffff00;
+}
+
+.bootstrap .autocomplete .suggestion-item.selected em {
+  color: #262626;
+  background-color: #ffff00;
+}
+
+.spinner {
+  margin: 0;
+  width: 70px;
+  height: 18px;
+  margin: -35px 0 0 -9px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+}
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #333;
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+  animation: bouncedelay 1.4s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+@-webkit-keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+}
+.menu-item-box {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+}
+@media (min-width: 1200px) {
+  .wrapping-text {
+    width: 200px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+.container {
+  width: 100% !important;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: 0px;
+  color: inherit;
+  padding-right: 5px;
+  padding-top: 20px;
+}
+.info-user-profile {
+  padding-top: 5px;
+}
+@-webkit-keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+  }
+}
+@keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+}
+@media screen and (max-width: 650px) {
+  .table-scroll-x {
+    overflow-x: scroll;
+  }
+  .pagination {
+    margin-top: 55px;
+  }
+
+  .wrapping-text {
+    width: 50px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+
+@media screen and (max-width: 955px) {
+  .table-scroll-x {
+    overflow-x: scroll;
+  }
+  .pagination {
+    margin-top: 55px;
+  }
+
+  .wrapping-text {
+    width: 50px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .table-scroll-x {
+    overflow-x: scroll;
+  }
+}
+
+form .progress {
+  line-height: 15px;
+}
+
+.progress {
+  display: inline-block;
+  width: 100px;
+  border: 3px groove #ccc;
+  margin-bottom: 0px !important;
+  vertical-align: middle;
+}
+
+.progress div {
+  font-size: smaller;
+  background: #2ecc71;
+  width: 0;
+}
+
+@media screen and (max-width: 899px) {
+  .fixed-sidebar #page-header {
+    padding-left: 0px !important;
+  }
+
+  .wrapping-text {
+    width: 100px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+
+.content-background-white {
+  background: #ffffff !important;
+}
+
+.content-background-heaven {
+  background: #fafcfe !important;
+}
+
+.content-descripcion {
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  top: 8px;
+  bottom: 20px;
+  overflow: scroll;
+  height: 80%;
+  max-height: 80%;
+  padding-left: 10px;
+}
+
+.form-control-select-ui {
+  left: -13px;
+  top: -7px;
+  border-right: 0px !important;
+  cursor: pointer;
+  width: 104% !important;
+}
+.ui-search-positio-rel {
+  height: 19px !important;
+  position: relative !important;
+  width: 100% !important;
+}
+
+.form-wizard > ul > li a,
+.form-wizard > ul > li a:hover {
+  text-decoration: none;
+}
+
+.form-wizard > ul > li.active .wizard-step.working {
+  color: #fff !important;
+  background: #ffcc00 !important;
+}
+
+.form-wizard > ul > li a .wizard-step.complete {
+  color: #fff !important;
+  background: #00bca4 !important;
+}
+
+.form-wizard > ul > li.active .wizard-step.error {
+  color: #fff !important;
+  background: #ff2900 !important;
+}
+
+.form-wizard > ul > li a.wizard-step {
+  font-size: 16px;
+  line-height: 42px;
+  position: relative;
+  z-index: 5;
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 5px;
+  cursor: pointer;
+  text-align: center;
+  color: #fafafa;
+  border-radius: 100px;
+  background: #ccc;
+}
+
+.span-growl-titulo {
+  margin-left: 5px;
+}
+.span-growl-msg {
+  padding-left: 42px;
+}
+
+li.uib-tab.nav-item.active > a {
+  line-height: 47px !important;
+  height: 49px !important;
+  background: #fff !important;
+  color: #636667 !important;
+  border: 0 !important;
+}
+
+li.uib-tab.nav-item.active > a:hover {
+  border: 0 solid #fff !important;
+}
+
+.year:active,
+.day:active {
+  background-image: -webkit-linear-gradient(top, #0094d8, #0094d8) !important;
+  /*// background-color: #0094D8 !important;*/
+}
+
+.wrapping-text {
+  min-width: 100px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.margTop0 > div.bootstrap-switch {
+  margin-top: 0px;
+  height: 34px;
+}
+.margTop0 > div > div.bootstrap-switch-container > span {
+  height: 34px;
+  line-height: 2em;
+}
+.popup-admisiones {
+  top: 251px !important;
+  left: 0px !important;
+  margin: auto !important;
+  right: 0px !important;
+  position: absolute;
+}
+
+.dias {
+  border: 2px #ccc solid;
+}
+.ajusteDias {
+  text-align: center;
+  padding-top: 10px;
+  padding-left: 44px;
+  overflow-x: hidden;
+}
+
+input[readonly] {
+  background-color: white !important;
+  color: #2b2f33 !important;
+  border-radius: 3px;
+  border: #dfe8f1 solid 1px;
+}
+.money {
+  text-align: right !important;
+}
+
+.dias {
+  border: 1px #ccc solid;
+}
+
+.borderTotales {
+  border-color: green !important;
+  color: green !important;
+  border: 2px #ccc solid;
+}
+
+.ajusteDias {
+  text-align: center;
+  padding-top: 10px;
+  padding-left: 44px;
+  overflow-x: hidden;
+}
+
+.descripcion-table {
+  width: 300px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+
+.fixed-header .popover {
+  position: absolute !important;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+.opciones-table {
+  min-width: 150px;
+  width: 150px;
+}
+
+#contenido-ui-select {
+  width: 98%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.login-view-height {
+  background: #0096d4;
+  height: 1000px;
+}
+
+@media (min-width: 992px) {
+  .login-view .boxed-layout #page-header,
+  .container {
+    max-width: 100%;
+  }
+}
+
+.bootstrap-switch-id-input-sw-codeudor {
+  height: 34px;
+  margin-top: 0 !important;
+}
+div.bootstrap-switch-id-input-sw-codeudor
+  div.bootstrap-switch-container
+  span.bootstrap-switch-handle-off,
+div.bootstrap-switch-id-terminos
+  div.bootstrap-switch-container
+  span.bootstrap-switch-handle-off,
+div.bootstrap-switch-id-input-sw-codeudor
+  div.bootstrap-switch-container
+  span.bootstrap-switch-handle-on,
+div.bootstrap-switch-id-terminos
+  div.bootstrap-switch-container
+  span.bootstrap-switch-handle-on {
+  height: 37px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.ivh-treeview-node.ng-enter {
+  animation: my-enter-animation 0.5s linear;
+}
+
+.ivh-treeview-node.ng-leave {
+  animation: my-leave-animation 0.5s linear;
+}
+
+/* or class based animations */
+.ivh-treeview-node.ng-hide {
+  transition: 0.5s linear all;
+  opacity: 0;
+}
+
+/* alternatively, just strike-through filtered out nodes */
+.ivh-treeview-node.ng-hide {
+  display: block !important;
+}
+
+.ivh-treeview-node.ng-hide .ivh-treeview-node-label {
+  color: red !important;
+  text-decoration: line-through;
+  zoom: 1.2;
+}

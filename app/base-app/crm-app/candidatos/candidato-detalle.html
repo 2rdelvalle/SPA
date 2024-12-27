@@ -1,0 +1,324 @@
+<div id="page-title" ng-controller="candidatosCtrl as CCtrl">
+    <h2>Clientes Registrados</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm" ng-model="CCtrl.clientesEntity.estado">Información de Cliente </h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('#/candidatos')" class="btn btn-sm btn-info icon-tool-add back-button" 
+                   style="background-color: #0096D4; color: #ffffff;cursor: pointer; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="content-box">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="codigo" class="control-label">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                <input name="codigo" 
+                                       id="codigo" 
+                                       class="text-uppercase form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.identificacion">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label><label class="text-danger">*</label>
+                                <input class="text-uppercase form-control" 
+                                       type="text" 
+                                       name="nombre" 
+                                       id="nombre"
+                                       ng-model="CCtrl.clientesEntity.nombreEstudiante">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label><label class="text-danger">*</label>
+                                <ui-select name="programa"
+                                           ng-model="CCtrl.clientesEntity.programaInteres"
+                                           class="form-control">
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombrePrograma}}</ui-select-match>
+                                    <ui-select-choices repeat="programa in CCtrl.programas | filter: {nombrePrograma: $select.search} | limitTo: ($select.search.length <= 1) ? 50 : 20">
+                                        <small ng-bind="programa.nombrePrograma"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdPrograma" class="validation text-danger form-span-danger position-danger"></span>
+                                <input type="text" 
+                                       name="fakeInputIdPrograma"
+                                       class="hidden" 
+                                       ng-model="CCtrl.clientesEntity.programaInteres"
+                                       validation="required" 
+                                       validation-error-to="errorIdPrograma"/>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="dir" class="control-label">{{appConstantsView.LABEL_DIRECCION}}</label>
+                                <input name="dir" 
+                                       id="dir" 
+                                       class="text-uppercase form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.direccion">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="tel" class="control-label">{{appConstantsView.LABEL_TELEFONO}}</label><label class="text-danger">*</label>
+                                <input name="tel" 
+                                       id="tel" 
+                                       class="text-uppercase form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.telefono">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="ema" class="control-label">{{appConstantsView.LABEL_EMAIL}}</label><label class="text-danger">*</label>
+                                <input name="ema" 
+                                       id="ema" 
+                                       class="text-uppercase 
+                                       form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.email">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="cel" class="control-label">Celular</label><label class="text-danger">*</label>
+                                <input name="cel" 
+                                       id="cel" 
+                                       class="text-uppercase 
+                                       form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.celularEstudiante">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="mod" class="control-label">Modalidad</label>
+                                <input name="mod" 
+                                       id="mod" 
+                                       class="text-uppercase form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.modalidad">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="mun" class="control-label">Municipio</label>
+                                <input name="mun" 
+                                       id="mun" 
+                                       class="text-uppercase form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.municipio">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="form-group">                                 
+                                <label class="control-label">{{appConstantsView.LABEL_BARRIO}}</label><label class="text-danger">*</label>
+                                <ui-select validation="required" 
+                                           name="barrioAspiranteDatosContacto" 
+                                           ng-model="CCtrl.clientesEntity.barrio" 
+                                           class="form-control"
+                                           id="ui-select-barrio-datos-contacto">
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreBarrio}}</ui-select-match>
+                                    <ui-select-choices repeat="barrio.nombreBarrio as barrio in CCtrl.lstbarrios | filter: {nombreBarrio: $select.search} | limitTo: ($select.search.length <= 1) ? 50 : 20">
+                                        <small ng-bind="barrio.nombreBarrio"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdApiranteBarrioDatosContacto" class="validation validation-select text-danger"></span>
+                                <input id="fakeInputIdAspiranteBarrioDatosContacto" 
+                                       type="text" 
+                                       name="fakeInputIdAspiranteBarrioDatosContacto"
+                                       class="hidden" 
+                                       ng-model="CCtrl.clientesEntity.barrio" 
+                                       validation="required" 
+                                       validation-error-to="errorIdApiranteBarrioDatosContacto"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="gra" class="control-label">Grado</label>
+                                <input name="gra" 
+                                       id="gra" 
+                                       class="text-uppercase form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.grado">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="jor" class="control-label">Jornada</label>
+                                <input name="jor" 
+                                       id="jor" 
+                                       class="text-uppercase 
+                                       form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.jornada">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">                                
+                                <label class="control-label">Colegio</label><label class="text-danger">*</label>
+                                <ui-select name="institucion" 
+                                           ng-model="CCtrl.clientesEntity.colegio" 
+                                           class="form-control" >
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreInstitucionAcademica}}</ui-select-match>
+                                    <ui-select-choices repeat="institucionx.nombreInstitucionAcademica as institucionx in CCtrl.instituciones | filter: {nombreInstitucionAcademica: $select.search} | limitTo: ($select.search.length <= 1) ? 50 : 20">
+                                        <div ng-bind-html="institucionx.nombreInstitucionAcademica"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdInstitucion" class="validation text-danger"></span>
+                                <input name="fakeInputIdInstitucion"
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.colegio" 
+                                       class="hidden"
+                                       validation-error-to="errorIdInstitucion"/>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="ac" class="control-label">Edad</label>
+                                <input name="ac" 
+                                       id="ac" 
+                                       class="text-uppercase form-control" 
+                                       type="number" 
+                                       ng-model="CCtrl.clientesEntity.edad">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6" >
+                            <div class="form-group">
+                                <label class="control-label">Medio de Captura</label><label class="text-danger">*</label>
+
+                                <ui-select 
+                                    validation="required" 
+                                    name="medioDifusion" 
+                                    ng-model="CCtrl.clientesEntity.medioCaptura" 
+                                    class="form-control">
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.valor}}</ui-select-match>
+                                    <ui-select-choices  repeat="mediodif.codigo as mediodif in CCtrl.listMedioCaptura | filter: {valor: $select.search}">
+                                        <small ng-bind="mediodif.valor"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdMedioCaptura" class="validation text-danger" style="margin-top: -10px;"></span>
+                                <input type="text" 
+                                       name="fakeInputIdMedioDifusion"
+                                       class="hidden" 
+                                       ng-model="CCtrl.clientesEntity.medioCaptura" 
+                                       validation="required" 
+                                       validation-error-to="errorIdMedioCaptura"/>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-6 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label pull-left">¿Cómo se enteró de la institución?</label><label class="text-danger">*</label>
+                                <ui-select 
+                                    validation="required" 
+                                    name="medioDifusion" 
+                                    ng-model="CCtrl.clientesEntity.medioDifusion" 
+                                    class="form-control">
+                                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.valor}}</ui-select-match>
+                                    <ui-select-choices  repeat="mediodif.codigo as mediodif in CCtrl.lstmediodifusion | filter: {valor: $select.search}">
+                                        <small ng-bind="mediodif.valor"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span id="errorIdMedioDifusion" class="validation text-danger" style="margin-top: -10px;"></span>
+                                <input type="text" 
+                                       name="fakeInputIdMedioDifusion"
+                                       class="hidden" 
+                                       ng-model="CCtrl.clientesEntity.medioDifusion" 
+                                       validation="required" 
+                                       validation-error-to="errorIdMedioDifusion"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="ac" class="control-label">Acudiente</label>
+                                <input name="ac" 
+                                       id="ac" 
+                                       class="text-uppercase form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.acudiente">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="ca" class="control-label">Celular Acudiente</label>
+                                <input name="ca" 
+                                       id="ca" 
+
+                                       class="text-uppercase 
+                                       form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.celularAcudiante">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="pi1" class="control-label">Programa Interes 2</label>
+                                <input name="pi1" 
+                                       id="pi1" 
+                                       class="text-uppercase 
+                                       form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.programa1">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="pi2" class="control-label">Programa Interes 3</label>
+                                <input name="pi2" 
+                                       id="pi2" 
+                                       class="text-uppercase 
+                                       form-control" 
+                                       type="text" 
+                                       ng-model="CCtrl.clientesEntity.programa2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-pane" >
+                <button type="submit" class="btn btn-success" ng-click="CCtrl.guardarCandidatoDetalle()">{{appConstantsView.BOTON_GUARDAR}}</button>
+            </div>
+        </div>
+    </div>
+</div>

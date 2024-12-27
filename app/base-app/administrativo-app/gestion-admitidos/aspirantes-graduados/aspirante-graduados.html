@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<script src="../../../js/papaparse.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="aspiranteGrandoCtrl as asignarNotaCtrl">
+    <h2>Listado de Graduados</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Listado de Aspirantes a Grado</h3>
+            <div class="float-right">
+                <a href="#/" class="btn btn-sm btn-info icon-tool-add back-button" data-animation="flipOutX"
+                    style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span
+                            class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+                <button ng-json-export-excel data="asignarNotaCtrl.listadoEstudiantes" report-fields="{
+                identificacion:'Identificación',
+                estudiante:'Estudiante',
+                nombrePrograma:'Programa',
+                ultimoSemestre: 'Ultimo Semestre',
+                semestreActual: 'Semestre Actual'
+
+                }" filename=" 'Listado de Graduados' " class="btn btn-sm btn-success"
+                    title="Exportar a formato csv">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i><span class="info-icon-tool">Exportar Listado
+                        de Graduados</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <form method="POST" novalidate name="formAsignarNota">
+                    <div class="content-box-wrapper">
+                        <table object-table class="hover-column" display="20" data="asignarNotaCtrl.listadoEstudiantes"
+                            headers="Código,Nombre,Programa,Semestre Actual,Semestre Final,Opciones"
+                            fields="identificacion,estudiante,nombrePrograma,semestreActual,ultimoSemestre"
+                            search="separate" sorting="compound" search="false" resize="false">
+                            <tbody>
+                                <tr
+                                    style="color: {{(item.liquidacionesPendientes.length === 0|| item.liquidacionesPendientes.length === null) ? 'black' : 'red'}}">
+                                    <td style="text-align:center; vertical-align: middle;width:60%">
+                                        {{::item.identificacion}}
+                                    </td>
+                                    <td style="text-align:center; vertical-align: middle;width:60%">
+                                        {{::item.estudiante}}
+                                    </td>
+                                    <td style="text-align:center; vertical-align: middle;width:60%">
+                                        {{::item.nombrePrograma}}
+                                    </td>
+                                    <td style="text-align:center; vertical-align: middle;width:60%">
+                                        {{::item.ultimoSemestre}}
+                                    </td>
+                                    <td style="text-align:center; vertical-align: middle;width:60%">
+                                        {{::item.semestreActual}}
+                                    </td>
+                                    <td class="text-center opciones-table" style="width:10%">
+                                        <button class="btn btn-primary btn-tools-table"
+                                            title="Liquidaciones Pendientes por Pagar"
+                                            ng-click="$owner.asignarNotaCtrl.ModalUsuario(item)">
+                                            <i class="glyphicon glyphicon-eye-open "></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-tools-table" title="Notas del Estudiante"
+                                            ng-click="$owner.asignarNotaCtrl.ModalUsuarioNotas(item)">
+                                            <i class="glyphicon glyphicon-check "></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-tools-table" title="Graduar"
+                                            ng-click="$owner.asignarNotaCtrl.ModalGraduar(item)">
+                                            Graduar
+                                        </button>
+                                    </td>
+
+                                    <td ng-hide="true">{{ $owner.asignarNotaCtrl.obtenerFiltrados($filtered)}}</td>
+                                </tr>
+                            </tbody>
+
+
+                            <tfoot>
+                                <tr
+                                    ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.asignarNotaCtrl.listadoEstudiantes.length !== $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                </tr>
+                                <tr
+                                    ng-if="$owner.asignarNotaCtrl.listadoEstudiantes.length === $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <div class=" button-pane ">
+                            <button type="submit " class="btn btn-success "
+                                ng-hide="asignarNotaCtrl.listadoEstudiantes.length === appConstantsView.CERO"
+                                ng-click="asignarNotaCtrl.guardarNota()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                        </div>
+                    </div>
+
+                    <div id="myModal2" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                        data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                                    <h4 class="modal-title">{{appConstantsView.AUDITORIA_NOTA}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" id="formDetalleSolicitud" name="formDetalleSolicitud"
+                                        novalidate>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="nombre"
+                                                    class="control-label pull-left">{{appConstantsView.H3_INFORMACION_ESTUDIANTE}}</label>
+                                                <input id="inputCodigo" type="text" ng-disabled="true"
+                                                    ng-model="asignarNotaCtrl.nombreModal" class="form-control">
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="grupos"
+                                                        class="control-label">{{appConstantsView.LABEL_PERIODO_ACTUAL}}</label>
+                                                    <select
+                                                        ng-options="periodo as periodo.nombre for periodo in asignarNotaCtrl.listadoPeriodos| orderBy:'nombre'"
+                                                        class="form-control" ng-model="asignarNotaCtrl.idPeriodo"
+                                                        ng-change=" asignarNotaCtrl.onConsultarNotas()" id="periodoe"
+                                                        name="periodoe">
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <table object-table class="hover-column" display=5
+                                                    data="asignarNotaCtrl.listaNotas"
+                                                    headers="Modulo,Estado Matricula,Período,Nota 1,Nota 2, Nota 3,Habilitación,Definitiva"
+                                                    fields="nombreModulo,estadoMatricula,periodoAcademico,nota1,nota2,nota3,nota_definitiva,nota_habilitacion"
+                                                    search="false" sorting="simple" editable="false" resize="false">
+                                                    <tbody>
+                                                        <tr style="height: 60px;">
+                                                            <td>{{::item.nombreModulo}}</td>
+                                                            <td>{{::item.estadoMatricula}}</td>
+                                                            <td>{{::item.periodoAcademico}}</td>
+                                                            <td>{{::item.nota1 === null ? 'No Registra' : item.nota1}}
+                                                            </td>
+                                                            <td>{{::item.nota2 === null ? 'No Registra' : item.nota2}}
+                                                            </td>
+                                                            <td>{{::item.nota3 === null ? 'No Registra' : item.nota3}}
+                                                            </td>
+                                                            <td>{{::item.notaDefinitiva === null ? 'No Registra' : item.nota_habilitacion}}
+                                                            </td>
+                                                            <td>{{::item.notaHabilitacion === null ? 'No Registra' : item.nota_definitiva}}
+                                                            </td>
+                                                            <td ng-hide="true">
+                                                                {{$owner.hisotiralCrtl.filtrados = $filtered}}</td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                    <tfoot>
+                                                        <tr
+                                                            ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.asignarNotaCtrl.listaAuditoria.length !== $owner.appConstantsView.CERO">
+                                                            <td colspan="8">
+                                                                {{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                                        </tr>
+                                                        <tr
+                                                            ng-if="$owner.asignarNotaCtrl.listaAuditoria.length === $owner.appConstantsView.CERO">
+                                                            <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                        data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                                    <h4 class="modal-title">Listado de Liquidaciones Pendientes</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" id="formDetalleSolicitud" name="formDetalleSolicitud"
+                                        novalidate>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="nombre"
+                                                    class="control-label pull-left">{{appConstantsView.H3_INFORMACION_ESTUDIANTE}}</label>
+                                                <input id="inputCodigo2" type="text" ng-disabled="true"
+                                                    ng-model="asignarNotaCtrl.nombreModal" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="content-box-wrapper">
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="back-cover table-scroll-x">
+                                                        <table class="table table-hover table-condensed dias "
+                                                            style="min-width: 665px;">
+                                                            <thead>
+                                                                <tr style="font-weight: bold">
+                                                                    <th style="width:20%">Referencia</th>
+                                                                    <th style="width:10%">Período</th>
+                                                                    <th style="width:20%">Valor</th>
+                                                                    <th style="width:25%">Saldo</th>
+                                                                    <th style="width:25%">Abonado</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tr
+                                                                ng-repeat="item in asignarNotaCtrl.liquidacionEstudiante">
+                                                                <td style="text-align:justify; vertical-align: middle;">
+                                                                    {{item.referencia}}
+                                                                </td>
+                                                                <td style="text-align:justify; vertical-align: middle;">
+                                                                    {{item.nombrePeriodo}}
+                                                                </td>
+                                                                <td style="min-width: 200px;">
+                                                                    <div class="input-group">
+                                                                        <input ui-money-mask id="inputValorCheques"
+                                                                            type="text" ng-disabled="true"
+                                                                            class="form-control"
+                                                                            ng-model="item.valorLiquidado"
+                                                                            style="text-align: right">
+                                                                    </div>
+                                                                </td>
+                                                                <td style="min-width: 200px;">
+                                                                    <div class="input-group">
+                                                                        <input ui-money-mask id="inputValorCheques"
+                                                                            type="text" ng-disabled="true"
+                                                                            class="form-control"
+                                                                            ng-model="item.saldoPendiente"
+                                                                            style="text-align: right">
+                                                                    </div>
+                                                                </td>
+                                                                <td style="min-width: 200px;">
+                                                                    <div class="input-group">
+                                                                        <input ui-money-mask id="inputValorCheques"
+                                                                            type="text" ng-disabled="true"
+                                                                            class="form-control"
+                                                                            ng-model="item.saldoAbonado"
+                                                                            style="text-align: right">
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="myModal3" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                        data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                                    <h4 class="modal-title">Información del estudiante</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" id="formDetalleSolicitud" name="formDetalleSolicitud"
+                                        novalidate>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="nombre"
+                                                    class="control-label pull-left">{{appConstantsView.H3_INFORMACION_ESTUDIANTE}}</label>
+                                                <input id="inputCodigo2" type="text" ng-disabled="true"
+                                                    ng-model="asignarNotaCtrl.datosGraduar.estudiante"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="nombre" class="control-label pull-left">Resolución
+                                                    Programa</label>
+                                                <input id="inputCodigo2" type="text" ng-disabled="true"
+                                                    ng-model="asignarNotaCtrl.datosGraduar.resolucion"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div id="botonGuardar" class="button-pane">
+                                            <input class="btn btn-success" type="submit" value="Graduar"
+                                                ng-click="asignarNotaCtrl.onGraduar()">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

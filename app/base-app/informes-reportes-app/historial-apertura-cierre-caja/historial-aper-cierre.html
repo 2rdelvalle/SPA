@@ -1,0 +1,291 @@
+<style>
+    .info-icon-tool {
+        padding: 5px;
+    }
+</style>
+<script>
+    $("#fechainicio").focus(function () {
+    value = $("#fechainicio").val();
+    });
+    $("#fechainicio").blur(function () {
+    $("#fechainicio").val(value);
+    });
+    $("#fechafin").focus(function () {
+    value = $("#fechafin").val();
+    });
+    $("#fechafin").blur(function () {
+    $("#fechafin").val(value);
+    });</script>
+<script src="js/main-app.js"></script>
+<div id="page-title" ng-controller="HistorialApeCierreCajaCtrl as historialCtrl">
+    <h2>{{appConstantsView.HISTORIAL_Y_APERTURA}}</h2>
+    <p></p>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left content-box-header-title btn-sm">{{appConstantsView.HISTORIAL_Y_APERTURA}}</h3>
+            <div class="float-right" style="margin-right: 10px" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/informe-reportes')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <form  method="POST" name="formConsulta" novalidate>
+                    <div class="row">
+                        <div id="fechaCampanha" class="input-daterange input-group">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.FECHA_APERTURA}}</label>
+                                    <div id="fecha-inicio" class="input-group date">
+                                        <input id="fechainicio" name="fechainicio" style="text-align: left;" mask="39/19/9999" restrict="reject" readonly="true"
+                                               placeholder="dd/mm/aaaa" type="text" ng-model="historialCtrl.fechaApertura"
+                                               validation-error-to="validacionFechaInicial" 
+                                               validation="required"
+                                               class="form-control date">
+                                        <span
+                                            class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                    <span id="validacionFechaInicial" class="validation text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.FECHA_CIERRE}}</label>
+                                    <div id="fecha-fin" class="input-group date">
+                                        <input id="fechafin" name="fechafin" style="text-align: left;" mask="39/19/9999" restrict="reject" readonly="true" placeholder="dd/mm/aaaa"
+                                               type="text" ng-model="historialCtrl.fechaCierre" 
+                                               validation="required"
+                                               validation-error-to="validacionFechaFin"
+                                               class="form-control date"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                    <span id="validacionFechaFin" class="validation text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-pane">
+                        <input class="btn btn-info" type="submit" value="Consultar" ng-click="historialCtrl.onConsultarListado()">
+                        <button ng-if="historialCtrl.historialAuxiliar.mostrarTabla" class="btn btn-success"  ng-json-export-excel data="historialCtrl.listaGeneral"
+                                report-fields="{nombreCaja:'Caja',
+                                fechaAperturaSt:'Fecha Apertura',
+                                fechaCierreSt:'Fecha Cierre',
+                                nombreCajero:'Cajero',
+                                nombreSupervisorApertura:'Supervisor Apertura',
+                                nombreSupervisorCierre:'Supervisor Cierre',
+                                totalApertura:'Total Apertura',
+                                totalRealCierre:'Total Cierre Real',
+                                totalSistemaCierre:'Total Cierre Sistema'
+                                }" filename=" 'listado-apertura-cierre ' " title="Exportar listado general a formato csv">
+                            <i class="fa fa-file-excel-o"></i>&nbsp;Exportar Listado Completo</a>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="content-box" ng-if="historialCtrl.historialAuxiliar.mostrarTabla">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.LISTADO_CAJAS}}</h3>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="historialCtrl.display" 
+                                        ng-init="historialCtrl.display = historialCtrl.display || historialCtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in historialCtrl.options">
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <table object-table class="hover-column" data="historialCtrl.listadoCajaMovimientos" display="historialCtrl.display" headers="Caja,Fecha Apertura,Fecha Cierre,Cajero,Supervisor Apertura,Supervisor Cierre,Opciones"
+                       fields="nombreCaja,fechaApertura,fechaCierre,nombreCajero,nombreSupervisorApertura,nombreSupervisorCierre" sorting="compound" selected-model="historialCtrl.report.selected"
+                       editable="false" search="separate" resize="false" select="false" add-filter="| filter:$owner.all">
+                    <tbody>
+                        <tr>
+                        <tr>
+                            <td>{{::item.nombreCaja}}</td>
+                            <td class="text-center">{{::item.fechaAperturaSt}}</td>
+                            <td class="text-center">{{::item.fechaCierreSt}}</td>
+                            <td>{{::item.nombreCajero}}</td>
+                            <td>{{::item.nombreSupervisorApertura}}</td>
+                            <td>{{::item.nombreSupervisorCierre}}</td>
+                            <td class="text-center opciones-table">
+                                <a class="btn btn-primary btn-tools-table " title="Ver Detalle" ng-click="$owner.historialCtrl.onVerDetalle(item)">
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <tfoot>
+                        <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.historialCtrl.listadoCajaMovimientos.length !== $owner.appConstantsView.CERO">
+                            <td colspan="7">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                        </tr>
+                        <tr ng-show="$owner.historialCtrl.listadoCajaMovimientos.length === $owner.appConstantsView.CERO">
+                            <td colspan="7">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">{{appConstantsView.HISTORIAL_CAJA}}  <span class="text-uppercase">{{historialCtrl.historial.nombreCaja}}</span></h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="formDetalleSolicitud" name="formDetalleSolicitud" novalidate>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="content-box">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#caja">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> 
+                                            {{appConstantsView.DETALLE_CAJA}}
+                                        </h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse in" id="caja">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="nombreCaja" class="control-label pull-left">Caja</label>
+                                                        <input id="nombreCaja" type="text" ng-disabled="true" ng-model="historialCtrl.historial.nombreCaja" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="nombreCajero" class="control-label pull-left">Cajero</label>
+                                                        <input id="nombreCajero" type="text" ng-disabled="true" ng-model="historialCtrl.historial.nombreCajero" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-box">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#apertura">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> 
+                                            {{appConstantsView.DETALLE_APERTURA}} 
+                                        </h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse in" id="apertura">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="fechaApertura" class="control-label pull-left">Fecha Apertura</label>
+                                                        <input id="fechaApertura" type="text" ng-disabled="true" ng-model="historialCtrl.historial.fechaAperturaSt" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="supervisorApertura" class="control-label pull-left">Supervisor Apertura</label>
+                                                        <input id="supervisorApertura" type="text" ng-disabled="true" ng-model="historialCtrl.historial.nombreSupervisorApertura" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="totalApertura" class="control-label pull-left">Total Apertura</label>
+                                                        <input id="totalApertura" type="text" ng-disabled="true" ng-model="historialCtrl.historial.totalApertura" class="form-control money">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="button-pane">
+                                                <input class="btn btn-info" type="submit" 
+                                                       title="Generar Reporte De Apertura"
+                                                       value="Generar Reporte De Apertura" 
+                                                       ng-click="historialCtrl.onReporteAperturaCaja()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-box">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#cierre">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> 
+                                            {{appConstantsView.DETALLE_CIERRE}} 
+                                        </h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse in" id="cierre">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="fechaCierre" class="control-label pull-left">Fecha Cierre</label>
+                                                        <input id="fechaCierre" type="text" ng-disabled="true" ng-model="historialCtrl.historial.fechaCierreSt" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="supervisorCierre" class="control-label pull-left">Supervisor Cierre</label>
+                                                        <input id="supervisorCierre" type="text" ng-disabled="true" ng-model="historialCtrl.historial.nombreSupervisorCierre" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="totalDirerenciaCierre" class="control-label pull-left">Total Diferencia Cierre</label>
+                                                        <input id="totalDirerenciaCierre" type="text" ng-disabled="true" 
+                                                               ng-model="historialCtrl.historial.totalDirerenciaCierre" 
+                                                               class="form-control money {{historialCtrl.clase}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="totalRealCierre" class="control-label pull-left">Total Real Cierre</label>
+                                                        <input id="totalRealCierre" type="text" ng-disabled="true" ng-model="historialCtrl.historial.totalRealCierre" class="form-control money ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="totalSistemaCierre" class="control-label pull-left">Total Sistema Cierre</label>
+                                                        <input id="totalSistemaCierre" type="text" ng-disabled="true" ng-model="historialCtrl.historial.totalSistemaCierre" class="form-control money">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="button-pane">
+                                                <input class="btn btn-info" type="submit" 
+                                                       title="Generar Reporte De Cierre"
+                                                       value="Generar Reporte De Cierre" 
+                                                       ng-click="historialCtrl.onReporteCierreCaja()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

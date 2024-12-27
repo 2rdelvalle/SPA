@@ -1,0 +1,117 @@
+<style>
+    .info-icon-tool {
+        padding: 5px;
+    }
+</style>
+<script src="../../../js/main-app.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="reportesCtrl as reportesCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">Auditoria</h2>
+        </div>
+        <div class="float-right" style="margin-right: 10px">
+            <div class="col-xs-12 col-sm-12" ng-show="reportesCtrl.listFormatoInterfazTerceros.length > 0">
+                <button type="submit" 
+                        class="tile-box tile-box-shortcut btn-success classReport"
+                        ng-click="reportesCtrl.onMarcarEstudiantesInterfaz()"
+                        >
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Terceros Interfaz Contable</button>
+                <button type="submit" 
+                        id="exportTerceros"
+                        ng-hide="true"
+                        class="tile-box tile-box-shortcut btn-success classReport"
+                        ng-json-export-excel 
+                        data="reportesCtrl.listFormatoInterfazTerceros"
+                        report-fields="{
+                        tipoDeIdentificacion:'tipoDeIdentificacion',
+                        Terceros_identificacion:'Terceros_identificacion',
+                        Ciudad:'Ciudad',
+                        CodigoTercero:'CodigoTercero',
+                        Primer_Nombre:'Primer_Nombre',
+                        Segundo_Nombre:'Segundo_Nombre',
+                        Primer_Apellido:'Primer_Apellido',
+                        Segundo_Apellido:'Segundo_Apellido',
+                        Terceros_Propiedades:'Terceros_Propiedades',
+                        Nota:'Nota',
+                        Activo:'Activo',
+                        TercerosClasificacionUno_Clasificacion :'Terceros - ClasificaciónUno_Clasificación',
+                        TercerosClasificacionDos_Clasificacion:'Terceros - ClasificaciónDos_Clasificación',
+                        TercerosClasificacionTres_Clasificacion:'Terceros - ClasificaciónTres_Clasificación',
+                        FechaDeCreacion:'FechaDeCreación',
+                        Plazo:'Plazo',
+                        PropiedadRetencion:'Propiedad Retencion',
+                        TarifaIca:'TarifaIca',
+                        Cargo:'Cargo',
+                        Terceros_1_Identificacion:'Terceros_1_Identificacion',
+                        ListPrecios:'ListPrecios',
+                        Personalizado1:'Personalizado1',
+                        RETECREE:'RETECREE',
+
+                        Personalizado3:'Personalizado3',
+                        Personalizado4:'Personalizado4',
+                        Personalizado5:'Personalizado5',
+                        Personalizado6:'Personalizado6',
+                        Personalizado7:'Personalizado7',
+                        Personalizado8:'Personalizado8',
+                        Personalizado9:'Personalizado9',
+                        Personalizado10:'Personalizado10',
+                        Personalizado11:'Personalizado11',
+                        Personalizado12:'Personalizado12',
+                        Personalizado13:'Personalizado13',
+                        Personalizado14:'Personalizado14',
+                        Personalizado15:'Personalizado15',
+
+                        ZonaUno:'ZonaUno',
+                        tipo_de_direccion:'tipo de direccion',
+                        Direccion:'Dirección',
+                        Telefonos:'Teléfonos',
+                        Ciudad_Direccion:'Ciudad_Direccion',
+                        Dir_Principal:'Dir_Principal'
+                        }"
+                        filename=" 'Listado de Terceros Interfaz Contable' " 
+                        title="Listado de Terceros Interfaz Contable"
+                        >
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Listado de Terceros Interfaz Contable</button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Auditoria Terceros Interfaz</h3>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <table object-table class="hover-column" 
+                       data="reportesCtrl.listFormatoInterfazTerceros" 
+                       display="10" 
+                       headers="Tipo Identificacion,Identificacion,Nombre,Apellido"
+                       fields="tipoDeIdentificacion,Terceros_identificacion,Primer_Nombre,Primer_Apellido"
+                       sorting="compound" 
+                       editable="false" 
+                       search="separate" 
+                       resize="false">
+                    <tbody>
+                        <tr>
+                            <td>{{::item.tipoDeIdentificacion}}</td>
+                            <td>{{::item.Terceros_identificacion}}</td>
+                            <td>{{::item.Primer_Nombre}}</td>
+                            <td>{{::item.Primer_Apellido}}</td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.reportesCtrl.listFormatoInterfazTerceros.length !== $owner.appConstantsView.CERO">
+                            <td colspan="2">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                        </tr>
+                        <tr ng-if="$owner.reportesCtrl.listFormatoInterfazTerceros.length === $owner.appConstantsView.CERO">
+                            <td colspan="2">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

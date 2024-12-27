@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<div id="page-title" ng-controller=" CargoCtrl as cargCtrl">
+    <h2>{{appConstantsView.TITLE_CARGOS}}</h2>
+
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{cargCtrl.cargoAuxiliar.titulo}}</h3>
+            <div class="float-right">
+                <a href="/#/cargos" ng-click="cargCtrl.onLimpiar()" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">     
+                <div class="row">
+                    <form  method="POST" novalidate name="formRegistrarCargo" >
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-lg-6 col-sm-6">
+                                    <label class="control-label">{{appConstantsView.LABEL_CODIGO}}<span class="text-danger">*</span></label>
+                                    <input  validation="required" mask="X" repeat="10"   restrict="reject" 
+                                            class="form-control text-uppercase" name="Código"  maxlength="10" 
+                                            ng-disabled="cargCtrl.cargoAuxiliar.disableVerDetalle || cargCtrl.cargoAuxiliar.disableCodigo"
+                                            ng-model="cargCtrl.cargoEntity.codigoCargo">
+                                </div>
+
+                                <div class="col-lg-6 col-sm-6">
+                                    <label class="control-label" >{{appConstantsView.LABEL_NOMBRE}} <span class="text-danger">*</span></label>
+                                    <input  validation="required" 
+                                            name="Nombre"   mask="H" repeat="50"   restrict="reject"
+                                            maxlength="50" class="form-control text-uppercase"  
+                                            ng-disabled="cargCtrl.cargoAuxiliar.disableVerDetalle"
+                                            ng-model="cargCtrl.cargoEntity.nombreCargo">
+
+                                </div>
+                            </div>
+
+
+                        </div>  
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6" ng-if="!cargCtrl.cargoAuxiliar.onDeshabilitarCampoEstado">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_ESTADO}}</label><label class="text-danger pull-left">*</label>
+                                    <select ng-options="nivel.valor as nivel.valor for nivel in cargCtrl.listaEstados"
+                                            name="estado" id="estado" class="form-control"
+                                            ng-model="cargCtrl.cargoEntity.estado" validation="required">
+                                        <option ng-if="cargCtrl.listaEstados.length > appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="button-pane">
+                            <button type="submit" class="btn btn-success"  ng-click="cargCtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

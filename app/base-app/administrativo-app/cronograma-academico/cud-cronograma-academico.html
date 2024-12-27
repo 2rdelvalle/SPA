@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<div ng-controller="cronogramaCtrl as cronoCtrl">
+    <h2>{{appConstantsView.LABEL_GESTION_CRONOGRAMA_ACA}} </h2>
+    <br>
+    <div class="content-box">
+        <h3 class="content-box-header bg-default">
+            {{cronoCtrl.esvisible.titulo}}
+            <span class="header-buttons-separator">
+                <a href="#/cronograma-academico" class="icon-separator icon-tool-add back-button" data-animation="flipOutX" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;" >
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </span>
+        </h3>
+        <div class="panel-default">
+            <div class="panel-body">
+                <form method="POST" name="formgeneralcampania" novalidate>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}</label><label class="text-danger">*</label>
+                                <select  ng-options="periodo.nombre for periodo in cronoCtrl.periodos track by periodo.id" 
+                                         name="selectperiodo" id="selectperiodo" 
+                                         ng-disabled="cronoCtrl.esvisible.eseditable"
+                                         validation="required: alt=Seleccione un período académico" class="form-control"
+                                         ng-model="cronoCtrl.cronograma.periodo">
+                                    <option ng-if="cronoCtrl.periodos.length >=0" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="codigo" class="control-label pull-left">{{appConstantsView.LABEL_CODIGO}}</label><label class="text-danger">*</label>
+                                <input type="text" id="codigo" class="form-control upper" placeholder='Código del cronograma' name="codigo" ng-model="cronoCtrl.cronograma.codigo" 
+                                       ng-disabled="cronoCtrl.esvisible.eseditable" ng-trim="false" validation="alpha_num|exact_len:10|required" maxlength="10">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label><label class="text-danger">*</label>
+                                <input ng-disabled="cronoCtrl.esvisible.eseditable" type="text" id="nombre" class="form-control" placeholder='Nombre del cronograma' name="nombre" ng-model="cronoCtrl.cronograma.nombre"  validation="required: alt=Digite un nombre">
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_ESTADO}}</label><label class="text-danger">*</label>
+                                <select  ng-options="estado.valor for estado in cronoCtrl.estadoscronograma track by estado.codigo" 
+                                         name="selectEstado" id="selectEstado" 
+                                         ng-disabled="cronoCtrl.esvisible.eseditable"
+                                         validation="required: alt=Seleccione un estado" class="form-control"
+                                         ng-model="cronoCtrl.cronograma.estado"> 
+                                    <option ng-if="cronoCtrl.estadoscronograma.length >= appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="resolucion" class="control-label">Resolución</label><label class="text-danger">*</label>
+                                <input ng-disabled="cronoCtrl.esvisible.eseditable" type="text" id="nombre" class="form-control" placeholder='Resolución del cronograma' name="resolucion" ng-model="cronoCtrl.cronograma.nombre"  validation="required: alt=Digite una resolución">
+                            </div>
+                        </div>
+
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div>
+                            <uib-tabset active="active" title-header-tab="CRONOGRAMA">
+                                <uib-tab index="0" heading="CRONOGRAMA ACADÉMICO">Vertical content 1</uib-tab>
+                                <uib-tab index="1" heading="ACTIVIDADES">Vertical content 2</uib-tab>
+                                <uib-tab index="2" heading="CRONOGRAMA ACADÉMICO">Vertical content 1</uib-tab>
+                            </uib-tabset>
+                        </div>
+                        <!--<div>
+                            <ul class="nav nav-tabs" ng-class="{'nav-stacked': vertical, 'nav-justified': justified}"></ul>
+                            <div class="tab-content">
+                                <div class="tab-pane"
+                                     ng-repeat="tab in cronoCtrl.tabs">
+                                    
+                                        <a href="" class="nav-link" >Vertical 1</a>
+                                    
+                                </div>
+                            </div>
+                        </div>-->
+                      
+                            
+                        <div class="content-box tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+                            <h3 class="content-box-header bg-primary">
+                                <span>CALENDARIO</span>
+                                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+                                    <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active ms-hover" role="tab" tabindex="0" aria-controls="tabs-example-1" aria-labelledby="ui-id-80" aria-selected="true" aria-expanded="true">
+                                        <a data-toggle="tab" href="/#/cronograma-academico-cud/#tabs-example-1" title="Tab 1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-80">
+                                         {{appConstantsView.TITLE_CRONOGRAMA_ACADEMICO}}  
+                                        </a>
+                                    </li>
+                                    <li class="ui-state-default ui-corner-top ms-hover" role="tab" tabindex="-1" aria-controls="tabs-example-2" aria-labelledby="ui-id-81" aria-selected="false" aria-expanded="false">
+                                        <a data-toggle="tab" href="#/cronograma-academico-cud#tabs-example-2" title="Tab 2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-81">
+                                         {{appConstantsView.TITLE_ACTIVIDADES}} 
+                                        </a>
+                                    </li>  
+                                </ul>
+                            </h3>
+                            <div id="tabs-example-1" aria-labelledby="ui-id-80" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-hidden="false">
+                                Tab 1 content goes here ...
+                            </div>
+                            <div id="tabs-example-2" aria-labelledby="ui-id-81" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-hidden="true" style="display: none;">
+                                Tab 2 content goes here ...
+                            </div>
+                        </div>
+                    </div>
+                   
+                </form>
+                    <div class="button-pane" ng-if="campCtrl.esvisible.renderedbutton">
+                        <input type="submit" class="btn" style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1;" ng-click="campCtrl.onGuardar()" value="Guardar">
+                        <input type="reset" class="btn btn-info" ng-click="campCtrl.onLimpiarCampania()" value="Limpiar">
+                    </div>
+            </div>
+
+        </div>
+    </div>
+    <br/>
+</div>
+

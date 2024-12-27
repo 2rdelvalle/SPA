@@ -1,0 +1,162 @@
+<div id="page-title" ng-controller="PeriodoAcademicoCtrl as periodoCtrl">
+	<h2>{{appConstantsView.LABEL_PERIODOS_ACADEMICO}}</h2>
+	<p></p>
+	<br>
+	<div class="content-box">
+		<div class="button-pane button-pane-top">
+			<h3 class="float-left text-uppercase content-box-header-title btn-sm ">{{periodoCtrl.periodoAcademicoAuxiliar.titulo}} Período Académico</h3>
+			<div class="float-right">
+				<a href="/#/periodos-academicos" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;"
+					ng-click="periodoCtrl.onLimpiar()">
+					<div class="glyph-icon">
+						<i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="content-box-wrapper">
+			<div class="panel-body">
+				<div class="row">
+					<form method="POST" name="formCrudPeriodoAcademico" novalidate>
+						<div class="row">
+							<div class="col-lg-6 col-sm-6">
+								<div class="form-group">
+									<label for="id" class="control-label">{{appConstantsView.LABEL_CODIGO}}</label><label class="text-danger">*</label>
+									<input type="text" maxlength="10" class="form-control text-uppercase" id="codigo" mask='X' repeat='10' restrict='reject'
+										ng-model="periodoCtrl.periodoAcademico.codigoPeriodoAcademico" ng-disabled="periodoCtrl.periodoAcademicoAuxiliar.disableVerDetalle || periodoCtrl.periodoAcademicoAuxiliar.disableCodigo"
+										name="codigo" validation="required">
+								</div>
+							</div>
+							<div class="col-lg-6 col-sm-6">
+								<div class="form-group">
+									<label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label><label class="text-danger">*</label>
+									<input type="text" maxlength="50" id="nombre" mask='H' repeat='50' restrict='reject' class="form-control text-uppercase"
+                                                                                ng-blur="periodoCtrl.onBlurCambioNombrePeriodoNuevo()"
+										name="nombre" ng-disabled="periodoCtrl.periodoAcademicoAuxiliar.disableVerDetalle" ng-model="periodoCtrl.periodoAcademico.nombrePeriodoAcademico"
+										validation="required">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6 col-sm-6">
+								<div class="form-group">
+									<label class="control-label">{{appConstantsView.LABEL_ANIO_LECTIVO}}</label><label class="text-danger">*</label>
+									<input type="text" class="form-control" autocomplete="off" mask="9999" Limit='true' restrict='reject' maxlength="4" ng-disabled="periodoCtrl.periodoAcademicoAuxiliar.disableVerDetalle"
+										validation="required" name="datepicker-anio-lectivo" readonly="true" placeholder="aaaa" ng-change="periodoCtrl.onChange()"
+										ng-model="periodoCtrl.periodoAcademico.anoLectivo" id="datepicker-anio-lectivo" />
+								</div>
+							</div>
+							<div class="col-lg-6 col-sm-6" ng-if="periodoCtrl.periodoAcademico.estado!=='Cerrado'">
+								<div class="form-group">
+									<label class="control-label">{{appConstantsView.LABEL_ESTADO}}</label><label class="text-danger">*</label>
+									<select class="form-control" ng-model="periodoCtrl.periodoAcademico.estado" name="selectEstado" id="selectEstado" ng-disabled="periodoCtrl.periodoAcademicoAuxiliar.disableVerDetalle"
+										ng-options="estado.codigo as estado.valor  for estado in periodoCtrl.estados | orderBy:'valor'" validation="required">
+                                        					<option ng-if="periodoCtrl.estados.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                    					</select>
+								</div>
+							</div>
+							<div class="col-lg-6 col-sm-6" ng-if="periodoCtrl.periodoAcademico.estado==='Cerrado'">
+								<div class="form-group">
+									<label class="control-label">{{appConstantsView.LABEL_ESTADO}}</label><label class="text-danger"></label>
+									<input type="text" class="form-control" ng-disabled="periodoCtrl.periodoAcademicoAuxiliar.disableVerDetalle" ng-model="periodoCtrl.periodoAcademico.estado"
+										name="selectEstado" id="selectEstado">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div id="fechaPeriodo" class="input-daterange input-group">
+								<div class="col-lg-6 col-sm-6">
+									<div class="form-group">
+										<label class="control-label">{{appConstantsView.LABEL_FECHA_INICIO}}</label><label class="text-danger">*</label>
+										<div class="input-group fecha-inicio">
+											<span class="input-group-addon">
+                                                						<i class="glyph-icon icon-calendar"></i>
+                                            						</span>
+											<input type="text" class="form-control date text-left" mask="39/19/9999" restrict="reject" placeholder='dd/mm/aaaa' name="fechaInicio"
+												id="fechaInicio" ng-disabled="periodoCtrl.periodoAcademicoAuxiliar.disableVerDetalle" autocomplete="off" ng-change="periodoCtrl.onCambiar()"
+												ng-model="periodoCtrl.periodoAcademico.fechaInicioPeriodoAcademico" validation="required" validation-error-to="validacionFechaInicial"
+												readonly="true" />
+										</div>
+										<span id="validacionFechaInicial" class="validation text-danger "></span>
+									</div>
+								</div>
+								<div class="col-lg-6 col-sm-6">
+									<div class="form-group">
+										<label class="control-label">{{appConstantsView.LABEL_FECHA_FIN}}</label><label class="text-danger">*</label>
+										<div class="input-group fecha-fin">
+											<span class="input-group-addon">
+                                                						<i class="glyph-icon icon-calendar"></i>
+                                            						</span>
+											<input type="text" class="form-control date text-left" mask="39/19/9999" restrict="reject" placeholder='dd/mm/aaaa' name="fechaFin"
+												id="fechaFin" ng-disabled="periodoCtrl.periodoAcademicoAuxiliar.disableVerDetalle" autocomplete="off" readonly="true"
+												ng-model="periodoCtrl.periodoAcademico.fechaCierrePeriodoAcademico" validation="required" validation-error-to="validacionFechaFin"
+											/>
+										</div>
+										<span id="validacionFechaFin" class="validation text-danger"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div ng-if="periodoCtrl.periodoAcademicoAuxiliar.titulo==='Agregar' ? false : true" class="col-lg-6 col-sm-6">
+								<div class="form-group">
+									<label class="control-label">{{appConstantsView.LABEL_FECHA_REGISTRO}}</label><label class="text-danger">*</label>
+									<div class="input-prepend input-group">
+										<span class="add-on input-group-addon">
+                                            						<i class="glyph-icon icon-calendar"></i>
+                                        					</span>
+										<input type="text" class="form-control" placeholder='dd/mm/aaaa' name="fechaRegistro" id="fechaRegistro" ng-disabled="periodoCtrl.periodoAcademicoAuxiliar.disableVerDetalle || periodoCtrl.periodoAcademicoAuxiliar.disableCodigo"
+											ng-model="periodoCtrl.periodoAcademico.fechaRegistro" />
+									</div>
+								</div>
+							</div>
+							<div ng-if="periodoCtrl.periodoAcademicoAuxiliar.titulo==='Agregar' ? false : true" class="col-lg-6 col-sm-6">
+								<label class="control-label">{{appConstantsView.LABEL_RESPONSABLE}}</label><label class="text-danger">*</label>
+								<input type="text" maxlength="50" class="form-control" id="responsable" ng-model="periodoCtrl.periodoAcademico.nombreResponsable"
+									onblur="this.value=this.value.toUpperCase();" style="text-transform: uppercase" ng-disabled="periodoCtrl.periodoAcademicoAuxiliar.disableVerDetalle || periodoCtrl.periodoAcademicoAuxiliar.disableCodigo"
+									onkeyup="javascript:this.value=t his.value.toUpperCase();" name="responsable">
+							</div>
+						</div>
+						<div class="button-pane">
+							<input type="submit" class="btn btn-success" ng-if="!(periodoCtrl.periodoAcademicoAuxiliar.disableVerDetalle
+										&& periodoCtrl.periodoAcademicoAuxiliar.disableCodigo)" value="Guardar" ng-click="periodoCtrl.onSubmitForm()">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>        
+            var value = '';
+            var fechaInicio = '';
+            var fechaFin = '';
+            $("#datepicker-anio-lectivo ").focus(function () {
+    value = $("#datepicker-anio-lectivo ").val();
+    });
+            $("#datepicker-anio-lectivo ").keyup(function () {
+    value = $("#datepicker-anio-lectivo ").val();
+    });
+            $("#datepicker-anio-lectivo ").blur(function () {
+    $("#datepicker-anio-lectivo ").val(value);
+    });
+            $("#fechaInicio ").focus(function () {
+    fechaInicio = $("#fechaInicio ").val();
+    });
+            $("#fechaInicio ").keyup(function () {
+    fechaInicio = $("#fechaInicio ").val();
+    });
+            $("#fechaInicio ").blur(function () {
+    $("#fechaInicio ").val(fechaInicio);
+    });
+            $("#fechaFin ").focus(function () {
+    fechaFin = $("#fechaFin ").val();
+    });
+            $("#fechaFin ").keyup(function () {
+    fechaFin = $("#fechaFin ").val();
+    });
+            $("#fechaFin ").blur(function () {
+    $("#fechaFin ").val(fechaFin);
+    });
+</script>

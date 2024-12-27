@@ -1,0 +1,84 @@
+<div id="page-title" ng-controller="RecursoEducativoCtrl as recursoCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.TITLE_RECURSO_EDUCATIVO}}</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_LISTADO_RECURSOS_ACADEMICO}} </h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a class="btn btn-sm btn-info icon-tool-add" ng-click="recursoCtrl.onClickToAddRecursoEdu()" style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.BOTON_AGREGAR}}</span>
+                    </div>
+                </a>
+                <!--<a href="" class="btn btn-sm btn-info icon-tool-add {{recursoCtrl.report.selected.length === appConstantsView.CERO|| recursoCtrl.report.selected.length === appConstantsView.UNO?'disabled':' '}}"  
+                   ng-click="recursoCtrl.report.selected.length === appConstantsView.CERO || recursoCtrl.report.selected.length === appConstantsView.UNO? ' ' : recursoCtrl.onDeleteMasivoRecursoEdu()" 
+                   data-style="dark" data-theme="bg-white" 
+                   data-opacity="40" style="background-color: #e74c3c; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-remove"></i><span class="info-icon-tool text-capitalize">Eliminar Masivo</span>
+                    </div>
+                </a>-->
+                <a ng-click="recursoCtrl.cancelarInterval(); mCtrl.onListarOPciones('/#/recurso-institucionales')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="recursoCtrl.display" 
+                                        ng-init="recursoCtrl.display = recursoCtrl.display || recursoCtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in recursoCtrl.options">
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+
+                    <table object-table data="recursoCtrl.recursos" display="recursoCtrl.display" headers="Código,Nombre,Tipo,Estado,Opciones" fields="codigo,nombre,tipoNombre,estado"
+                           search="separate" sorting="compound" selected-model="recursoCtrl.report.selected" editable="false" search="false"
+                           add-filter="|filter:$owner.all" resize="false" select="multiply">
+                        <tbody>
+                            <tr>
+                                <td>{{::item.codigo}}</td>
+                                <td style="text-transform: uppercase">{{::item.nombre}}</td>
+                                <td>{{::item.tipoNombre}}</td>
+                                <td>{{::item.estado}}</td>
+                                <td class="text-center opciones-table">
+                                    <a class="btn btn-primary btn-tools-table" title="Ver Detalle" ng-click="$owner.recursoCtrl.onClickToVerMasRecursoEdu(item)">
+                                        <i class="glyphicon glyphicon-eye-open "></i>
+                                    </a>
+                                    <a class="btn btn-info btn-tools-table" title="Modificar" ng-click="$owner.recursoCtrl.onClickToUpdateRecursoEdu(item)">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-tools-table" title="Eliminar" ng-click="$owner.recursoCtrl.onDeleteRecursoEdu(item)">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <tfoot>
+                            <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.recursoCtrl.recursos.length !== $owner.appConstantsView.CERO">
+                                <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                            </tr>
+                            <tr ng-show="$owner.recursoCtrl.recursos.length === $owner.appConstantsView.CERO">
+                                <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                            </tr>
+                        </tfoot>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

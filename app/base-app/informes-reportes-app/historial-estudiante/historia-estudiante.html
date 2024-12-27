@@ -1,0 +1,234 @@
+<style>
+    .altoImp {
+        height: 92px !Important;
+    }
+
+    li>.col-sm-3>.active {
+        color: #555555;
+        background-color: red;
+    }
+</style>
+<div id="page-title" ng-controller="auditoriaEstudianteCtrl as liqMatCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">GESTIONAR MATRICULAS ESTUDIANTE</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">ACTUALIZAR DATOS DEL ESTUDIANTE</h3>
+            </div>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/gestion-admitidos')"
+                    class="btn btn-sm btn-info icon-tool-add back-button"
+                    style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span
+                            class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                    <form role="form" name="formConsultarEstudiante" novalidate>
+                        <div class="form-group">
+                            <label class="control-label">{{appConstantsView.LABEL_CODIGO}}<label
+                                    class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <input type="text" id="codigoIdentificacion" name="codigoIdentificacion"
+                                    class="form-control"
+                                    ng-model="liqMatCtrl.nuevoLiquidarMatricula.codigoEstudianteCampo"
+                                    validation="required" validation-error-to="myErrorId"
+                                    ng-keyup="liqMatCtrl.onPresionarEnter($event)" ng-change="liqMatCtrl.onLimpiar()"
+                                    mask="9" min="3" repeat="15" restrict="reject">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button"
+                                        ng-click="liqMatCtrl.onConsultarEstudiante()">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <span id="myErrorId" class="validation text-danger"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <form method="POST" name="formConsultarPrograma" novalidate>
+                        <div class="form-group" ng-if="liqMatCtrl.listaProgramas.length > appConstantsView.CERO">
+                            <label class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}<label
+                                    class="text-danger">*</label></label>
+                            <select ng-options="item as item.programa for item in liqMatCtrl.listaProgramas"
+                                name="selectListaProgramas" id="selectListaProgramas" class="form-control"
+                                ng-model="liqMatCtrl.nuevoLiquidarMatricula.idProgramaSelected"
+                                ng-change="liqMatCtrl.onCambiarPrograma()" validation="required">
+                                <option ng-if="liqMatCtrl.listaProgramas.length > appConstantsView.UNO" value=""
+                                    selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="content-box" ng-if="liqMatCtrl.liquidarMatriculaAux.onDeshabilitar">
+                <h3 class="content-box-header bg-default">
+                    {{appConstantsView.TITLE_INFO_ESTUDIANTE}}
+                </h3>
+                <div class="content-box-wrapper">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                <input type="text" id="nombreEstudiante" ng-disabled="true" class="form-control"
+                                    name="nombre" ng-model="liqMatCtrl.nuevoLiquidarMatricula.nombresCompleto">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="seccional"
+                                    class="control-label">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                <input type="text" id="identificacionEstudiante" ng-disabled="true" class="form-control"
+                                    name="seccional" ng-model="liqMatCtrl.nuevoLiquidarMatricula.documentoCompleto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="program"
+                                    class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                                <input type="text" id="responsable" ng-disabled="true" class="form-control"
+                                    name="program" ng-model="liqMatCtrl.nuevoLiquidarMatricula.programaNombre">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="horario" class="control-label">{{appConstantsView.LABEL_HORARIO}}</label>
+                                <input type="text" id="horario" ng-disabled="true" class="form-control" name="semest"
+                                    ng-model="liqMatCtrl.nuevoLiquidarMatricula.horario">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="grupos"
+                                    class="control-label">{{appConstantsView.LABEL_PERIODO_ACTUAL}}</label>
+                                <select
+                                    ng-options="periodo as periodo.nombre for periodo in liqMatCtrl.listadoPeriodos| orderBy:'nombre'"
+                                    class="form-control" ng-model="liqMatCtrl.idPeriodo"
+                                    ng-change="liqMatCtrl.onBuscarGruposByModulo(); liqMatCtrl.onConsultarNotas()"
+                                    id="periodoe" name="periodoe">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table object-table class="hover-column" display="liqMatCtrl.display"
+                                data="liqMatCtrl.listaNotas"
+                                headers="Asignatura,Estado,Nota 1,Nota 2,Nota 3,Nota Habilitacion ,Nota Definitiva"
+                                fields="nombreModulo,estadoMatricula,nota1,nota2,nota3,notaHabilitacion,notaDefinitiva"
+                                sorting="compound" selected-model="liqMatCtrl.report.selected" editable="false"
+                                search="false" resize="false" select="false">
+                                <tbody>
+                                    <tr style="height: 60px;">
+                                        <td>{{::item.nombreModulo}}</td>
+                                        <td>{{::item.estadoMatricula}}</td>
+                                        <td>{{::item.nota1}}</td>
+                                        <td>{{::item.nota2}}</td>
+                                        <td>{{::item.nota3}}</td>
+                                        <td>{{::item.notaHabilitacion}}</td>
+                                        <td>{{::item.notaDefinitiva}} </td>
+                                        <td ng-hide="true">{{$owner.liqMatCtrl.filtrados = $filtered}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr
+                                        ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.liqMatCtrl.listaNotas.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.liqMatCtrl.listaNotas.length === $owner.appConstantsView.CERO">
+                                        <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-box">
+                    <div class="clearfix"></div>
+                    <div class="example-box-wrapper" id="tabss">
+                        <ul class="list-group list-group-separator row list-group-icons">
+                            <li class="col-sm-3">
+                                <button data-toggle="tab" id="tab-1" class="list-group-item altoImp"
+                                    ng-click="inspCtrl.ChangeTabs(1)" ng-disabled="inspCtrl.habilitarTabs">
+                                    <i class="glyph-icon icon-user iconsRender " style="color: green"></i>
+                                    {{appConstantsView.LABEL_INFO_PERSONAL}}
+                                </button>
+                            </li>
+                            <li class="col-sm-3">
+                                <button data-toggle="tab" id="tab-2" class="list-group-item altoImp"
+                                    ng-click="inspCtrl.ChangeTabs(2)" ng-disabled="inspCtrl.habilitarTabs">
+                                    <i class="glyph-icon icon-book iconsRender "></i>
+                                    {{appConstantsView.LABEL_INFO_ACADEMICA}}
+                                </button>
+                            </li>
+                            <li class="col-sm-3">
+                                <button data-toggle="tab" id="tab-3" class="list-group-item altoImp"
+                                    ng-click="inspCtrl.ChangeTabs(3)" ng-disabled="inspCtrl.habilitarTabs">
+                                    <i class="glyph-icon icon-group iconsRender " style="color: red"></i>
+                                    {{appConstantsView.LABEL_INFO_FAMILIAR}}
+                                </button>
+                            </li>
+                            <li class="col-sm-3">
+                                <button data-toggle="tab" id="tab-4" class="list-group-item altoImp"
+                                    ng-click="inspCtrl.ChangeTabs(4)" ng-disabled="true">
+                                    <i class="glyph-icon icon-stack-exchange iconsRender " style="color: black"></i>
+                                    {{appConstantsView.LABEL_OTRA_INFO}}
+                                </button>
+                            </li>
+                        </ul>
+                        <ul class="list-group list-group-separator row list-group-icons">
+                            <li class="col-sm-4">
+                                <button data-toggle="tab" id="tab-5" class="list-group-item altoImp"
+                                    ng-click="inspCtrl.ChangeTabs(5)">
+                                    <i class="glyph-icon icon-search iconsRender" style="color: black"></i>
+                                    {{appConstantsView.LABEL_HOJA_VIDA_OBSERVACION}}
+                                </button>
+                            </li>
+
+                            <li class="col-sm-4">
+                                <button data-toggle="tab" id="tab-6" class="list-group-item altoImp"
+                                    ng-click="inspCtrl.ChangeTabs(6)">
+                                    <i class="glyph-icon icon-remove iconsRender" style="color: red"></i>
+                                    {{appConstantsView.LABEL_RETIRO_ESTUDIANTE}}
+                                </button>
+                            </li>
+                            <li class="col-sm-4">
+                                <button data-toggle="tab" id="tab-7" class="list-group-item altoImp"
+                                    ng-click="inspCtrl.ChangeTabs(7)">
+                                    <i class="glyph-icon icon-play iconsRender" style="color: red"></i>
+                                    {{appConstantsView.LABEL_REINTEGRO_ESTUDIANTE}}
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade" id="tab-example-1">
+                                <div class="back-cover table-scroll-x">
+                                    <div
+                                        ng-include="'base-app/informes-reportes-app/historial-estudiante/historial-estudiante-tabs/historia-estudiante-notas.html'">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

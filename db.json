@@ -1,0 +1,6774 @@
+{
+  "prerequisitos": [
+    {
+      "codigo": "32234FGCRT",
+      "nombre": "HOJA DE VIDA",
+      "caracteristica": {
+        "codigo": 2,
+        "nombre": "Documento"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "4",
+        "nombre": "Graduación"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "si",
+      "requisito": "no",
+      "id": "cb9098ee-cc0d-427f-a8d7-20cbb2f52f0b"
+    },
+    {
+      "codigo": "DFGFGRE655",
+      "nombre": "SABER PRO",
+      "caracteristica": {
+        "codigo": 1,
+        "nombre": "Prueba"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "4",
+        "nombre": "Graduación"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "si",
+      "requisito": "si",
+      "id": "26204b11-dc78-47a9-b3df-61a14feef771"
+    },
+    {
+      "codigo": "FDSKJ38UIK",
+      "nombre": "DOCUMENTO DE IDENTIDAD",
+      "caracteristica": {
+        "codigo": 2,
+        "nombre": "Documento"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "1",
+        "nombre": "Inscripción"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "si",
+      "requisito": "si",
+      "id": "a7a9a4f2-9b17-4fcf-84a4-625233444eac"
+    },
+    {
+      "codigo": "VDFGGLKJ4W",
+      "nombre": "DIPLOMA DE BACHILLER",
+      "caracteristica": {
+        "codigo": 2,
+        "nombre": "Documento"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "1",
+        "nombre": "Inscripción"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "si",
+      "requisito": "si",
+      "id": "356d335e-7563-4380-8746-5665edab6a91"
+    },
+    {
+      "codigo": "SD288888EN",
+      "nombre": "PRUEBA ICFES",
+      "caracteristica": {
+        "codigo": 1,
+        "nombre": "Prueba"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "1",
+        "nombre": "Inscripción"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "si",
+      "requisito": "si",
+      "id": "03d7ebb3-1e5b-4fbc-9c5e-b3ca74a7a8d1"
+    },
+    {
+      "codigo": "XCMNXJKWEW",
+      "nombre": "LIBRETA MILITAR",
+      "caracteristica": {
+        "codigo": 2,
+        "nombre": "Documento"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "2",
+        "nombre": "Admisión"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "no",
+      "requisito": "si",
+      "id": "fe429b3c-57df-43b2-a578-69f94b50544b"
+    },
+    {
+      "codigo": "CC333LLI5K",
+      "nombre": "CERTIFICADO LABORAL",
+      "caracteristica": {
+        "codigo": 2,
+        "nombre": "Documento"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "2",
+        "nombre": "Admisión"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "no",
+      "requisito": "si",
+      "id": "872d04ea-2816-4432-98b7-cc187e95ad14"
+    },
+    {
+      "codigo": "CCSWE565TT",
+      "nombre": "CERTIFICADO DE VACUNAS",
+      "caracteristica": {
+        "codigo": 2,
+        "nombre": "Documento"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "2",
+        "nombre": "Admisión"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "no",
+      "requisito": "no",
+      "id": "3ee97caa-aef5-4744-ac79-6008fe3b3b7a"
+    },
+    {
+      "codigo": "PORO990286",
+      "nombre": "PRUEBA DE FRANCES",
+      "caracteristica": {
+        "codigo": 1,
+        "nombre": "Prueba"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "2",
+        "nombre": "Admisión"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "no",
+      "requisito": "no",
+      "id": "c9320ac4-d00a-49f3-9782-43d3449424b7"
+    },
+    {
+      "codigo": "DFSDF",
+      "nombre": 23232,
+      "caracteristica": {
+        "codigo": 1,
+        "nombre": "Prueba"
+      },
+      "descripcion": "wewer",
+      "tipoRequisito": {
+        "codigo": "2",
+        "nombre": "Admisión"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "si",
+      "requisito": "no",
+      "id": "e0cb5e13-8d95-4884-a980-e6540870e42d"
+    },
+    {
+      "codigo": "DOC_IDENTIDAD",
+      "nombre": "DOCUMENTO DE IDENTIDAD",
+      "caracteristica": {
+        "codigo": 2,
+        "nombre": "Documento"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "3",
+        "nombre": "Crédito"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "si",
+      "requisito": "si",
+      "id": "a7a9a4f2-9b17-4fcf-84a4-625233444eag"
+    },
+    {
+      "codigo": "CERTI_LABORAL",
+      "nombre": "CERTIFICADO LABORAL DEUDOR",
+      "caracteristica": {
+        "codigo": 2,
+        "nombre": "Documento"
+      },
+      "descripcion": null,
+      "tipoRequisito": {
+        "codigo": "3",
+        "nombre": "Crédito"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "obligatorio": "si",
+      "requisito": "si",
+      "id": "a7a9a4f2-9b17-4fcf-84a4-625233444eah"
+    }
+  ],
+  "listaTiposRequisito": [
+    {
+      "codigo": "1",
+      "nombre": "Inscripción"
+    },
+    {
+      "codigo": "2",
+      "nombre": "Admisión"
+    },
+    {
+      "codigo": "3",
+      "nombre": "Crédito"
+    },
+    {
+      "codigo": "4",
+      "nombre": "Graduación"
+    },
+    {
+      "codigo": "5",
+      "nombre": "Convenio"
+    }
+  ],
+  "listaEstados": [
+    {
+      "id": "1",
+      "codigo": "A001",
+      "nombre": "Activo"
+    },
+    {
+      "id": "2",
+      "codigo": "A002",
+      "nombre": "Inactivo"
+    }
+  ],
+  "listaObligatorio": [
+    {
+      "id": "1",
+      "codigo": "A001",
+      "nombre": "si"
+    },
+    {
+      "id": "2",
+      "codigo": "A002",
+      "nombre": "no"
+    }
+  ],
+  "franquicia": [
+    {
+      "codigo": "DDAS3",
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "codigo": 6636353535,
+        "nombre": "CRISTIAN SIERRA CARDENAS",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 93120931529,
+        "direccion": [
+          {
+            "id": 0,
+            "direccion": "vivelab cartagena"
+          },
+          {
+            "id": 1,
+            "direccion": "centro cll larga"
+          }
+        ],
+        "telefono": [
+          {
+            "id": 0,
+            "telefono": "3225132806"
+          },
+          {
+            "id": 1,
+            "telefono": "6525686"
+          }
+        ],
+        "representanteLegal": "CRISTIAN SIERRA CARDENAS",
+        "nit": 1047464756,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        },
+        "id": 1
+      },
+      "descuento": "0.02",
+      "estadoLogico": "A",
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "fechaInicio": "05/01/2016",
+      "fechaFin": "05/08/2016",
+      "id": 1
+    },
+    {
+      "codigo": "FDFDS",
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "codigo": 7657657657,
+        "nombre": "PRUEBA DE TEST",
+        "abreviatura": "test de prueba",
+        "numeroCuenta": 93120931529,
+        "direccion": [
+          {
+            "id": 0,
+            "direccion": "centro"
+          },
+          {
+            "id": 1,
+            "direccion": "bocagrande"
+          },
+          {
+            "id": 2,
+            "direccion": "dffhfghfghgf"
+          }
+        ],
+        "telefono": [
+          {
+            "id": 0,
+            "telefono": "3126128591"
+          },
+          {
+            "id": 1,
+            "telefono": "3107092495"
+          },
+          {
+            "id": 2,
+            "telefono": "5464654"
+          },
+          {
+            "id": 3,
+            "telefono": "564546546"
+          },
+          {
+            "id": 4,
+            "telefono": "465465464"
+          }
+        ],
+        "representanteLegal": "CRISTIAN SIERRA CARDENAS",
+        "nit": 1047464756,
+        "estado": {
+          "id": "1",
+          "codigo": "A001",
+          "nombre": "activo"
+        },
+        "id": 2
+      },
+      "descuento": "0.01",
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "11/05/2016",
+      "fechaFin": "14/05/2016",
+      "id": 2
+    },
+    {
+      "codigo": "DD4",
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "codigo": 7657657657,
+        "nombre": "PRUEBA DE TEST",
+        "abreviatura": "test de prueba",
+        "numeroCuenta": 93120931529,
+        "direccion": [
+          {
+            "id": 0,
+            "direccion": "centro"
+          },
+          {
+            "id": 1,
+            "direccion": "bocagrande"
+          },
+          {
+            "id": 2,
+            "direccion": "dffhfghfghgf"
+          }
+        ],
+        "telefono": [
+          {
+            "id": 0,
+            "telefono": "3126128591"
+          },
+          {
+            "id": 1,
+            "telefono": "3107092495"
+          },
+          {
+            "id": 2,
+            "telefono": "5464654"
+          },
+          {
+            "id": 3,
+            "telefono": "564546546"
+          },
+          {
+            "id": 4,
+            "telefono": "465465464"
+          }
+        ],
+        "representanteLegal": "CRISTIAN SIERRA CARDENAS",
+        "nit": 1047464756,
+        "estado": {
+          "id": "1",
+          "codigo": "A001",
+          "nombre": "activo"
+        },
+        "id": 2
+      },
+      "descuento": "0.03",
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "05/01/2016",
+      "fechaFin": "06/07/2016",
+      "id": 3
+    },
+    {
+      "codigo": "D3",
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "codigo": "FATHERHEL8",
+        "nombre": "WHATS MY NAME",
+        "abreviatura": "wmn",
+        "numeroCuenta": 232425432534534650000,
+        "direccion": "ddhfghfdhfg fg fgdh fgf h65 e57  6",
+        "telefono": 12334234345,
+        "representanteLegal": "ETWYTERYR R RE YE ",
+        "nit": 5464654654,
+        "estado": {
+          "id": "1",
+          "codigo": "A001",
+          "nombre": "activo"
+        },
+        "id": 9
+      },
+      "descuento": 4.01,
+      "estado": {
+        "codigo": "A002",
+        "nombre": "inactivo",
+        "id": "2"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "05/06/2016",
+      "fechaFin": "06/11/2016",
+      "id": 4
+    },
+    {
+      "codigo": "GFG45",
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "codigo": 7657657657,
+        "nombre": "PRUEBA DE TEST",
+        "abreviatura": "test de prueba",
+        "numeroCuenta": 93120931529,
+        "direccion": [
+          {
+            "id": 0,
+            "direccion": "centro"
+          },
+          {
+            "id": 1,
+            "direccion": "bocagrande"
+          },
+          {
+            "id": 2,
+            "direccion": "dffhfghfghgf"
+          }
+        ],
+        "telefono": [
+          {
+            "id": 0,
+            "telefono": "3126128591"
+          },
+          {
+            "id": 1,
+            "telefono": "3107092495"
+          },
+          {
+            "id": 2,
+            "telefono": "5464654"
+          },
+          {
+            "id": 3,
+            "telefono": "564546546"
+          },
+          {
+            "id": 4,
+            "telefono": "465465464"
+          }
+        ],
+        "representanteLegal": "CRISTIAN SIERRA CARDENAS",
+        "nit": 1047464756,
+        "estado": {
+          "id": "1",
+          "codigo": "A001",
+          "nombre": "activo"
+        },
+        "id": 2
+      },
+      "descuento": "0.02",
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "05/06/2016",
+      "fechaFin": "06/08/2016",
+      "id": 5
+    },
+    {
+      "codigo": "FD4",
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "id": 4,
+        "codigo": "FATHERHELP4",
+        "nombre": "BANCO SANTANDER",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 98784646464,
+        "direccion": "vivelab 10-3",
+        "telefono": 9876555,
+        "representanteLegal": "CRISTIAN SIERRA CARDENAs",
+        "nit": 98754476589,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        }
+      },
+      "descuento": "0.02",
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "05/02/2016",
+      "fechaFin": "05/12/2016",
+      "id": 6
+    },
+    {
+      "codigo": "DGDG",
+      "convenio": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "AMERICAN EXPRESS"
+      },
+      "banco": {
+        "id": 3,
+        "codigo": "FATHERHELP3",
+        "nombre": "DAVIVIENDA",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 98784646464,
+        "direccion": "vivelab 10-3",
+        "telefono": 9876555,
+        "representanteLegal": "CRISTIAN SIERRA CARDENAs",
+        "nit": 98754476589,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        }
+      },
+      "descuento": "0.02",
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "05/03/2016",
+      "fechaFin": "05/07/2016",
+      "id": 7
+    },
+    {
+      "codigo": "FGDGF",
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "id": 3,
+        "codigo": "FATHERHELP3",
+        "nombre": "DAVIVIENDA",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 98784646464,
+        "direccion": "vivelab 10-3",
+        "telefono": 9876555,
+        "representanteLegal": "CRISTIAN SIERRA CARDENAs",
+        "nit": 98754476589,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        }
+      },
+      "descuento": "0.05",
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "05/03/2016",
+      "fechaFin": "NaN/NaN/NaN",
+      "id": 8
+    },
+    {
+      "codigo": "GY",
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "id": 5,
+        "codigo": "FATHERHELP5",
+        "nombre": "COLPATRIA",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 98784646464,
+        "direccion": "vivelab 10-3",
+        "telefono": 9876555,
+        "representanteLegal": "CRISTIAN SIERRA CARDENAs",
+        "nit": 98754476589,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        }
+      },
+      "descuento": "0.01",
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "05/12/2016",
+      "fechaFin": "NaN/NaN/NaN",
+      "id": 9
+    },
+    {
+      "codigo": 4545,
+      "convenio": {
+        "codigo": "C005",
+        "nombre": "cPrueba",
+        "id": 5
+      },
+      "banco": {
+        "codigo": "87764HH444",
+        "nombre": "FASTER THAN THIS OUR HEAD",
+        "abreviatura": "holamudno",
+        "numeroCuenta": 764876647,
+        "direccion": "ghoh98fi783494b-4rf3c4",
+        "telefono": 12233445555,
+        "representanteLegal": "FETGRFDGD",
+        "nit": 43534535,
+        "estado": {
+          "id": "1",
+          "codigo": "A001",
+          "nombre": "activo"
+        },
+        "id": 8
+      },
+      "descuento": "0.01",
+      "estado": {
+        "codigo": "A002",
+        "nombre": "inactivo",
+        "id": "2"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "NaN/NaN/NaN",
+      "fechaFin": "NaN/NaN/NaN",
+      "id": 10
+    },
+    {
+      "codigo": "HGD",
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "codigo": "FATHERHELP7",
+        "nombre": "AVILLAS2",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 98784646464,
+        "direccion": "vivelab 10-3",
+        "telefono": 9876555,
+        "representanteLegal": "CRISTIAN SIERRA CARDENAs",
+        "nit": 98754476589,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        },
+        "id": 7
+      },
+      "descuento": 3,
+      "estado": {
+        "codigo": "A002",
+        "nombre": "inactivo",
+        "id": "2"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "06/08/2016",
+      "fechaFin": "NaN/NaN/NaN",
+      "id": 11
+    },
+    {
+      "codigo": "JUG",
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "id": 6,
+        "codigo": "FATHERHELP6",
+        "nombre": "AVILLAS",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 98784646464,
+        "direccion": "vivelab 10-3",
+        "telefono": 9876555,
+        "representanteLegal": "CRISTIAN SIERRA CARDENAs",
+        "nit": 98754476589,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        }
+      },
+      "descuento": 7,
+      "estado": {
+        "codigo": "A002",
+        "nombre": "inactivo",
+        "id": "2"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "14/05/2016",
+      "fechaFin": "04/06/2016",
+      "id": 12
+    },
+    {
+      "codigo": "JHFHJF",
+      "convenio": {
+        "codigo": "C005",
+        "nombre": "cPrueba",
+        "id": 5
+      },
+      "banco": {
+        "id": 3,
+        "codigo": "FATHERHELP3",
+        "nombre": "DAVIVIENDA",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 98784646464,
+        "direccion": "vivelab 10-3",
+        "telefono": 9876555,
+        "representanteLegal": "CRISTIAN SIERRA CARDENAs",
+        "nit": 98754476589,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        }
+      },
+      "descuento": 66,
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "13/05/2016",
+      "fechaFin": "18/06/2016",
+      "id": 13
+    },
+    {
+      "codigo": "UYFUYF",
+      "convenio": {
+        "codigo": "77h",
+        "nombre": "YFJFUFJYFUYFu",
+        "id": 7
+      },
+      "banco": {
+        "id": 3,
+        "codigo": "FATHERHELP3",
+        "nombre": "DAVIVIENDA",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 98784646464,
+        "direccion": "vivelab 10-3",
+        "telefono": 9876555,
+        "representanteLegal": "CRISTIAN SIERRA CARDENAs",
+        "nit": 98754476589,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        }
+      },
+      "descuento": 100,
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "07/05/2016",
+      "fechaFin": "25/06/2016",
+      "id": 14
+    },
+    {
+      "codigo": 42134321,
+      "convenio": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "AMERICAN EXPRESS"
+      },
+      "banco": {
+        "id": 4,
+        "codigo": "FATHERHELP4",
+        "nombre": "BANCO SANTANDER",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 98784646464,
+        "direccion": "vivelab 10-3",
+        "telefono": 9876555,
+        "representanteLegal": "CRISTIAN SIERRA CARDENAs",
+        "nit": 98754476589,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        }
+      },
+      "descuento": 100,
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "42/31/4324",
+      "fechaFin": "43/21/4432",
+      "id": 15
+    },
+    {
+      "codigo": 31231,
+      "convenio": {
+        "id": 4,
+        "codigo": 4,
+        "nombre": "DINERS CLUB"
+      },
+      "banco": {
+        "id": 4,
+        "codigo": "FATHERHELP4",
+        "nombre": "BANCO SANTANDER",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 98784646464,
+        "direccion": "vivelab 10-3",
+        "telefono": 9876555,
+        "representanteLegal": "CRISTIAN SIERRA CARDENAs",
+        "nit": 98754476589,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        }
+      },
+      "descuento": 100,
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "31/31/3123",
+      "fechaFin": "31/23/1231",
+      "id": 16
+    },
+    {
+      "codigo": 24314,
+      "convenio": {
+        "id": 2,
+        "codigo": 2,
+        "nombre": "MASTER CARD"
+      },
+      "banco": {
+        "codigo": 6636353535,
+        "nombre": "CRISTIAN SIERRA CARDENAS",
+        "abreviatura": "ABBR1",
+        "numeroCuenta": 93120931529,
+        "direccion": [
+          {
+            "id": 0,
+            "direccion": "vivelab cartagena"
+          },
+          {
+            "id": 1,
+            "direccion": "centro cll larga"
+          }
+        ],
+        "telefono": [
+          {
+            "id": 0,
+            "telefono": "3225132806"
+          },
+          {
+            "id": 1,
+            "telefono": "6525686"
+          }
+        ],
+        "representanteLegal": "CRISTIAN SIERRA CARDENAS",
+        "nit": 1047464756,
+        "estado": {
+          "id": "2",
+          "codigo": "A002",
+          "nombre": "inactivo"
+        },
+        "id": 1
+      },
+      "descuento": 100,
+      "estado": {
+        "codigo": "A001",
+        "nombre": "activo",
+        "id": "1"
+      },
+      "estadoLogico": "A",
+      "fechaInicio": "03/06/2016",
+      "fechaFin": "18/07/2016",
+      "id": 17
+    }
+  ],
+  "franquiciante": [
+    {
+      "id": 1,
+      "codigo": 1,
+      "nombre": "VISA"
+    },
+    {
+      "id": 2,
+      "codigo": 2,
+      "nombre": "MASTER CARD"
+    },
+    {
+      "id": 3,
+      "codigo": 3,
+      "nombre": "AMERICAN EXPRESS"
+    },
+    {
+      "id": 4,
+      "codigo": 4,
+      "nombre": "DINERS CLUB"
+    },
+    {
+      "codigo": "C005",
+      "nombre": "cPrueba",
+      "id": 5
+    },
+    {
+      "codigo": "C006",
+      "nombre": "cPruebaa",
+      "id": 6
+    },
+    {
+      "codigo": "77h",
+      "nombre": "YFJFUFJYFUYFu",
+      "id": 7
+    }
+  ],
+  "banco": [
+    {
+      "codigo": 140000,
+      "nombre": "TESTO",
+      "abreviatura": "TST",
+      "numeroCuenta": 123,
+      "direccion": [
+        {
+          "id": 0,
+          "direccion": "san fernando"
+        }
+      ],
+      "telefono": [
+        {
+          "id": 0,
+          "telefono": "56003003"
+        }
+      ],
+      "representanteLegal": "CESAR",
+      "nit": 234667,
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "id": 1
+    },
+    {
+      "codigo": 140000,
+      "nombre": "TEST",
+      "abreviatura": "TST",
+      "numeroCuenta": "67655675r76",
+      "direccion": [
+        {
+          "id": 0,
+          "direccion": "4877474"
+        }
+      ],
+      "telefono": [
+        {
+          "id": 0,
+          "telefono": "6699775"
+        }
+      ],
+      "representanteLegal": "DFSFSFSDF",
+      "nit": 435354,
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "id": 2
+    }
+  ],
+  "fPago": [
+    {
+      "id": 1,
+      "nombre": "Tarjeta de Credito Visa",
+      "codigo": 2,
+      "descripcion": "Pago en Tarjeta de Credito Mastercard",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 2,
+      "nombre": "Tarjeta de Credito Mastercard",
+      "codigo": 3,
+      "descripcion": "Tarjeta de Credito Mastercard",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 3,
+      "nombre": "Bono",
+      "codigo": 4,
+      "descripcion": "Bonos",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 4,
+      "nombre": "Efectivo",
+      "codigo": 435,
+      "descripcion": "Efectivo",
+      "estadoLogico": "I"
+    },
+    {
+      "nombre": "sdadsad",
+      "codigo": 45345,
+      "descripcion": "bfbfdbfbf",
+      "estadoLogico": "I",
+      "id": 5
+    },
+    {
+      "nombre": "Hola",
+      "codigo": 32324,
+      "descripcion": "vcxvxcv",
+      "estadoLogico": "I",
+      "id": 6
+    },
+    {
+      "nombre": "sfdf",
+      "codigo": 5345,
+      "descripcion": "gfddfg",
+      "estadoLogico": "I",
+      "id": 7
+    },
+    {
+      "id": 8,
+      "nombre": "Hola",
+      "codigo": 298292489,
+      "descripcion": "Holaaaa",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 9,
+      "nombre": "Tarjeta de Credito Visa",
+      "codigo": 2234,
+      "descripcion": "Tarjeta Vi",
+      "estadoLogico": "I"
+    },
+    {
+      "nombre": " ",
+      "codigo": " ",
+      "descripcion": " ",
+      "estadoLogico": "I",
+      "id": 10
+    },
+    {
+      "id": 11,
+      "nombre": "Tarjeta de Debito Visa",
+      "codigo": 43545,
+      "descripcion": "Tarjeta de Dóbito Visa",
+      "estadoLogico": "I"
+    },
+    {
+      "nombre": "sadadwa",
+      "codigo": 34,
+      "descripcion": "gdrfdf",
+      "estadoLogico": "I",
+      "id": 12
+    },
+    {
+      "id": 13,
+      "nombre": "dasdasd",
+      "codigo": 34343,
+      "descripcion": "fsdfsdfsdfsdf",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 14,
+      "nombre": "ewqeqwe",
+      "codigo": 3432543,
+      "descripcion": "fsdfdsfsdf",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 15,
+      "nombre": "efefwe",
+      "codigo": 4543543,
+      "descripcion": "gdfsgdsfgewesfgs",
+      "estadoLogico": "I"
+    },
+    {
+      "nombre": "fefdweqfwefewgwefgwegtfewgwer",
+      "codigo": 54353425,
+      "descripcion": "fdsfasdgsdgdfh",
+      "estadoLogico": "I",
+      "id": 16
+    },
+    {
+      "id": 17,
+      "nombre": "Dammit",
+      "codigo": 345435,
+      "descripcion": "sddsgdfg",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 18,
+      "nombre": "Dammit",
+      "codigo": 565,
+      "descripcion": "gdfgfg",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 19,
+      "nombre": "dsfdsgsdg",
+      "codigo": 4543543,
+      "descripcion": "gfdgdfgfxdg",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 20,
+      "nombre": "dsaasff",
+      "codigo": 3,
+      "descripcion": " ",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 21,
+      "nombre": "dvdsfdsf",
+      "codigo": 3,
+      "descripcion": "dsfsdfsdfsdf",
+      "estadoLogico": "I"
+    },
+    {
+      "nombre": "Cheque",
+      "codigo": 322,
+      "descripcion": "Cheque",
+      "estadoLogico": "A",
+      "id": 22
+    },
+    {
+      "nombre": "Pagaré",
+      "codigo": 323,
+      "descripcion": "Pagaré",
+      "estadoLogico": "A",
+      "id": 23
+    }
+  ],
+  "nivelFormacion": [
+    {
+      "id": 1,
+      "codigoNivelFormacion": 1,
+      "nombreNivelFormacion": "Nivel Tócnico Profesional",
+      "nivelAcademico": "Pregrado",
+      "descripcionNivelFormacion": "Relativo a programas Tócnicos Profesionales"
+    },
+    {
+      "id": 2,
+      "codigoNivelFormacion": 2,
+      "nombreNivelFormacion": "Nivel Tecnológico",
+      "nivelAcademico": "Pregrado",
+      "descripcionNivelFormacion": "relativo a programas tecnológicos"
+    },
+    {
+      "id": 3,
+      "codigoNivelFormacion": 3,
+      "nombreNivelFormacion": "Nivel Profesional",
+      "nivelAcademico": "Posgrado",
+      "descripcionNivelFormacion": "relativo a programas profesionales universitarios"
+    },
+    {
+      "id": 4,
+      "codigoNivelFormacion": 4,
+      "nombreNivelFormacion": "Especializaciones",
+      "nivelAcademico": "Posgrado",
+      "descripcionNivelFormacion": "relativas a programas de Especialización Tócnica Profesional, Especialización Tecnológica y Especializaciones Profesionales de prueba"
+    },
+    {
+      "id": 8,
+      "codigoNivelFormacion": "nf002",
+      "nombreNivelFormacion": "nombre prueba",
+      "nivelAcademico": "Pregrado",
+      "descripcionNivelFormacion": "esta es la prueba"
+    },
+    {
+      "id": 9,
+      "codigoNivelFormacion": "dssfdf",
+      "nombreNivelFormacion": "dcfdsfdf",
+      "nivelAcademico": "Posgrado",
+      "descripcionNivelFormacion": "dsfdsfdsfsdfd"
+    },
+    {
+      "id": 10,
+      "codigoNivelFormacion": "dasdasd",
+      "nombreNivelFormacion": "fvdsfdsfsdf",
+      "nivelAcademico": "Posgrado"
+    },
+    {
+      "id": 11,
+      "codigoNivelFormacion": "fgfdgfdg",
+      "nombreNivelFormacion": "fsdfsdf",
+      "nivelAcademico": "Pregrado",
+      "descripcionNivelFormacion": "dfdsfsdfsdzxcxz"
+    },
+    {
+      "id": 12,
+      "codigoNivelFormacion": "REREFdsf",
+      "nombreNivelFormacion": "sdsaasdasdasd",
+      "nivelAcademico": "Pregrado",
+      "descripcionNivelFormacion": "Relativa con respecto a las pruebas que se han realizado con respecto a la parte del cortado de lineas y puntos en el andar."
+    }
+  ],
+  "facultad": [
+    {
+      "nombre": "Medicina",
+      "codigo": 1,
+      "estadoLogico": "A",
+      "id": 1
+    },
+    {
+      "nombre": "Ingenieria",
+      "codigo": 2,
+      "estadoLogico": "A",
+      "id": 2
+    },
+    {
+      "nombre": "Ciencias Administrativas",
+      "codigo": 3,
+      "estadoLogico": "A",
+      "id": 3
+    },
+    {
+      "codigo": 4,
+      "nombre": "Salud",
+      "estadoLogico": "A",
+      "id": 4
+    },
+    {
+      "nombre": "Derecho",
+      "codigo": 5,
+      "estadoLogico": "A",
+      "id": 5
+    },
+    {
+      "nombre": "Ciencias Humanas",
+      "codigo": 6,
+      "estadoLogico": "A",
+      "id": 6
+    },
+    {
+      "nombre": "Ciencias Bósicas",
+      "codigo": 7,
+      "estadoLogico": "A",
+      "id": 7
+    },
+    {
+      "codigo": 8,
+      "nombre": "Licenciatura",
+      "estadoLogico": "A",
+      "id": 8
+    },
+    {
+      "nombre": "Educación",
+      "codigo": 9,
+      "estadoLogico": "A",
+      "id": 9
+    },
+    {
+      "codigo": 10,
+      "nombre": " Ciencias Económicas",
+      "estadoLogico": "A",
+      "id": 10
+    }
+  ],
+  "recurso_educativo": [
+    {
+      "id": 1,
+      "codigo": 1234,
+      "nombre": "LABORATORIO CLEI",
+      "tipo": {
+        "id": 2,
+        "nombre": "AULAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "Las Palmeras",
+      "descripcion": "Las Palmeras",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 2,
+      "codigo": 12342,
+      "nombre": "LABORATORIO CLEI2",
+      "tipo": {
+        "id": 2,
+        "nombre": "AULAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "Las Palmeras",
+      "descripcion": "Las Palmeras",
+      "estadoLogicoLogico": "A"
+    },
+    {
+      "id": 3,
+      "codigo": 1233,
+      "nombre": "LABORATORIO CLEI3",
+      "tipo": {
+        "id": 2,
+        "nombre": "AULAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "Las Palmeras",
+      "descripcion": "Las Palmeras",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 4,
+      "codigo": "dwda21",
+      "nombre": "asdasdasd",
+      "tipo": {
+        "id": 2,
+        "nombre": "AULAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "sadasdasdasd",
+      "descripcion": "sdasdasdasdadasdasdasd",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 5,
+      "codigo": "dwda5432",
+      "nombre": "asdasdasd",
+      "tipo": {
+        "id": 2,
+        "nombre": "AULAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "sadasdasdasd",
+      "descripcion": "sdasdasdasdadasdasdasd",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 6,
+      "codigo": 9013498,
+      "nombre": "asdasdasasasasa",
+      "tipo": {
+        "id": 3,
+        "nombre": "LABORATORIOS"
+      },
+      "sede": {
+        "id": 1,
+        "nombre": "Sede Principal"
+      },
+      "ubicacion": "asdasdasd",
+      "descripcion": "asdasdasdasddsdsdsds",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 7,
+      "codigo": "asda423sdasd",
+      "nombre": "asdasda",
+      "tipo": {
+        "id": 1,
+        "nombre": "SALAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "asdasdas",
+      "descripcion": "dasdasdasda",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 8,
+      "codigo": "as4875asd",
+      "nombre": "asdasd",
+      "tipo": {
+        "id": 2,
+        "nombre": "AULAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "asdasdasd",
+      "descripcion": "asdasda",
+      "estadoLogico": "A"
+    },
+    {
+      "codigo": "as0196sd",
+      "nombre": "asdasd",
+      "tipo": {
+        "id": 2,
+        "nombre": "AULAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "asdasd",
+      "descripcion": "asdasdasd",
+      "estadoLogico": "A",
+      "id": 9
+    },
+    {
+      "id": 10,
+      "codigo": "asdasd",
+      "nombre": "asdasd",
+      "tipo": {
+        "id": 1,
+        "nombre": "SALAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "asdasd",
+      "descripcion": "asdasd",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 11,
+      "codigo": "a747474asd",
+      "nombre": "asdasd",
+      "tipo": {
+        "id": 1,
+        "nombre": "SALAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "asdasd",
+      "descripcion": "asdasdasd",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 3,
+      "codigo": "4A",
+      "nombre": "SANTANDERSITO22222",
+      "tipo": {
+        "id": 2,
+        "nombre": "AULAS"
+      },
+      "sede": {
+        "id": 2,
+        "nombre": "Sede La Victoria"
+      },
+      "ubicacion": "BARRIO ESPAóA",
+      "descripcion": "dsgfsfsdfsfds",
+      "estadoLogico": "I"
+    },
+    {
+      "codigo": "4A",
+      "nombre": "ALMACENES EXITO",
+      "tipo": {
+        "id": 1,
+        "nombre": "SALAS"
+      },
+      "sede": {
+        "id": 3,
+        "nombre": "Sede Crespo"
+      },
+      "ubicacion": "Barrio Crespo",
+      "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+      "estadoLogico": "A",
+      "id": 4
+    }
+  ],
+  "tipos_recurso": [
+    {
+      "id": 1,
+      "nombre": "SALAS"
+    },
+    {
+      "id": 2,
+      "nombre": "AULAS"
+    },
+    {
+      "id": 3,
+      "nombre": "LABORATORIOS"
+    }
+  ],
+  "sedes": [
+    {
+      "id": 1,
+      "nombre": "Sede Principal"
+    },
+    {
+      "id": 2,
+      "nombre": "Sede La Victoria"
+    },
+    {
+      "id": 3,
+      "nombre": "Sede Crespo"
+    }
+  ],
+  "eventos": [
+    {
+      "codigo": "0001",
+      "nombre": "evento 1",
+      "publicoObjetivo": {
+        "codigo": "001",
+        "nombre": " objetivo 1",
+        "contactos": {
+          "tipoDocumento": "cc",
+          "numeroDocumento": 1233234,
+          "nombre": "leo",
+          "apellido": "villa"
+        },
+        "descripcion": "descripcion 1"
+      },
+      "fechaInicio": "14/04/2016",
+      "fechaFin": "20/04/2016",
+      "presupuesto": "600000",
+      "responsable": "Carlos bravo",
+      "estado": {
+        "codigo": 1,
+        "estado": "Por realizar"
+      },
+      "descripcion": "doloribus ad provident suscipit at"
+    },
+    {
+      "codigo": "0002",
+      "nombre": "evento 2",
+      "publicoObjetivo": {
+        "codigo": "002",
+        "nombre": " objetivo 2",
+        "contactos": {
+          "tipoDocumento": "cc",
+          "numeroDocumento": 12312313,
+          "nombre": "leo 2",
+          "apellido": "villa 2"
+        },
+        "descripcion": "descripcion 2"
+      },
+      "fechaInicio": "14/04/2016",
+      "fechaFin": "22/04/2016",
+      "presupuesto": "600000",
+      "responsable": "Carlos bravo",
+      "estado": {
+        "codigo": 1,
+        "estado": "Por realizar"
+      },
+      "descripcion": "doloribus ad provident suscipit at"
+    },
+    {
+      "codigo": "0003",
+      "nombre": "evento 3",
+      "publicoObjetivo": {
+        "codigo": "003",
+        "nombre": " objetivo 3",
+        "contactos": {
+          "tipoDocumento": "cc",
+          "numeroDocumento": 54326743288,
+          "nombre": "leo 3",
+          "apellido": "villa 3"
+        },
+        "descripcion": "descripcion 3"
+      },
+      "fechaInicio": "16/04/2016",
+      "fechaFin": "23/04/2016",
+      "presupuesto": "600000",
+      "responsable": "Carlos bravo",
+      "estado": {
+        "codigo": 1,
+        "estado": "Por realizar"
+      },
+      "descripcion": "doloribus ad provident suscipit at"
+    },
+    {
+      "codigo": "0004",
+      "nombre": "evento 4",
+      "publicoObjetivo": {
+        "codigo": "004",
+        "nombre": " objetivo 4",
+        "contactos": {
+          "tipoDocumento": "cc",
+          "numeroDocumento": 93400349,
+          "nombre": "leo 4",
+          "apellido": "villa 4"
+        },
+        "descripcion": "descripcion 4"
+      },
+      "fechaInicio": "16/04/2016",
+      "fechaFin": "28/04/2016",
+      "presupuesto": "500000",
+      "responsable": "Carlos bravo",
+      "estado": {
+        "codigo": 1,
+        "estado": "Por realizar"
+      },
+      "descripcion": "doloribus ad provident suscipit at"
+    },
+    {
+      "id": "0f6072d4-4c79-4c4a-9dd9-cd214c737ff3",
+      "codigo": "001",
+      "nombre": "iuiuiu",
+      "fechaInicio": "NaN/NaN/NaN",
+      "fechaFin": "NaN/NaN/NaN",
+      "presupuesto": 30000,
+      "responsable": "iuiuiuiuiuiu",
+      "estado": 2,
+      "descripcion": "uiuiuiuiuiu",
+      "estadologico": "I"
+    },
+    {
+      "id": "9d63d2d8-4db8-4da1-91e2-92fd04ca2bde",
+      "codigo": "001",
+      "nombre": "ououououou",
+      "publicoObjetivo": {
+        "codigo": "0012",
+        "nombre": " objetivo 12",
+        "contactos": {
+          "tipoDocumento": "cc",
+          "numeroDocumento": 1263766,
+          "nombre": "leo 12",
+          "apellido": "villa 12"
+        },
+        "descripcion": "descripcion 12"
+      },
+      "fechaInicio": "21/04/2016",
+      "fechaFin": "21/04/2016",
+      "presupuesto": 230001,
+      "responsable": "ouououououou",
+      "estado": 1,
+      "descripcion": "ouououououou",
+      "estadologico": "I"
+    },
+    {
+      "id": "2af7d568-a608-42bb-9076-ccf210edb19d",
+      "codigo": "00045",
+      "nombre": "kukukukukuku",
+      "fechaInicio": "21/04/2016",
+      "fechaFin": "22/04/2016",
+      "presupuesto": 350000,
+      "responsable": "kukukukukuku",
+      "estado": 2,
+      "descripcion": "kukukukukuku",
+      "estadologico": "I"
+    },
+    {
+      "id": "fa3511cd-29f5-48c5-9de0-c5eeaac66495",
+      "codigo": "099",
+      "nombre": "momomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomo",
+      "fechaInicio": "20/04/2016",
+      "fechaFin": "22/04/2016",
+      "presupuesto": 3400000,
+      "responsable": "momomomomomomomomomomomommomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomo",
+      "estado": 1,
+      "descripcion": "momomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomomo",
+      "estadologico": "I"
+    },
+    {
+      "id": "3ec2992d-c73d-40b5-b82c-a055b7c6d6ce",
+      "codigo": "0001",
+      "nombre": "iuiuiuiuiuiuiuiuiu",
+      "publicoObjetivo": {
+        "codigo": "0013",
+        "nombre": " objetivo 13",
+        "contactos": {
+          "tipoDocumento": "cc",
+          "numeroDocumento": 738494899,
+          "nombre": "leo 13",
+          "apellido": "villa 13"
+        },
+        "descripcion": "descripcion 13"
+      },
+      "fechaInicio": "20/04/2016",
+      "fechaFin": "21/04/2016",
+      "presupuesto": 3400000,
+      "responsable": "iuiuiuiuiuiuiuiuiu",
+      "estado": 2,
+      "descripcion": "iuiuiuiuiuiuiuiuiu",
+      "estadologico": "A"
+    },
+    {
+      "id": "91fe6f8c-0920-409c-926f-4e6a15076012",
+      "codigo": "0002",
+      "nombre": "erererererererererer",
+      "publicoObjetivo": {
+        "codigo": "0012",
+        "nombre": " objetivo 12",
+        "contactos": {
+          "tipoDocumento": "cc",
+          "numeroDocumento": 1263766,
+          "nombre": "leo 12",
+          "apellido": "villa 12"
+        },
+        "descripcion": "descripcion 12"
+      },
+      "fechaInicio": "20/04/2016",
+      "fechaFin": "22/04/2016",
+      "presupuesto": 34000000,
+      "responsable": "erererererererererer",
+      "estado": 2,
+      "descripcion": "erererererererererer",
+      "estadologico": "A"
+    },
+    {
+      "codigo": "0003",
+      "nombre": "efefefefefefefefefefefefefef",
+      "publicoObjetivo": {
+        "codigo": "0011",
+        "nombre": " objetivo 11",
+        "contactos": {
+          "tipoDocumento": "cc",
+          "numeroDocumento": 123123,
+          "nombre": "leo 11",
+          "apellido": "villa 11"
+        },
+        "descripcion": "descripcion 11"
+      },
+      "fechaInicio": "20/04/2016",
+      "fechaFin": "25/04/2016",
+      "presupuesto": 40888888,
+      "responsable": "efefefefefefefefefefefefefef",
+      "estado": 2,
+      "descripcion": "efefefefefefefefefefefefefef",
+      "estadologico": "A",
+      "id": "3d1f8f9c-4e44-43a1-8731-16e78c6fce80"
+    },
+    {
+      "codigo": "0007",
+      "nombre": "eueueueueueu",
+      "publicoObjetivo": {
+        "codigo": "0011",
+        "nombre": " objetivo 11",
+        "contactos": {
+          "tipoDocumento": "cc",
+          "numeroDocumento": 123123,
+          "nombre": "leo 11",
+          "apellido": "villa 11"
+        },
+        "descripcion": "descripcion 11"
+      },
+      "fechaInicio": "20/04/2016",
+      "fechaFin": "26/04/2016",
+      "presupuesto": 3000000,
+      "responsable": "eueueueueueu",
+      "estado": 2,
+      "descripcion": "eueueueueueu",
+      "estadologico": "A",
+      "id": "00fa4f13-c7e4-46d8-b9d4-775238dd42fb"
+    },
+    {
+      "codigo": "00008",
+      "nombre": "hghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghgh",
+      "publicoObjetivo": {
+        "codigo": "0012",
+        "nombre": " objetivo 12",
+        "contactos": {
+          "tipoDocumento": "cc",
+          "numeroDocumento": 1263766,
+          "nombre": "leo 12",
+          "apellido": "villa 12"
+        },
+        "descripcion": "descripcion 12"
+      },
+      "fechaInicio": "20/04/2016",
+      "fechaFin": "21/04/2016",
+      "presupuesto": 45000000,
+      "responsable": "hghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghgh",
+      "estado": 2,
+      "descripcion": "hghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghghhghghghghghghghghghghghgh",
+      "estadologico": "A",
+      "id": "a3c82e62-7c56-4f1d-9576-c52008e492a4"
+    }
+  ],
+  "publicoobjetivo": [
+    {
+      "id": 1,
+      "codigo": "00010",
+      "nombre": " objetivo 10",
+      "contactos": {
+        "tipoDocumento": "cc",
+        "numeroDocumento": 54326743288,
+        "nombre": "leo 10",
+        "apellido": "villa 10"
+      },
+      "descripcion": "descripcion 10"
+    },
+    {
+      "id": 2,
+      "codigo": "00010",
+      "nombre": " objetivo 10",
+      "contactos": {
+        "tipoDocumento": "cc",
+        "numeroDocumento": 54326743288,
+        "nombre": "leo 10",
+        "apellido": "villa 10"
+      },
+      "descripcion": "descripcion 10"
+    },
+    {
+      "codigo": "PUBLICO AAA",
+      "nombre": "DESCRIPCION PUBLICO AAAA",
+      "contactos": [
+        {
+          "id": 2,
+          "tipoDocumento": "cc",
+          "numeroDocumento": 213412321,
+          "nombre": "leo 2",
+          "apellido": "villa 2",
+          "email": "lvillarreal2@gmail.com",
+          "nombrecompleto": "leo 2 villa 2"
+        },
+        {
+          "id": 4,
+          "tipoDocumento": "cc",
+          "numeroDocumento": 9878979,
+          "nombre": "leo 4",
+          "apellido": "villa 4",
+          "email": "lvillarreal4@gmail.com",
+          "nombrecompleto": "leo 4 villa 4"
+        }
+      ],
+      "id": 8
+    }
+  ],
+  "contactos": [
+    {
+      "id": 1,
+      "tipoDocumento": "cc",
+      "numeroDocumento": 28736784623,
+      "nombre": "leo 1",
+      "apellido": "villa 1",
+      "email": "lvillarreal1@gmail.com"
+    },
+    {
+      "id": 2,
+      "tipoDocumento": "cc",
+      "numeroDocumento": 213412321,
+      "nombre": "leo 2",
+      "apellido": "villa 2",
+      "email": "lvillarreal2@gmail.com"
+    },
+    {
+      "id": 3,
+      "tipoDocumento": "cc",
+      "numeroDocumento": 456456,
+      "nombre": "leo 3",
+      "apellido": "villa 3",
+      "email": "lvillarreal3@gmail.com"
+    },
+    {
+      "id": 4,
+      "tipoDocumento": "cc",
+      "numeroDocumento": 9878979,
+      "nombre": "leo 4",
+      "apellido": "villa 4",
+      "email": "lvillarreal4@gmail.com"
+    },
+    {
+      "id": 5,
+      "tipoDocumento": "cc",
+      "numeroDocumento": 237842897,
+      "nombre": "leo 5",
+      "apellido": "villa 5",
+      "email": "lvillarreal5@gmail.com"
+    },
+    {
+      "id": 6,
+      "tipoDocumento": "cc",
+      "numeroDocumento": 234234342,
+      "nombre": "leo 6",
+      "apellido": "villa 6",
+      "email": "lvillarreal6@gmail.com"
+    },
+    {
+      "id": 7,
+      "tipoDocumento": "cc",
+      "numeroDocumento": 82937489234,
+      "nombre": "leo 7",
+      "apellido": "villa 7",
+      "email": "lvillarreal7@gmail.com"
+    },
+    {
+      "id": 8,
+      "tipoDocumento": "cc",
+      "numeroDocumento": 23423544345,
+      "nombre": "leo 8",
+      "apellido": "villa 8",
+      "email": "lvillarreal8@gmail.com"
+    },
+    {
+      "id": 9,
+      "tipoDocumento": "cc",
+      "numeroDocumento": 2234234234,
+      "nombre": "leo 9",
+      "apellido": "villa 9",
+      "email": "lvillarreal9@gmail.com"
+    },
+    {
+      "id": 10,
+      "tipoDocumento": "cc",
+      "numeroDocumento": 2345345345,
+      "nombre": "leo 10",
+      "apellido": "villa 10",
+      "email": "lvillarreal10@gmail.com"
+    }
+  ],
+  "listavalor": [
+    {
+      "codigo": 1,
+      "categoria": "ESTADO_EVENTOS",
+      "valor": "Por realizar"
+    },
+    {
+      "codigo": 2,
+      "categoria": "ESTADO_EVENTOS",
+      "valor": "En realización"
+    },
+    {
+      "codigo": 3,
+      "categoria": "ESTADO_EVENTOS",
+      "valor": "Realización"
+    },
+    {
+      "codigo": 4,
+      "categoria": "ESTADO_PERIODO",
+      "valor": "Realización"
+    },
+    {
+      "codigo": 5,
+      "categoria": "ESTADO_CAMPANIA",
+      "valor": "En proceso"
+    },
+    {
+      "codigo": 6,
+      "categoria": "ESTADO_CAMPANIA",
+      "valor": "Cerrada"
+    },
+    {
+      "codigo": 7,
+      "categoria": "ESTADO_CAMPANIA",
+      "valor": "Pendiente"
+    },
+    {
+      "codigo": 8,
+      "categoria": "SECTOR_COLEGIO",
+      "valor": "Oficial"
+    },
+    {
+      "codigo": 9,
+      "categoria": "SECTOR_COLEGIO",
+      "valor": "No Oficial"
+    },
+    {
+      "codigo": 10,
+      "categoria": "ESTADO_PERIODO_ACADEMICO",
+      "valor": "En Inscripcion"
+    },
+    {
+      "codigo": 11,
+      "categoria": "ESTADO_PERIODO_ACADEMICO",
+      "valor": "Abierto"
+    },
+    {
+      "codigo": 12,
+      "categoria": "ESTADO_PERIODO_ACADEMICO",
+      "valor": "Cancelado"
+    },
+    {
+      "codigo": 13,
+      "categoria": "ESTADO_PERIODO_ACADEMICO",
+      "valor": "Cerrado"
+    },
+    {
+      "codigo": 14,
+      "categoria": "AREA_CONOCIMIENTO",
+      "valor": "Ciencias sociales y humanas"
+    },
+    {
+      "codigo": 15,
+      "categoria": "AREA_CONOCIMIENTO",
+      "valor": "Economía, Administración, Contaduría y afines"
+    },
+    {
+      "codigo": 16,
+      "categoria": "AREA_CONOCIMIENTO",
+      "valor": "Ingenieria, Arquitectura, Urbanismo y afines"
+    },
+    {
+      "codigo": 17,
+      "categoria": "AREA_CONOCIMIENTO",
+      "valor": "Matemáticas y Ciencias Naturales"
+    },
+    {
+      "codigo": 18,
+      "categoria": "AREA_MODALIDAD",
+      "valor": "Distancia"
+    },
+    {
+      "codigo": 19,
+      "categoria": "AREA_MODALIDAD",
+      "valor": "Presencial"
+    },
+    {
+      "codigo": 20,
+      "categoria": "AREA_MODALIDAD",
+      "valor": "Virtual"
+    },
+    {
+      "codigo": 21,
+      "categoria": "RECONOCIMIENTO_MEN",
+      "valor": "Registro de Alta Calidad"
+    },
+    {
+      "codigo": 22,
+      "categoria": "RECONOCIMIENTO_MEN",
+      "valor": "Registro Calificado"
+    },
+    {
+      "codigo": 23,
+      "categoria": "RECONOCIMIENTO_MEN",
+      "valor": "Registro Simple"
+    },
+    {
+      "codigo": 28,
+      "categoria": "ESTADO_CIVIL",
+      "valor": "Casado"
+    },
+    {
+      "codigo": 29,
+      "categoria": "ESTADO_CIVIL",
+      "valor": "Divorciado"
+    },
+    {
+      "codigo": 30,
+      "categoria": "ESTADO_CIVIL",
+      "valor": "Soltero"
+    },
+    {
+      "codigo": 31,
+      "categoria": "ESTADO_CIVIL",
+      "valor": "Unión Marital de Hecho"
+    },
+    {
+      "codigo": 32,
+      "categoria": "ESTADO_CIVIL",
+      "valor": "Viudo"
+    },
+    {
+      "codigo": 33,
+      "categoria": "GENERO",
+      "valor": "Masculino"
+    },
+    {
+      "codigo": 34,
+      "categoria": "GENERO",
+      "valor": "Femenino"
+    },
+    {
+      "codigo": 35,
+      "categoria": "GRUPO_SANGUINEO",
+      "valor": "A+"
+    },
+    {
+      "codigo": 36,
+      "categoria": "GRUPO_SANGUINEO",
+      "valor": "A-"
+    },
+    {
+      "codigo": 37,
+      "categoria": "GRUPO_SANGUINEO",
+      "valor": "AB"
+    },
+    {
+      "codigo": 38,
+      "categoria": "GRUPO_SANGUINEO",
+      "valor": "AB-"
+    },
+    {
+      "codigo": 39,
+      "categoria": "GRUPO_SANGUINEO",
+      "valor": "B+"
+    },
+    {
+      "codigo": 40,
+      "categoria": "GRUPO_SANGUINEO",
+      "valor": "B-"
+    },
+    {
+      "codigo": 41,
+      "categoria": "GRUPO_SANGUINEO",
+      "valor": "O+"
+    },
+    {
+      "codigo": 42,
+      "categoria": "GRUPO_SANGUINEO",
+      "valor": "O-"
+    },
+    {
+      "codigo": 43,
+      "categoria": "AREA_CONOCIMIENTO",
+      "valor": "Agronomía, Veterinaria y afines"
+    },
+    {
+      "codigo": 44,
+      "categoria": "AREA_CONOCIMIENTO",
+      "valor": "Bellas Artes"
+    },
+    {
+      "codigo": 45,
+      "categoria": "AREA_CONOCIMIENTO",
+      "valor": "Ciencias de la educación"
+    },
+    {
+      "codigo": 46,
+      "categoria": "AREA_CONOCIMIENTO",
+      "valor": "Ciencias de la salud"
+    },
+    {
+      "codigo": 47,
+      "categoria": "AREA_CUENTAS_PADRES",
+      "valor": "Activo",
+      "codigoCuentaPadre": "1"
+    },
+    {
+      "codigo": 48,
+      "categoria": "AREA_CUENTAS_PADRES",
+      "valor": "Pasivo",
+      "codigoCuentaPadre": "2"
+    },
+    {
+      "codigo": 49,
+      "categoria": "AREA_CUENTAS_PADRES",
+      "valor": "Patrimonio",
+      "codigoCuentaPadre": "3"
+    },
+    {
+      "codigo": 50,
+      "categoria": "AREA_CUENTAS_PADRES",
+      "valor": "Ingresos",
+      "codigoCuentaPadre": "4"
+    },
+    {
+      "codigo": 51,
+      "categoria": "AREA_CUENTAS_PADRES",
+      "valor": "Gastos",
+      "codigoCuentaPadre": "5"
+    },
+    {
+      "codigo": 52,
+      "categoria": "AREA_CUENTAS_PADRES",
+      "valor": "Costos de Venta",
+      "codigoCuentaPadre": "6"
+    },
+    {
+      "codigo": 53,
+      "categoria": "AREA_CUENTAS_PADRES",
+      "valor": "Costos de Producción o de Operación",
+      "codigoCuentaPadre": "7"
+    },
+    {
+      "codigo": 54,
+      "categoria": "AREA_CUENTAS_PADRES",
+      "valor": "Cuentas de Orden Deudoras",
+      "codigoCuentaPadre": "8"
+    },
+    {
+      "codigo": 55,
+      "categoria": "AREA_CUENTAS_PADRES",
+      "valor": "Cuentas de Orden Acreedoras",
+      "codigoCuentaPadre": "9"
+    },
+    {
+      "codigo": 56,
+      "categoria": "ESTADO_CREDITO",
+      "valor": "PENDIENTE",
+      "codigoCuentaPadre": null
+    },
+    {
+      "codigo": 57,
+      "categoria": "ESTADO_CREDITO",
+      "valor": "APROBADO",
+      "codigoCuentaPadre": null
+    },
+    {
+      "codigo": 58,
+      "categoria": "ESTADO_CREDITO",
+      "valor": "RECHAZADO",
+      "codigoCuentaPadre": null
+    },
+    {
+      "codigo": 59,
+      "categoria": "ESTADO_CREDITO",
+      "valor": "TODOS",
+      "codigoCuentaPadre": null
+    },
+    {
+      "codigo": 60,
+      "categoria": "TIPO_MONEDA",
+      "valor": "Local (COP)"
+    },
+    {
+      "codigo": 61,
+      "categoria": "TIPO_TARJETA",
+      "valor": "Crédito"
+    },
+    {
+      "codigo": 62,
+      "categoria": "TIPO_TARJETA",
+      "valor": "Débito"
+    },
+    {
+      "codigo": 63,
+      "categoria": "TIPO_CONCEPTO",
+      "valor": "Ingreso"
+    },
+    {
+      "codigo": 64,
+      "categoria": "TIPO_CONCEPTO",
+      "valor": "Descuento"
+    }
+  ],
+  "tiposcampania": [
+    {
+      "id": 1,
+      "codigo": 1,
+      "nombre": "Lanzamiento",
+      "descripcion": "Hola Mundo1",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 2,
+      "codigo": 2,
+      "nombre": "reactivación",
+      "descripcion": "Hola Mundo2",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 3,
+      "codigo": 3,
+      "nombre": "expectativa",
+      "descripcion": "Hola Mundo3",
+      "estadoLogico": "A"
+    }
+  ],
+  "campania": [
+    {
+      "id": 1,
+      "codigo": 1,
+      "nombre": "Lanzamiento",
+      "descripcion": "Hola Mundo1",
+      "tipo": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "expectativa",
+        "descripcion": "Hola Mundo3",
+        "estadoLogico": "A"
+      },
+      "estado": {
+        "codigo": 5,
+        "categoria": "ESTADO_CAMPANIA",
+        "valor": "En proceso"
+      },
+      "fechainicio": "21/04/2016",
+      "fechafin": "28/04/2016",
+      "presupuesto": 300000,
+      "responsable": "leo papo",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 2,
+      "codigo": 2,
+      "nombre": "Lanzamiento 2",
+      "descripcion": "Hola Mundo 2",
+      "tipo": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "expectativa",
+        "descripcion": "Hola Mundo3",
+        "estadoLogico": "A"
+      },
+      "estado": {
+        "codigo": 5,
+        "categoria": "ESTADO_CAMPANIA",
+        "valor": "En proceso"
+      },
+      "fechainicio": "21/04/2016",
+      "fechafin": "28/04/2016",
+      "presupuesto": 5600000,
+      "responsable": "leo papo",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 3,
+      "codigo": 3,
+      "nombre": "Lanzamiento",
+      "descripcion": "Hola Mundo 3",
+      "tipo": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "expectativa",
+        "descripcion": "Hola Mundo3",
+        "estadoLogico": "A"
+      },
+      "estado": {
+        "codigo": 5,
+        "categoria": "ESTADO_CAMPANIA",
+        "valor": "En proceso"
+      },
+      "fechainicio": "21/04/2016",
+      "fechafin": "28/04/2016",
+      "presupuesto": 8800000,
+      "responsable": "leo papo",
+      "estadoLogico": "A"
+    },
+    {
+      "nombre": "Temporal 1",
+      "descripcion": "es una campaóa temporal",
+      "tipo": "{\"id\":1,\"codigo\":1,\"nombre\":\"Lanzamiento\",\"descripcion\":\"Hola Mundo1\",\"estadoLogico\":\"A\"}",
+      "estado": 5,
+      "fechainicio": "25/04/2016",
+      "fechafin": "26/04/2016",
+      "presupuesto": 2000000,
+      "responsable": "Michael Jackson",
+      "estadoLogico": "A",
+      "id": 4
+    },
+    {
+      "nombre": "Temporal 2",
+      "descripcion": "campaóa temporal 2",
+      "tipo": "{\"id\":1,\"codigo\":1,\"nombre\":\"Lanzamiento\",\"descripcion\":\"Hola Mundo1\",\"estadoLogico\":\"A\"}",
+      "estado": 5,
+      "fechainicio": "25/04/2016",
+      "fechafin": "27/04/2016",
+      "presupuesto": 23000000,
+      "responsable": "Sara michel",
+      "estadoLogico": "A",
+      "id": 5
+    },
+    {
+      "nombre": "Campaóa de prevención",
+      "descripcion": "ok ok",
+      "tipo": "{\"id\":1,\"codigo\":1,\"nombre\":\"Lanzamiento\",\"descripcion\":\"Hola Mundo1\",\"estadoLogico\":\"A\"}",
+      "estado": 5,
+      "fechainicio": "25/04/2016",
+      "fechafin": "27/04/2016",
+      "presupuesto": 3400000,
+      "responsable": "Andrea Cerete",
+      "estadoLogico": "A",
+      "id": 6
+    },
+    {
+      "nombre": "Campaóa temporal 3",
+      "descripcion": "campaóa temporal 3",
+      "tipo": {
+        "id": 1,
+        "codigo": 1,
+        "nombre": "Lanzamiento",
+        "descripcion": "Hola Mundo1",
+        "estadoLogico": "A"
+      },
+      "estado": 7,
+      "fechainicio": "27/04/2016",
+      "fechafin": "28/04/2016",
+      "presupuesto": 3000000,
+      "responsable": "Maria Fernanda",
+      "estadoLogico": "A",
+      "id": 7
+    },
+    {
+      "nombre": "temporal 4",
+      "descripcion": "temporal 4",
+      "tipo": {
+        "id": 1,
+        "codigo": 1,
+        "nombre": "Lanzamiento",
+        "descripcion": "Hola Mundo1",
+        "estadoLogico": "A"
+      },
+      "estado": 7,
+      "fechainicio": "26/04/2016",
+      "fechafin": "27/04/2016",
+      "presupuesto": 30000,
+      "responsable": "Laura Sanchez",
+      "estadoLogico": "A",
+      "id": 8
+    },
+    {
+      "nombre": "Temp 5",
+      "descripcion": "temp 5",
+      "tipo": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "expectativa",
+        "descripcion": "Hola Mundo3",
+        "estadoLogico": "A"
+      },
+      "estado": 7,
+      "fechainicio": "26/04/2016",
+      "fechafin": "27/04/2016",
+      "presupuesto": 5000000,
+      "responsable": "ok ok",
+      "estadoLogico": "A",
+      "id": 9
+    },
+    {
+      "nombre": "ok ok",
+      "descripcion": "ok ok",
+      "tipo": {
+        "id": 1,
+        "codigo": 1,
+        "nombre": "Lanzamiento",
+        "descripcion": "Hola Mundo1",
+        "estadoLogico": "A"
+      },
+      "estado": {},
+      "fechainicio": "28/04/2016",
+      "fechafin": "29/04/2016",
+      "presupuesto": 5000000,
+      "responsable": "ok ok",
+      "estadoLogico": "A",
+      "id": 10
+    },
+    {
+      "nombre": "ok 2 ok 2",
+      "descripcion": "ok ok",
+      "tipo": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "expectativa",
+        "descripcion": "Hola Mundo3",
+        "estadoLogico": "A"
+      },
+      "estado": {},
+      "fechainicio": "26/04/2016",
+      "fechafin": "27/04/2016",
+      "presupuesto": 3400000,
+      "responsable": "ok ok ok ok ok o kok",
+      "estadoLogico": "A",
+      "id": 11
+    },
+    {
+      "nombre": "lu lu lu lu",
+      "descripcion": "lo lo lo lo lo",
+      "tipo": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "expectativa",
+        "descripcion": "Hola Mundo3",
+        "estadoLogico": "A"
+      },
+      "estado": 7,
+      "fechainicio": "26/04/2016",
+      "fechafin": "27/04/2016",
+      "presupuesto": 3500000,
+      "responsable": "lo lo lo lo",
+      "estadoLogico": "A",
+      "id": 12
+    },
+    {
+      "nombre": "ly ly ly ly ly",
+      "descripcion": "le le le le le",
+      "tipo": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "expectativa",
+        "descripcion": "Hola Mundo3",
+        "estadoLogico": "A"
+      },
+      "estado": 7,
+      "fechainicio": "26/04/2016",
+      "fechafin": "27/04/2016",
+      "presupuesto": 3700000,
+      "responsable": "ok ok ok ok ok",
+      "estadoLogico": "A",
+      "id": 13
+    },
+    {
+      "nombre": "le le le le",
+      "descripcion": "le le le le le",
+      "tipo": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "expectativa",
+        "descripcion": "Hola Mundo3",
+        "estadoLogico": "A"
+      },
+      "estado": {
+        "codigo": 7,
+        "categoria": "ESTADO_CAMPANIA",
+        "valor": "Pendiente"
+      },
+      "fechainicio": "26/04/2016",
+      "fechafin": "27/04/2016",
+      "presupuesto": 7000000,
+      "responsable": "ok ok",
+      "estadoLogico": "A",
+      "id": 14
+    },
+    {
+      "nombre": "Campaóa Tron",
+      "descripcion": "tron campaóa",
+      "tipo": {
+        "id": 3,
+        "codigo": 3,
+        "nombre": "expectativa",
+        "descripcion": "Hola Mundo3",
+        "estadoLogico": "A"
+      },
+      "estado": {
+        "codigo": 7,
+        "categoria": "ESTADO_CAMPANIA",
+        "valor": "Pendiente"
+      },
+      "fechainicio": "26/04/2016",
+      "fechafin": "27/04/2016",
+      "presupuesto": 3000000,
+      "responsable": "tron tron",
+      "estadoLogico": "A",
+      "id": 15
+    }
+  ],
+  "tipos_campania": [
+    {
+      "id": 1,
+      "codigo": 1,
+      "nombre": "Lanzamiento",
+      "descripcion": "Hola Mundo1",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 2,
+      "codigo": 2,
+      "nombre": "reactivación",
+      "descripcion": "Hola Mundo2",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 3,
+      "codigo": 3,
+      "nombre": "expectativa",
+      "descripcion": "Hola Mundo3",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 4,
+      "codigo": "AAA2",
+      "nombre": "REDES SOCIALES -2016",
+      "descripcion": "agagagsdgdajaskgjdsahjkadjkhadsasasasas",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 5,
+      "codigo": "AS3",
+      "nombre": "EMAILS-2016",
+      "descripcion": "assaasadfasdasdasdsaddsdsas",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 6,
+      "codigo": "AS4",
+      "nombre": "VISITAS",
+      "descripcion": "adsadsdsadas",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 7,
+      "codigo": "AS5",
+      "nombre": "FACEBOOK",
+      "descripcion": "FACEBOOK",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 8,
+      "codigo": "AS3",
+      "nombre": "REDES SOCIALES - 2016",
+      "descripcion": "asasasasas",
+      "estadoLogico": "I"
+    },
+    {
+      "codigo": "AS43",
+      "nombre": "REDES SOCIALES-2016",
+      "descripcion": "asdasdasdasdsds",
+      "estadoLogico": "A",
+      "id": 9
+    }
+  ],
+  "cajas": [
+    {
+      "id": 14,
+      "codigo": "1256tgdfsfsdfsd",
+      "nombre": "caja 10",
+      "ubicacion": "mamonal",
+      "cajero": [
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        },
+        {
+          "nombre": "Antonio",
+          "identificacion": "145"
+        },
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        }
+      ],
+      "identificador_del_equipo": "88:88:88:88:88:88",
+      "estado": "Activo",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 15,
+      "codigo": "htghfghfgh",
+      "nombre": "hfghghgfh",
+      "ubicacion": "ngngh",
+      "cajero": [],
+      "identificador_del_equipo": "55:55:55:55:55:55",
+      "estado": "Activo",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 16,
+      "codigo": "fgfdxgvbfb",
+      "nombre": "caja modificada",
+      "ubicacion": "vbcvb",
+      "cajero": [
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        },
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        }
+      ],
+      "identificador_del_equipo": "00:00:00:00:00:00",
+      "estado": "Activo",
+      "estadoLogico": "I"
+    },
+    {
+      "id": 19,
+      "codigo": "das",
+      "nombre": "caja 5",
+      "ubicacion": "mompoz",
+      "cajero": [],
+      "identificador_del_equipo": "ad:fc:12:21:12:12",
+      "estado": "Activo",
+      "estadoLogico": "I"
+    },
+    {
+      "codigo": "asd",
+      "nombre": "asd",
+      "identificador_del_equipo": "D1:23:12:31:23:12",
+      "cajero": [
+        {
+          "nombre": "Ramon",
+          "identificacion": "14656784125"
+        },
+        {
+          "nombre": "Ana",
+          "identificacion": "14125"
+        },
+        {
+          "nombre": "Andrea",
+          "identificacion": "114259"
+        },
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        }
+      ],
+      "ubicacion": "dfsdfdsfdsdfds",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 20
+    },
+    {
+      "codigo": "asd",
+      "nombre": "asd",
+      "identificador_del_equipo": "00:00:00:00:00:42",
+      "cajero": [
+        {
+          "nombre": "Ramon",
+          "identificacion": "14656784125"
+        },
+        {
+          "nombre": "jose",
+          "identificacion": "11524758741"
+        },
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        },
+        {
+          "nombre": "Andrea",
+          "identificacion": "114259"
+        }
+      ],
+      "ubicacion": "dfsdfdsfdsdfds",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 21
+    },
+    {
+      "codigo": "qweqwqwqwqwqwqw",
+      "nombre": "eqwqwqwqwqwqwqw",
+      "identificador_del_equipo": "00:00:00:00:00:FF",
+      "cajero": [],
+      "ubicacion": "qweeeeeeeeeeeee",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 41
+    },
+    {
+      "codigo": "qweqwe",
+      "nombre": 12345654321,
+      "identificador_del_equipo": "14:78:52:36:9F:FD",
+      "cajero": [],
+      "ubicacion": "qweqwe",
+      "estado": "Activo",
+      "estadoLogico": "A",
+      "id": 43
+    },
+    {
+      "codigo": "eewe",
+      "nombre": "qwe",
+      "identificador_del_equipo": "EE:43:FD:FD:DE:EE",
+      "cajero": [
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        },
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        }
+      ],
+      "ubicacion": "qeqw",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 50
+    },
+    {
+      "codigo": "weqweqwe",
+      "nombre": "rwerewr",
+      "identificador_del_equipo": "00:00:FF:00:00:00",
+      "cajero": [
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        },
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        }
+      ],
+      "ubicacion": "qweqe",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 51
+    },
+    {
+      "codigo": 1475,
+      "nombre": "caja 1000",
+      "identificador_del_equipo": "AA:A4:44:44:44:14",
+      "cajero": [
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        },
+        {
+          "nombre": "Andrea",
+          "identificacion": "114259"
+        }
+      ],
+      "ubicacion": "sdada",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 52
+    },
+    {
+      "codigo": "qweqwe",
+      "nombre": "eqwqwe",
+      "identificador_del_equipo": "DF:DF:D1:97:63:13",
+      "cajero": [
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        },
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        }
+      ],
+      "ubicacion": "fsdfsfsfsds",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 53
+    },
+    {
+      "codigo": "sada",
+      "nombre": "ada",
+      "identificador_del_equipo": "DA:13:4E:DC:CD:AA",
+      "ubicacion": "dasd",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 54
+    },
+    {
+      "codigo": 1234,
+      "nombre": "ad",
+      "identificador_del_equipo": "AD:12:45:78:96:54",
+      "cajero": [
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        },
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        }
+      ],
+      "ubicacion": "ad",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 55
+    },
+    {
+      "codigo": "asdasdasd",
+      "nombre": "sadas",
+      "identificador_del_equipo": "87:96:41:3D:FA:45",
+      "cajero": [
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        },
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        }
+      ],
+      "ubicacion": "asa",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 56
+    },
+    {
+      "codigo": 242341,
+      "nombre": "dnasdabdsva",
+      "identificador_del_equipo": "BD:AD:BA:DB:BB:DA",
+      "cajero": [
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        },
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        }
+      ],
+      "ubicacion": "bdqwubqub",
+      "estado": "Activo",
+      "estadoLogico": "A",
+      "id": 57
+    },
+    {
+      "codigo": "eqeq",
+      "nombre": "qewe",
+      "identificador_del_equipo": "EE:42:34:23:42:34",
+      "cajero": [
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        },
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        }
+      ],
+      "ubicacion": "qeqeqwe",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 58
+    },
+    {
+      "codigo": "asdas",
+      "nombre": "adad",
+      "identificador_del_equipo": "AD:AD:11:14:44:77",
+      "cajero": [],
+      "ubicacion": "dadasd",
+      "estado": "Activo",
+      "estadoLogico": "A",
+      "id": 59
+    },
+    {
+      "codigo": "qweqweqeqeqweqw",
+      "nombre": "qweqweqwe",
+      "identificador_del_equipo": "EE:EE:E4:44:44:44",
+      "cajero": [
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        },
+        {
+          "nombre": "jose",
+          "identificacion": "11524758741"
+        },
+        {
+          "nombre": "Andrea",
+          "identificacion": "114259"
+        },
+        {
+          "nombre": "juan",
+          "identificacion": "1043464259"
+        },
+        {
+          "nombre": "Antonio",
+          "identificacion": "145"
+        }
+      ],
+      "ubicacion": "qweqwe",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 60
+    },
+    {
+      "codigo": "adad",
+      "nombre": "adasdasd",
+      "identificador_del_equipo": "AD:AD:AD:AA:11:22",
+      "cajero": [
+        {
+          "nombre": "Santander",
+          "identificacion": "144125"
+        }
+      ],
+      "ubicacion": "dasdad",
+      "estado": "Activo",
+      "estadoLogico": "A",
+      "id": 61
+    },
+    {
+      "id": 62,
+      "codigo": "asdasdasd",
+      "nombre": "adasdasd",
+      "ubicacion": "das",
+      "cajero": [
+        {
+          "nombre": "luis",
+          "identificacion": "11247814259"
+        },
+        {
+          "nombre": "Andrea",
+          "identificacion": "114259"
+        },
+        {
+          "nombre": "juan",
+          "identificacion": "1043464259"
+        }
+      ],
+      "identificador_del_equipo": "66:66:67:77:77:66",
+      "estado": "Inactivo",
+      "estadoLogico": "A"
+    },
+    {
+      "id": 63,
+      "codigo": 312313,
+      "nombre": "adasdasd",
+      "ubicacion": 24324,
+      "cajero": [],
+      "identificador_del_equipo": "66:66:77:77:66:67",
+      "estado": "Activo",
+      "estadoLogico": "A"
+    },
+    {
+      "codigo": 312313,
+      "nombre": "qwe",
+      "identificador_del_equipo": "EE:00:00:00:00:00",
+      "cajero": [
+        {
+          "nombre": "Alberto",
+          "identificacion": "104742"
+        },
+        {
+          "nombre": "juan",
+          "identificacion": "1043464259"
+        }
+      ],
+      "ubicacion": "dada",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 64
+    },
+    {
+      "codigo": "qwe",
+      "nombre": "caja 12",
+      "identificador_del_equipo": "12:34:56:78:90:98",
+      "cajero": [],
+      "ubicacion": "d",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 65
+    },
+    {
+      "codigo": 31231,
+      "nombre": "caja 13",
+      "identificador_del_equipo": "ee:ef:ff:ff:aa:ac",
+      "cajero": [],
+      "ubicacion": "qweqweqwe",
+      "estado": "Inactivo",
+      "estadoLogico": "I",
+      "id": 66
+    },
+    {
+      "codigo": "qweqweq",
+      "nombre": "qweqweq",
+      "identificador_del_equipo": "ee:cc:cc:cc:cc:ca",
+      "cajero": [],
+      "ubicacion": "qew",
+      "estado": "Inactivo",
+      "estadoLogico": "I",
+      "id": 67
+    },
+    {
+      "codigo": "asdasdasda",
+      "nombre": "caja 4",
+      "identificador_del_equipo": "55:56:66:dd:dd:da",
+      "cajero": [],
+      "ubicacion": "fgfggdf",
+      "estado": "Activo",
+      "estadoLogico": "I",
+      "id": 68
+    },
+    {
+      "codigo": 1231,
+      "nombre": 123,
+      "identificador_del_equipo": "12:32:13:12:31:2d",
+      "cajero": [],
+      "ubicacion": 31231,
+      "estado": "Inactivo",
+      "estadoLogico": "I",
+      "id": 69
+    },
+    {
+      "codigo": "qwe",
+      "nombre": "caja 12",
+      "identificador_del_equipo": "12:34:56:78:90:98",
+      "cajero": [],
+      "ubicacion": "d",
+      "estado": "Inactivo",
+      "estadoLogico": "A",
+      "id": 65
+    },
+    {
+      "codigo": 31231,
+      "nombre": "caja 13",
+      "identificador_del_equipo": "ee:ef:ff:ff:aa:ac",
+      "cajero": [],
+      "ubicacion": "qweqweqwe",
+      "estado": "Inactivo",
+      "estadoLogico": "I",
+      "id": 66
+    },
+    {
+      "codigo": "qweqweq",
+      "nombre": "qweqweq",
+      "identificador_del_equipo": "ee:cc:cc:cc:cc:ca",
+      "cajero": [],
+      "ubicacion": "qew",
+      "estado": "Inactivo",
+      "estadoLogico": "I",
+      "id": 67
+    },
+    {
+      "codigo": "asdasdasda",
+      "nombre": "caja 4",
+      "identificador_del_equipo": "55:56:66:dd:dd:da",
+      "cajero": [],
+      "ubicacion": "fgfggdf",
+      "estado": "Activo",
+      "estadoLogico": "I",
+      "id": 68
+    },
+    {
+      "codigo": 1231,
+      "nombre": 123,
+      "identificador_del_equipo": "12:32:13:12:31:2d",
+      "cajero": [],
+      "ubicacion": 31231,
+      "estado": "Inactivo",
+      "estadoLogico": "I",
+      "id": 69
+    }
+  ],
+  "cajeros": [
+    {
+      "nombre": "Santander",
+      "identificacion": "144125"
+    },
+    {
+      "nombre": "Ramon",
+      "identificacion": "14656784125"
+    },
+    {
+      "nombre": "Antonio",
+      "identificacion": "145"
+    },
+    {
+      "nombre": "Ana",
+      "identificacion": "14125"
+    },
+    {
+      "nombre": "Alberto",
+      "identificacion": "104742"
+    },
+    {
+      "nombre": "Andrea",
+      "identificacion": "114259"
+    },
+    {
+      "nombre": "jose",
+      "identificacion": "11524758741"
+    },
+    {
+      "nombre": "luis",
+      "identificacion": "11247814259"
+    },
+    {
+      "nombre": "juan",
+      "identificacion": "1043464259"
+    }
+  ],
+  "categoria": [
+    {
+      "id": 1,
+      "codigo": 1,
+      "nombre": "Test1",
+      "estado": "Inactivo",
+      "estadoLogico": "A"
+    },
+    {
+      "codigo": 322,
+      "nombre": "Test",
+      "estado": "Activo",
+      "estadoLogico": "I",
+      "id": 2
+    }
+  ],
+  "actividades": [
+    {
+      "id": 1,
+      "codigo": 1,
+      "nombre": "Test1 de Test1",
+      "categoria": 1,
+      "estadoLogico": "A"
+    },
+    {
+      "id": 2,
+      "codigo": 2,
+      "nombre": "Test1 de Test1",
+      "categoria": 1,
+      "estadoLogico": "A"
+    },
+    {
+      "codigo": 23,
+      "nombre": "Corte 2",
+      "categoria": 1,
+      "estadoLogico": "A",
+      "id": 3
+    },
+    {
+      "codigo": 34,
+      "nombre": "Corte 3",
+      "categoria": 1,
+      "estadoLogico": "A"
+    },
+    {
+      "codigo": 76,
+      "nombre": "Examen de Ingles",
+      "categoria": 7,
+      "estadoLogico": "I",
+      "id": 9
+    },
+    {
+      "codigo": "df",
+      "nombre": "sdsd",
+      "categoria": 1,
+      "estadoLogico": "I",
+      "id": 10
+    },
+    {
+      "id": 11,
+      "nombre": "Hola",
+      "codigo": "df",
+      "categoria": 1,
+      "estadoLogico": "I"
+    },
+    {
+      "id": 12,
+      "nombre": "Test",
+      "codigo": 79,
+      "categoria": 1,
+      "estadoLogico": "I"
+    },
+    {
+      "id": 13,
+      "nombre": "Corte 4",
+      "codigo": 45,
+      "categoria": 1,
+      "estadoLogico": "I"
+    },
+    {
+      "codigo": 234234,
+      "nombre": "fsdfgsg",
+      "categoria": 1,
+      "estadoLogico": "I",
+      "id": 14
+    },
+    {
+      "codigo": "erewr",
+      "nombre": "fsdfg",
+      "categoria": 1,
+      "estadoLogico": "I",
+      "id": 15
+    },
+    {
+      "codigo": 3123,
+      "nombre": "fdsfsdfdsf",
+      "categoria": 7,
+      "estadoLogico": "A",
+      "id": 4
+    }
+  ],
+  "periodo_academico": [
+    {
+      "id": 7,
+      "codigo": "2016-1",
+      "nombre": "2016-1",
+      "fechaInicio": "01/01/2016",
+      "fechaFin": "15/12/2016",
+      "anioLectivo": 2016,
+      "estado": {
+        "codigo": 13,
+        "categoria": "ESTADO_PERIODO_ACADEMICO",
+        "valor": "Cerrado"
+      },
+      "responsable": "Jhon Mario Murillo Cordoba",
+      "fechaRegistro": "27/05/2016"
+    },
+    {
+      "codigo": "2016-1-B",
+      "nombre": "2016-1-B",
+      "fechaInicio": "20/05/2016",
+      "fechaFin": "31/05/2016",
+      "anioLectivo": 2015,
+      "estado": {
+        "codigo": 11,
+        "categoria": "ESTADO_PERIODO_ACADEMICO",
+        "valor": "Abierto"
+      },
+      "responsable": "Jhon Mario Murillo Cordoba",
+      "fechaRegistro": "27/05/2016",
+      "id": 8
+    },
+    {
+      "codigo": "2017-1",
+      "nombre": "2017-1",
+      "fechaInicio": "20/05/2016",
+      "fechaFin": "31/05/2016",
+      "anioLectivo": 2015,
+      "estado": {
+        "codigo": 13,
+        "categoria": "ESTADO_PERIODO_ACADEMICO",
+        "valor": "Cerrado"
+      },
+      "responsable": "Jhon Mario Murillo Cordoba",
+      "fechaRegistro": "27/05/2016",
+      "id": 9
+    },
+    {
+      "codigo": "2017-1-B",
+      "nombre": "2017-1-B",
+      "fechaInicio": "20/05/2016",
+      "fechaFin": "31/05/2016",
+      "anioLectivo": 2015,
+      "estado": {
+        "codigo": 13,
+        "categoria": "ESTADO_PERIODO_ACADEMICO",
+        "valor": "Cerrado"
+      },
+      "responsable": "Jhon Mario Murillo Cordoba",
+      "fechaRegistro": "27/05/2016",
+      "id": 10
+    },
+    {
+      "codigo": "2018-1",
+      "nombre": "2018-1",
+      "fechaInicio": "20/05/2016",
+      "fechaFin": "31/05/2016",
+      "anioLectivo": 2015,
+      "estado": {
+        "codigo": 13,
+        "categoria": "ESTADO_PERIODO_ACADEMICO",
+        "valor": "Cerrado"
+      },
+      "responsable": "Jhon Mario Murillo Cordoba",
+      "fechaRegistro": "27/05/2016",
+      "id": 11
+    },
+    {
+      "codigo": "2018-1-B",
+      "nombre": "2018-1-B",
+      "fechaInicio": "20/05/2016",
+      "fechaFin": "31/05/2016",
+      "anioLectivo": 2015,
+      "estado": {
+        "codigo": 13,
+        "categoria": "ESTADO_PERIODO_ACADEMICO",
+        "valor": "Cerrado"
+      },
+      "responsable": "Jhon Mario Murillo Cordoba",
+      "fechaRegistro": "27/05/2016",
+      "id": 12
+    },
+    {
+      "codigo": "2019-1",
+      "nombre": "2019-1",
+      "fechaInicio": "20/05/2016",
+      "fechaFin": "31/05/2016",
+      "anioLectivo": 2015,
+      "estado": {
+        "codigo": 13,
+        "categoria": "ESTADO_PERIODO_ACADEMICO",
+        "valor": "Cerrado"
+      },
+      "responsable": "Jhon Mario Murillo Cordoba",
+      "fechaRegistro": "27/05/2016",
+      "id": 13
+    },
+    {
+      "codigo": "2019-1-B",
+      "nombre": "2019-1-B",
+      "fechaInicio": "20/05/2016",
+      "fechaFin": "31/05/2016",
+      "anioLectivo": 2015,
+      "estado": {
+        "codigo": 13,
+        "categoria": "ESTADO_PERIODO_ACADEMICO",
+        "valor": "Cerrado"
+      },
+      "responsable": "Jhon Mario Murillo Cordoba",
+      "fechaRegistro": "27/05/2016",
+      "id": 14
+    },
+    {
+      "codigo": "2020-1",
+      "nombre": "2020-1",
+      "fechaInicio": "20/05/2016",
+      "fechaFin": "31/05/2016",
+      "anioLectivo": 2015,
+      "estado": {
+        "codigo": 13,
+        "categoria": "ESTADO_PERIODO_ACADEMICO",
+        "valor": "Cerrado"
+      },
+      "responsable": "Jhon Mario Murillo Cordoba",
+      "fechaRegistro": "27/05/2016",
+      "id": 15
+    }
+  ],
+  "colegio": [
+    {
+      "codigo": 232323232323,
+      "nombre": "DFFDFDf",
+      "pais": {
+        "id": 2,
+        "codigo": "002",
+        "nombre": "Venezuela"
+      },
+      "departamento": {
+        "id": 2,
+        "codigo": "002",
+        "nombre": "adasdsdfsdda",
+        "idPais": 2
+      },
+      "municipio": {
+        "id": 2,
+        "codigo": "002",
+        "nombre": "huaifssssssssa",
+        "idDepartamento": 2
+      },
+      "sector": {
+        "codigo": 9,
+        "categoria": "SECTOR_COLEGIO",
+        "valor": "No Oficial"
+      },
+      "estado": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "Activo"
+      },
+      "caracteracademico": {
+        "codigo": 5,
+        "nombre": "Colegio"
+      },
+      "id": 1
+    }
+  ],
+  "departamento": [
+    {
+      "id": 1,
+      "codigo": "001",
+      "nombre": "adada",
+      "idPais": 1
+    },
+    {
+      "id": 2,
+      "codigo": "002",
+      "nombre": "adasdsdfsdda",
+      "idPais": 2
+    },
+    {
+      "id": 3,
+      "codigo": "003",
+      "nombre": "adasfsdfsdfsdsdfsdda",
+      "idPais": 1
+    },
+    {
+      "id": 4,
+      "codigo": "004",
+      "nombre": "sssssss",
+      "idPais": 2
+    }
+  ],
+  "municipio": [
+    {
+      "id": 1,
+      "codigo": "001",
+      "nombre": "huaifa",
+      "idDepartamento": 1
+    },
+    {
+      "id": 2,
+      "codigo": "002",
+      "nombre": "huaifssssssssa",
+      "idDepartamento": 2
+    },
+    {
+      "id": 3,
+      "codigo": "003",
+      "nombre": "huasdsdfsdfifa",
+      "idDepartamento": 4
+    },
+    {
+      "id": 4,
+      "codigo": "004",
+      "nombre": "s23wewef",
+      "idDepartamento": 4
+    }
+  ],
+  "pais": [
+    {
+      "id": 1,
+      "codigo": "001",
+      "nombre": "Colombia"
+    },
+    {
+      "id": 2,
+      "codigo": "002",
+      "nombre": "Venezuela"
+    }
+  ],
+  "conceptos_facturacion": [
+    {
+      "id": 1,
+      "codigo": "1",
+      "nombre": "CERTIFICADO",
+      "tipo": "Ingreso",
+      "abreviatura": "CTFdes",
+      "descripcion": "este es un certificado",
+      "cuenta": 2
+    },
+    {
+      "id": 2,
+      "codigo": "2",
+      "nombre": "CRÉDITOS ACADÉMICOS",
+      "tipo": "Ingreso",
+      "abreviatura": "CTFdo",
+      "descripcion": "kfbsdhgdfhsfhsdfgj",
+      "cuenta": 1
+    },
+    {
+      "id": 3,
+      "codigo": "3",
+      "nombre": "MATRÍCULA",
+      "tipo": "Ingreso",
+      "abreviatura": "mta",
+      "descripcion": 4854448468485844,
+      "cuenta": 4
+    },
+    {
+      "id": 4,
+      "codigo": "4",
+      "nombre": "EXTRA",
+      "tipo": "Descuento",
+      "abreviatura": "ext",
+      "descripcion": "cobro extra",
+      "cuenta": 3
+    },
+    {
+      "id": 5,
+      "codigo": "5",
+      "nombre": "FAMILIAS",
+      "tipo": "Descuento",
+      "abreviatura": "asdasd",
+      "descripcion": "asdasdadadasdasdadasdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "cuenta": 1
+    }
+  ],
+  "cuentas_contable": [],
+  "linea_credito": [
+    {
+      "id": 1,
+      "nombre": "LINEA 1"
+    },
+    {
+      "id": 2,
+      "nombre": "LINEA 2"
+    },
+    {
+      "id": 3,
+      "nombre": "LINEA 3"
+    }
+  ],
+  "parametro_credito": [
+    {
+      "id": 1,
+      "periodoAcademico": {
+        "id": 8,
+        "nombre": "2016-1-B"
+      },
+      "valorMinimo": 50,
+      "valorMaximo": 76,
+      "interesCorriente": 0.3,
+      "interesMora": 0.01,
+      "cuotaMinima": 1,
+      "cuotaMaxima": 15,
+      "formaPago": {
+        "nombre": "Pagaré",
+        "codigo": 323,
+        "descripcion": "Pagaré",
+        "estadoLogico": "A",
+        "id": 23
+      }
+    },
+    {
+      "id": 2,
+      "periodoAcademico": {
+        "id": 7,
+        "nombre": "2016-1"
+      },
+      "valorMinimo": 0.32,
+      "valorMaximo": 0.32,
+      "interesCorriente": 1,
+      "interesMora": 0,
+      "cuotaMinima": 27,
+      "cuotaMaxima": 32,
+      "formaPago": {
+        "nombre": "Pagaré",
+        "codigo": 323,
+        "descripcion": "Pagaré",
+        "estadoLogico": "A",
+        "id": 23
+      }
+    },
+    {
+      "id": 3,
+      "periodoAcademico": {
+        "id": 10,
+        "nombre": "2017-1-B"
+      },
+      "valorMinimo": 4.23,
+      "valorMaximo": 5.4,
+      "interesCorriente": 5.46,
+      "interesMora": 0.02,
+      "cuotaMinima": 1,
+      "cuotaMaxima": 6,
+      "formaPago": {
+        "nombre": "Pagaré",
+        "codigo": 323,
+        "descripcion": "Pagaré",
+        "estadoLogico": "A",
+        "id": 23
+      }
+    }
+  ],
+  "nivel_academico": [
+    {
+      "id": 1,
+      "nombre": "Pregrado"
+    },
+    {
+      "id": 2,
+      "nombre": "Posgrado"
+    }
+  ],
+  "planeacion_academica": [
+    {
+      "id": 1,
+      "periodoAcademico": "PERIODO 2",
+      "nivelAcademico": "Pregrado",
+      "programaAcademico": "Ingenieria de Sistemas",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": 0.1245
+        },
+        {
+          "codigo": 1,
+          "nombre": "SALA H1",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 1,
+            "nombre": "Sede Principal"
+          },
+          "ubicacion": "Sede Principal",
+          "descripcion": "Sala H1",
+          "estadoLogico": "A",
+          "id": 12,
+          "porcentaje": 0.19
+        },
+        {
+          "id": 11,
+          "codigo": "a747474asd",
+          "nombre": "asdasd",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 2,
+            "nombre": "Sede La Victoria"
+          },
+          "ubicacion": "asdasd",
+          "descripcion": "asdasdasd",
+          "estadoLogico": "A"
+        },
+        {
+          "codigo": "as0196sd",
+          "nombre": "asdasd",
+          "tipo": {
+            "id": 2,
+            "nombre": "AULAS"
+          },
+          "sede": {
+            "id": 2,
+            "nombre": "Sede La Victoria"
+          },
+          "ubicacion": "asdasd",
+          "descripcion": "asdasdasd",
+          "estadoLogico": "A",
+          "id": 9
+        },
+        {
+          "id": 8,
+          "codigo": "as4875asd",
+          "nombre": "asdasd",
+          "tipo": {
+            "id": 2,
+            "nombre": "AULAS"
+          },
+          "sede": {
+            "id": 2,
+            "nombre": "Sede La Victoria"
+          },
+          "ubicacion": "asdasdasd",
+          "descripcion": "asdasda",
+          "estadoLogico": "A"
+        }
+      ],
+      "valorMatricula": 2000000,
+      "valorCreditoAcademico": 300000,
+      "puntoEquilibrio": 30,
+      "producInterBruto": 0.14,
+      "estadoLogico": "A"
+    },
+    {
+      "id": 2,
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Ingenieria de Sistemas",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": 0.1211
+        }
+      ],
+      "valorMatricula": 2500000,
+      "valorCreditoAcademico": 230000,
+      "puntoEquilibrio": 30,
+      "producInterBruto": 0.005,
+      "estadoLogico": "A"
+    },
+    {
+      "id": 3,
+      "periodoAcademico": "PERIODO 2",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Medicina",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": 0.1555
+        },
+        {
+          "codigo": 1,
+          "nombre": "SALA H1",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 1,
+            "nombre": "Sede Principal"
+          },
+          "ubicacion": "Sede Principal",
+          "descripcion": "Sala H1",
+          "estadoLogico": "A",
+          "id": 12,
+          "porcentaje": 0.4441
+        }
+      ],
+      "valorMatricula": 55,
+      "valorCreditoAcademico": 55,
+      "puntoEquilibrio": 5,
+      "producInterBruto": 0.0555,
+      "estadoLogico": "A"
+    },
+    {
+      "id": 4,
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Medicina",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": null
+        },
+        {
+          "codigo": 1,
+          "nombre": "SALA H1",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 1,
+            "nombre": "Sede Principal"
+          },
+          "ubicacion": "Sede Principal",
+          "descripcion": "Sala H1",
+          "estadoLogico": "A",
+          "id": 12,
+          "porcentaje": null
+        }
+      ],
+      "valorMatricula": 1111111,
+      "valorCreditoAcademico": 222222,
+      "puntoEquilibrio": 33,
+      "producInterBruto": 0.0231,
+      "estadoLogico": "A"
+    },
+    {
+      "periodoAcademico": "PERIODO 2",
+      "nivelAcademico": "Pregrado",
+      "programaAcademico": "Medicina",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": 0.1444
+        },
+        {
+          "codigo": 1,
+          "nombre": "SALA H1",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 1,
+            "nombre": "Sede Principal"
+          },
+          "ubicacion": "Sede Principal",
+          "descripcion": "Sala H1",
+          "estadoLogico": "A",
+          "id": 12,
+          "porcentaje": 0.0144
+        }
+      ],
+      "valorMatricula": 4444444445,
+      "valorCreditoAcademico": 4444,
+      "puntoEquilibrio": 45,
+      "producInterBruto": 0.0004,
+      "estadoLogico": "A",
+      "id": 5
+    },
+    {
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Medicina",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4
+        }
+      ],
+      "valorMatricula": 2,
+      "valorCreditoAcademico": 2,
+      "puntoEquilibrio": 2,
+      "producInterBruto": 0.022,
+      "estadoLogico": "A",
+      "id": 6
+    },
+    {
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Pregrado",
+      "programaAcademico": "Ingenieria de Sistemas",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4
+        }
+      ],
+      "valorMatricula": 3,
+      "valorCreditoAcademico": 3,
+      "puntoEquilibrio": 3,
+      "producInterBruto": 0.0003,
+      "estadoLogico": "A",
+      "id": 7
+    },
+    {
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Ingenieria de Sistemas",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4
+        }
+      ],
+      "valorMatricula": 234,
+      "valorCreditoAcademico": 4234,
+      "puntoEquilibrio": 2424,
+      "producInterBruto": 0.0042,
+      "estadoLogico": "A",
+      "id": 8
+    },
+    {
+      "periodoAcademico": "PERIODO 2",
+      "nivelAcademico": "Pregrado",
+      "programaAcademico": "Ingenieria de Sistemas",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4
+        }
+      ],
+      "valorMatricula": 243,
+      "valorCreditoAcademico": 24,
+      "puntoEquilibrio": 424,
+      "producInterBruto": 0.0024,
+      "estadoLogico": "A",
+      "id": 9
+    },
+    {
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Ingenieria",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4
+        }
+      ],
+      "valorMatricula": 42,
+      "valorCreditoAcademico": 22434,
+      "puntoEquilibrio": 42,
+      "producInterBruto": 0.0234,
+      "estadoLogico": "A",
+      "id": 10
+    },
+    {
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Medicina",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": 0.0222
+        }
+      ],
+      "valorMatricula": 44454,
+      "valorCreditoAcademico": 5454,
+      "puntoEquilibrio": 45,
+      "producInterBruto": 0.5454,
+      "estadoLogico": "A",
+      "id": 11
+    },
+    {
+      "periodoAcademico": "PERIODO 2",
+      "nivelAcademico": "Pregrado",
+      "programaAcademico": "Ingenieria de Sistemas",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": 0.0003
+        }
+      ],
+      "valorMatricula": 3,
+      "valorCreditoAcademico": 300000,
+      "puntoEquilibrio": 32,
+      "producInterBruto": 0.3236,
+      "estadoLogico": "A",
+      "id": 12
+    },
+    {
+      "periodoAcademico": "PERIODO A",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Medicina",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4
+        }
+      ],
+      "valorMatricula": 33333333,
+      "valorCreditoAcademico": 333222,
+      "puntoEquilibrio": 15,
+      "producInterBruto": 0.15,
+      "estadoLogico": "A",
+      "id": 13
+    },
+    {
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Ingenieria de Sistemas",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": 0.0053
+        }
+      ],
+      "valorMatricula": 4,
+      "valorCreditoAcademico": 4,
+      "puntoEquilibrio": 4,
+      "producInterBruto": 0.4477,
+      "estadoLogico": "A",
+      "id": 14
+    },
+    {
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Medicina",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": 0.0004
+        }
+      ],
+      "valorMatricula": 4,
+      "valorCreditoAcademico": 4,
+      "puntoEquilibrio": 4,
+      "producInterBruto": 0.0004,
+      "estadoLogico": "A",
+      "id": 15
+    },
+    {
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Medicina",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": 0.4587
+        }
+      ],
+      "valorMatricula": 89,
+      "valorCreditoAcademico": 98,
+      "puntoEquilibrio": 12,
+      "producInterBruto": 0.0098,
+      "estadoLogico": "A",
+      "id": 16
+    },
+    {
+      "periodoAcademico": "PERIODO 2",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Ingenieria de Sistemas",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4
+        }
+      ],
+      "valorMatricula": 4745747,
+      "valorCreditoAcademico": 333333,
+      "puntoEquilibrio": 45,
+      "producInterBruto": 0.04,
+      "estadoLogico": "A",
+      "id": 17
+    },
+    {
+      "periodoAcademico": "PERIODO 1B",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Medicina",
+      "recursoEducativo": [
+        {
+          "codigo": "4A",
+          "nombre": "ALMACENES EXITO",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 3,
+            "nombre": "Sede Crespo"
+          },
+          "ubicacion": "Barrio Crespo",
+          "descripcion": "dsfsfsfdfsdsfsdfdsfsdf",
+          "estadoLogico": "A",
+          "id": 4,
+          "porcentaje": 0.0457
+        },
+        {
+          "codigo": 1,
+          "nombre": "SALA H1",
+          "tipo": {
+            "id": 1,
+            "nombre": "SALAS"
+          },
+          "sede": {
+            "id": 1,
+            "nombre": "Sede Principal"
+          },
+          "ubicacion": "Sede Principal",
+          "descripcion": "Sala H1",
+          "estadoLogico": "A",
+          "id": 12
+        }
+      ],
+      "valorMatricula": 98,
+      "valorCreditoAcademico": 88,
+      "puntoEquilibrio": 8,
+      "producInterBruto": 0.0898,
+      "estadoLogico": "A",
+      "id": 18
+    },
+    {
+      "periodoAcademico": "PERIODO 2",
+      "nivelAcademico": "Posgrado",
+      "programaAcademico": "Ingenieria de Sistemas",
+      "recursoEducativo": [
+        {
+          "id": 3,
+          "codigo": 1233,
+          "nombre": "LABORATORIO CLEI3",
+          "tipo": {
+            "id": 2,
+            "nombre": "AULAS"
+          },
+          "sede": {
+            "id": 2,
+            "nombre": "Sede La Victoria"
+          },
+          "ubicacion": "Las Palmeras",
+          "descripcion": "Las Palmeras",
+          "estadoLogico": "A",
+          "porcentaje": 0.0034
+        },
+        {
+          "codigo": "asdasd",
+          "nombre": "asdasd",
+          "tipo": {
+            "id": 2,
+            "nombre": "AULAS"
+          },
+          "sede": {
+            "id": 2,
+            "nombre": "Sede La Victoria"
+          },
+          "ubicacion": "asdasd",
+          "descripcion": "asdasdasd",
+          "estadoLogico": "A",
+          "id": 9,
+          "porcentaje": 0.0323
+        }
+      ],
+      "valorMatricula": 21313,
+      "valorCreditoAcademico": 4142424,
+      "puntoEquilibrio": 4242424,
+      "producInterBruto": 4.2424,
+      "estadoLogico": "A",
+      "id": 19
+    }
+  ],
+  "tipo_documento": [
+    {
+      "id": 1,
+      "codigo": "CC",
+      "nombre": "Cédula de Ciudadanía"
+    },
+    {
+      "id": 2,
+      "codigo": "TI",
+      "nombre": "Tarjeta de Identidad"
+    },
+    {
+      "id": 3,
+      "codigo": "CE",
+      "nombre": "Cédula De Extranjería"
+    },
+    {
+      "id": 4,
+      "codigo": "PA",
+      "nombre": "Pasaporte"
+    }
+  ],
+  "jornada": [
+    {
+      "id": 1,
+      "codigo": "D",
+      "nombre": "Diurna"
+    },
+    {
+      "id": 2,
+      "codigo": "N",
+      "nombre": "Vespertina"
+    },
+    {
+      "id": 3,
+      "codigo": "C",
+      "nombre": "Nocturna"
+    }
+  ],
+  "estudiante": [
+    {
+      "id": 1,
+      "tipoDocumento": {
+        "id": 1,
+        "codigo": "CC",
+        "nombre": "Cédula de Ciudadanía"
+      },
+      "nombres": "Alberto Jaime",
+      "apellidos": "Perez Torres",
+      "identificacion": 1047439537,
+      "genero": "M",
+      "fechaNacimiento": "15/06/1992",
+      "email": "jhonma16@hotmail.com",
+      "telefono": 68908909,
+      "direccion": "Barrio Olaya Herrera Sector Central Kra 64 # 32-41",
+      "facultad": {
+        "nombre": "Ingenieria",
+        "codigo": 2,
+        "estadoLogico": "A",
+        "id": 2
+      },
+      "programaAcademico": [
+        {
+          "id": 1,
+          "nivelFormacion": "NIVEL PROFESIONAL",
+          "codigo": 1,
+          "nombrePrograma": "INGENIERIA DE SISTEMAS",
+          "registroCalificado": 123321,
+          "estado": "Activo",
+          "codigoSnies": 5533456,
+          "semestre": 3,
+          "modalidad": "Nocturna"
+        }
+      ],
+      "periodoAcademico": {
+        "codigo": "2016-1-B",
+        "nombre": "2016-1-B",
+        "fechaInicio": "20/05/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2015,
+        "estado": {
+          "codigo": 11,
+          "categoria": "ESTADO_PERIODO_ACADEMICO",
+          "valor": "Abierto"
+        },
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "27/05/2016",
+        "id": 8
+      },
+      "empresa": "exito",
+      "cargo": "auxiliar operativo",
+      "codigo": 11117139,
+      "jornada": {
+        "id": 1,
+        "codigo": "D",
+        "nombre": "Diurno"
+      },
+      "tipo_convenio": {
+        "id": 1,
+        "codigoTipoConvenio": "TIPO1",
+        "nombreTipoConvenio": "Fondo Bicentenario",
+        "descripcionTipoConvenio": "<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li style='color: blue'>Super Easy <b>Theming</b> Options</li><li>Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li>Doesn't Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href='https://github.com/fraywing/textAngular'>Here</a> </p>"
+      },
+      "cartera": []
+    },
+    {
+      "id": 2,
+      "tipoDocumento": {
+        "id": 1,
+        "codigo": "CC",
+        "nombre": "Cédula de Ciudadanía"
+      },
+      "nombres": "Cesar Augusto",
+      "apellidos": "Gomez Hernandez",
+      "identificacion": 1,
+      "genero": "M",
+      "fechaNacimiento": "12/07/1990",
+      "email": "cesar_gomez_h@hotmail.com",
+      "telefono": 16896895,
+      "celular": 3004224633,
+      "direccion": "San Fernando Calle Kalamary",
+      "facultad": {
+        "nombre": "Ingenieria",
+        "codigo": 2,
+        "estadoLogico": "A",
+        "id": 2
+      },
+      "programaAcademico": [
+        {
+          "id": 1,
+          "nivelFormacion": "NIVEL PROFESIONAL",
+          "codigo": 1,
+          "nombrePrograma": "INGENIERIA DE SISTEMAS",
+          "registroCalificado": 123321,
+          "estado": "Activo",
+          "codigoSnies": 5533456,
+          "semestre": 1,
+          "modalidad": "Presencial"
+        }
+      ],
+      "periodoAcademico": {
+        "codigo": "2016-1-B",
+        "nombre": "2016-1-B",
+        "fechaInicio": "20/05/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2015,
+        "estado": {
+          "codigo": 11,
+          "categoria": "ESTADO_PERIODO_ACADEMICO",
+          "valor": "Abierto"
+        },
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "27/05/2016",
+        "id": 8
+      },
+      "empresa": "ecopetrol",
+      "cargo": "matematico",
+      "codigo": 11117137,
+      "jornada": {
+        "id": 1,
+        "codigo": "D",
+        "nombre": "Diurno"
+      },
+      "tipo_convenio": {
+        "id": 1,
+        "codigoTipoConvenio": "TIPO1",
+        "nombreTipoConvenio": "Fondo Bicentenario",
+        "descripcionTipoConvenio": "<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li style='color: blue'>Super Easy <b>Theming</b> Options</li><li>Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li>Doesn't Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href='https://github.com/fraywing/textAngular'>Here</a> </p>"
+      },
+      "cartera": [
+        {
+          "valorCartera": 1000000
+        },
+        {
+          "valorCartera": 1000000
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "tipoDocumento": {
+        "id": 1,
+        "codigo": "CC",
+        "nombre": "Cédula de Ciudadanía"
+      },
+      "nombres": "Cesar Manuel",
+      "apellidos": "Trellez Perea",
+      "identificacion": 2,
+      "genero": "M",
+      "fechaNacimiento": "12/07/1990",
+      "email": "cesar_gomez_h@gmail.com",
+      "telefono": 16896895,
+      "celular": 3004224633,
+      "direccion": "San Fernando Calle Las Marmotas",
+      "facultad": {
+        "nombre": "Ingenieria",
+        "codigo": 2,
+        "estadoLogico": "A",
+        "id": 2
+      },
+      "programaAcademico": [
+        {
+          "id": 1,
+          "nivelFormacion": "NIVEL PROFESIONAL",
+          "codigo": 1,
+          "nombrePrograma": "INGENIERIA DE SISTEMAS",
+          "registroCalificado": 123321,
+          "estado": "Activo",
+          "codigoSnies": 5533456,
+          "semestre": 1,
+          "modalidad": "SemiPresencial"
+        }
+      ],
+      "periodoAcademico": {
+        "codigo": "2016-1-B",
+        "nombre": "2016-1-B",
+        "fechaInicio": "20/05/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2015,
+        "estado": {
+          "codigo": 11,
+          "categoria": "ESTADO_PERIODO_ACADEMICO",
+          "valor": "Abierto"
+        },
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "27/05/2016",
+        "id": 8
+      },
+      "empresa": "ecopetrol",
+      "cargo": "matematico",
+      "codigo": 11117138,
+      "jornada": {
+        "id": 1,
+        "codigo": "D",
+        "nombre": "Diurno"
+      },
+      "tipo_convenio": {
+        "id": 1,
+        "codigoTipoConvenio": "TIPO1",
+        "nombreTipoConvenio": "Fondo Bicentenario",
+        "descripcionTipoConvenio": "<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li style='color: blue'>Super Easy <b>Theming</b> Options</li><li>Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li>Doesn't Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href='https://github.com/fraywing/textAngular'>Here</a> </p>"
+      },
+      "cartera": []
+    },
+    {
+      "id": 4,
+      "tipoDocumento": {
+        "id": 1,
+        "codigo": "CC",
+        "nombre": "Cédula de Ciudadanía"
+      },
+      "nombres": "Magarita Rosa",
+      "apellidos": "Velez Perea",
+      "identificacion": 3,
+      "genero": "F",
+      "fechaNacimiento": "15/06/1983",
+      "email": "margarita@hotmail.com",
+      "telefono": 68906464,
+      "direccion": "Barrio Los Cerzos",
+      "facultad": {
+        "nombre": "Ingenieria",
+        "codigo": 2,
+        "estadoLogico": "A",
+        "id": 2
+      },
+      "programaAcademico": [
+        {
+          "id": 1,
+          "nivelFormacion": "NIVEL PROFESIONAL",
+          "codigo": 1,
+          "nombrePrograma": "INGENIERIA DE SISTEMAS",
+          "registroCalificado": 123321,
+          "estado": "Activo",
+          "codigoSnies": 5533456,
+          "semestre": 3,
+          "modalidad": "Presencial"
+        },
+        {
+          "id": 2,
+          "nivelFormacion": "NIVEL PROFESIONAL",
+          "codigo": 2,
+          "nombrePrograma": "INGENIERÍA DE TELECOMUNICACIONES",
+          "registroCalificado": 122211223,
+          "estado": "Activo",
+          "codigoSnies": 976543,
+          "semestre": 8,
+          "modalidad": "SemiPresencial"
+        }
+      ],
+      "periodoAcademico": {
+        "codigo": "2016-1-B",
+        "nombre": "2016-1-B",
+        "fechaInicio": "20/05/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2015,
+        "estado": {
+          "codigo": 11,
+          "categoria": "ESTADO_PERIODO_ACADEMICO",
+          "valor": "Abierto"
+        },
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "27/05/2016",
+        "id": 8
+      },
+      "empresa": "tecnologico",
+      "cargo": "auxiliar de mercadeo",
+      "codigo": 12345,
+      "jornada": {
+        "id": 1,
+        "codigo": "D",
+        "nombre": "Diurno"
+      },
+      "tipo_convenio": {
+        "id": 1,
+        "codigoTipoConvenio": "TIPO1",
+        "nombreTipoConvenio": "Fondo Bicentenario",
+        "descripcionTipoConvenio": "<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li style='color: blue'>Super Easy <b>Theming</b> Options</li><li>Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li>Doesn't Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href='https://github.com/fraywing/textAngular'>Here</a> </p>"
+      },
+      "cartera": []
+    }
+  ],
+  "solicitud_credito": [
+    {
+      "id": 7,
+      "periodoActual": {
+        "id": 8,
+        "nombre": "2016-1-B"
+      },
+      "tipoConvenio": {
+        "id": 1,
+        "codigoTipoConvenio": "TIPO1",
+        "nombreTipoConvenio": "Fondo Bicentenario",
+        "descripcionTipoConvenio": "<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li style='color: blue'>Super Easy <b>Theming</b> Options</li><li>Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li>Doesn't Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href='https://github.com/fraywing/textAngular'>Here</a> </p>"
+      },
+      "nivelFormacion": "NIVEL PROFESIONAL",
+      "programaAcademico": {
+        "id": 1,
+        "nivelFormacion": "NIVEL PROFESIONAL",
+        "codigo": 1,
+        "nombrePrograma": "INGENIERIA DE SISTEMAS",
+        "registroCalificado": 123321,
+        "estado": "Activo",
+        "codigoSnies": 5533456,
+        "semestre": 1,
+        "modalidad": "Presencial"
+      },
+      "jornada": {
+        "id": 1,
+        "codigo": "D",
+        "nombre": "Diurno"
+      },
+      "facultad": {
+        "nombre": "Ingenieria",
+        "codigo": 2,
+        "estadoLogico": "A",
+        "id": 2
+      },
+      "codigoEstudiante": 11117138,
+      "semestre": 1,
+      "nombreCompleto": "JHON MARIO MURILLO CORDOBA",
+      "nombres": "JHON MARIO",
+      "apellidos": "MURILLO CORDOBA",
+      "tipoDocumento": {
+        "id": 1,
+        "codigo": "CC",
+        "nombre": "Cédula de Ciudadanía"
+      },
+      "identificacion": 1047439537,
+      "genero": "M",
+      "fechaNacimiento": "15/06/1989",
+      "email": "jhonma16@hotmail.com",
+      "direccion": "Barrio Olaya Herrera Sector Central Kra 64 # 32-41",
+      "telefono": 56604130,
+      "celular": 3218285657,
+      "codeudor": "no",
+      "nombreDeudor": "CARLOS ANDRES MURILLO CORDOBA",
+      "fechaNacimientoDeudor": "16/06/1989",
+      "tipoIdentificacionDeudor": {
+        "id": 1,
+        "codigo": "CC",
+        "nombre": "Cédula de Ciudadanía"
+      },
+      "identificacionDeudor": 103233235456543,
+      "direccionDeudor": "Barrio Olaya Herrera Sector Central Kra64 #32-41",
+      "telefonoDeudor": 32435348,
+      "celularDeudor": 3013213239,
+      "emailDeudor": "carmucor@gmail.com",
+      "nombreEmpresa": "ZABUD TECHNOLOGIES",
+      "direccionEmpresa": "barrio españa-t",
+      "telefonoEmpresa": 56691072,
+      "ingresos": 1170000,
+      "numeroSolicitud": "2016-06-10T16:03:22.143Z",
+      "estadoSolicitud": {
+        "categoria": "ESTADO_CREDITO",
+        "codigo": 56,
+        "codigoCuentaPadre": null,
+        "valor": "PENDIENTE"
+      },
+      "fechaSolicitud": "08/06/2016 19:49:1",
+      "formaFinanciacion": {
+        "nombre": "Pagaré",
+        "codigo": 323,
+        "descripcion": "Pagaré",
+        "estadoLogico": "A",
+        "id": 23
+      },
+      "valorSemestre": 5000000,
+      "numeroCuotas": 33,
+      "montoMinimo": 2500000,
+      "valorFinanciar": 5000000,
+      "cuotaMinima": 5,
+      "cuotaMaxima": 60,
+      "fechaPago": "25/06/2016",
+      "cuotaExtraOrdinaria": false,
+      "tasaInteresCorriente": 0.3,
+      "tasaInteresMora": 0.01,
+      "terminos": true,
+      "tablaAmortizacion": [
+        {
+          "cuota": 1,
+          "fecha": "25/06/2016",
+          "prestamo": "5000000.00",
+          "interes": "15000.00",
+          "amortizacion": "144366.00",
+          "cuotafija": "159366.00",
+          "saldorestante": "4855634.00"
+        },
+        {
+          "cuota": 2,
+          "fecha": "25/07/2016",
+          "prestamo": "4855634.00",
+          "interes": "14566.90",
+          "amortizacion": "144799.10",
+          "cuotafija": "159366.00",
+          "saldorestante": "4710835.00"
+        },
+        {
+          "cuota": 3,
+          "fecha": "25/08/2016",
+          "prestamo": "4710835.00",
+          "interes": "14132.51",
+          "amortizacion": "145233.49",
+          "cuotafija": "159366.00",
+          "saldorestante": "4565602.00"
+        },
+        {
+          "cuota": 4,
+          "fecha": "25/09/2016",
+          "prestamo": "4565602.00",
+          "interes": "13696.81",
+          "amortizacion": "145669.19",
+          "cuotafija": "159366.00",
+          "saldorestante": "4419933.00"
+        },
+        {
+          "cuota": 5,
+          "fecha": "25/10/2016",
+          "prestamo": "4419933.00",
+          "interes": "13259.80",
+          "amortizacion": "146106.20",
+          "cuotafija": "159366.00",
+          "saldorestante": "4273827.00"
+        },
+        {
+          "cuota": 6,
+          "fecha": "25/11/2016",
+          "prestamo": "4273827.00",
+          "interes": "12821.48",
+          "amortizacion": "146544.52",
+          "cuotafija": "159366.00",
+          "saldorestante": "4127282.00"
+        },
+        {
+          "cuota": 7,
+          "fecha": "25/12/2016",
+          "prestamo": "4127282.00",
+          "interes": "12381.85",
+          "amortizacion": "146984.15",
+          "cuotafija": "159366.00",
+          "saldorestante": "3980298.00"
+        },
+        {
+          "cuota": 8,
+          "fecha": "25/13/2016",
+          "prestamo": "3980298.00",
+          "interes": "11940.89",
+          "amortizacion": "147425.11",
+          "cuotafija": "159366.00",
+          "saldorestante": "3832873.00"
+        },
+        {
+          "cuota": 9,
+          "fecha": "25/02/2017",
+          "prestamo": "3832873.00",
+          "interes": "11498.62",
+          "amortizacion": "147867.38",
+          "cuotafija": "159366.00",
+          "saldorestante": "3685006.00"
+        },
+        {
+          "cuota": 10,
+          "fecha": "25/03/2017",
+          "prestamo": "3685006.00",
+          "interes": "11055.02",
+          "amortizacion": "148310.98",
+          "cuotafija": "159366.00",
+          "saldorestante": "3536695.00"
+        },
+        {
+          "cuota": 11,
+          "fecha": "25/04/2017",
+          "prestamo": "3536695.00",
+          "interes": "10610.09",
+          "amortizacion": "148755.91",
+          "cuotafija": "159366.00",
+          "saldorestante": "3387939.00"
+        },
+        {
+          "cuota": 12,
+          "fecha": "25/05/2017",
+          "prestamo": "3387939.00",
+          "interes": "10163.82",
+          "amortizacion": "149202.18",
+          "cuotafija": "159366.00",
+          "saldorestante": "3238737.00"
+        },
+        {
+          "cuota": 13,
+          "fecha": "25/06/2017",
+          "prestamo": "3238737.00",
+          "interes": "9716.21",
+          "amortizacion": "149649.79",
+          "cuotafija": "159366.00",
+          "saldorestante": "3089087.00"
+        },
+        {
+          "cuota": 14,
+          "fecha": "25/07/2017",
+          "prestamo": "3089087.00",
+          "interes": "9267.26",
+          "amortizacion": "150098.74",
+          "cuotafija": "159366.00",
+          "saldorestante": "2938988.00"
+        },
+        {
+          "cuota": 15,
+          "fecha": "25/08/2017",
+          "prestamo": "2938988.00",
+          "interes": "8816.96",
+          "amortizacion": "150549.04",
+          "cuotafija": "159366.00",
+          "saldorestante": "2788439.00"
+        },
+        {
+          "cuota": 16,
+          "fecha": "25/09/2017",
+          "prestamo": "2788439.00",
+          "interes": "8365.32",
+          "amortizacion": "151000.68",
+          "cuotafija": "159366.00",
+          "saldorestante": "2637438.00"
+        },
+        {
+          "cuota": 17,
+          "fecha": "25/10/2017",
+          "prestamo": "2637438.00",
+          "interes": "7912.31",
+          "amortizacion": "151453.69",
+          "cuotafija": "159366.00",
+          "saldorestante": "2485984.00"
+        },
+        {
+          "cuota": 18,
+          "fecha": "25/11/2017",
+          "prestamo": "2485984.00",
+          "interes": "7457.95",
+          "amortizacion": "151908.05",
+          "cuotafija": "159366.00",
+          "saldorestante": "2334076.00"
+        },
+        {
+          "cuota": 19,
+          "fecha": "25/12/2017",
+          "prestamo": "2334076.00",
+          "interes": "7002.23",
+          "amortizacion": "152363.77",
+          "cuotafija": "159366.00",
+          "saldorestante": "2181712.00"
+        },
+        {
+          "cuota": 20,
+          "fecha": "25/13/2017",
+          "prestamo": "2181712.00",
+          "interes": "6545.14",
+          "amortizacion": "152820.86",
+          "cuotafija": "159366.00",
+          "saldorestante": "2028891.00"
+        },
+        {
+          "cuota": 21,
+          "fecha": "25/02/2018",
+          "prestamo": "2028891.00",
+          "interes": "6086.67",
+          "amortizacion": "153279.33",
+          "cuotafija": "159366.00",
+          "saldorestante": "1875612.00"
+        },
+        {
+          "cuota": 22,
+          "fecha": "25/03/2018",
+          "prestamo": "1875612.00",
+          "interes": "5626.84",
+          "amortizacion": "153739.16",
+          "cuotafija": "159366.00",
+          "saldorestante": "1721873.00"
+        },
+        {
+          "cuota": 23,
+          "fecha": "25/04/2018",
+          "prestamo": "1721873.00",
+          "interes": "5165.62",
+          "amortizacion": "154200.38",
+          "cuotafija": "159366.00",
+          "saldorestante": "1567673.00"
+        },
+        {
+          "cuota": 24,
+          "fecha": "25/05/2018",
+          "prestamo": "1567673.00",
+          "interes": "4703.02",
+          "amortizacion": "154662.98",
+          "cuotafija": "159366.00",
+          "saldorestante": "1413010.00"
+        },
+        {
+          "cuota": 25,
+          "fecha": "25/06/2018",
+          "prestamo": "1413010.00",
+          "interes": "4239.03",
+          "amortizacion": "155126.97",
+          "cuotafija": "159366.00",
+          "saldorestante": "1257883.00"
+        },
+        {
+          "cuota": 26,
+          "fecha": "25/07/2018",
+          "prestamo": "1257883.00",
+          "interes": "3773.65",
+          "amortizacion": "155592.35",
+          "cuotafija": "159366.00",
+          "saldorestante": "1102291.00"
+        },
+        {
+          "cuota": 27,
+          "fecha": "25/08/2018",
+          "prestamo": "1102291.00",
+          "interes": "3306.87",
+          "amortizacion": "156059.13",
+          "cuotafija": "159366.00",
+          "saldorestante": "946232.00"
+        },
+        {
+          "cuota": 28,
+          "fecha": "25/09/2018",
+          "prestamo": "946232.00",
+          "interes": "2838.70",
+          "amortizacion": "156527.30",
+          "cuotafija": "159366.00",
+          "saldorestante": "789705.00"
+        },
+        {
+          "cuota": 29,
+          "fecha": "25/10/2018",
+          "prestamo": "789705.00",
+          "interes": "2369.12",
+          "amortizacion": "156996.88",
+          "cuotafija": "159366.00",
+          "saldorestante": "632708.00"
+        },
+        {
+          "cuota": 30,
+          "fecha": "25/11/2018",
+          "prestamo": "632708.00",
+          "interes": "1898.12",
+          "amortizacion": "157467.88",
+          "cuotafija": "159366.00",
+          "saldorestante": "475240.00"
+        },
+        {
+          "cuota": 31,
+          "fecha": "25/12/2018",
+          "prestamo": "475240.00",
+          "interes": "1425.72",
+          "amortizacion": "157940.28",
+          "cuotafija": "159366.00",
+          "saldorestante": "317300.00"
+        },
+        {
+          "cuota": 32,
+          "fecha": "25/13/2018",
+          "prestamo": "317300.00",
+          "interes": "951.90",
+          "amortizacion": "158414.10",
+          "cuotafija": "159366.00",
+          "saldorestante": "158889.34"
+        },
+        {
+          "cuota": 33,
+          "fecha": "25/02/2019",
+          "prestamo": "158889.34",
+          "interes": "476.66",
+          "amortizacion": "158889.34",
+          "cuotafija": "159366.00",
+          "saldorestante": "0.00"
+        }
+      ]
+    }
+  ],
+  "tipo_convenio": [
+    {
+      "id": 1,
+      "codigoTipoConvenio": "TIPO1",
+      "nombreTipoConvenio": "Fondo Bicentenario",
+      "descripcionTipoConvenio": "<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li style='color: blue'>Super Easy <b>Theming</b> Options</li><li>Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li>Doesn't Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href='https://github.com/fraywing/textAngular'>Here</a> </p>"
+    }
+  ],
+  "cronogramas": [
+    {
+      "id": 1,
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "codigo": "CRONO01",
+      "nombre": "CRONO 1",
+      "estado": {
+        "codigo": 8,
+        "categoria": "ESTADO_CRONOGRAMA",
+        "valor": "En revisión"
+      },
+      "resolucion": "09900989090998098"
+    },
+    {
+      "id": 2,
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "codigo": "CRONO02",
+      "nombre": "CRONO 2",
+      "estado": {
+        "codigo": 8,
+        "categoria": "ESTADO_CRONOGRAMA",
+        "valor": "En revisión"
+      },
+      "resolucion": "0980980809809809"
+    },
+    {
+      "id": 3,
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "codigo": "CRONO03",
+      "nombre": "CRONO 3",
+      "estado": {
+        "codigo": 8,
+        "categoria": "ESTADO_CRONOGRAMA",
+        "valor": "En revisión"
+      },
+      "resolucion": "20938409280349"
+    },
+    {
+      "id": 4,
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "codigo": "CRONO04",
+      "nombre": "CRONO 4",
+      "estado": {
+        "codigo": 8,
+        "categoria": "ESTADO_CRONOGRAMA",
+        "valor": "En revisión"
+      },
+      "resolucion": "092384908234"
+    },
+    {
+      "id": 5,
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "codigo": "CRONO05",
+      "nombre": "CRONO 5",
+      "estado": {
+        "codigo": 8,
+        "categoria": "ESTADO_CRONOGRAMA",
+        "valor": "En revisión"
+      },
+      "resolucion": "89234029384092834"
+    },
+    {
+      "id": 6,
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "codigo": "CRONO06",
+      "nombre": "CRONO 6",
+      "estado": {
+        "codigo": 8,
+        "categoria": "ESTADO_CRONOGRAMA",
+        "valor": "En revisión"
+      },
+      "resolucion": "7828347664646"
+    },
+    {
+      "id": 7,
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "codigo": "CRONO07",
+      "nombre": "CRONO 7",
+      "estado": {
+        "codigo": 8,
+        "categoria": "ESTADO_CRONOGRAMA",
+        "valor": "En revisión"
+      },
+      "resolucion": "6347843834743"
+    }
+  ],
+  "seccionaldemo": [
+    {
+      "id": 1,
+      "codigo": "CARTG",
+      "nombre": "Cartagena"
+    },
+    {
+      "id": 2,
+      "codigo": "BARANQ",
+      "nombre": "Barranquilla"
+    },
+    {
+      "id": 3,
+      "codigo": "MONT",
+      "nombre": "Monteria"
+    },
+    {
+      "id": 4,
+      "codigo": "MEDE",
+      "nombre": "Medellin"
+    },
+    {
+      "id": 5,
+      "codigo": "MEDE05",
+      "nombre": "Medellin05"
+    },
+    {
+      "id": 6,
+      "codigo": "MEDE06",
+      "nombre": "Medellin06"
+    },
+    {
+      "id": 7,
+      "codigo": "MEDE07",
+      "nombre": "Medellin07"
+    },
+    {
+      "id": 8,
+      "codigo": "MEDE08",
+      "nombre": "Medellin08"
+    },
+    {
+      "id": 9,
+      "codigo": "MEDE09",
+      "nombre": "Medellin09"
+    },
+    {
+      "id": 10,
+      "codigo": "MEDE10",
+      "nombre": "Medellin10"
+    },
+    {
+      "id": 11,
+      "codigo": "MEDE11",
+      "nombre": "Medellin11"
+    },
+    {
+      "id": 12,
+      "codigo": "MEDE12",
+      "nombre": "Medellin12"
+    },
+    {
+      "id": 13,
+      "codigo": "MEDE13",
+      "nombre": "Medellin13"
+    },
+    {
+      "id": 14,
+      "codigo": "MEDE14",
+      "nombre": "Medellin14"
+    },
+    {
+      "id": 15,
+      "codigo": "MEDE15",
+      "nombre": "Medellin15"
+    },
+    {
+      "id": 16,
+      "codigo": "MEDE16",
+      "nombre": "Medellin16"
+    },
+    {
+      "id": 17,
+      "codigo": "MEDE17",
+      "nombre": "Medellin17"
+    },
+    {
+      "id": 18,
+      "codigo": "MEDE18",
+      "nombre": "Medellin18"
+    },
+    {
+      "id": 19,
+      "codigo": "MEDE19",
+      "nombre": "Medellin"
+    },
+    {
+      "id": 20,
+      "codigo": "MEDE20",
+      "nombre": "Medellin20"
+    },
+    {
+      "id": 21,
+      "codigo": "MEDE21",
+      "nombre": "Medellin21"
+    },
+    {
+      "id": 22,
+      "codigo": "MEDE22",
+      "nombre": "Medellin22"
+    },
+    {
+      "id": 23,
+      "codigo": "MEDE23",
+      "nombre": "Medellin23"
+    },
+    {
+      "id": 24,
+      "codigo": "MEDE24",
+      "nombre": "Medellin24"
+    },
+    {
+      "id": 25,
+      "codigo": "MEDE25",
+      "nombre": "Medellin25"
+    },
+    {
+      "id": 26,
+      "codigo": "MEDE26",
+      "nombre": "Medellin26"
+    },
+    {
+      "id": 27,
+      "codigo": "MEDE27",
+      "nombre": "Medellin27"
+    },
+    {
+      "id": 28,
+      "codigo": "MEDE28",
+      "nombre": "Medellin28"
+    },
+    {
+      "id": 29,
+      "codigo": "MEDE29",
+      "nombre": "Medellin29"
+    },
+    {
+      "id": 30,
+      "codigo": "MEDE30",
+      "nombre": "Medellin30"
+    },
+    {
+      "id": 31,
+      "codigo": "MEDE31",
+      "nombre": "Medellin31"
+    },
+    {
+      "id": 32,
+      "codigo": "MEDE32",
+      "nombre": "Medellin32"
+    },
+    {
+      "id": 33,
+      "codigo": "MEDE33",
+      "nombre": "Medellin33"
+    },
+    {
+      "id": 34,
+      "codigo": "MEDE34",
+      "nombre": "Medellin34"
+    },
+    {
+      "id": 35,
+      "codigo": "MEDE35",
+      "nombre": "Medellin35"
+    },
+    {
+      "id": 36,
+      "codigo": "MEDE36",
+      "nombre": "Medellin36"
+    },
+    {
+      "id": 37,
+      "codigo": "MEDE37",
+      "nombre": "Medellin37"
+    }
+  ],
+  "conveniosdemo": [
+    {
+      "id": 1,
+      "codigo": "99989-1",
+      "nombre": "Fondo Bicentenario",
+      "descripcion": "<div><p> OK OK OK OK </p></div>"
+    },
+    {
+      "id": 2,
+      "codigo": "68790-2",
+      "nombre": "Fondo Agropecuario",
+      "descripcion": "<p> OK OK OK </p>"
+    },
+    {
+      "id": 3,
+      "codigo": "78790-3",
+      "nombre": "Fondo Ganadero",
+      "descripcion": "<p> OK OK OK </p>"
+    },
+    {
+      "id": 4,
+      "codigo": "88790-4",
+      "nombre": "Fondo Culinario",
+      "descripcion": "<p> OK OK OK </p>"
+    },
+    {
+      "id": 5,
+      "codigo": "48790-5",
+      "nombre": "Fondo Arte",
+      "descripcion": "<p> OK OK OK </p>"
+    }
+  ],
+  "preinscripcion": [
+    {
+      "id": 1,
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "seccional": {
+        "id": 2,
+        "codigo": "BARANQ",
+        "nombre": "Barranquilla"
+      },
+      "nivelformacion": {
+        "codigo": "NF-002",
+        "nombreNivelFormacion": "Nivel Tecnológico",
+        "nivelAcademico": "Pregrado",
+        "descripcion": "Relativo a programas tecnológicos.",
+        "estadoLogico": "A",
+        "id": 2
+      },
+      "programa": {
+        "id": 2,
+        "nombre": "fdgfdg",
+        "tipo": 1,
+        "facultad": 1,
+        "codigo": 344,
+        "nivel": "Tec",
+        "jornada": "diurna",
+        "modalidad": "semi",
+        "duracion": 435345,
+        "titulo": "dsfdsfsdf",
+        "estadoLogico": "I"
+      },
+      "tipodocumento": {
+        "codigo": 11,
+        "categoria": "TIPO_DOCUMENTO",
+        "valor": "Cédula de extranjería"
+      },
+      "identificacion": "0938429038402934809",
+      "nombres": "OMOMOMOM",
+      "apellidos": "OMOMOMOMO",
+      "email": "molo@gmail.com",
+      "celular": 8729349879,
+      "telefono": 9827349823,
+      "colegio": {
+        "id": 0,
+        "codigo": "otro",
+        "nombre": "Otra institución"
+      },
+      "convenio": {
+        "id": 4,
+        "codigo": "88790-4",
+        "nombre": "Fondo Culinario",
+        "descripcion": {
+          "0": {},
+          "length": 1
+        }
+      }
+    }
+  ],
+  "seccionales": [
+    {
+      "id": 1,
+      "codigoSeccional": "001",
+      "nombreSeccional": "CARTAGENA",
+      "estadoSeccional": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "activo"
+      },
+      "programasSeccional": [
+        {
+          "id": 6,
+          "nivelFormacion": "Especializaciones",
+          "areaConocimiento": "Ciencias de la salud",
+          "codigo": "098978978",
+          "nombrePrograma": "rtyrtyrt",
+          "registroCalificado": 45646,
+          "estado": "activo",
+          "codigoSnies": 654565665,
+          "facultad": " Ciencias Económicas",
+          "modalidad": "Presencial",
+          "jornada": "Nocturna",
+          "informacionGeneral": {},
+          "selected": true
+        },
+        {
+          "id": 8,
+          "nivelFormacion": "dcfdsfdf",
+          "areaConocimiento": "Ciencias sociales y humanas",
+          "codigo": "SDSKJKJ45",
+          "nombrePrograma": "COMO ANDAS",
+          "registroCalificado": 5657657,
+          "estado": "Activo",
+          "codigoSnies": 453465,
+          "facultad": " Ciencias Económicas",
+          "modalidad": "Distancia",
+          "jornada": "Nocturna",
+          "informacionGeneral": {},
+          "selected": true
+        },
+        {
+          "id": 3,
+          "nivelFormacion": "Nivel Profesional",
+          "areaConocimiento": "Ciencias sociales y humanas",
+          "codigo": 3245234234,
+          "nombrePrograma": "ERDAAAAAA",
+          "registroCalificado": 545435345,
+          "estado": "activo",
+          "codigoSnies": 345345345,
+          "facultad": "Ciencias Básicas",
+          "modalidad": "Presencial",
+          "jornada": "Nocturna",
+          "informacionGeneral": {
+            "fechaResolucion": "19/05/2016",
+            "vigencia": "100",
+            "titulo": "43534534",
+            "duracion": "54",
+            "reconocimiento": "Registro Calificado",
+            "creditos": "100"
+          },
+          "selected": true
+        }
+      ],
+      "estadoLogico": "A"
+    },
+    {
+      "id": 2,
+      "codigoSeccional": "002",
+      "nombreSeccional": "MONTERIA",
+      "estadoSeccional": {
+        "id": "1",
+        "codigo": "A001",
+        "nombre": "activo"
+      },
+      "programasSeccional": [
+        {
+          "id": 6,
+          "nivelFormacion": "Especializaciones",
+          "areaConocimiento": "Ciencias de la salud",
+          "codigo": "098978978",
+          "nombrePrograma": "rtyrtyrt",
+          "registroCalificado": 45646,
+          "estado": "activo",
+          "codigoSnies": 654565665,
+          "facultad": " Ciencias Económicas",
+          "modalidad": "Presencial",
+          "jornada": "Nocturna",
+          "informacionGeneral": {},
+          "selected": true
+        },
+        {
+          "id": 8,
+          "nivelFormacion": "dcfdsfdf",
+          "areaConocimiento": "Ciencias sociales y humanas",
+          "codigo": "SDSKJKJ45",
+          "nombrePrograma": "COMO ANDAS",
+          "registroCalificado": 5657657,
+          "estado": "Activo",
+          "codigoSnies": 453465,
+          "facultad": " Ciencias Económicas",
+          "modalidad": "Distancia",
+          "jornada": "Nocturna",
+          "informacionGeneral": {},
+          "selected": true
+        }
+      ],
+      "estadoLogico": "A"
+    }
+  ],
+  "programasAcademicos": [
+    {
+      "id": 1,
+      "nivelFormacion": "NIVEL PROFESIONAL",
+      "areaConocimiento": "Ingenieria, Arquitectura, Urbanismo y afines",
+      "codigo": 1,
+      "nombrePrograma": "INGENIERIA DE SISTEMAS",
+      "registroCalificado": 123321,
+      "estado": "Activo",
+      "codigoSnies": 5533456,
+      "facultad": "Ingenieria",
+      "modalidad": "Presencial",
+      "jornada": "Diurna",
+      "informacionGeneral": {}
+    },
+    {
+      "id": 2,
+      "nivelFormacion": "NIVEL PROFESIONAL",
+      "areaConocimiento": "Ingenieria, Arquitectura, Urbanismo y afines",
+      "codigo": 2,
+      "nombrePrograma": "INGENIERÍA DE TELECOMUNICACIONES",
+      "registroCalificado": 122211223,
+      "estado": "Activo",
+      "codigoSnies": 976543,
+      "facultad": "Ingenieria",
+      "modalidad": "Presencial",
+      "jornada": "Diurna",
+      "informacionGeneral": {
+        "fechaResolucion": null,
+        "vigencia": null,
+        "titulo": "",
+        "duracion": "",
+        "reconocimiento": null,
+        "creditos": null
+      }
+    }
+  ],
+  "inscrito": [
+    {
+      "id": 1,
+      "nombres": "MARIA ALEJANDRA",
+      "apellidos": "PEREZ AGUDELO",
+      "tipodocumento": {
+        "codigo": 11,
+        "categoria": "TIPO_DOCUMENTO",
+        "valor": "Cédula de extranjería"
+      },
+      "identificacion": 123456789,
+      "estado": "Inscrito",
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "seccional": {
+        "id": 2,
+        "codigo": "BARANQ",
+        "nombre": "Barranquilla"
+      },
+      "nivelformacion": {
+        "id": 3,
+        "codigoNivelFormacion": 3,
+        "nombreNivelFormacion": "Nivel Profesional",
+        "nivelAcademico": "Posgrado",
+        "descripcionNivelFormacion": "relativo a programas profesionales universitarios"
+      },
+      "programa": {
+        "id": 3,
+        "nivelFormacion": "Nivel Profesional",
+        "areaConocimiento": "Ciencias sociales y humanas",
+        "codigo": 3245234234,
+        "nombrePrograma": "INGENIERIA DE SISTEMAs",
+        "registroCalificado": 545435345,
+        "estado": "Activo",
+        "codigoSnies": 345345345,
+        "facultad": "Ciencias Básicas",
+        "modalidad": "Presencial",
+        "jornada": "Nocturna",
+        "informacionGeneral": {
+          "fechaResolucion": "19/05/2016",
+          "vigencia": "100",
+          "titulo": "43534534",
+          "duracion": "54",
+          "reconocimiento": "Registro Calificado",
+          "creditos": "100"
+        }
+      },
+      "email": "molo@gmail.com",
+      "celular": 8729349879,
+      "telefono": 9827349823,
+      "colegio": {
+        "id": 0,
+        "codigo": "otro",
+        "nombre": "Otra institución"
+      },
+      "convenio": {
+        "id": 4,
+        "codigo": "88790-4",
+        "nombre": "Fondo Culinario",
+        "descripcion": {
+          "0": {},
+          "length": 1
+        }
+      },
+      "actaAdmision": 343343,
+      "fechaActaAdmision": "11/05/2016",
+      "observaciones": "SF·$%$%$·$%$%·$%$%"
+    },
+    {
+      "id": 2,
+      "nombres": "ALBERTO ",
+      "apellidos": "MORALES HERNANDEZ",
+      "tipodocumento": {
+        "codigo": 11,
+        "categoria": "TIPO_DOCUMENTO",
+        "valor": "Cédula de extranjería"
+      },
+      "identificacion": 1234,
+      "estado": "Inscrito",
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "seccional": {
+        "id": 2,
+        "codigo": "BARANQ",
+        "nombre": "Barranquilla"
+      },
+      "nivelformacion": {
+        "id": 4,
+        "codigoNivelFormacion": 4,
+        "nombreNivelFormacion": "Especializaciones",
+        "nivelAcademico": "Posgrado",
+        "descripcionNivelFormacion": "relativas a programas de Especialización Técnica Profesional, Especialización Tecnológica y Especializaciones Profesionales de prueba"
+      },
+      "programa": {
+        "id": 5,
+        "nivelFormacion": "Especializaciones",
+        "areaConocimiento": "Bellas Artes",
+        "codigo": "EWfsd",
+        "nombrePrograma": "sdfsdfsd",
+        "registroCalificado": 4353454,
+        "estado": "activo",
+        "codigoSnies": 3452342342,
+        "facultad": "Ciencias Básicas",
+        "modalidad": "Virtual",
+        "jornada": "Diurna",
+        "informacionGeneral": {
+          "fechaResolucion": null,
+          "vigencia": null,
+          "titulo": "",
+          "duracion": "",
+          "reconocimiento": null,
+          "creditos": null
+        }
+      },
+      "email": "molo@gmail.com",
+      "celular": 8729349879,
+      "telefono": 9827349823,
+      "colegio": {
+        "id": 0,
+        "codigo": "otro",
+        "nombre": "Otra institución"
+      },
+      "convenio": {
+        "id": 4,
+        "codigo": "88790-4",
+        "nombre": "Fondo Culinario",
+        "descripcion": {
+          "0": {},
+          "length": 1
+        }
+      },
+      "actaAdmision": "WWER",
+      "fechaActaAdmision": "17/05/2016",
+      "observaciones": "ertrtr"
+    },
+    {
+      "id": 3,
+      "nombres": "JAMES  ",
+      "apellidos": "RODRIGUEZ",
+      "tipodocumento": {
+        "codigo": 11,
+        "categoria": "TIPO_DOCUMENTO",
+        "valor": "Cédula de extranjería"
+      },
+      "identificacion": "JR10",
+      "estado": "Inscrito",
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "seccional": {
+        "id": 2,
+        "codigo": "BARANQ",
+        "nombre": "Barranquilla"
+      },
+      "nivelformacion": {
+        "id": 4,
+        "codigoNivelFormacion": 4,
+        "nombreNivelFormacion": "Especializaciones",
+        "nivelAcademico": "Posgrado",
+        "descripcionNivelFormacion": "relativas a programas de Especialización Técnica Profesional, Especialización Tecnológica y Especializaciones Profesionales de prueba"
+      },
+      "programa": {
+        "id": 5,
+        "nivelFormacion": "Especializaciones",
+        "areaConocimiento": "Bellas Artes",
+        "codigo": "EWfsd",
+        "nombrePrograma": "sdfsdfsd",
+        "registroCalificado": 4353454,
+        "estado": "activo",
+        "codigoSnies": 3452342342,
+        "facultad": "Ciencias Básicas",
+        "modalidad": "Virtual",
+        "jornada": "Diurna",
+        "informacionGeneral": {
+          "fechaResolucion": null,
+          "vigencia": null,
+          "titulo": "",
+          "duracion": "",
+          "reconocimiento": null,
+          "creditos": null
+        }
+      },
+      "email": "molo@gmail.com",
+      "celular": 8729349879,
+      "telefono": 9827349823,
+      "colegio": {
+        "id": 0,
+        "codigo": "otro",
+        "nombre": "Otra institución"
+      },
+      "convenio": {
+        "id": 4,
+        "codigo": "88790-4",
+        "nombre": "Fondo Culinario",
+        "descripcion": {
+          "0": {},
+          "length": 1
+        }
+      },
+      "actaAdmision": "WWER",
+      "fechaActaAdmision": "17/05/2016",
+      "observaciones": "ertrtr"
+    },
+    {
+      "id": 4,
+      "nombres": "SOFIA",
+      "apellidos": "VERGARA",
+      "tipodocumento": {
+        "codigo": 11,
+        "categoria": "TIPO_DOCUMENTO",
+        "valor": "Cédula de extranjería"
+      },
+      "identificacion": "MODERN FAMILY",
+      "estado": "Inscrito",
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "seccional": {
+        "id": 2,
+        "codigo": "BARANQ",
+        "nombre": "Barranquilla"
+      },
+      "nivelformacion": {
+        "id": 4,
+        "codigoNivelFormacion": 4,
+        "nombreNivelFormacion": "Especializaciones",
+        "nivelAcademico": "Posgrado",
+        "descripcionNivelFormacion": "relativas a programas de Especialización Técnica Profesional, Especialización Tecnológica y Especializaciones Profesionales de prueba"
+      },
+      "programa": {
+        "id": 5,
+        "nivelFormacion": "Especializaciones",
+        "areaConocimiento": "Bellas Artes",
+        "codigo": "EWfsd",
+        "nombrePrograma": "sdfsdfsd",
+        "registroCalificado": 4353454,
+        "estado": "activo",
+        "codigoSnies": 3452342342,
+        "facultad": "Ciencias Básicas",
+        "modalidad": "Virtual",
+        "jornada": "Diurna",
+        "informacionGeneral": {
+          "fechaResolucion": null,
+          "vigencia": null,
+          "titulo": "",
+          "duracion": "",
+          "reconocimiento": null,
+          "creditos": null
+        }
+      },
+      "email": "molo@gmail.com",
+      "celular": 8729349879,
+      "telefono": 9827349823,
+      "colegio": {
+        "id": 0,
+        "codigo": "otro",
+        "nombre": "Otra institución"
+      },
+      "convenio": {
+        "id": 4,
+        "codigo": "88790-4",
+        "nombre": "Fondo Culinario",
+        "descripcion": {
+          "0": {},
+          "length": 1
+        }
+      },
+      "actaAdmision": 3233,
+      "fechaActaAdmision": "12/05/2016",
+      "observaciones": "wwre"
+    },
+    {
+      "id": 5,
+      "nombres": "LIONEL",
+      "apellidos": "MESSI",
+      "tipodocumento": {
+        "codigo": 11,
+        "categoria": "TIPO_DOCUMENTO",
+        "valor": "Cédula de extranjería"
+      },
+      "identificacion": "M10",
+      "estado": "Inscrito",
+      "periodo": {
+        "id": 1,
+        "codigo": "P1",
+        "nombre": "PERIODO 1B",
+        "fechaInicio": "29/04/2016",
+        "fechaFin": "31/05/2016",
+        "anioLectivo": 2019,
+        "estado": "Cerrado",
+        "responsable": "Jhon Mario Murillo Cordoba",
+        "fechaRegistro": "02/05/2016"
+      },
+      "seccional": {
+        "id": 2,
+        "codigo": "BARANQ",
+        "nombre": "Barranquilla"
+      },
+      "nivelformacion": {
+        "id": 4,
+        "codigoNivelFormacion": 4,
+        "nombreNivelFormacion": "Especializaciones",
+        "nivelAcademico": "Posgrado",
+        "descripcionNivelFormacion": "relativas a programas de Especialización Técnica Profesional, Especialización Tecnológica y Especializaciones Profesionales de prueba"
+      },
+      "programa": {
+        "id": 6,
+        "nivelFormacion": "Especializaciones",
+        "areaConocimiento": "Ciencias de la salud",
+        "codigo": "098978978",
+        "nombrePrograma": "rtyrtyrt",
+        "registroCalificado": 45646,
+        "estado": "activo",
+        "codigoSnies": 654565665,
+        "facultad": " Ciencias Económicas",
+        "modalidad": "Presencial",
+        "jornada": "Nocturna",
+        "informacionGeneral": {}
+      },
+      "email": "molo@gmail.com",
+      "celular": 8729349879,
+      "telefono": 9827349823,
+      "colegio": {
+        "id": 0,
+        "codigo": "otro",
+        "nombre": "Otra institución"
+      },
+      "convenio": {
+        "id": 4,
+        "codigo": "88790-4",
+        "nombre": "Fondo Culinario",
+        "descripcion": {
+          "0": {},
+          "length": 1
+        }
+      },
+      "actaAdmision": "ACTA-001",
+      "fechaActaAdmision": "03/05/2016",
+      "observaciones": "Observaciones"
+    }
+  ],
+  "veriricar_requisito": [],
+  "inscripcion": [
+    {
+      "id": 1,
+      "idPeriodoAcademico": 1,
+      "idSeccional": 1,
+      "idNivelFormacion": 12,
+      "idPrograma": 1,
+      "idTipoConvenio": 1,
+      "idAspirante": 1,
+      "aspirante": {
+        "id": 1,
+        "nombre": "PEDRO",
+        "apellido": "TORRES PEREIRA",
+        "identificacionAspirante": {
+          "idTipoIdentificacion": 12,
+          "identificacion": "1128050246"
+        },
+        "telefono": "5654345",
+        "email": "PEDRO@GMAIL.COM",
+        "celular": "3004975158",
+        "fechaNacimiento": "2987-12-12",
+        "fechaExpedicionDocumento": "2017-12-12",
+        "idLugarExpedicionDocumento": 12,
+        "idGenero": 12,
+        "idEstadoCivil": 12,
+        "idLugarNacimiento": 12,
+        "nombreLugarNacimiento": null,
+        "idGrupoSanguineo": 12,
+        "idLugarResidencia": 12
+      },
+      "informacionAcademica": {
+        "id": 1,
+        "idInstitucion": 1,
+        "nombreInstitucion": null,
+        "fechaCulminacion": "12/12/2016",
+        "tituloObtenido": "INGENIERO DE SISTEMAS",
+        "fechaPresentacion": "12/12/2015",
+        "numeroRegistro": "AC98472374584754"
+      },
+      "informacionReferencia": {
+        "id": 1,
+        "idPadre": 1,
+        "infoPadre": {
+          "id": 1,
+          "identificacion": {
+            "idTipoIdentificacion": 12,
+            "identificacion": "1127898676"
+          },
+          "apellido": "PADRE",
+          "nombre": "PADRE",
+          "idFormacion": 12,
+          "ocupacion": "MOTOTAXI",
+          "idEstadoCivil": 12,
+          "email": "P@GMAIL.COM",
+          "idResidencia": 12,
+          "direccion": "VILLA",
+          "celular": "300497155",
+          "telefono": "765454567"
+        },
+        "idMadre": null,
+        "infoMadre": null,
+        "idAcudiente": 3,
+        "infoAcudiente": {
+          "id": 3,
+          "identificacion": {
+            "idTipoIdentificacion": 12,
+            "identificacion": "1231232"
+          },
+          "apellido": "ACUDIENTE",
+          "nombre": "ACUDIENTE",
+          "idFormacion": 12,
+          "ocupacion": "TALES",
+          "idEstadoCivil": 12,
+          "email": "O@R.COM",
+          "idResidencia": 12,
+          "direccion": "TALES",
+          "celular": "2321432",
+          "telefono": "123213123"
+        },
+        "cantidadHermano": 2,
+        "posicionHermano": 2
+      },
+      "informacionAdicional": {
+        "id": 1,
+        "idTipoVivienda": 12,
+        "idEstrato": 12,
+        "estadoTieneHijo": true,
+        "estadoEnfermedad": true,
+        "estadoDiscapacidad": true,
+        "estadoSisben": true,
+        "estadoGrupoEtnico": false,
+        "estadoVotoEleccion": false,
+        "estadoLabora": true,
+        "preguntaHijo": null,
+        "preguntaGrupoEtnico": null,
+        "preguntaEnfermedad": null,
+        "preguntaDiscapacidad": "ASDASDS",
+        "preguntaSisben": null,
+        "eps": "SURA",
+        "empresa": "ZABUD",
+        "cargo": "MOTOTAXI",
+        "tiempoLaborado": 12
+      },
+      "estadoInscripcion": "PRE_INSCRITO"
+    }
+  ],
+  "comprobantes": [
+    {
+      "id": 1,
+      "referencia": "001",
+      "nombres": "César Augusto",
+      "apellidos": "Gómez Hernandez",
+      "numeroDocumento": 1143345994,
+      "codigoEstudiante": 2016071279080,
+      "facultad": "Ingenieria",
+      "programa": "Ingenieria de Sistemas",
+      "periodoAcademico": "2016-1-B",
+      "semestre": 3,
+      "jornada": "Diurna",
+      "direccion": "San Fernando",
+      "email": "cesar_gomez_h@hotmail.com",
+      "celular": "30044224633",
+      "voucher": [
+        {
+          "id": 1,
+          "concepto": "Matricula",
+          "importe": 2000000
+        },
+        {
+          "id": 2,
+          "concepto": "Estampilla",
+          "importe": 600000
+        },
+        {
+          "id": 3,
+          "concepto": "Vacacional Pendiente",
+          "importe": 450000
+        },
+        {
+          "id": 4,
+          "concepto": "TOTAL",
+          "importe": 3050000
+        }
+      ]
+    }
+  ],
+  "conceptoValor": [
+    {
+      "id": 1,
+      "conceptoFacturacion": {
+        "id": 2,
+        "codigo": "2",
+        "nombre": "CRÉDITOS ACADÉMICOS",
+        "tipo": "Ingreso",
+        "abreviatura": "CTFdo",
+        "descripcion": "kfbsdhgdfhsfhsdfgj",
+        "cuenta": 1
+      },
+      "periodo": "2016-1",
+      "valor": 88000,
+      "fechaInicio": "30/06/2016",
+      "fechaFin": "10/07/2016"
+    }
+  ],
+  "calendarioAcademico": [
+    {
+      "id": 10,
+      "maxCortes": 3,
+      "codigoCalendario": "EQWREW",
+      "nombreCalendario": "CALENDARIO 10",
+      "idEstadoCalendario": 48,
+      "idModalidad": 21,
+      "calendarioDetalleDTO": [
+        {
+          "id": 1,
+          "modulo": "modulo 1",
+          "idCalendario": null,
+          "fechaIncioCalendario": "1111-12-11T05:00:00.000Z",
+          "fechaFinCalendario": "1222-01-22T05:00:00.000Z",
+          "fecha1": null,
+          "fecha2": null,
+          "fecha3": null,
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "id": 2,
+          "modulo": "modulo 2",
+          "idCalendario": null,
+          "fechaIncioCalendario": "2221-12-12T05:00:00.000Z",
+          "fechaFinCalendario": "1223-12-12T05:00:00.000Z",
+          "fecha1": null,
+          "fecha2": null,
+          "fecha3": null,
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "id": 3,
+          "modulo": "modulo 3",
+          "idCalendario": null,
+          "fechaIncioCalendario": "2223-12-12T05:00:00.000Z",
+          "fechaFinCalendario": "3124-01-12T05:00:00.000Z",
+          "fecha1": null,
+          "fecha2": null,
+          "fecha3": null,
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "codigoCalendario": "WQEQWE",
+      "nombreCalendario": "CALENDARIO 11",
+      "idEstadoCalendario": 48,
+      "idModalidad": 66,
+      "calendarioDetalleDTO": [
+        {
+          "modulo": "modulo 1",
+          "idCalendario": null,
+          "fechaIncioCalendario": "1111-12-11T05:00:00.000Z",
+          "fechaFinCalendario": "1111-12-11T05:00:00.000Z",
+          "fecha1": "1222-12-22T05:00:00.000Z",
+          "fecha2": "2222-12-11T05:00:00.000Z",
+          "fecha3": "1111-12-11T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "modulo": "modulo 2",
+          "idCalendario": null,
+          "fechaIncioCalendario": "2222-12-22T05:00:00.000Z",
+          "fechaFinCalendario": "3222-01-12T05:00:00.000Z",
+          "fecha1": "3132-01-22T05:00:00.000Z",
+          "fecha2": "2132-02-21T05:00:00.000Z",
+          "fecha3": "1233-03-04T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "modulo": "modulo 3",
+          "idCalendario": null,
+          "fechaIncioCalendario": "3233-01-12T05:00:00.000Z",
+          "fechaFinCalendario": "1233-02-21T05:00:00.000Z",
+          "fecha1": "1233-02-21T05:00:00.000Z",
+          "fecha2": "3214-01-12T05:00:00.000Z",
+          "fecha3": "3445-01-21T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "modulo": "modulo 4",
+          "idCalendario": null,
+          "fechaIncioCalendario": "3124-01-13T05:00:00.000Z",
+          "fechaFinCalendario": "3132-01-12T05:00:00.000Z",
+          "fecha1": "3123-01-12T05:00:00.000Z",
+          "fecha2": "2112-02-12T05:00:00.000Z",
+          "fecha3": "1224-02-21T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "codigoCalendario": "QWE",
+      "nombreCalendario": "QWWEWEEWQEQEWEWQEWQ",
+      "idEstadoCalendario": 48,
+      "idModalidad": 21,
+      "idPeriodoAcademico": 4,
+      "calendarioDetalleDTO": [
+        {
+          "id": null,
+          "modulo": "wqe",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-01T05:00:00.000Z",
+          "fechaFinCalendario": "2016-08-31T05:00:00.000Z",
+          "fecha1": "2016-08-08T05:00:00.000Z",
+          "fecha2": "2016-08-15T05:00:00.000Z",
+          "fecha3": "2016-08-22T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "codigoCalendario": "RRRRR",
+      "nombreCalendario": "RRRRRRRRR",
+      "idEstadoCalendario": 48,
+      "idModalidad": 21,
+      "idPeriodoAcademico": 17,
+      "calendarioDetalleDTO": [
+        {
+          "id": null,
+          "modulo": "asd",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-01T05:00:00.000Z",
+          "fechaFinCalendario": "2016-08-31T05:00:00.000Z",
+          "fecha1": "2016-08-21T05:00:00.000Z",
+          "fecha2": "2016-08-13T05:00:00.000Z",
+          "fecha3": "2016-08-14T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "codigoCalendario": "RRRRR",
+      "nombreCalendario": "RRRRRRRRR",
+      "idEstadoCalendario": 48,
+      "idModalidad": 21,
+      "idPeriodoAcademico": 17,
+      "calendarioDetalleDTO": [
+        {
+          "id": null,
+          "modulo": "asd",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-01T05:00:00.000Z",
+          "fechaFinCalendario": "2016-08-31T05:00:00.000Z",
+          "fecha1": "2016-08-08T05:00:00.000Z",
+          "fecha2": "2016-08-13T05:00:00.000Z",
+          "fecha3": "2016-08-14T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "id": null,
+          "modulo": "dasads",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-29T05:00:00.000Z",
+          "fechaFinCalendario": "2016-10-01T05:00:00.000Z",
+          "fecha1": "2016-09-05T05:00:00.000Z",
+          "fecha2": "2016-09-11T05:00:00.000Z",
+          "fecha3": "2016-09-05T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "codigoCalendario": "RRRRR",
+      "nombreCalendario": "RRRRRRRRR",
+      "idEstadoCalendario": 48,
+      "idModalidad": 21,
+      "idPeriodoAcademico": 17,
+      "calendarioDetalleDTO": [
+        {
+          "id": null,
+          "modulo": "asd",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-01T05:00:00.000Z",
+          "fechaFinCalendario": "2016-08-31T05:00:00.000Z",
+          "fecha1": "2016-08-08T05:00:00.000Z",
+          "fecha2": "2016-08-13T05:00:00.000Z",
+          "fecha3": "2016-08-14T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "id": null,
+          "modulo": "dasads",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-29T05:00:00.000Z",
+          "fechaFinCalendario": "2016-10-01T05:00:00.000Z",
+          "fecha1": "2016-09-05T05:00:00.000Z",
+          "fecha2": "2016-09-11T05:00:00.000Z",
+          "fecha3": "2016-09-05T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "codigoCalendario": "RRRRR",
+      "nombreCalendario": "RRRRRRRRR",
+      "idEstadoCalendario": 48,
+      "idModalidad": 21,
+      "idPeriodoAcademico": 17,
+      "calendarioDetalleDTO": [
+        {
+          "id": null,
+          "modulo": "asd",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-01T05:00:00.000Z",
+          "fechaFinCalendario": "2016-08-31T05:00:00.000Z",
+          "fecha1": "2016-08-08T05:00:00.000Z",
+          "fecha2": "2016-08-13T05:00:00.000Z",
+          "fecha3": "2016-08-14T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "id": null,
+          "modulo": "dasads",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-29T05:00:00.000Z",
+          "fechaFinCalendario": "2016-10-01T05:00:00.000Z",
+          "fecha1": "2016-09-05T05:00:00.000Z",
+          "fecha2": "2016-09-11T05:00:00.000Z",
+          "fecha3": "2016-09-05T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "codigoCalendario": "RRRRR",
+      "nombreCalendario": "RRRRRRRRR",
+      "idEstadoCalendario": 48,
+      "idModalidad": 21,
+      "idPeriodoAcademico": 17,
+      "calendarioDetalleDTO": [
+        {
+          "id": null,
+          "modulo": "asd",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-01T05:00:00.000Z",
+          "fechaFinCalendario": "2016-08-31T05:00:00.000Z",
+          "fecha1": "2016-08-08T05:00:00.000Z",
+          "fecha2": "2016-08-13T05:00:00.000Z",
+          "fecha3": "2016-08-14T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "id": null,
+          "modulo": "dasads",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-29T05:00:00.000Z",
+          "fechaFinCalendario": "2016-10-01T05:00:00.000Z",
+          "fecha1": "2016-09-05T05:00:00.000Z",
+          "fecha2": "2016-09-11T05:00:00.000Z",
+          "fecha3": "2016-09-05T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "codigoCalendario": "RRRRR",
+      "nombreCalendario": "RRRRRRRRR",
+      "idEstadoCalendario": 48,
+      "idModalidad": 21,
+      "idPeriodoAcademico": 17,
+      "calendarioDetalleDTO": [
+        {
+          "id": null,
+          "modulo": "asd",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-01T05:00:00.000Z",
+          "fechaFinCalendario": "2016-08-31T05:00:00.000Z",
+          "fecha1": "2016-08-08T05:00:00.000Z",
+          "fecha2": "2016-08-13T05:00:00.000Z",
+          "fecha3": "2016-08-14T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "id": null,
+          "modulo": "dasads",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-09-01T05:00:00.000Z",
+          "fechaFinCalendario": "2016-10-01T05:00:00.000Z",
+          "fecha1": "2016-09-05T05:00:00.000Z",
+          "fecha2": "2016-09-11T05:00:00.000Z",
+          "fecha3": "2016-09-05T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "codigoCalendario": "WQE",
+      "nombreCalendario": "WQE",
+      "idEstadoCalendario": 48,
+      "idModalidad": 21,
+      "idPeriodoAcademico": 4,
+      "calendarioDetalleDTO": null
+    },
+    {
+      "id": 20,
+      "codigoCalendario": "CCCCCCC",
+      "nombreCalendario": "CCCCCCC",
+      "idEstadoCalendario": 48,
+      "idModalidad": 22,
+      "idPeriodoAcademico": 17,
+      "calendarioDetalleDTO": [
+        {
+          "id": null,
+          "modulo": "vvvvvvv",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-07-01T05:00:00.000Z",
+          "fechaFinCalendario": "2016-07-31T05:00:00.000Z",
+          "fecha1": "2016-07-08T05:00:00.000Z",
+          "fecha2": "2016-07-15T05:00:00.000Z",
+          "fecha3": "2016-07-22T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        },
+        {
+          "id": null,
+          "modulo": "rrrrrrrrrr",
+          "idCalendario": null,
+          "fechaInicioCalendario": "2016-08-01T05:00:00.000Z",
+          "fechaFinCalendario": "2016-08-07T05:00:00.000Z",
+          "fecha1": "2016-08-04T05:00:00.000Z",
+          "fecha2": "2016-08-05T05:00:00.000Z",
+          "fecha3": "2016-08-06T05:00:00.000Z",
+          "fecha4": null,
+          "fecha5": null,
+          "fecha6": null,
+          "fecha7": null,
+          "fecha8": null,
+          "fecha9": null,
+          "fecha10": null
+        }
+      ]
+    }
+  ]
+}

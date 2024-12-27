@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<script src="../../../js/main-app.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="ConcepFacturacionCtrl as concepFacturaCtrl">
+    <h2>{{appConstantsView.LABEL_CONCEPTO_FACTURACION}}</h2>
+    <p></p>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{concepFacturaCtrl.concepFacturacionAuxiliar.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/gestionar-concepto-facturacion" ng-click="concepFacturaCtrl.onLimpiar()" class="btn btn-sm btn-info icon-tool-add back-button"
+                   style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <form method="POST" name="formCrudPeriodoAcademico" novalidate>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="id" class="control-label">{{appConstantsView.LABEL_CODIGO}}</label><label class="text-danger">*</label>
+                                    <input type="text" maxlength="10" class="form-control text-uppercase" id="codigo" ng-model="concepFacturaCtrl.concepFacturacion.codigoConceptoFacturacion"
+                                           mask="X" repeat="10" restrict="reject" ng-disabled="concepFacturaCtrl.concepFacturacionAuxiliar.disableVerDetalle || concepFacturaCtrl.concepFacturacionAuxiliar.disableCodigo"
+                                           name="codigo" validation="required">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label><label class="text-danger">*</label>
+                                    <input type="text" mask="H" restrict="reject" repeat="60" id="nombre" class="form-control text-uppercase" name="nombre" ng-disabled="concepFacturaCtrl.concepFacturacionAuxiliar.disableVerDetalle"
+                                           ng-model="concepFacturaCtrl.concepFacturacion.nombreConceptoFacturacion" validation="required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_ABREVIATURA}}</label><label class="text-danger">*</label>
+                                    <input type="text" class="form-control text-uppercase" name="abreviatura" id="abreviatura" ng-disabled="concepFacturaCtrl.concepFacturacionAuxiliar.disableVerDetalle"
+                                           ng-model="concepFacturaCtrl.concepFacturacion.abreviaturaConceptoFacturacion" validation="required" mask="m" restrict="reject" repeat="10"
+                                           />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipoConceptoFacturacion" class="control-label">{{appConstantsView.LABEL_TIPO}}</label><label class="text-danger">*</label>
+                                    <select ng-disabled="concepFacturaCtrl.concepFacturacionAuxiliar.disableVerDetalle" ng-options="item.valor as item.valor for item in concepFacturaCtrl.tipoConceptoFacturacion"
+                                            name="tipoConceptoFacturacion" id="tipoConceptoFacturacion" validation="required" class="form-control" ng-model="concepFacturaCtrl.concepFacturacion.tipoConceptoFacturacion">
+                                        <option ng-if="concepFacturaCtrl.cuentas.length >= 0" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_CUENTA}}</label><label class="text-danger">*</label>
+                                    <select ng-disabled="concepFacturaCtrl.concepFacturacionAuxiliar.disableVerDetalle" ng-options="item.id as item.nombreCuenta for item in concepFacturaCtrl.cuentas"
+                                            name="selectCuenta" id="selectCuenta" validation="required" class="form-control" ng-model="concepFacturaCtrl.concepFacturacion.cuentaConceptoFacturacion">
+                                        <option ng-if="concepFacturaCtrl.cuentas.length >= 0" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_DESCRIPCION}}</label>
+                                    <textarea class="form-control" style="resize: none" max-length="250" ng-trim="false" name="descripcion" id="descripcion"
+                                              ng-disabled="concepFacturaCtrl.concepFacturacionAuxiliar.disableVerDetalle" ng-model="concepFacturaCtrl.concepFacturacion.descripcionConceptoFacturacion"></textarea>
+                                    <span class="pull-right">{{250 - concepFacturaCtrl.concepFacturacion.descripcionConceptoFacturacion.length}} de 250</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_GENERA_CERTIFICADO}}</label><label class="text-danger pull-left">*</label>
+                                    <br>
+                                </div>
+                                <div class="pull-left">
+                                    <input bs-switch ng-model="concepFacturaCtrl.concepFacturacion.generaCertificado"
+                                           type="checkbox"
+                                           ng-true-value="'SI'" ng-false-value="'NO'"
+                                           switch-on-text="SI" switch-off-text="NO"
+                                           class="form-control col-xs-12"
+                                           switch-active="{{concepFacturaCtrl.concepFacturacionAuxiliar.inputenabled}}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6" ng-if="concepFacturaCtrl.concepFacturacionAuxiliar.disableCodigo">
+                                <div class="form-group">
+                                    <label for="estado" class="control-label">{{appConstantsView.LABEL_ESTADO}}</label><label class="text-danger">*</label>
+                                    <select ng-disabled="concepFacturaCtrl.concepFacturacionAuxiliar.disableVerDetalle" ng-options="item.valor as item.valor for item in concepFacturaCtrl.listaEstados"
+                                            name="estado" id="estado" validation="required" class="form-control" ng-model="concepFacturaCtrl.concepFacturacion.estado">
+                                        <option ng-if="concepFacturaCtrl.listaEstados.length >= 0" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-pane">
+                            <input type="submit" class="btn btn-success" ng-hide="concepFacturaCtrl.concepFacturacionAuxiliar.disableVerDetalle && concepFacturaCtrl.concepFacturacionAuxiliar.disableCodigo"
+                                   value="Guardar" ng-click="concepFacturaCtrl.onSubmitForm()">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+            /* Input switch */$(function () {"use strict"; $('.input-switch').bootstrapSwitch(); });
+</script>

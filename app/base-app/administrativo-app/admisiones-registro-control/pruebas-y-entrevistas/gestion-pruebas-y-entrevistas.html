@@ -1,0 +1,89 @@
+
+<div id="page-title" ng-controller="pruebasEntrevistasCtrl as pruebaYentrevistaCtrl" >
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">Pruebas y Entrevistas</h2>
+        </div>
+        <div class="float-right" style="margin-right: 10px"  ng-controller="menuCtrl as mCtrl">
+            ng-controller="menuCtrl as mCtrl"
+            ng-click="mCtrl.onListarOPciones('/#/admin-registro-control')"
+            cursor: pointer;
+            <a ng-click="mCtrl.onListarOPciones('/#/admin-registro-control')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                <div class="glyph-icon">
+                    <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_LISTADO_REQUISITOS}} </h3>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">     
+                <div class="row">
+                    <div class="col-sm-6 col-xs-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="pruebaYentrevistaCtrl.display" 
+                                        ng-init="pruebaYentrevistaCtrl.display = pruebaYentrevistaCtrl.display || pruebaYentrevistaCtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in pruebaYentrevistaCtrl.options">
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <table  object-table class="hover-column"
+                        data = pruebaYentrevistaCtrl.Programas
+                        display = pruebaYentrevistaCtrl.display
+                        headers = "Código,Nombre,Programa,Opciones"
+                        fields = "codigoRequisitosAsignados,nombreRequisitosAsignados,nombrePrograma"
+                        sorting = "compound"  
+                        selected-model="pruebaYentrevistaCtrl.report.selected"
+                        editable = "false" 
+                        search="separate"
+                        resize="false" 
+                        add-filter="| filter:$owner.all">
+                    <tbody>
+                        <tr>                            
+                            <td>{{item.codigoRequisitosAsignados}}</td>
+                            <td>{{item.nombreRequisitosAsignados}}</td>
+                            <td>{{item.nombrePrograma}}</td>
+                            <td class="text-center opciones-table back-button">
+                                <a class="btn btn-primary btn-tools-table"  title="Ver Detalle" ng-click="$owner.pruebaYentrevistaCtrl.onVerDetalle(item)">
+
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+
+                                </a>
+                                <a class="btn btn-blue-alt btn-tools-table" title="Configurar" ng-click="$owner.pruebaYentrevistaCtrl.onEdit(item)">
+
+                                    <i class="glyph-icon icon-cogs"></i>
+
+                                </a>
+                                <a class="btn btn-warning btn-tools-table" title="Ver Agenda" ng-click="$owner.pruebaYentrevistaCtrl.as(item)">
+
+                                    <i class="glyph-icon icon-calendar"></i>
+
+                                </a>
+
+
+                            </td>
+                        </tr>
+                    <tfoot>
+                        <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.pruebaYentrevistaCtrl.Programas.length !== $owner.appConstantsView.CERO">
+                            <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                        </tr>
+                        <tr ng-if="$owner.pruebaYentrevistaCtrl.Programas.length === $owner.appConstantsView.CERO">
+                            <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+                    </tbody>  
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

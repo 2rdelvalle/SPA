@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+
+<style>
+    a{
+        text-decoration: none !important;
+    }
+
+    .object-table-module .object-table thead>tr th.sortable:after, .object-table-module .object-table thead>tr th.sortable:before{
+        content: none;
+    }
+</style>
+
+<div id="page-title" ng-controller="planeacionAcademicaCtrl as planeacionAcademiCtrl">
+    <h2>{{appConstantsView.Planeacion_Academica}}</h2>
+    <p></p>
+    <br>
+
+    <div class="content-box">        
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{planeacionAcademiCtrl.planeacionAcademicaAuxiliar.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/gestion-planeacion-academica" ng-click="planeacionAcademiCtrl.onLimpiar()" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">     
+
+                <form  method="POST"  name="formCudPlaneacionAcademica" novalidate>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}</label><label class="text-danger">*</label>                            
+                                <select ng-disabled="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disableVerDetalle || planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disabledEdit || planeacionAcademiCtrl.planeacionAcademica.programaAcademico != Null"  
+                                        ng-options="item.id as item.nombrePeriodoAcademico for item in planeacionAcademiCtrl.periodoAcademicoList" 
+                                        name="selectPeriodo" id="selectPeriodo" 
+                                        validation="required" class="form-control"
+                                        ng-model="planeacionAcademiCtrl.planeacionAcademica.periodoAcademico">
+                                    <option ng-if="planeacionAcademiCtrl.periodoAcademicoList.length >= appConstantsView.CERO" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nivelFormacion" class="control-label pull-left">{{appConstantsView.LABEL_NIVEL_FORMACION}}</label><label class="text-danger pull-left">*</label>
+                                <select ng-options="item.id as item.nombreNivelFormacion for item in planeacionAcademiCtrl.listaNivelesFormacion| orderBy:'nombreNivelFormacion'"
+                                        class="form-control"
+                                        ng-change="planeacionAcademiCtrl.onBuscarProgramasAcademicos(planeacionAcademiCtrl.planeacionAcademica.nivelFormacionSelect)"
+                                        ng-model="planeacionAcademiCtrl.planeacionAcademica.nivelFormacionSelect"
+                                        ng-disabled="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disableVerDetalle || planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disabledEdit || planeacionAcademiCtrl.planeacionAcademica.periodoAcademico == Null"  
+                                        name="nivelFormacionSelect" id="nivelFormacionSelect" validation="required">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="programas" class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}<label class="text-danger">*</label></label>
+                                <select ng-disabled="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disableVerDetalle || planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disabledEdit || planeacionAcademiCtrl.planeacionAcademica.nivelFormacionSelect == Null"  
+                                        ng-options="item.id as item.nombrePrograma for item in planeacionAcademiCtrl.programaAcademicolist| orderBy:'nombrePrograma'"
+                                        class="form-control" ng-model="planeacionAcademiCtrl.planeacionAcademica.programaAcademico"
+                                        ng-change="planeacionAcademiCtrl.onLLenarCamposInfo(planeacionAcademiCtrl.planeacionAcademica.programaAcademico)"
+                                        name="programasSelect" id="programasSelect" validation="required">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                             <div class="text-danger"  ng-if="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.mostrarNoPrograma">{{appConstantsView.SIN_PROGRAMAS_DE_PLANEACION}}</div>
+                            </div>
+                        </div>   
+                    </div>
+                    <div ng-show="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.mostrarDetalle">  
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="maximoAlumno" class="control-label">Máximo de Alumnos</label>
+                                    <input type="text"  id="valorMatricula"  class="form-control" 
+                                           name="maximoAlumno" 
+                                           restrict="reject" ng-disabled="true" ng-model="planeacionAcademiCtrl.planeacionAcademica.maximoAumno"  >
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6" ng-if="!planeacionAcademiCtrl.planeacionAcademica.inscripcion">
+                                <div class="form-group">
+                                    <label for="inscripcion" class="control-label">{{appConstantsView.LABEL_PAGA_INSCRIPCION}}</label>
+                                </div>
+                                <input bs-switch  
+                                       class="form-control  col-xs-12" 
+                                       name="inscripcion" id="inscripcion" 
+                                       switch-active="false"
+                                       ng-model="planeacionAcademiCtrl.planeacionAcademica.inscripcion"
+                                       type="checkbox" 
+                                       switch-on-text="SI"
+                                       switch-off-text="NO"
+                                       >
+                            </div>
+                            <div class="col-lg-6 col-sm-6" ng-if="planeacionAcademiCtrl.planeacionAcademica.inscripcion">
+                                <div class="form-group">
+                                    <label for="inscripcion" class="control-label">{{appConstantsView.LABEL_PAGA_INSCRIPCION}}</label>
+                                </div>
+                                <input bs-switch  
+                                       class="form-control  col-xs-12" 
+                                       name="inscripcion" id="inscripcion" 
+                                       switch-active="false"
+                                       ng-model="planeacionAcademiCtrl.planeacionAcademica.inscripcion"
+                                       type="checkbox" 
+                                       switch-on-text="SI"
+                                       switch-off-text="NO"
+                                       >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="ValorCreditoAdicional" class="control-label">{{appConstantsView.VALOR_CREDITO_ADICIONAL}}</label>
+                                    <input type="text"  id="ValorCreditoAdicional"  class="form-control" 
+                                           name="ValorCreditoAdicional"  ui-money-mask="0"
+                                           restrict="reject" ng-disabled="true" ng-model="planeacionAcademiCtrl.planeacionAcademica.valorCreditoAdicional"  >
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="maximoCreditoAdicional" class="control-label">{{appConstantsView.MAXIMO_CREDITO_ADICIONAL}}</label>
+                                    <input type="text" maxlength="50"  id="valorCreditoAdicional"  class="form-control" 
+                                           name="maximoCreditoAdicional"
+                                           ng-disabled="true" 
+                                           ng-model="planeacionAcademiCtrl.planeacionAcademica.maximoCreditoAdicional"  >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="puntoEquilibrio" class="control-label">Punto de Equilibrio</label><label class="text-danger">*</label>
+                                    <input type="text" maxlength="50"  id="puntoEquilibrio"  class="form-control" 
+                                           name="puntoEquilibrio" mask="999" restrict="reject"
+                                           ng-disabled="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disableVerDetalle"
+                                           ng-model="planeacionAcademiCtrl.planeacionAcademica.puntoEquilibrio" validation="required" >
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">    
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_PORCENTAJE_DESCUENTO}}<span class="text-danger">*</span></label>
+                                    <input id="touchspin-demo-1" class="form-control" type="text" value="0" 
+                                           placeholder="0.00"
+                                           ng-model="planeacionAcademiCtrl.planeacionAcademica.producInterBruto" 
+                                           ng-disabled="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disableVerDetalle"
+                                           validation="required"
+                                           name="touchspin-demo-1"
+                                           validation-error-to="franquiciaError3">
+
+                                    <span id="franquiciaError3" class="validation text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="metaMatriculados" class="control-label">Meta de Matriculados</label><label class="text-danger">*</label>
+                                    <input type="text" maxlength="50"  id="valorCreditoAcademico"  class="form-control"  
+                                           name="metaMatriculados"  mask="999"
+                                           restrict="reject" validation="required"
+                                           ng-disabled="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disableVerDetalle"
+                                           ng-model="planeacionAcademiCtrl.planeacionAcademica.metaMatriculados">
+                                </div>
+                            </div>
+                        </div>
+                        <uib-tabset active="planeacionAcademiCtrl.active" justify="false">
+                            <uib-tab index="0" heading="Valores por Nivel">
+                                <div class="panel-body" style="padding-top: 0px;">  
+                                    <div class="row">
+                                        <div  class="col-lg-12 col-sm-12">
+
+                                            <div class="panel-body" >  
+                                                <table  object-table
+                                                        data = "planeacionAcademiCtrl.planeacionAcademica.niveles"
+                                                        display = "planeacionAcademiCtrl.display"
+                                                        headers = "Niveles,Valor Matrícula,Valor Semestre"
+                                                        fields = "nivel,valorMatricula,valorSemestre"
+                                                        sorting = "simple"  
+                                                        editable = "false" 
+                                                        search="false"
+                                                        resize="false"  
+                                                        >
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="text-align: center">{{$owner.appConstantsView.LABEL_NIVEL}}: {{::item.nivel}}</td>
+                                                            <td ><input class="form-control" style="text-align: right"  ui-money-mask="0" ng-model="item.valorMatricula" ng-disabled="true"></td>
+                                                            <td ><input class="form-control" style="text-align: right"  ui-money-mask="0" ng-model="item.valorSemestre" ng-disabled="true"></td>
+
+                                                        </tr>
+                                                    <tfoot>
+                                                        <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.planeacionAcademiCtrl.planeacionAcademica.niveles.length !== $owner.appConstantsView.CERO">
+                                                            <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                                                        </tr>
+                                                        <tr ng-show="$owner.planeacionAcademiCtrl.planeacionAcademica.niveles.length === $owner.appConstantsView.CERO">
+                                                            <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                        </tr>
+                                                    </tfoot>                                                
+                                                    </tbody>  
+                                                </table>
+                                            </div >
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab index="1" heading="Recursos Educativos">
+                                <!--<ng-form method="POST" novalidate name="formPorcentage">-->
+                                    <div class="panel-body"  style="padding-top: 0px;">  
+                                        <div class="content-box-wrapper">
+
+                                            <div class="panel-body">     
+                                                <div class="row" ng-hide="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disableVerDetalle">
+                                                    <div class="col-sm-6" id="div1"> 
+                                                        <div class="button-pane button-pane-top">
+                                                            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Recurso Educativo disponibles</h3>
+                                                        </div>
+                                                        <div class="panel-body">     
+                                                            <table  object-table class="hover-column"
+                                                                    id="sel1"
+                                                                    data = planeacionAcademiCtrl.recursoEducativoList
+                                                                    display = "5"
+                                                                    headers = "Nombre,Tipo,Opciones"
+                                                                    fields = "nombre,nombreTipoRecurso"
+                                                                    sorting = "compound"  
+                                                                    editable = "false" 
+                                                                    search="separate"
+                                                                    resize="false"  
+                                                                    >
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>{{::item.nombre}}</td>
+                                                                        <td>{{::item.nombreTipoRecurso}}</td>
+                                                                        <td class="text-center opciones-table back-button">
+                                                                            <a ng-click="$owner.planeacionAcademiCtrl.selectRecursos(item)" href="" title="Agregar Recurso">
+                                                                                <button class="btn  btn-primary" title="Agregar Recurso">
+                                                                                    <i class="glyphicon glyphicon-plus" title="Agregar Recurso"></i>
+                                                                                </button>
+                                                                            </a>                                
+                                                                        </td>
+                                                                    </tr>
+                                                                <tfoot >
+                                                                    <tr ng-show="$owner.planeacionAcademiCtrl.recursoEducativoList.length === $owner.appConstantsView.CERO">
+                                                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                                    </tr>
+                                                                    <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.planeacionAcademiCtrl.recursoEducativoList.length !== $owner.appConstantsView.CERO">
+                                                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                                                                    </tr>
+                                                                </tfoot>  
+                                                                </tbody>  
+                                                            </table>
+                                                        </div>
+                                                    </div>  
+                                                    <div  class="col-lg-6 col-sm-6 " id="div2">
+                                                        <div class="button-pane button-pane-top">
+                                                            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Recursos Educativos Asignados</h3>
+                                                        </div>
+                                                        <div class="panel-body" >     
+                                                            <table  object-table class="hover-column table-scroll-x"
+                                                                    data = "planeacionAcademiCtrl.planeacionAcademica.recursoEducativo"
+                                                                    display = "5"
+                                                                    headers = "Nombre,Tipo,Porcentaje,Opciones"
+                                                                    fields = "nombre,nombreTipoRecurso,porcentaje"
+                                                                    sorting = "compound"  
+                                                                    editable = "false"
+                                                                    search="separate"
+                                                                    resize="false"  
+                                                                    select="false"
+                                                                    >
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="max-width: 120px;">{{::item.nombre}}</td>
+                                                                        <td>{{::item.nombreTipoRecurso}}</td>
+                                                                        <td>
+                                                                            <div class="input-group">
+                                                                                <input id="{{'porcentaje' + item.codigo}}" type="text"  class="form-control"   placeholder="0.00"
+                                                                                       name="{{'porcentaje' + item.codigo}}"  ng-disabled="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disableVerDetalle"
+                                                                                       restrict="reject" ui-percentage-mask ui-percentage-value maxlength="8"
+                                                                                       ng-model="item.porcentaje"
+                                                                                       validation="required">
+                                                                                <span class="input-group-addon">
+                                                                                    %
+                                                                                </span>
+                                                                            </div>
+                                                                            <span id="{{'planeacionError2' + item.codigo}}" class="validation text-danger"></span>
+
+                                                                        </td> 
+
+                                                                        <td class="text-center opciones-table back-button" style="max-width: 50px;">
+                                                                            <a class="btn-tools-table " title="Remover Recurso" ng-click="$owner.planeacionAcademiCtrl.removeRecursos(item)" href="">
+                                                                                <button class="btn btn-danger" title="Remover Recurso">
+                                                                                    <i class="glyphicon glyphicon-remove" title="Remover Recurso"></i>
+                                                                                </button>
+                                                                            </a>                                
+                                                                        </td>
+                                                                    </tr>
+                                                                <tfoot >
+                                                                    <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.planeacionAcademiCtrl.planeacionAcademica.recursoEducativo.length !== $owner.appConstantsView.CERO">
+                                                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                                                                    </tr>
+                                                                    <tr ng-show="$owner.planeacionAcademiCtrl.planeacionAcademica.recursoEducativo.length === $owner.appConstantsView.CERO">
+                                                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                                    </tr>
+                                                                </tfoot>                                                
+                                                                </tbody>  
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" ng-hide="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.quitaTabla">
+                                                <div  class="col-lg-12 col-sm-12" >
+                                                    <div class="button-pane button-pane-top">
+                                                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">Recursos Educativos Asignados</h3>
+                                                    </div>
+                                                    <div class="panel-body" >  
+                                                        <table  object-table
+                                                                data = "planeacionAcademiCtrl.planeacionAcademica.recursoEducativo"
+                                                                display = "planeacionAcademiCtrl.display"
+                                                                headers = "Nombre,Tipo,Porcentaje"
+                                                                fields = "nombre,nombreTipoRecurso,porcentaje"
+                                                                sorting = "compound"  
+                                                                editable = "false" 
+                                                                search="false"
+                                                                resize="false"  
+                                                                >
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>{{::item.nombre}}</td>
+                                                                    <td>{{::item.nombreTipoRecurso}}</td>
+                                                                    <td>{{item.porcentaje}}<span class="badge-small">%</span></td> 
+                                                                </tr>
+
+                                                            <tfoot>
+                                                                <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.planeacionAcademiCtrl.planeacionAcademica.recursoEducativo.length !== $owner.appConstantsView.CERO">
+                                                                    <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                                                                </tr>
+                                                                <tr ng-show="$owner.planeacionAcademiCtrl.planeacionAcademica.recursoEducativo.length === $owner.appConstantsView.CERO">
+                                                                    <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                                </tr>
+                                                            </tfoot>                                                
+                                                            </tbody>  
+                                                        </table>
+                                                    </div >
+                                                </div>
+
+                                            </div>
+                                            <div class="row" ng-hide="true">
+                                                <div ng-repeat="item in planeacionAcademiCtrl.planeacionAcademica.recursoEducativo">
+                                                    <div class="col-lg-2 col-sm-2">
+                                                        <div class="form-group">
+                                                            <input type="text"  id="maximo"  class="form-control" ng-disabled="true"
+                                                                   name="{{'porcentaje' + item.codigo}}" validation="required" ui-p
+                                                                   ng-model="item.porcentaje"  validation-error-to="{{'planeacionError2' + item.codigo}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!--</ng-form>-->
+                            </uib-tab>
+                        </uib-tabset>
+                        <div class="button-pane">
+                            <input type="submit" class="btn btn-success" ng-hide="planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disableVerDetalle && planeacionAcademiCtrl.planeacionAcademicaAuxiliar.disableCodigo" value="Guardar" ng-click="planeacionAcademiCtrl.onSubmitForm()">
+                        </div>
+                    </div>   
+                </form>
+
+
+
+                <script>
+
+                            var width = $(window).width();
+
+                            if (width >= 700 && width <= 1300) {
+                    $('#div1').removeClass('col-sm-6').addClass('col-sm-12');
+                            $('#div1').removeClass('col-lg-6').addClass('col-lg-12');
+
+                            $('#div2').removeClass('col-sm-6').addClass('col-sm-12');
+                            $('#div2').removeClass('col-lg-6').addClass('col-lg-12');
+                    } else {
+                    $('#div1').removeClass('col-sm-12').addClass('col-sm-6');
+                            $('#div2').removeClass('col-sm-12').addClass('col-sm-6');
+                            $('#div1').removeClass('col-lg-12').addClass('col-lg-6');
+                            $('#div2').removeClass('col-lg-12').addClass('col-lg-6');
+                    }
+                </script>
+                <script src="../../../../../styles/assets/widgets/touchspin/touchspin.js"></script>
+                <script src="../../../../../styles/assets/widgets/touchspin/touchspin-demo.js"></script>
+            </div>
+        </div>
+    </div>
+</div>

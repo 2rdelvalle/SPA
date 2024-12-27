@@ -1,0 +1,83 @@
+.demo-pen{
+    padding-top:20px;
+    padding-bottom:20px;
+}
+.demo-heading {
+    color: #1b809e;
+}
+.heading {
+    margin-bottom: 50px;
+}
+
+a.tooltip-content > span {
+    position: relative;
+    cursor: pointer;
+    /*text-shadow: #090A0B 0 -1px;*/
+    /*display: inline-block;*/
+}
+a.tooltip-content > span > i {
+    text-align: justify;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 150%;
+    color: #FAFCFE;
+    height: auto;
+    top: -38px;
+    font-style: normal;
+    background: #199FDB;
+    background-clip: padding-box;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    position: absolute;
+    width: 250px;
+    left: 110%;
+    margin-left:5px;
+    padding: 5px 5px;
+    bottom:0%;
+    margin-bottom: -40px;
+    visibility:hidden;
+    opacity:0;
+    -webkit-transition: opacity 0.5s linear;
+    -moz-transition: opacity 0.5s linear;
+    -ms-transition: opacity 0.5s linear;
+    -o-transition: opacity 0.5s linear;
+    transition: opacity 0.5s linear;
+}
+
+a.tooltip-content > span > i:before, span > i:after {
+    content: "";
+    position: absolute;
+    border-bottom: 10px solid transparent;
+    border-right:10px solid transparent;
+    top: 40%;
+    left: 0%;
+    margin-left: 10px;
+}
+
+a.tooltip-content > span > i:before {
+    border-top: 13px solid #e5efe5;
+    border-bottom: 13px solid #e5efe5; 
+    border-right:9px solid #e5efe5;
+    border-top: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-bottom:10px solid transparent;
+    margin-left: -19px;
+    z-index: 1;
+
+}
+
+a.tooltip-content > span > i:after{
+    border-top: 10px solid #e5efe5;
+    border-bottom: 10px solid #e5efe5; 
+    border-right:10px solid #199FDB;
+    border-top: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-bottom:10px solid transparent;
+    margin-left: -18px;
+    z-index: 100;
+}
+
+a.tooltip-content > span:hover > i {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+}

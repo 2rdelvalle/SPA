@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<div id="page-title" ng-controller="UsuarioEstudianteCtrl as UserCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.USUARIO}}</h2>
+        </div>
+        <div class="float-right" style="margin-right: 10px">
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.LISTADO_USUARIO}}</h3>
+            <div class="float-right">
+                <a href="/#/cud-usuarioEstudiante" ng-click="UserCtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add" style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.BOTON_AGREGAR}}</span>
+                    </div>
+                </a>
+                <a href="#/estudiante" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="UserCtrl.display" 
+                                        ng-init="UserCtrl.display = UserCtrl.display || UserCtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in UserCtrl.options">
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <table object-table class="hover-column" data="UserCtrl.listaUsuario" display="UserCtrl.display" headers="Nombre,Identificación,Cargo,Estado,Opciones"
+                        fields="nombreCompleto,identificacionConTipo,nombreCargo,estado" sorting="compound" selected-model="UserCtrl.report.selected"
+                        editable="false" search="separate" resize="false" select="multiply" add-filter="| filter:$owner.all">
+                        <tbody>
+                            <tr>
+                                <td>{{item.nombreCompleto}}</td>
+                                <td>{{item.identificacionConTipo}}</td>
+                                <td>{{item.nombreCargo}}</td>
+                                <td>{{item.estado}}</td>
+                                <td class="opciones-table text-center">
+                                    <a ng-click="$owner.UserCtrl.onClickToView(item)" href="">
+                                        <button title="Ver detalle" class="btn btn-primary btn-tools-table">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                        </button>
+                                    </a>
+                                    <a ng-click="$owner.UserCtrl.onClickToEditar(item);" href="">
+                                        <button title="Modificar" class="btn btn-info btn-tools-table"> 
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.UserCtrl.listaUsuario.length !== $owner.appConstantsView.CERO">
+                                <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                            </tr>
+                            <tr ng-if="$owner.UserCtrl.listaUsuario.length === $owner.appConstantsView.CERO">
+                                <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

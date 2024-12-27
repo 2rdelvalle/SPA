@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<style>
+    @media screen and (max-width: 1135px){
+        .table-scroll-x {
+            overflow-x: scroll;
+        }
+    }    
+</style>
+<div id="page-title" ng-controller="publicoobjetivoCtrl as publicoCtrl">
+    <h2>  {{appConstantsView.LABEL_PUBLICO_OBJETIVO}} </h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">{{publicoCtrl.esvisible.titulo}}</h3>
+            </div>
+            <div class="float-right">
+                <a href="#/publico-objtivo" ng-click="publicoCtrl.onLimpiarPublicoObjetivo()" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="panel-default">
+            <div class="panel-body">
+                <form method="POST" name="formgeneralpublico" novalidate>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <label class="control-label">{{appConstantsView.LABEL_CODIGO}}<span class="text-danger">*</span></label>
+                            <input ng-disabled="publicoCtrl.esvisible.eseditable" required validation="required" mask="X" repeat="10" restrict="reject" class="form-control text-uppercase" name="Código" ng-model="publicoCtrl.nuevopublico.codigo" >
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label><label class="text-danger">*</label>
+                                <input ng-disabled="publicoCtrl.esvisible.eseditable" type="text" id="nombre" class="form-control text-uppercase" mask="H" repeat="100" restrict="reject" name="nombre" ng-model="publicoCtrl.nuevopublico.nombre" validation="required">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_DESCRIPCION}}</label>
+                                <textarea class="form-control" style="resize:none" max-length="250" 
+                                          name="descripcion" id="descripcion" 
+                                          ng-disabled="publicoCtrl.esvisible.eseditable"
+                                          ng-model="publicoCtrl.nuevopublico.descripcion" ></textarea>
+                                <span class="pull-right">{{250 - publicoCtrl.nuevopublico.descripcion.length}} de 250</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="publicoobjetivopadre" class="control-label">Público Objetivo Padre</label>
+                                <select ng-options="publico.id as publico.nombre for publico in publicoCtrl.publicoObjetivosPadres| orderBy:'nombre'" class="form-control"
+                                        ng-model="publicoCtrl.nuevopublico.publicopadre"  ng-change="publicoCtrl.onChangePublicoObjectivoPadre(publicoCtrl.nuevopublico.publicopadre)"
+                                        ng-disabled=" publicoCtrl.esvisible.eseditable || publicoCtrl.contactosseleccionados.length > 0" name="facultad" >
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                                <span ng-show="publicoCtrl.esvisible.estadopublicopadre" class="validation text-danger pull-left">{{appConstantsView.ERROR_CAMPO_REQUERIDO}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- tabla agregar publico --->
+                    <br/>
+                    <div class="clearfix"></div>
+                    <div class="content-box" ng-if="publicoCtrl.esvisible.rendered">
+                        <div class="button-pane button-pane-top">
+                            <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+                                <i class="glyph-icon icon-cog"></i>
+                                {{appConstantsView.LISTA_CONTACTOS}}
+                            </h3>
+                        </div>
+                        <div class="content-box-wrapper">
+                            <div class="panel-body">
+                                <div class="margTop0 pull-right">
+                                    {{appConstantsView.TODOS}} 
+                                    <input bs-switch switch-active="{{!(publicoCtrl.filtrados.length === appConstantsView.CERO || publicoCtrl.disabledCampos)}}" ng-model="publicoCtrl.selectTodos"
+                                           ng-disabled="publicoCtrl.filtrados.length === appConstantsView.CERO" type="checkbox" ng-true-value="true" ng-false-value="false"
+                                           switch-on-text="Si" switch-off-text="No" ng-change="publicoCtrl.onSelectTodos()" class="form-control col-xs-12 pull-left">
+                                </div>
+                                <div class="row">
+                                    <h3>{{publicoCtrl.esvisible.titulocontactodisponibles}}</h3>
+                                    <div class="form-group">
+                                        <table  object-table
+                                                data = "publicoCtrl.contactos"
+                                                display = "5"
+                                                headers = "Nombre Completo,Programa,Periodo,Etapa Proceso, Opciones"
+                                                fields = "nombrecompleto,programa,periodo,estado"
+                                                sorting = "compound"  
+                                                selected-model="publicoCtrl.report.selected"
+                                                editable = "false" 
+                                                search="separate"
+                                                resize="false"
+                                                select="multiply"
+                                                add-filter="| filter:$owner.all">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="word-wrap: break-word;" class="text-uppercase">{{item.nombrecompleto}}</td>
+                                                    <td style="word-wrap: break-word;" class="text-uppercase">{{item.programa}}</td>
+                                                    <td style="word-wrap: break-word;" class="text-uppercase">{{item.periodo}}</td>
+                                                    <td style="text-align: center" class="text-uppercase"><span class="{{item.style}}">{{item.estado}}</span></td>
+                                                    <td style="width: 40px; height: 50px; vertical-align: middle;" class="text-center">
+                                                        <a class="btn  btn-primary btn-tools-table" ng-click="$owner.publicoCtrl.selectContacto(item)" ng-disabled="$owner.publicoCtrl.esvisible.eseditable">
+                                                            <i class="glyphicon glyphicon-plus" title="Asociar contacto"></i>
+                                                        </a> 
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.publicoCtrl.contactos.length !== $owner.appConstantsView.CERO">
+                                                    <td colspan="7">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                                                </tr>
+                                                <tr ng-if="$owner.publicoCtrl.contactos.length === $owner.appConstantsView.CERO">
+                                                    <td colspan="7">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                </tr>
+                                            <td ng-hide="true">{{$owner.publicoCtrl.filtrados = $filtered}}</td>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box">
+                        <div class="content-box-wrapper">
+                            <div class="panel-body">
+                                <div class="margTop0 pull-right">
+                                    {{appConstantsView.TODOS}} 
+                                    <input bs-switch switch-active="{{!(publicoCtrl.filtrado.length === appConstantsView.CERO || publicoCtrl.disabledCampos)}}" ng-model="publicoCtrl.desDelectTodos"
+                                           ng-disabled="publicoCtrl.filtrado.length === appConstantsView.CERO" type="checkbox" ng-true-value="true" ng-false-value="false"
+                                           switch-on-text="Si" switch-off-text="No" ng-change="publicoCtrl.onDesSelectTodos()" class="form-control col-xs-12 pull-left">
+                                </div>
+                                <div class="row">
+                                    <div>
+                                        <h3>{{publicoCtrl.esvisible.titulocontacto}}</h3>
+                                        <div class="form-group">
+                                            <table  object-table
+                                                    data = "publicoCtrl.contactosseleccionados"
+                                                    display = "5"
+                                                    headers = "Nombre Completo, Email, Celular,Programa,Periodo,Etapa Proceso, Opciones"
+                                                    fields = "nombrecompleto,email,celular,programa,periodo,estado"
+                                                    sorting = "compound"  
+                                                    selected-model="publicoCtrl.reportes.selected"
+                                                    editable = "false" 
+                                                    search="separate"
+                                                    resize="false"
+                                                    select="multiply"
+                                                    add-filter="| filter:$owner.all">
+                                                <tbody>
+                                                    <tr ng-click="$owner.publicoCtrl.showEvento(item); setSelected(item)">
+                                                        <td style="word-wrap: break-word;" class="text-uppercase">{{::item.nombrecompleto}}</td>
+                                                        <td >{{::item.email}}</td>
+                                                        <td  style="max-width: 18em" class="text-uppercase">{{::item.celular}}</td>
+                                                        <td style="word-wrap: break-word;" class="text-uppercase">{{item.programa}}</td>
+                                                        <td style="word-wrap: break-word;" class="text-uppercase">{{item.periodo}}</td>
+                                                        <td style="text-align: center" class="text-uppercase"><span class="{{item.style}}">{{item.estado}}</span></td>
+                                                        <td style="width: 50px; height: 50px; vertical-align: middle;" class="text-center">
+                                                            <a class="btn btn-danger btn-tools-table" ng-disabled="$owner.publicoCtrl.esvisible.eseditable" title="Quitar contacto" ng-click="$owner.publicoCtrl.onEliminarUnContacto(item)" >
+                                                                <i class="glyphicon glyphicon-remove" ></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <tfoot>
+                                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.publicoCtrl.contactosseleccionados.length !== $owner.appConstantsView.CERO">
+                                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                                                    </tr>
+                                                    <tr ng-if="$owner.publicoCtrl.contactosseleccionados.length === $owner.appConstantsView.CERO">
+                                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                    </tr>
+                                                <td ng-hide="true">{{$owner.publicoCtrl.filtrado = $filtered}}</td>
+                                                </tfoot>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                <br/>
+                <br/>
+                <div class="button-pane" ng-if="publicoCtrl.esvisible.renderedbutton">
+                    <input type="submit" class="btn" style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1;" ng-click="publicoCtrl.onGuardar()" value="Guardar">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+

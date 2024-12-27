@@ -1,0 +1,204 @@
+<div id="page-title" ng-controller="liquidarConceptosEstudianteCtrl as liqcCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.LIQUIDAR_CONCEPTO}}</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_BUSQUEDA_CODIGO}}</h3>
+            <div class="float-right"  ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/menu-estudiante')" class="btn btn-sm btn-info icon-tool-add back-button"
+                   data-animation="flipOutX" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <form method="POST" name="formConsultarPrograma" novalidate>
+                            <div class="form-group" ng-if="liqcCtrl.listaProgramas.length > appConstantsView.CERO">
+                                <label class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}<label class="text-danger">*</label></label>
+                                <select ng-options="item as item.programa for item in liqcCtrl.listaProgramas" name="selectListaProgramas" id="selectListaProgramas"
+                                        class="form-control" ng-model="liqcCtrl.nuevoLiquidarConceptos.idProgramaSelected" ng-change="liqcCtrl.onCambiarPrograma()"
+                                        validation="required">
+                                    <option ng-if="liqcCtrl.listaProgramas.length > appConstantsView.UNO" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="content-box" ng-if="liqcCtrl.liquidarConceptosAux.onDeshabilitar">
+                    <h3 class="content-box-header bg-default">
+                      {{appConstantsView.TITLE_INFO_ESTUDIANTE}} 
+                    </h3>
+                    <div class="content-box-wrapper">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                    <input type="text" id="nombreEstudiante" ng-disabled="true" class="form-control" name="nombre" ng-model="liqcCtrl.nuevoLiquidarConceptos.nombresCompleto">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="seccional" class="control-label">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                    <input type="text" id="identificacionEstudiante" ng-disabled="true" class="form-control" name="seccional" ng-model="liqcCtrl.nuevoLiquidarConceptos.documentoCompleto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="periActua" class="control-label">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="periActua" ng-model="liqcCtrl.nuevoLiquidarConceptos.periodoActual">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="program" class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="program" ng-model="liqcCtrl.nuevoLiquidarConceptos.programaNombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nivelforma" class="control-label">{{appConstantsView.LABEL_NIVEL_FORMACION}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="nivelforma" ng-model="liqcCtrl.nuevoLiquidarConceptos.nivelFormacion">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="jornad" class="control-label">{{appConstantsView.LABEL_MODALIDAD}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="jornad" ng-model="liqcCtrl.nuevoLiquidarConceptos.modalidad">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="semest" class="control-label">{{appConstantsView.LABEL_HORARIO}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="semest" ng-model="liqcCtrl.nuevoLiquidarConceptos.horario">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="semest" class="control-label">{{appConstantsView.LABEL_SEMESTRE}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="semest" ng-model="liqcCtrl.nuevoLiquidarConceptos.semestre">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-box" ng-if="liqcCtrl.liquidarConceptosAux.onDeshabilitar">
+                    <h3 class="content-box-header bg-default">
+                        {{appConstantsView.TITLE_LIQUIDACION}}
+                    </h3>
+                    <div class="content-box-wrapper">
+                        <div class="panel-body">
+                            <form method="POST" name="formConsultarConceptoFacturar" class="form-horizontal" novalidate>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-xs-6 control-label pull-left">{{appConstantsView.LABEL_CONCEPTO_FACTURAR}} <label class="text-danger">*</label></label>
+                                    <div class="col-sm-6 col-xs-6">
+                                        <select ng-options="item as item.nombre for item in liqcCtrl.listaConceptosAFacturar | orderBy:'nombre' track by item.id"
+                                                name="selectConcepCapturar" id="selectConcepCapturar" validation="required" class="form-control"
+                                                ng-model="liqcCtrl.concepFacturacion.conceptoAFacturar" ng-change="liqcCtrl.onCambiarConcepto()">
+                                            <option ng-if="liqcCtrl.listaConceptosAFacturar.length >= appConstantsView.CERO" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                            <br>
+                            <div class="content-box-wrapper">
+                                <div class="row" ng-if="liqcCtrl.concepFacturacion.conceptoAFacturar.codigo !== appConstantsView.CONCEPTO_lIQUIDAR && liqcCtrl.nuevoLiquidarConceptos.listaConceptosAFacturar.length > appConstantsView.CERO && liqcCtrl.concepFacturacion.conceptoAFacturar" >
+                                    <div class="col-sm-6">
+                                        <div class="dataTables_length" id="datatable-example_length">
+                                            <label>
+                                                <select ng-model="liqcCtrl.display"
+                                                        ng-init="liqcCtrl.display = liqcCtrl.display || liqcCtrl.options[appConstantsView.CERO].value"
+                                                        ng-options="option.value as option.name for option in liqcCtrl.options">
+                                                </select>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="liqcCtrl.concepFacturacion.conceptoAFacturar.codigo !==  appConstantsView.CONCEPTO_lIQUIDAR && liqcCtrl.nuevoLiquidarConceptos.listaConceptosAFacturar.length > appConstantsView.CERO && liqcCtrl.concepFacturacion.conceptoAFacturar">
+                                    <table object-table class="hover-column" data="liqcCtrl.nuevoLiquidarConceptos.listaConceptosAFacturar" headers="Código,Nombre,Valor"
+                                           fields="codigoConcepto,nombreConcepto,valor" sorting="compound" editable="false" search="false"
+                                           resize="false">
+                                        <tbody>
+                                            <tr>
+                                                <td>{{::item.codigoConcepto}}</td>
+                                                <td>{{::item.nombreConcepto}}</td>
+                                                <td class="money text-right">{{::item.valor|currency}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr ng-if="$owner.liqcCtrl.nuevoLiquidarConceptos.listaConceptosAFacturar.length > $owner.appConstantsView.CERO">
+                                                <td colspan="2" class="text-right text-success"> <h4>Total</h4></td>
+                                                <td class="money text-right text-success"><h4>{{$owner.liqcCtrl.total|currency}}</h4></td>
+                                            </tr>
+                                            <tr ng-if="$owner.liqcCtrl.nuevoLiquidarConceptos.listaConceptosAFacturar.length === $owner.appConstantsView.CERO">
+                                                <td colspan="3">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <br>
+                                <div class="row" ng-if="liqcCtrl.concepFacturacion.conceptoAFacturar.codigo === 'CFI10'">
+                                    <div class="back-cover table-scroll-x">
+                                        <table class="table table-hover table-condensed dias">
+                                            <thead>
+                                                <tr style="font-weight: bold">
+                                                    <th style="width:30%">{{appConstantsView.LABEL_CODIGO}}</th>
+                                                    <th style="width:35%">{{appConstantsView.LABEL_NOMBRE}}</th>
+                                                    <th style="width:35%">Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tr ng-repeat="item in liqcCtrl.listaAbono">
+                                                <td style="text-align:center; vertical-align: middle;">
+                                                    {{item.codigoConcepto}}
+                                                </td>
+                                                <td style="text-align:center; vertical-align: middle;">
+                                                    {{item.nombreConcepto}}
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <input type="text" style="text-align: right" id="inputHid{{$index}}" name="inputHid{{$index}}" ng-model="item.valor" class="form-control"
+                                                               ui-money-mask="0" restrict="reject" validation="required" ng-disabled="liqcCtrl.liquidarConceptosAux.onDeshabilitarCampo">
+                                                        <span class="input-group-btn">
+                                                            <button id="btnComd{{$index}}" title="Modificar" ng-click="liqcCtrl.mostrarCampo($index)" class="btn btn-primary btn-group-plus"><i class="glyphicon glyphicon-edit"></i></button>
+                                                            <button id="btnCheck{{$index}}" title="Confirmar" style="display: none;" type="submit" class="btn btn-primary btn-group-plus" ng-click="liqcCtrl.ocultarCampo($index)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button id="btnCancel{{$index}}" title="Cancelar" style="display: none;margin-left: 0px !important" type="submit" class="btn btn-danger btn-group-plus" ng-click="liqcCtrl.cancelarCampo($index)" ng-disabled="liqcCtrl.liquidarConceptosAux.onDeshabilitarBotonCancelar">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="botonGuardar" class="button-pane" ng-if="liqcCtrl.nuevoLiquidarConceptos.listaConceptosAFacturar.length > appConstantsView.CERO || liqcCtrl.concepFacturacion.conceptoAFacturar.codigo === 'CFI10'"
+                                 ng-hide="liqcCtrl.liquidarConceptosAux.onDeshabilitarBoton || !liqcCtrl.concepFacturacion.conceptoAFacturar">
+                                <input class="btn btn-success" type="submit" value="Generar" ng-click="liqcCtrl.onGuardar()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

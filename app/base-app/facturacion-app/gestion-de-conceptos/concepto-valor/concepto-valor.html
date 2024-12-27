@@ -1,0 +1,84 @@
+<style>
+    .mensajeError {
+        margin: -1px -1px 0;
+        padding: 15px;
+        border-color: transparent;
+        height: 50px;
+    }
+</style>
+<div id="page-title" ng-controller="conceptoValorCtrl as CVCtrl">
+    <div style="height: 83px" class="content-box border-top border-blue" ng-if="CVCtrl.conceptoValorVisor.banner">
+        <h3 class="mensajeError clearfix title-resumen-blue">
+            <div class="col-xs-12">
+                <strong>{{appConstantsView.LABEL_TEN_CUENTA}}</strong><br/>
+                <small class="content"> {{appConstantsView.CONCEPTOS_CONFIGURADOS}} </small>
+            </div>
+        </h3>
+    </div>
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.TITLE_CONFIGURAR_CONCEPTOS_VALOR}}</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_LISTADO_CONCEPTOS_VALOR}}</h3>
+            <div class="float-right" ng-if="!CVCtrl.conceptoValorVisor.banner">
+                <a href="#/gestionar-conceptos" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="CVCtrl.display" 
+                                        ng-init="CVCtrl.display = CVCtrl.display || CVCtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in CVCtrl.options">
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <table object-table class="hover-column" data="CVCtrl.listaConceptoValor" display="CVCtrl.display" headers="Código,Nombre,Estado,Opciones"
+                        fields="codigo,nombreConcepto,estado" sorting="compound" selected-model="CVCtrl.report.selected"
+                        editable="false" search="separate" resize="false" select="multiply" add-filter="| filter:$owner.all">
+                        <tbody>
+                            <tr>
+                                <td>{{::item.codigo}}</td>
+                                <td>{{::item.nombreConcepto}}</td>
+                                <td>{{::item.estado}}</td>
+                                <td class="opciones-table text-center">
+                                    <a href="" ng-click="$owner.CVCtrl.onClickToView(item)">
+                                        <button class="btn btn-primary btn-tools-table" title="Ver detalles"> 
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                    </button></a>
+                                    <a href="" ng-click="$owner.CVCtrl.onClickToEditar(item)" ng-hide="{{item.estado==='INACTIVO'}}">
+                                        <button class="btn btn-info btn-tools-table" title="Configirar"> 
+                                         <i class="glyph-icon icon-cogs"></i>
+                                    </button></a>
+                                </td>
+                            </tr>
+                            <tfoot>
+                                <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.CVCtrl.listaConceptoValor.length !== $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                </tr>
+                                <tr ng-show="$owner.CVCtrl.listaConceptoValor.length === $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                </tr>
+                            </tfoot>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

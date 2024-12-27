@@ -1,0 +1,19 @@
+<div id="page-title" ng-controller="menuCtrl as mCtrl"> 
+    <p>{{appConstantsView.TITLE_INICIO}} / {{appConstantsView.INFORME_Y_REPORTE}}</p>
+    <br>
+    <h2>{{appConstantsView.MENU_INFORMES_REPORTES}}</h2>
+    <br>
+    <div class="clearfix"></div>
+    <div class="row mrg20B">
+        <div class="col-md-3" style="margin-top: 10px;cursor: pointer" ng-repeat="x in mCtrl.ListMenu track by $index" ng-if="x.selected">
+            <a title="{{x.label}}" ng-click="mCtrl.onListarOPciones(x.ruta)" class="tile-box tile-box-shortcut btn-primary">
+                <div class="tile-header">
+                    {{x.label}}
+                </div>
+                <div class="tile-content-wrapper">
+                    <i class="{{x.clase}}"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

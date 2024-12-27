@@ -1,0 +1,72 @@
+<style>
+    .info-icon-tool {
+        padding: 5px;
+    }
+</style>
+<script src="js/main-app.js"></script>
+<div id="page-title" ng-controller="nivelFormacionCtrl as NFCtrl">
+    <h2>{{appConstantsView.LABEL_NIVELES_FORMACION}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{NFCtrl.nivelFormacionVisor.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/nivel-formacion" ng-click="NFCtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add back-button" data-animation="flipOutX"
+                    style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <form method="POST" novalidate name="formAgregarNivelFormacion">
+                <fieldset ng-disabled="NFCtrl.nivelFormacionVisor.onDeshabilitar">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="codigo" class="control-label">{{appConstantsView.LABEL_CODIGO}}<label class="text-danger">*</label></label>
+                                    <input class="text-uppercase form-control" ng-disabled="NFCtrl.nivelFormacionVisor.onDeshabilitar || NFCtrl.nivelFormacionVisor.onDeshabilitarCodigo"
+                                        type="text" id="codigo" name="codigo" mask="T" repeat="10"
+                                        restrict="reject" ng-model="NFCtrl.nivelFormacionEntity.codigoNivelFormacion" validation="required">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}<label class="text-danger">*</label></label>
+                                    <input class="text-uppercase form-control" maxlength="40" ng-disabled="NFCtrl.nivelFormacionVisor.onDeshabilitar" type="text"
+                                        required id="nombre" name="nombre" ng-model="NFCtrl.nivelFormacionEntity.nombreNivelFormacion"
+                                        validation="required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nivelAcademico" class="control-label">{{appConstantsView.LABEL_NIVEL_ACADEMICO}}<label class="text-danger">*</label></label>
+                                    <select ng-options="item.codigo as item.valor for item in NFCtrl.listaNivelesAcademicos" class="form-control" ng-model="NFCtrl.nivelFormacionEntity.nivelAcademico"
+                                        ng-disabled="NFCtrl.nivelAcademicoVisor.onDeshabilitar" name="nivelAcademico" id="nivelAcademico"
+                                        validation="required">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="descripcion" class="control-label">{{appConstantsView.LABEL_DESCRIPCION}}</label>
+                                    <textarea class="form-control descripcion" maxlength="250" ng-trim="false" id="descripcion" style="resize:none" name="id" row="6" ng-model="NFCtrl.nivelFormacionEntity.descripcionNivelFormacion"></textarea>
+                                    <span class="pull-right" ng-if="!NFCtrl.nivelFormacionVisor.onDeshabilitar">{{250 - NFCtrl.nivelFormacionEntity.descripcionNivelFormacion.length}} de 250</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-pane" ng-if="!NFCtrl.nivelFormacionVisor.onDeshabilitar">
+                            <button type="submit" class="btn btn-success" ng-click="NFCtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

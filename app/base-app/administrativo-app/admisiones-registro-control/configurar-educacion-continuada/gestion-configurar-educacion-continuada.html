@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<style>
+    span.input-group-btn{
+        display: none;
+    }
+</style>
+<div id="page-title" ng-controller="confiEducacionContinuadaCtrl as confiEduConCtrl">
+    <h2>{{appConstantsView.TITLE_CONF_EDUCACION_CONTINUADA}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{confiEduConCtrl.confiEduConAuxiliar.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/configurar-educacion-continuada" ng-click="confiEduConCtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add back-button"
+                   data-animation="flipOutX" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <form method="POST" novalidate name="formConfigurarEducacionContinuada">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="periodo" class="control-label">Periodo <label class="text-danger">*</label></label>
+                                <select ng-options="item.id as item.nombrePeriodoAcademico for item in confiEduConCtrl.listaPeriodos" class="form-control"
+                                        ng-model="confiEduConCtrl.confiEduCon.idPeriodoAcademico" ng-change="confiEduConCtrl.buscarConfigEduCon()"
+                                        name="periodo" id="periodo" validation="required">
+                                    <option ng-if="confiEduConCtrl.listaPeriodos.length > appConstantsView.UNO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-box" ng-if="confiEduConCtrl.confiEduConAuxiliar.onDeshabilitarPanel">
+                        <h3 class="content-box-header bg-default">
+                            Información
+                        </h3>
+                        <div class="content-box-wrapper">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre" class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}<label class="text-danger">&#x200b;</label></label>
+                                        <span class="form-control" ng-disabled="true">
+                                            {{confiEduConCtrl.confiEduCon.codigoPrograma}}-{{confiEduConCtrl.confiEduCon.nombrePrograma}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="fechaPeriodo" class="input-daterange input-group">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">{{appConstantsView.LABEL_FECHA_INICIO}}</label><label class="text-danger">*</label>
+                                            <div class="input-group fecha-inicio">
+                                                <span class="input-group-addon">
+                                                    <i class="glyph-icon icon-calendar"></i>
+                                                </span>
+                                                <input type="text" class="form-control date text-left" mask="39/19/9999" restrict="reject" placeholder='dd/mm/aaaa' name="fechaInicio"
+                                                       id="fechaInicio" ng-disabled="confiEduConCtrl.confiEduConAuxiliar.onDeshabilitar" 
+                                                       autocomplete="off" ng-change="confiEduConCtrl.onCambiar()"
+                                                       ng-model="confiEduConCtrl.confiEduCon.fechaInicio" validation="required" validation-error-to="validacionFechaInicial"
+                                                       readonly="true" />
+                                            </div>
+                                            <span id="validacionFechaInicial" class="validation text-danger "></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">{{appConstantsView.LABEL_FECHA_FIN}}</label><label class="text-danger">*</label>
+                                            <div class="input-group fecha-fin">
+                                                <span class="input-group-addon">
+                                                    <i class="glyph-icon icon-calendar"></i>
+                                                </span>
+                                                <input type="text" class="form-control date text-left" mask="39/19/9999" restrict="reject" placeholder='dd/mm/aaaa' name="fechaFin"
+                                                       id="fechaFin"
+                                                       ng-disabled="confiEduConCtrl.confiEduConAuxiliar.onDeshabilitar"
+                                                       autocomplete="off" readonly="true"
+                                                       ng-model="confiEduConCtrl.confiEduCon.fechaFin" validation="required" validation-error-to="validacionFechaFin"
+                                                       />
+                                            </div>
+                                            <span id="validacionFechaFin" class="validation text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipoEducacionContinuada" class="control-label">{{appConstantsView.LABEL_TIPO_EDUACION_CONTINUADA}} <label class="text-danger">*</label></label>
+                                        <select ng-options="item.codigo as item.valor for item in confiEduConCtrl.tiposEducacionContinuada| orderBy:'valor' " class="form-control"
+                                                ng-disabled="confiEduConCtrl.confiEduConAuxiliar.onDeshabilitar" 
+                                                ng-model="confiEduConCtrl.confiEduCon.idTipoEducacionContinuada"
+                                                name="tipoEducacionContinuada" id="tipoEducacionContinuada" validation="required"
+                                                ng-disabled="confiEduConCtrl.confiEduConAuxiliar.onDeshabilitar">
+                                            <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="intensidadHoraria" class="control-label">{{appConstantsView.INTENSIDAD_HORARIA}}<label class="text-danger">*</label></label>
+                                        <input type="text" class="form-control spinner-input" ng-model="confiEduConCtrl.confiEduCon.intensidadHoraria" validation="required"
+                                               name="intensidadHoraria" mask="999" id="intensidadHoraria" restrict="reject" 
+                                               ng-disabled="confiEduConCtrl.confiEduConAuxiliar.onDeshabilitar"
+                                               validation-error-to="errorIntensidadHoraria">
+                                        <span id="errorIntensidadHoraria" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="porcentaje" class="control-label">{{appConstantsView.LABEL_PORCENTAJE}}</label><label class="text-danger">*</label>
+                                        <div class="input-group">
+                                            <input type="text"  id="porcentaje"  class="form-control porcentaje"  placeholder='99.99%' 
+                                                   name="porcentaje" 
+                                                   ng-disabled="confiEduConCtrl.confiEduConAuxiliar.onDeshabilitar"
+                                                   restrict="reject" ui-percentage-mask ui-percentage-value maxlength="8"
+                                                   ng-model="confiEduConCtrl.confiEduCon.porcentaje"
+                                                   ng-blur="confiEduConCtrl.onChangePorcentaje()"
+                                                   ng-change="confiEduConCtrl.onChangePorcentaje()"
+                                                   validation="required" validation-error-to="errorPorcentaje">
+                                            <span class="input-group-addon">
+                                                %
+                                            </span>
+                                        </div>
+                                        <span id="errorPorcentaje" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="cantidadSesiones" class="control-label">{{appConstantsView.LABEL_CANTIDAD_SECCIONES}}<label class="text-danger">*</label></label>
+                                        <input type="text" class="form-control spinner-input" ng-model="confiEduConCtrl.confiEduCon.cantidadSesiones" validation="required"
+                                               name="cantidadSesiones" mask="999" id="cantidadSesiones" restrict="reject" 
+                                               ng-disabled="confiEduConCtrl.confiEduConAuxiliar.onDeshabilitar"
+                                               validation-error-to="errorCantidadSesiones">
+                                        <span id="errorCantidadSesiones" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" button-pane ">
+                                <button type="submit " class="btn btn-success " 
+                                        ng-hide="confiEduConCtrl.confiEduConAuxiliar.onDeshabilitar" 
+                                        ng-click="confiEduConCtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+    $(".spinner-input").TouchSpin({
+    verticalbuttons: true,
+            min: 1,
+            max: 999
+    });
+    $('#fechaPeriodo.input-daterange').datepicker({
+    format: "dd/mm/yyyy",
+            language: "es",
+            autoclose: true,
+            clearBtn: true,
+            beforeShowYear: function (date) {
+            if (date.getFullYear() < 1900) {
+            return false;
+            }
+            },
+            beforeShowMonth: function (date) {
+            if (date.getFullYear() < 1900) {
+            return false;
+            }
+            },
+            beforeShowDay: function (date) {
+            if (date.getFullYear() < 1900) {
+            return false;
+            }
+            }
+    });
+    });</script>

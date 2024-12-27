@@ -1,0 +1,104 @@
+<script src="../../../../../js/main-app.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="FranquiciaCtrl as franquicia">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.TITLE_FRANQUICIAS}}</h2>
+        </div>
+    </div>
+    <br>
+
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm ">{{appConstantsView.TITLE_LISTADO_FRANQUICIAS}}</h3>
+            <div class="float-right"  ng-controller="menuCtrl as mCtrl">
+                <a href="" class="btn btn-sm btn-info icon-tool-add" ng-click="franquicia.onRefrescar()" style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.BOTON_AGREGAR}}</span>
+                    </div>
+                </a>
+                <a  ng-click="franquicia.cancelarInterval();mCtrl.onListarOPciones('/#/financiero')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff;cursor: pointer; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="content-box border-top border-yellow" ng-if="!franquicia.mensajeValidacion">
+                    <h3 class="content-box-header clearfix title-resumen-yellow">
+                        <div class="col-xs-12">
+                            <a ng-click="franquicia.mensajeValidacion = false" class="btn btn-xs btn-danger pull-right">
+                                <i class="glyph-icon icon-remove"></i>
+                            </a>
+                            {{appConstantsView.LABEL_ADVERTENCIA}}
+                            <small>{{appConstantsView.ERROR_REGISTROS_NO_ELIMINADOS}}</small>
+                        </div>
+                    </h3>
+                    <div class="content-box-wrapper">
+                        <ul class="todo-box" style="overflow-y: scroll;height: 235px;">
+                            <li class="border-yellow" ng-repeat="noEliminiado in franquicia.listNoEliminados track by noEliminiado.id">
+                                <label for="todo-1">{{appConstantsView.LABEL_CODIGO}}: {{noEliminiado.codigo}}, {{appConstantsView.LABEL_NOMBRE}}: {{noEliminiado.convenio.nombre}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="franquicia.display"
+                                        ng-init="franquicia.display = franquicia.display || franquicia.options[appConstantsView.CERO].value"
+                                        ng-options="options.value as options.name for options in franquicia.options" >
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <table  object-table
+                        data = franquicia.lista
+                        display = "franquicia.display"
+                        headers = "Código,Convenio,Banco,Descuento,Estado,Opciones"
+                        fields = "codigoFranquicia,nombreConvenio,nombreBanco,descuentoFranquicia,estado"
+                        sorting = "compound"
+                        selected-model="franquicia.report.selected"
+                        editable = "false" search="separate"
+                        resize="false"  select="multiply"
+                        add-filter="| filter:$owner.all"
+                        class="hover-column">
+                    <tbody>
+                        <tr>
+                            <td>{{::item.codigoFranquicia}}</td>
+                            <td>{{::item.nombreConvenio}}</td>
+                            <td>{{::item.nombreBanco}}</td>
+                            <td>{{::item.descuentoFranquicia !== null ? (item.descuentoFranquicia !== '' ? item.descuentoFranquicia
+                                                                + '%' : '') : ''}}</td>
+                            <td>{{::item.estadoFranquicia}}</td>
+                            <td class="text-center opciones-table">
+                                <a class="btn btn-primary btn-tools-table" ng-click="$owner.franquicia.verDatelleFranquicia(item)" href="" title="Ver Detalle">
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </a>
+                                <a class="btn btn-info btn-tools-table" ng-disabled="$owner.franquicia.fechaActual > $owner.franquicia.convertirFechas(item.fechaFin)"
+                                   ng-click="$owner.franquicia.editarFranquicia(item)" href="" title="Modificar">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-danger btn-tools-table" ng-click="$owner.franquicia.eliminarFranquicia(item)" title="Eliminar">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.franquicia.lista.length !== $owner.appConstantsView.CERO">
+                            <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                        </tr>
+                        <tr ng-show="$owner.franquicia.lista.length === $owner.appConstantsView.CERO">
+                            <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

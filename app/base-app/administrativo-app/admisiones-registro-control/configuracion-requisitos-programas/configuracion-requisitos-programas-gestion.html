@@ -1,0 +1,235 @@
+<div id="page-title" ng-controller="configuracionRequisitosProgramasCtrl as ConfigReqProgCtrl">
+    <h2>{{appConstantsView.TITLE_CONF_REQUISITOS_POR_PROGRAMAS}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{ConfigReqProgCtrl.configuracionRequisitosProgramasVisor.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/configuracion-requisitos-programas" ng-click="ConfigReqProgCtrl.onLimpiarRegistro(); ConfigReqProgCtrl.configuracionRequisitosProgramasVisor.onSearch = false"
+                   class="btn btn-sm btn-info icon-tool-add back-button" data-animation="flipOutX" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="nivelFormacion" class="control-label">{{appConstantsView.LABEL_NIVEL_FORMACION}}</label>
+                            <input type="text" class="form-control" ng-disabled="ConfigReqProgCtrl.configuracionRequisitosProgramasVisor.onDeshabilitar"
+                                   id="nivelFormacion" name="nivelFormacion" ng-model="ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.nivelFormacion">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="codigo" class="control-label">{{appConstantsView.LABEL_CODIGO}}</label>
+                            <input type="text" class="form-control" ng-disabled="ConfigReqProgCtrl.configuracionRequisitosProgramasVisor.onDeshabilitar"
+                                   id="codigo" name="codigo" ng-model="ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.codigo">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="nombre" class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                            <input type="text" ng-disabled="ConfigReqProgCtrl.configuracionRequisitosProgramasVisor.onDeshabilitar" class="form-control"
+                                   id="nombre" name="nombre" ng-model="ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.nombrePrograma">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="facultad" class="control-label">{{appConstantsView.LABEL_FACULTAD}}</label>
+                            <input type="text" class="form-control" ng-disabled="ConfigReqProgCtrl.configuracionRequisitosProgramasVisor.onDeshabilitar"
+                                   id="facultad" name="facultad" ng-model="ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.facultad">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="modalidad">{{appConstantsView.LABEL_MODALIDAD}}</label>
+                            <ui-select multiple ng-model="ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.modalidad" theme='bootstrap' 
+                                       sortable="true" close-on-select="false" ng-disabled="true">
+                                <ui-select-match>{{$item.nombreModalidad}}</ui-select-match>
+                                <ui-select-choices repeat="item as item in ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.modalidad  | filter:{nombreModalidad: $select.search}">
+                                    <div ng-bind-html="item.nombreModalidad"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="horario">{{appConstantsView.HORARIO}}</label>
+                            <ui-select multiple ng-model="ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.jornada" 
+                                       theme='bootstrap' sortable="true" close-on-select="false" ng-disabled="true"> 
+                                <ui-select-match>{{$item.nombreHorario}}</ui-select-match>
+                                <ui-select-choices repeat="item as item in ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.jornada  | filter: {nombreHorario: $select.search}">
+                                    <div ng-bind-html="item.nombreHorario"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="ConfigReqProgCtrl.configuracionRequisitosProgramasVisor.onConfigRequisitos">
+                <div class="col-lg-6 col-sm-6">
+                    <div class="content-box">
+                        <div class="button-pane button-pane-top">
+                            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_REQUISITOS_D}} </h3>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="content-box-wrapper">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="dataTables_length" id="datatable-example_length">
+                                            <label>
+                                                <select ng-model="ConfigReqProgCtrl.display" 
+                                                        ng-init="ConfigReqProgCtrl.display = ConfigReqProgCtrl.display || ConfigReqProgCtrl.options[appConstantsView.CERO].value"
+                                                        ng-options="option.value as option.name for option in ConfigReqProgCtrl.options">
+                                                </select>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table object-table class="hover-column" data="ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.requisitosDisponibles" display="ConfigReqProgCtrl.display"
+                                           headers="Tipo,Nombre,Opciones" fields="nombreTipoRequisito,nombreRequesito" sorting="compound" selected-model="ConfigReqProgCtrl.report.selected"
+                                           editable="false" search="separate" select="none" resize="false" add-filter="| filter:$owner.all">
+                                        <tbody>
+                                            <tr>
+                                                <td>{{::item.nombreTipoRequisito}}</td>
+                                                <td>{{::item.nombreRequesito}}</td>
+                                                <td class="opciones-table text-center">
+                                                    <a href="" ng-click="$owner.ConfigReqProgCtrl.onAgregarRequisito(item)">
+                                                        <button class="btn btn-primary btn-tools-table" title="Agregar Requisito"> 
+                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                        </button></a>
+
+                                                </td>
+                                            </tr>
+                                        <tfoot>
+                                            <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.requisitosDisponibles.length !== $owner.appConstantsView.CERO">
+                                                <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                            </tr>
+                                            <tr ng-show="$owner.ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.requisitosDisponibles.length === $owner.appConstantsView.CERO">
+                                                <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                            </tr>
+                                        </tfoot>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div class="content-box">
+                        <div class="button-pane button-pane-top">
+                            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_REQUISITOS_ASIGNADOS}}</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="content-box-wrapper">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="dataTables_length" id="datatable-example_length">
+                                            <label>
+                                                <select ng-model="ConfigReqProgCtrl.display" 
+                                                        ng-init="ConfigReqProgCtrl.display = ConfigReqProgCtrl.display || ConfigReqProgCtrl.options[appConstantsView.CERO].value"
+                                                        ng-options="option.value as option.name for option in ConfigReqProgCtrl.options">
+                                                </select>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table object-table class="hover-column" data="ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.requisitosAsignados" display="ConfigReqProgCtrl.display"
+                                           headers="Tipo,Nombre,Opciones" fields="nombreTipoRequisito,nombreRequesito" sorting="compound" selected-model="ConfigReqProgCtrl.report.selected"
+                                           editable="false" search="separate" resize="false" select="none" add-filter="| filter:$owner.all">
+                                        <tbody>
+                                            <tr>
+                                                <td>{{::item.nombreTipoRequisito}}</td>
+                                                <td>{{::item.nombreRequesito}}</td>
+                                                <td class="text-center opciones-table back-button">
+                                                    <a ng-click="$owner.ConfigReqProgCtrl.onQuitarRequisito(item)" href="">
+                                                        <button class="btn btn-danger btn-tools-table">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <tfoot>
+                                            <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.requisitosAsignados.length !== $owner.appConstantsView.CERO">
+                                                <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                            </tr>
+                                            <tr ng-show="$owner.ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.requisitosAsignados.length === $owner.appConstantsView.CERO">
+                                                <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                            </tr>
+                                        </tfoot>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="ConfigReqProgCtrl.configuracionRequisitosProgramasVisor.onVerRequisitos"> <!--ver detalle-->
+                <div class="col-lg-12 col-sm-12">
+                    <div class="content-box">
+                        <div class="button-pane button-pane-top">
+                            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_REQUISITOS_ASIGNADOS}}</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="content-box-wrapper">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="dataTables_length" id="datatable-example_length">
+                                            <label>
+                                                <select ng-model="ConfigReqProgCtrl.display" 
+                                                        ng-init="ConfigReqProgCtrl.display = ConfigReqProgCtrl.display || ConfigReqProgCtrl.options[appConstantsView.CERO].value"
+                                                        ng-options="option.value as option.name for option in ConfigReqProgCtrl.options">
+                                                </select>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table object-table class="hover-column" data="ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.requisitosAsignados" display="ConfigReqProgCtrl.display"
+                                           headers="Tipo,Nombre" fields="nombreTipoRequisito,nombreRequesito" sorting="compound" selected-model="ConfigReqProgCtrl.report.selected"
+                                           editable="false" search="separate" resize="false" select="multiply" add-filter="| filter:$owner.all">
+                                        <tbody>
+                                            <tr>
+                                                <td>{{::item.nombreTipoRequisito}}</td>
+                                                <td>{{::item.nombreRequesito}}</td>
+                                            </tr>
+                                        <tfoot>
+                                            <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.requisitosAsignados.length !== $owner.appConstantsView.CERO">
+                                                <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                            </tr>
+                                            <tr ng-show="$owner.ConfigReqProgCtrl.configuracionRequisitosProgramasEntity.requisitosAsignados.length === $owner.appConstantsView.CERO">
+                                                <td colspan="6">{{appConstantsView.TITLE_ERROR_REQUISITOS}}</td>
+                                            </tr>
+                                        </tfoot>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="button-pane" ng-hide="ConfigReqProgCtrl.configuracionRequisitosProgramasVisor.onVerRequisitos">
+                <button type="submit" class="btn btn-success" ng-click="ConfigReqProgCtrl.onSubmitRequisitos(ConfigReqProgCtrl.listaRequisitosAsignados)">{{appConstantsView.BOTON_GUARDAR}}</button>
+            </div>
+        </div>
+    </div>
+</div>

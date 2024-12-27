@@ -1,0 +1,368 @@
+<style>
+    .altoImp {
+        height: 92px !Important;
+    }
+
+    li > .col-sm-3 > .active 
+    {
+        color: #555555;
+        background-color: red;  
+    } 
+</style>
+<div id="page-title" ng-controller="habilitarCtrl as habilitarCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">GESTIONAR MATRICULAS ESTUDIANTE</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">GESTIONAR HABILITACION</h3>
+            </div>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/gestion-admitidos')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                    <form role="form" name="formConsultarEstudiante" novalidate>
+                        <div class="form-group">
+                            <label class="control-label">{{appConstantsView.LABEL_CODIGO}}<label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <input type="text" id="codigoIdentificacion" name="codigoIdentificacion" class="form-control" ng-model="habilitarCtrl.nuevoLiquidarMatricula.codigoEstudianteCampo"
+                                       validation="required" validation-error-to="myErrorId" ng-keyup="habilitarCtrl.onPresionarEnter($event)"
+                                       ng-change="habilitarCtrl.onLimpiar()" mask="9" min="3" repeat="15" restrict="reject">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary"
+                                            type="button"
+                                            ng-click="habilitarCtrl.onConsultarEstudiante()">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <span id="myErrorId" class="validation text-danger"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <form method="POST" name="formConsultarPrograma" novalidate>
+                        <div class="form-group" ng-if="habilitarCtrl.listaProgramas.length > appConstantsView.CERO">
+                            <label class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}<label class="text-danger">*</label></label>
+                            <select ng-options="item as item.programa for item in habilitarCtrl.listaProgramas" name="selectListaProgramas" id="selectListaProgramas"
+                                    class="form-control" ng-model="habilitarCtrl.nuevoLiquidarMatricula.idProgramaSelected" ng-change="habilitarCtrl.onCambiarPrograma()"
+                                    validation="required">
+                                <option ng-if="habilitarCtrl.listaProgramas.length > appConstantsView.UNO" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="content-box" ng-if="habilitarCtrl.liquidarMatriculaAux.onDeshabilitar">
+                <h3 class="content-box-header bg-default">
+                    {{appConstantsView.TITLE_INFO_ESTUDIANTE}}
+                </h3>
+                <div class="content-box-wrapper">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                <input type="text" id="nombreEstudiante" ng-disabled="true" class="form-control" name="nombre" ng-model="habilitarCtrl.nuevoLiquidarMatricula.nombresCompleto">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="seccional" class="control-label">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                <input type="text" id="identificacionEstudiante" ng-disabled="true" class="form-control" name="seccional" ng-model="habilitarCtrl.nuevoLiquidarMatricula.documentoCompleto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="program" class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                                <input type="text" id="responsable" ng-disabled="true" class="form-control" name="program" ng-model="habilitarCtrl.nuevoLiquidarMatricula.programaNombre">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="horario" class="control-label">{{appConstantsView.LABEL_HORARIO}}</label>
+                                <input type="text" id="horario" ng-disabled="true" class="form-control" name="semest" ng-model="habilitarCtrl.nuevoLiquidarMatricula.horario">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="grupos" class="control-label">{{appConstantsView.LABEL_PERIODO_ACTUAL}}</label>
+                                <select ng-options="periodo as periodo.nombre for periodo in habilitarCtrl.listadoPeriodos| orderBy:'nombre'" class="form-control"
+                                        ng-model="habilitarCtrl.idPeriodo" 
+                                        ng-change="habilitarCtrl.onBuscarGruposByModulo(); habilitarCtrl.onConsultarNotas()"
+                                        id="periodoe" name="periodoe" >
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table object-table class="hover-column" 
+                                   display="10" 
+                                   data="habilitarCtrl.listaNotas" 
+                                   headers="Asignatura,Estado,Nota 1,Nota 2,Nota 3,Nota Habilitacion,Nota Definitiva,Homologar"
+                                   fields="nombreModulo,estadoMatricula,nota1,nota2,nota3,notaHabilitacion,notaDefinitiva," 
+                                   sorting="compound" selected-model="habilitarCtrl.report.selected" editable="false" search="false"
+                                   resize="false" select="false">
+                                <tbody>
+                                    <tr style="height: 60px;">                                       
+                                        <td>{{::item.nombreModulo}}</td>
+                                        <td>{{::item.estadoMatricula}}</td>
+                                        <td>{{::item.nota1}}</td>
+                                        <td>{{::item.nota2}}</td>
+                                        <td>{{::item.nota3}}</td>
+                                        <td>{{::item.notaHabilitacion}}</td>
+                                        <td>{{::item.notaDefinitiva}} </td>
+                                        <td ng-hide="true">{{$owner.habilitarCtrl.filtrados = $filtered}}</td>
+                                        <td class="text-center opciones-table">
+                                            <a class="btn btn-primary btn-tools-table"
+                                               ng-hide="{{item.estadoMatricula === 'APLAZADO'}}"
+                                               title="Aplazar" 
+                                               ng-click="$owner.habilitarCtrl.onHabilitacion(item)">
+                                                Habilitacion
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.habilitarCtrl.listaNotas.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.habilitarCtrl.listaNotas.length === $owner.appConstantsView.CERO">
+                                        <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>                        
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDatos" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Detalle Nota</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="content-box">
+                        <div class="button-pane button-pane-top">
+                            <div class="float-left">
+                                <h3 class="text-uppercase content-box-header-title btn-sm">Nota Habilitacion</h3>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="nombre" class="control-label">Módulo</label>
+                                        <input type="text" id="nombreEstudiante" 
+                                               ng-disabled="true" 
+                                               class="form-control" 
+                                               name="nombre" 
+                                               ng-model="habilitarCtrl.verDetalleAplazar.nombreModulo">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="descripcion" class="control-label">Nota Habiliacion</label>                  
+                                        <input type="number" 
+                                               style="text-align: right"  
+                                               ng-model="habilitarCtrl.verDetalleAplazar.notaHabilitacion"
+                                               min="0" max="5"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-pane">
+                                <input class="btn btn-success" 
+                                       type="submit" 
+                                       value="Guardar Nota"
+                                       ng-click="habilitarCtrl.onGuardar()">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--<script src="../../../../styles/assets/widgets/popover/popover.js" type="text/javascript"></script>
+<script src="../../../../js/main-app.js" type="text/javascript"></script>
+<style>
+    .panel {padding: 10px;border-width: 1px 0 0 0;border-style: solid;border-top-left-radius: 0;border-top-right-radius: 0;}
+    .btn-consultar-inscritos {color: #fff;background-color: #337ab7;border-color: #2e6da4;}
+    .btn-consultar-inscritos:hover {color: #fff;background-color: #5B90BD;border-color: #2e6da4; }
+    @media screen and (max-width: 1135px) {.table-scroll-x {overflow-x: scroll;}}
+</style>
+<div id="page-title" ng-controller="habilitarCtrl as habilitarCtrl">
+    <h2>Habilitación </h2>
+    <p></p>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Homologar</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/gestion-admitidos')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.LABEL_CODIGO_ESTUDIANTIL}}Consulta de Estudiante</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <form method="POST" name="buscarEstudiante" novalidate>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{appConstantsView.LABEL_CODIGO_ESTUDIANTIL}}</label>
+                                        <div class="input-group">
+                                            <input id="inputCodigo" type="text" validation="required" mask="9" restrict="reject" repeat="15" ng-model="cambioHoraCtrl.identificacionConsultar"
+                                                   class="form-control" name="inputCodigo" validation-error-to="errorConsultaSolicitud">
+                                            <span class="input-group-btn" style="position: static">
+                                                <button type="submit"
+                                                        title="Consultar"
+                                                        id="btnCodigoConsultar"
+                                                        ng-click="cambioHoraCtrl.onConsultarEstudiante(cambioHoraCtrl.identificacionConsultar)"
+                                                        class="btn btn-primary btn-group-plus" >
+                                                    <i class="glyphicon glyphicon-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <span id="errorConsultaSolicitud" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="content-box" id="divDatosEstudiante">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">Datos de Estudiante</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <form method="POST" name="formCambioHorario" novalidate>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipodocumento" class="control-label">{{appConstantsView.LABEL_TIPO_DOCUMENTO}}</label>
+                                        <input type="text" id="tipodocumento" class="form-control" maxlength="100" minlength="1" name="tipodocumento" 
+                                               ng-model="cambioHoraCtrl.estudiante.tipoDocumento" ng-disabled="true" validation="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="numdocumento" class="control-label">{{appConstantsView.LABEL_NUMERO_DOCUMENTO}}</label>
+                                        <input type="text" id="numdocumento" class="form-control" maxlength="20" minlength="1" name="numdocumento" 
+                                               ng-model="cambioHoraCtrl.estudiante.identificacion" ng-disabled="true" validation="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombres" class="control-label">{{appConstantsView.LABEL_NOMBRES}}</label>
+                                        <input type="text" id="nombres" class="form-control text-uppercase" maxlength="100" minlength="1" name="nombres" 
+                                               ng-model="cambioHoraCtrl.estudiante.nombres" validation="required" ng-disabled="true">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="apellidos" class="control-label">{{appConstantsView.LABEL_APELLIDOS}}</label>
+                                        <input type="text" id="apellidos" class="form-control text-uppercase" maxlength="100" minlength="1" name="apellidos" 
+                                               ng-model="cambioHoraCtrl.estudiante.apellidos" validation="required" ng-disabled="true">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">   
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="programa" class="control-label">Modúlo</label><label class="text-danger">*</label>
+                                        <ui-select name="programa" ng-model="cambioHoraCtrl.matricula" class="form-control"
+                                                   ng-change="cambioHoraCtrl.onChangeModulo(cambioHoraCtrl.matricula)">
+
+                                            <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombre}}</ui-select-match>
+                                            <ui-select-choices repeat="programa in cambioHoraCtrl.estudianteList | filter: {nombre: $select.search}">
+                                                <div ng-bind-html="programa.nombre"></div>
+                                            </ui-select-choices>
+
+                                        </ui-select>
+                                        <div ng-show='cambioHoraCtrl.visible.validoprograma'>
+                                            <div class="text-danger" style="margin-top: -10px;">{{cambioHoraCtrl.visibleMensaje}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="apellidos" class="control-label">Programa</label>
+                                    <input type="text" id="apellidos" class="form-control text-uppercase" maxlength="100" minlength="1" name="apellidos" 
+                                           ng-model="cambioHoraCtrl.matricula.datos.nombrePrograma" validation="required" ng-disabled="true">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <label for="apellidos" class="control-label">Nota Habilitación</label>
+                                <input type="number" style="text-align: right"  
+                                       ng-model="cambioHoraCtrl.matricula.datos.notaHabilitacion"
+                                       ng-change=""
+                                       min="0" max="5"
+                                       class="form-control">
+                            </div>
+                        </form>
+                        <div class="clearfix"></div>
+                        <div class="button-pane">
+                            <input type="submit" class="btn" style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1;" ng-click="cambioHoraCtrl.onIrRegistrar()"
+                                   value="Guardar" ng-if="!cambioHoraCtrl.visible.hayPeriodo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+        $('#inputCodigo').keyup(function () {
+        if ($(this).val().length !== 0)
+                $('.btnCodigoConsultar').prop('disabled', false);
+        else
+                $('.btnCodigoConsultar').prop('disabled', true);
+        });
+        });</script>
+
+-->

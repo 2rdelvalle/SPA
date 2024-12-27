@@ -1,0 +1,41 @@
+<style>
+    .ngdialog.ngdialog-theme-default .ngdialog-content {
+        width: 40% !important;
+        max-height: 100% !important;
+    }
+</style>
+<div class="row" ng-controller="FranquiciaCtrl as franquicia">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="content-box">
+            <h3 class="content-box-header bg-default">
+               {{appConstantsView.GESTION_FRANQUICIAS}}
+            </h3>
+            <div class="clearfix"></div>
+            <div class="content-box-wrapper" >
+                <div class="panel-body">
+                    <form method="POST" name="formRegistroFranquiciante" novalidate>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="franquiciante" class="control-label">*Franquiciante</label>
+                                <input class="form-control" required  validation="alpha_spaces|required"
+                                       type="text" 
+                                       name="franquiciante"
+                                       onblur="this.value = this.value.toUpperCase();"
+                                       onkeyup="javascript:this.value = this.value.toUpperCase();"
+                                       placeholder='Digite el nombre del Franquiciante '
+                                       ng-model="franquicia.franquiciaEntity.franquiciante"
+                                       mask='%'
+                                       repeat="100"
+                                       restric='reject'
+                                       validation="alpha_spaces|required">
+                            </div>
+                        </div>
+                        <center>
+                            <input type="submit" ng-click="franquicia.onGuardarFranquiciante()" class="collapse-link btn btn-sm btn-success" value="Guardar">
+                        </center>
+                    </form>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div id="page-title" ng-controller="NotaEstudianteCtrl as notaECtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">notas estudiante</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">notas por periodo academico</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/menu-estudiante')"
+                    class="btn btn-sm btn-info icon-tool-add back-button" data-animation="flipOutX"
+                    style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span
+                            class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="panel-body">
+            <div class="clearfix"></div>
+
+            <div class="content-box-wrapper" ng-show="notaECtrl.tieneDeuda">
+
+                <div class="row">
+                    <div class="content-box pad20A">
+                        <div class="ribbon ribbon-tr">
+                            <div class="bg-primary">{{appConstantsView.LABEL_INFO}}</div>
+                        </div>
+
+                        <br/>
+                        <p>Apreciado Usuario</p>
+                        <p>Presenta deudas con la entidad, por favor dirigirse al area de cartera a legalizar su situación con la insitutición</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box-wrapper" ng-hide="notaECtrl.tieneDeuda">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="periodoAcademico"
+                                class="control-label">{{appConstantsView.LABEL_PERIODOS_ACADEMICOS}}<label
+                                    class="text-danger">*</label></label>
+                            <select
+                                ng-options="item.id as item.nombrePeriodoAcademico for item in notaECtrl.listaPeriodos"
+                                class="form-control" ng-model="notaECtrl.notaEntity.PeriodoAcademico"
+                                ng-change="notaECtrl.onConsultarProgramas(notaECtrl.notaEntity.PeriodoAcademico)"
+                                name="periodoAcademico" id="periodoAcademico" validation="required">
+                                <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="programaAcademico"
+                                class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}<label
+                                    class="text-danger">*</label></label>
+                            <select ng-options="item.id as item.nombrePrograma for item in notaECtrl.listaProgramas"
+                                class="form-control" ng-model="notaECtrl.notaEntity.programaAcademico"
+                                ng-change="notaECtrl.onConsultarNotas(notaECtrl.notaEntity.programaAcademico)"
+                                name="programaAcademico" id="programaAcademico" validation="required">
+                                <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <table object-table class="hover-column" display="notaECtrl.display" data="notaECtrl.listaNotas"
+                        headers="Asignatura,Nota 1,Nota 2,Nota 3,Nota Habilitacion ,Nota Definitiva"
+                        fields="nombreModulo,nota1,nota2,nota3,notaHabilitacion,notaDefinitiva" sorting="compound"
+                        selected-model="notaECtrl.report.selected" editable="false" search="false" resize="false"
+                        select="false">
+                        <tbody>
+                            <tr style="height: 60px;">
+
+                                <td>{{::item.nombreModulo}}</td>
+                                <td>{{::item.nota1}}</td>
+                                <td>{{::item.nota2}}</td>
+                                <td>{{::item.nota3}}</td>
+                                <td>{{::item.notaHabilitacion}}</td>
+                                <td>{{::item.notaDefinitiva}} </td>
+                                <td ng-hide="true">{{$owner.notaECtrl.filtrados = $filtered}}</td>
+                            </tr>
+                        <tfoot>
+                            <tr
+                                ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.notaECtrl.solicitudesEstudiante.length !== $owner.appConstantsView.CERO">
+                                <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                            </tr>
+                            <tr ng-if="$owner.notaECtrl.solicitudesEstudiante.length === $owner.appConstantsView.CERO">
+                                <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                            </tr>
+                        </tfoot>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

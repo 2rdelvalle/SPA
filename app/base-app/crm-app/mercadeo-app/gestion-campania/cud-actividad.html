@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<script src="../../../../styles/assets/widgets/uniform/uniform-demo.js" type="text/javascript"></script>
+<style>
+    .selected-check {
+        border-color: #dfe8f1;
+        position: relative;
+        display: -moz-inline-box;
+        display: inline-block;
+        zoom: 1;
+        margin-top: -1px;
+        text-align: center;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 50px;
+        color: #fff;
+        background: #00bca4;
+        width: 20px;
+        height: 20px;
+    }
+
+    .selected-uncheck {
+        border-color: #dfe8f1;
+        position: relative;
+        display: -moz-inline-box;
+        display: inline-block;
+        zoom: 1;
+        margin-top: -1px;
+        text-align: center;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 50px;
+        color: #fff;
+        width: 20px;
+        height: 20px;
+    }
+
+    .selected-check > i {
+        font-size: 7px;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+    }
+
+    .input-radio {
+        opacity: 0 !important;
+    }
+</style>
+<div id="page-title" ng-controller="campaniaCtrl as campCtrl">
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">
+                    <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#seguimientoCandidatos">
+                        <i class="glyphicon glyphicon-collapse-down"></i>
+                    </button>
+                    SEGUIMIENTO DE CANDIDATOS </h3>
+            </div>
+            <div class="float-right">
+                <a href="/#/crm-mercadeo-gestion-campania" ng-click="campCtrl.onLimpiarActividad()" class="btn btn-sm btn-info icon-tool-add back-button"
+                   style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="panel-default collapse" id="seguimientoCandidatos">
+            <div class="panel-body" >
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table object-table 
+                               class="hover-column" 
+                               data="campCtrl.candidatos.listaDetalleCandidatos" 
+                               display="10" 
+                               headers="Nº,# Llamada,Nombre,Programa,Celular,Telefono,Dirección,E-mail,Estado,Opciones"
+                               fields="index,cantidadLLamadas,nombreEstudiante,programasInteres,celularEstudiante,telefono,direccion,email,estado" 
+                               sorting="compound" 
+                               selected-model="candCtrl.report.selected"
+                               editable="false" 
+                               search="separate"
+                               resize="false" 
+                               select="none">
+                            <tbody>
+                                <tr>
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{::item.cantidadLLamadas}}</td>
+                                    <td>{{::item.nombreEstudiante}}</td>
+                                    <td>{{::item.programasInteres}}</td>
+                                    <td>{{::(item.celularEstudiante === null||item.celularEstudiante ===""||item.celularEstudiante===undefined)?"No Tiene":item.celularEstudiante}}</td>
+                                    <td>{{::(item.telefono === null||item.telefono ===""||item.telefono===undefined)?"No Tiene":item.telefono}}</td>
+                                    <td>{{::(item.direccion === null||item.direccion ===""||item.direccion===undefined)?"No Tiene":item.direccion}}</td>
+                                    <td>{{::(item.email === null||item.email ===""||item.email===undefined)?"No Tiene":item.email}}</td>
+                                    <td>{{::item.estado}}</td>
+                                    <td class="text-center opciones-table">
+                                        <a class="btn btn-success btn-tools-table" 
+                                           title="Seguimiento de llamadas" 
+                                           ng-click="$owner.campCtrl.onAbrirPopupSeguimientoLlamadas(item)">
+                                            <i class="glyphicon glyphicon-phone-alt"></i>
+                                        </a>
+                                        <a class="btn btn-success btn-tools-table" 
+                                           ng-show="item.estado !== 'Otra Institucion' && item.estado !== 'No le interesa' && tem.estado !== 'Matriculado'"
+                                           title="Enviar email a contacto" ng-click="$owner.campCtrl.onAbrirPopupSeguimientoEmail(item)">
+                                            <i class="glyphicon glyphicon-envelope"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <tfoot>
+                                <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.candCtrl.campanias.length !== $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                </tr>
+                                <tr ng-if="$owner.candCtrl.campanias.length === $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modalSeguimientoLlamadas" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <form method="POST" novalidate name="formAgregarSeguimientoLlamada">
+                    <div class="modal-content" style="height: 300px">
+                        <div class="content-box">
+                            <div class="modal-header">
+                                <button ng-click="campCtrl.onCerrarPopupSeguimientoLlamadas()" type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                                <h4 class="modal-title">{{campCtrl.tituloModal}} Seguimiento </h4>
+                                <h4 class="modal-title text-uppercase">{{campCtrl.nuevoSeguimiento.nombreEstudiante}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <textarea name="descripcionListaSeguimientoLlamada" class="form-control" ng-trim="false" rows="4" cols="75" max-length="750"
+                                          style="overflow-y: scroll; height: 150px;resize: none;" ng-model="campCtrl.nuevaActividad.seguimientoLlamada" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle"
+                                          validation="required" validation-error-to="seguimientoError"></textarea>
+                                <span class="pull-left validation text-danger" id="seguimientoError"></span>
+                                <span class="pull-right"> {{750 - campCtrl.nuevaActividad.seguimientoLlamada.length}} de 750</span>
+                                <br/>
+
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Estado Candidato</label><label class="text-danger">*</label>
+                                        <select  ng-options="estado.nombre as estado.nombre for estado in campCtrl.listEstadosCandidato| orderBy:'nombre'" 
+                                                 name="selectEstado" id="selectEstado" 
+                                                 debounce="5000"
+                                                 validation="required" class="form-control"
+                                                 ng-model="campCtrl.nuevaActividad.estadoCandidato"> 
+                                            <option ng-if="campCtrl.lsttipocampanias.length >= appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-sm-12" ng-if="campCtrl.nuevaActividad.estadoCandidato === 'Pendiente'">
+                                    <div class="form-group">
+                                        <label class="control-label">Motivo Pendiente</label><label class="text-danger">*</label>
+                                        <select  ng-options="estado.nombre as estado.nombre for estado in campCtrl.listPendiente| orderBy:'nombre'" 
+                                                 name="selectPendiente" id="selectPendiente"
+                                                 debounce="5000"
+                                                 class="form-control"
+                                                 validation="required"
+                                                 ng-model="campCtrl.nuevaActividad.motivoPendiente"> 
+                                            <option ng-if="campCtrl.lsttipocampanias.length >= appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-sm-12" ng-if="campCtrl.nuevaActividad.estadoCandidato === 'Otra Institucion'">
+
+                                    <div class="form-group">                                
+                                        <label class="control-label">Colegio</label><label class="text-danger">*</label>
+                                        <ui-select name="institucion" 
+                                                   ng-model="campCtrl.nuevaActividad.otraInstitucion" 
+                                                   class="form-control" >
+                                            <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreInstitucionAcademica}}</ui-select-match>
+                                            <ui-select-choices repeat="institucionx.nombreInstitucionAcademica as institucionx in campCtrl.listInstituciones | filter: {nombreInstitucionAcademica: $select.search} | limitTo: ($select.search.length <= 1) ? 50 : 20">
+                                                <div ng-bind-html="institucionx.nombreInstitucionAcademica"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span id="errorIdInstitucion" class="validation text-danger"></span>
+                                        <input name="fakeInputIdInstitucion"
+                                               type="text" 
+                                               ng-model="campCtrl.nuevaActividad.otraInstitucion" 
+                                               class="hidden"
+                                               validation-error-to="errorIdInstitucion"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-sm-12" ng-if="campCtrl.nuevaActividad.estadoCandidato === 'No le interesa'">
+                                    <div class="form-group">
+                                        <label class="control-label">Motivo</label><label class="text-danger">*</label>
+                                        <select  ng-options="estado.nombre as estado.nombre for estado in campCtrl.listEstadosNoLeInteresa| orderBy:'nombre'" 
+                                                 name="selectInsti" id="selectEstadoL"
+                                                 debounce="5000"
+                                                 class="form-control"
+                                                 validation="required"
+                                                 ng-model="campCtrl.nuevaActividad.noLeInteresa"> 
+                                            <option ng-if="campCtrl.listEstadosNoLeInteresa.length >= appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div id="fechaCampana" class="input-daterange input-group" 
+                                     ng-show="campCtrl.nuevaActividad.estadoCandidato !== 'Otra Institucion'
+                                                                             && campCtrl.nuevaActividad.estadoCandidato !== 'No le interesa'
+                                                                             && campCtrl.nuevaActividad.estadoCandidato !== 'Matriculado'">
+                                    <div class="col-lg-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Proxima LLamada</label>
+                                            <div id="fecha-inicio1" class="input-group date">
+                                                <input id="fechainicio" name="fechainicio1" 
+                                                       mask="39/19/9999" restrict="reject"  readonly="true" 
+                                                       placeholder="dd/mm/aaaa"
+                                                       type="text" 
+                                                       ng-model="campCtrl.nuevaActividad.proximaLlamada"
+                                                       class="form-control date text-left"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="float-right">
+                                    <input class="btn btn-success" 
+                                           type="submit"
+                                           ng-click="campCtrl.onGuardarSeguimientoLlamada()" 
+                                           value="Agregar Seguimiento">
+                                </div>
+                                <br/>
+                            </div>
+                            <div class="modal-footer btnCenter" style="margin-top: 5px" ng-if="!campCtrl.campodisable">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="content-box">
+                                        <div class="button-pane button-pane-top">
+                                            <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                                <button class="btn btn-xs btn-info icon-tool-add" data-toggle="collapse" data-target="#lista2">
+                                                    <i class="glyphicon glyphicon-collapse-down"></i>
+                                                </button> {{appConstantsView.BUTTON_SEGUIMIENTO_LLAMADAS}} </h3>
+                                        </div>
+                                        <div class="content-box-wrapper collapse" id="lista2">
+                                            <div class="panel-body">
+                                                <table object-table 
+                                                       data="campCtrl.nuevaActividad.listaSeguimientosLlamadasContacto" 
+                                                       display="4" 
+                                                       headers="Comentario,Autor,Fecha,Estado,Opciones"
+                                                       fields="descripcion,nombreUsuario,fechaString,estado" 
+                                                       sorting="compound" 
+                                                       selected-model="campCtrl.report.selectedSeguimiento"
+                                                       editable="false" 
+                                                       search="separate" 
+                                                       resize="false" 
+                                                       select="false">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;">{{::item.descripcion}}</td>
+                                                            <td>{{::item.nombreUsuario}}</td>
+                                                            <td>{{::item.fechaString}}</td>
+                                                            <td>{{::item.estado}}</td>
+                                                            <td class="text-center opciones-table">
+                                                                <a class="btn btn-primary btn-tools-table" title="Ver detalle" ng-click="$owner.campCtrl.onVerDetalleSeguimientoLlamadas(item)">
+                                                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.campCtrl.nuevaActividad.listaSeguimientosLlamadasContacto.length !== $owner.appConstantsView.CERO">
+                                                            <td colspan="5">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                                        </tr>
+                                                        <tr ng-if="$owner.campCtrl.nuevaActividad.listaSeguimientosLlamadasContacto.length === $owner.appConstantsView.CERO">
+                                                            <td colspan="5">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="modalEmailIndividual" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <form method="POST" novalidate name="formNotificarContactoIndividual">
+                    <div class="modal-content" style="height: 200px">
+                        <div class="modal-header">
+                            <button ng-click="campCtrl.onCloseModalEmailIndividual()" type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                            <h4 class="modal-title">{{campCtrl.tituloModal}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p style="font-style: italic; opacity: 1;display: block">¿Desea enviar notificación al contacto seleccionado ?</p>
+                        </div>
+                        <div class="modal-footer btnCenter" style="margin-top: 5px" ng-if="!campCtrl.campodisable">
+                            <input class="btn btn-primary" type="submit" value="Aceptar" ng-click="campCtrl.onNotificarIndividual()" />
+                            <input class="btn btn-danger" type="submit" value="Cancelar" ng-click="campCtrl.onCloseModalEmailIndividual()" id="btnCancelModalIndividual"
+                                   />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="modalNotificacionMasivo" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <form method="POST" novalidate name="formNotificarContactoMasivo">
+                    <div class="modal-content" style="height: 200px">
+                        <div class="modal-header">
+                            <button ng-click="campCtrl.onCloseModalEmailMasivo()" type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                            <h4 class="modal-title">{{campCtrl.tituloModal}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p style="font-style: italic; opacity: 1;display: block">¿Desea enviar notificación a todos los contactos ?</p>
+                        </div>
+                        <div class="modal-footer btnCenter" style="margin-top: 5px" ng-if="!campCtrl.campodisable">
+                            <input class="btn btn-primary" type="submit" value="Aceptar" ng-click="campCtrl.onNotificarMasivo()" />
+                            <input class="btn btn-danger" type="submit" value="Cancelar" ng-click="campCtrl.onCloseModalEmailMasivo()" id="btnCancelModalIndividual"
+                                   />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="content-box" >
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">
+                    <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#seguimientoAgenda">
+                        <i class="glyphicon glyphicon-collapse-down"></i>
+                    </button>
+                    AGREGAR SEGUIMIENTO AGENDA PROGRAMADA 
+                    <span class="{{campCtrl.candidatos.listaDetalleCandidatosAgenda.length > 0 ? 'bs-label label-warning' : 'bs-label label-success'}}">{{campCtrl.candidatos.listaDetalleCandidatosAgenda.length}}
+                    </span>
+                </h3>
+            </div>
+            <div class="float-right">
+                <a href="/#/crm-mercadeo-gestion-campania" ng-click="campCtrl.onLimpiarActividad()" class="btn btn-sm btn-info icon-tool-add back-button"
+                   style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="panel-default collapse" id="seguimientoAgenda">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table object-table 
+                               class="hover-column" 
+                               data="campCtrl.candidatos.listaDetalleCandidatosAgenda" 
+                               display="10" 
+                               headers="# Llamada,Nombre,Programa,Celular,Telefono,Dirección,E-mail,Estado,Opciones"
+                               fields="cantidadLLamadas,nombreEstudiante,programasInteres,celularEstudiante,telefono,direccion,email,estado" 
+                               sorting="compound" 
+                               selected-model="candCtrl.report.selected"
+                               editable="false" 
+                               search="separate"
+                               resize="false" 
+                               select="none">
+                            <tbody>
+                                <tr>
+                                    <td>{{::item.cantidadLLamadas}}</td>
+                                    <td>{{::item.nombreEstudiante}}</td>
+                                    <td>{{::item.programasInteres}}</td>
+                                    <td>{{::(item.celularEstudiante === null||item.celularEstudiante ===""||item.celularEstudiante===undefined)?"No Tiene":item.celularEstudiante}}</td>
+                                    <td>{{::(item.telefono === null||item.telefono ===""||item.telefono===undefined)?"No Tiene":item.telefono}}</td>
+                                    <td>{{::(item.direccion === null||item.direccion ===""||item.direccion===undefined)?"No Tiene":item.direccion}}</td>
+                                    <td>{{::(item.email === null||item.email ===""||item.email===undefined)?"No Tiene":item.email}}</td>
+                                    <td>{{::item.estado}}</td>
+                                    <td class="text-center opciones-table">
+                                        <a class="btn btn-success btn-tools-table" 
+                                           title="Seguimiento de llamadas" 
+                                           ng-click="$owner.campCtrl.onAbrirPopupSeguimientoLlamadas(item)">
+                                            <i class="glyphicon glyphicon-phone-alt"></i>
+                                        </a>
+                                        <a class="btn btn-success btn-tools-table" 
+                                           ng-show="item.estado !== 'Otra Institucion' && item.estado !== 'No le interesa' && tem.estado !== 'Matriculado'"
+                                           title="Enviar email a contacto" ng-click="$owner.campCtrl.onAbrirPopupSeguimientoEmail(item)">
+                                            <i class="glyphicon glyphicon-envelope"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <tfoot>
+                                <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.candCtrl.campanias.length !== $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                </tr>
+                                <tr ng-if="$owner.candCtrl.campanias.length === $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="content-box" >
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">
+                    <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#seguimientoPendiente">
+                        <i class="glyphicon glyphicon-collapse-down"></i>
+                    </button>
+                    SEGUIMIENTO DE CANDIDATOS ESTADO PENDIENTE
+                    <!--<span class="{{campCtrl.candidatos.listaDetalleCandidatosPendiente.length > 0 ? 'bs-label label-warning' : 'bs-label label-success'}}">{{campCtrl.candidatos.listaDetalleCandidatosAgenda.length}}-->
+                    <!--</span>-->
+                </h3>
+            </div>
+            <div class="float-right">
+                <a href="/#/crm-mercadeo-gestion-campania" ng-click="campCtrl.onLimpiarActividad()" class="btn btn-sm btn-info icon-tool-add back-button"
+                   style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="panel-default collapse" id="seguimientoPendiente">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table object-table 
+                               class="hover-column" 
+                               data="campCtrl.candidatos.listaDetalleCandidatosPendiente" 
+                               display="10" 
+                               headers="# Llamada,Nombre,Programa,Celular,Telefono,Dirección,E-mail,Estado,Opciones"
+                               fields="cantidadLLamadas,nombreEstudiante,programasInteres,celularEstudiante,telefono,direccion,email,estado" 
+                               sorting="compound" 
+                               selected-model="candCtrl.report.selected"
+                               editable="false" 
+                               search="separate"
+                               resize="false" 
+                               select="none">
+                            <tbody>
+                                <tr>
+                                    <td>{{::item.cantidadLLamadas}}</td>
+                                    <td>{{::item.nombreEstudiante}}</td>
+                                    <td>{{::item.programasInteres}}</td>
+                                    <td>{{::(item.celularEstudiante === null||item.celularEstudiante ===""||item.celularEstudiante===undefined)?"No Tiene":item.celularEstudiante}}</td>
+                                    <td>{{::(item.telefono === null||item.telefono ===""||item.telefono===undefined)?"No Tiene":item.telefono}}</td>
+                                    <td>{{::(item.direccion === null||item.direccion ===""||item.direccion===undefined)?"No Tiene":item.direccion}}</td>
+                                    <td>{{::(item.email === null||item.email ===""||item.email===undefined)?"No Tiene":item.email}}</td>
+                                    <td>{{::item.estado}}</td>
+                                    <td class="text-center opciones-table">
+                                        <a class="btn btn-success btn-tools-table" 
+                                           title="Seguimiento de llamadas" 
+                                           ng-click="$owner.campCtrl.onAbrirPopupSeguimientoLlamadas(item)">
+                                            <i class="glyphicon glyphicon-phone-alt"></i>
+                                        </a>
+                                        <a class="btn btn-success btn-tools-table" 
+                                           ng-show="item.estado !== 'Otra Institucion' && item.estado !== 'No le interesa' && tem.estado !== 'Matriculado'"
+                                           title="Enviar email a contacto" ng-click="$owner.campCtrl.onAbrirPopupSeguimientoEmail(item)">
+                                            <i class="glyphicon glyphicon-envelope"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <tfoot>
+                                <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.candCtrl.campanias.length !== $owner.appConstantsView.CERO">
+                                    <td colspan="5">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                </tr>
+                                <tr ng-if="$owner.candCtrl.campanias.length === $owner.appConstantsView.CERO">
+                                    <td colspan="5">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="content-box" >
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">
+                    <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#seguimientoPendienteDia">
+                        <i class="glyphicon glyphicon-collapse-down"></i>
+                    </button>
+                    SEGUIMIENTO DE LLAMADAS DEL DÍA
+                    <!--<span class="{{campCtrl.candidatos.listaDetalleCandidatosPendienteConLlamada.length > 0 ? 'bs-label label-warning' : 'bs-label label-success'}}">{{campCtrl.candidatos.listaDetalleCandidatosAgenda.length}}-->
+                    <!--</span>-->
+                </h3>
+            </div>
+            <div class="float-right">
+                <a href="/#/crm-mercadeo-gestion-campania" ng-click="campCtrl.onLimpiarActividad()" class="btn btn-sm btn-info icon-tool-add back-button"
+                   style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="panel-default collapse" id="seguimientoPendienteDia">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table object-table 
+                               class="hover-column" 
+                               data="campCtrl.candidatos.listaDetalleCandidatosPendienteConLlamada" 
+                               display="10" 
+                               headers="# Llamada,Nombre,Programa,Celular,Telefono,Dirección,E-mail,Estado,Opciones"
+                               fields="cantidadLLamadas,nombreEstudiante,programasInteres,celularEstudiante,telefono,direccion,email,estado" 
+                               sorting="compound" 
+                               selected-model="candCtrl.report.selected"
+                               editable="false" 
+                               search="separate"
+                               resize="false" 
+                               select="none">
+                            <tbody>
+                                <tr>
+                                    <td>{{::item.nombreEstudiante}}</td>
+                                    <td>{{::item.programasInteres}}</td>
+                                    <td>{{::(item.celularEstudiante === null||item.celularEstudiante ===""||item.celularEstudiante===undefined)?"No Tiene":item.celularEstudiante}}</td>
+                                    <td>{{::(item.telefono === null||item.telefono ===""||item.telefono===undefined)?"No Tiene":item.telefono}}</td>
+                                    <td>{{::(item.direccion === null||item.direccion ===""||item.direccion===undefined)?"No Tiene":item.direccion}}</td>
+                                    <td>{{::(item.email === null||item.email ===""||item.email===undefined)?"No Tiene":item.email}}</td>
+                                    <td>{{::item.estado}}</td>
+                                    <td class="text-center opciones-table">
+                                        <a class="btn btn-success btn-tools-table" 
+                                           title="Seguimiento de llamadas" 
+                                           ng-click="$owner.campCtrl.onAbrirPopupSeguimientoLlamadas(item)">
+                                            <i class="glyphicon glyphicon-phone-alt"></i>
+                                        </a>
+                                        <a class="btn btn-success btn-tools-table" 
+                                           ng-show="item.estado !== 'Otra Institucion' && item.estado !== 'No le interesa' && tem.estado !== 'Matriculado'"
+                                           title="Enviar email a contacto" ng-click="$owner.campCtrl.onAbrirPopupSeguimientoEmail(item)">
+                                            <i class="glyphicon glyphicon-envelope"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <tfoot>
+                                <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.candCtrl.campanias.length !== $owner.appConstantsView.CERO">
+                                    <td colspan="5">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                </tr>
+                                <tr ng-if="$owner.candCtrl.campanias.length === $owner.appConstantsView.CERO">
+                                    <td colspan="5">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">Seguimiento de llamadas</h3>
+            </div>
+            <div class="float-right">
+                <a href="/#/crm-mercadeo-gestion-campania" ng-click="campCtrl.onLimpiarActividad()" class="btn btn-sm btn-info icon-tool-add back-button"
+                   style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table object-table 
+                               class="hover-column" 
+                               data="campCtrl.candidatos.listaDetalleCandidatosOtro" 
+                               display="10" 
+                               headers="# Llamada,Nombre,Programa,Celular,Telefono,Dirección,E-mail,Estado,Opciones"
+                               fields="cantidadLLamadas,nombreEstudiante,programasInteres,celularEstudiante,telefono,direccion,email,estado" 
+                               sorting="compound" 
+                               selected-model="candCtrl.report.selected"
+                               editable="false" 
+                               search="separate"
+                               resize="false" 
+                               select="none">
+                            <tbody>
+                                <tr>
+                                    <td>{{::item.cantidadLLamadas}}</td>
+                                    <td>{{::item.nombreEstudiante}}</td>
+                                    <td>{{::item.programasInteres}}</td>
+                                    <td>{{::(item.celularEstudiante === null||item.celularEstudiante ===""||item.celularEstudiante===undefined)?"No Tiene":item.celularEstudiante}}</td>
+                                    <td>{{::(item.telefono === null||item.telefono ===""||item.telefono===undefined)?"No Tiene":item.telefono}}</td>
+                                    <td>{{::(item.direccion === null||item.direccion ===""||item.direccion===undefined)?"No Tiene":item.direccion}}</td>
+                                    <td>{{::(item.email === null||item.email ===""||item.email===undefined)?"No Tiene":item.email}}</td>
+                                    <td>{{::item.estado}}</td>
+                                    <td class="text-center opciones-table">
+                                        <a class="btn btn-success btn-tools-table" 
+                                           title="Seguimiento de llamadas" 
+                                           ng-click="$owner.campCtrl.onAbrirPopupSeguimientoLlamadas(item)">
+                                            <i class="glyphicon glyphicon-phone-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <tfoot>
+                                <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.candCtrl.campanias.length !== $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                </tr>
+                                <tr ng-if="$owner.candCtrl.campanias.length === $owner.appConstantsView.CERO">
+                                    <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--    <h2>CAMPAÑAS</h2>
+        
+            <br>
+            <div class="content-box">
+                <div class="button-pane button-pane-top">
+                    <div class="float-left">
+                        <h3 class="text-uppercase content-box-header-title btn-sm">{{campCtrl.esvisibleevento.titulo}} Actividad</h3>
+                    </div>
+                    <div class="float-right">
+                        <a href="#/crm-mercadeo-gestion-campania-cud" ng-click="campCtrl.onLimpiarActividad()" class="btn btn-sm btn-info icon-tool-add back-button"
+                           style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                            <div class="glyph-icon">
+                                <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-default">
+                    <div class="panel-body">
+                        <form method="POST" name="formCudActividad" novalidate>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombreActividad" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label><label class="text-danger">*</label>
+                                        <input type="text" id="nombreActividad" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada || campCtrl.esvisibleevento.disabledFechas"
+                                               class="form-control text-uppercase" name="nombreActividad" mask='H' restrict="reject" repeat="50" ng-model="campCtrl.nuevaActividad.nombreActividad"
+                                               validation="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{appConstantsView.LABEL_TIPO}}</label><label class="text-danger">*</label>
+                                        <select ng-options="tipo.codigo as tipo.valor for tipo in campCtrl.lsttipoactividades | orderBy:'valor'" name="selectTipoActividad"
+                                                id="selectTipoActividad" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada || campCtrl.esvisibleevento.disabledFechas"
+                                                validation="required" class="form-control" ng-model="campCtrl.nuevaActividad.tipoActividad">
+                                            <option ng-if="campCtrl.lsttipoactividades.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="fechaActividad" class="input-daterange input-group">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">{{appConstantsView.LABEL_FECHA_INICIO}}</label><label class="text-danger">*</label>
+                                            <div id="fecha-inicio" class="input-group date">
+                                                <input id="fechainicioevento" name="fechainicioevento" validation="required" mask="39/19/9999" restrict="reject" readonly="true"
+                                                       ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada"
+                                                       placeholder="dd/mm/aaaa" type="text" ng-model="campCtrl.nuevaActividad.fechaInicioActividad" validation-error-to="validacionFechaInicialEvento"
+                                                       class="form-control date text-left">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                            <span id="validacionFechaInicialEvento" class="validation text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">{{appConstantsView.LABEL_FECHA_FIN}}</label><label class="text-danger">*</label>
+                                            <div id="fecha-fin" class="input-group date">
+                                                <input id="fechafinevento" name="fechafinevento" validation="required" mask="39/19/9999" restrict="reject" readonly="true"
+                                                       ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada"
+                                                       placeholder="dd/mm/aaaa" type="text" ng-model="campCtrl.nuevaActividad.fechaFinActividad" validation-error-to="validacionFechaFinEvento"
+                                                       class="form-control date text-left">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                            <span id="validacionFechaFinEvento" class="validation text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{appConstantsView.LABEL_PUBLICO_OBJETIVO}}</label><label class="text-danger">*</label>
+                                        <select ng-options="publico.id as publico.nombre  for publico in campCtrl.publicoObjetivo | orderBy:'nombre'" name="selectPublico"
+                                                id="selectPublico" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada || campCtrl.esvisibleevento.disabledFechas"
+                                                class="form-control" validation="required" ng-model="campCtrl.nuevaActividad.publicoObjetivo" ng-change="campCtrl.ejecutarconsultarPublicosObjetivo(campCtrl.nuevaActividad.publicoObjetivo)">
+                                            <option ng-if="campCtrl.publicoObjetivo.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="responsableActividad" class="control-label">{{appConstantsView.LABEL_RESPONSABLE}}</label><label class="text-danger">*</label>
+                                        <input type="text" id="responsableActividad" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada"
+                                               class="form-control text-uppercase" name="responsableActividad" mask='H' restrict="reject" repeat="50" maxlength="50"
+                                               ng-model="campCtrl.nuevaActividad.responsableActividad" validation="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <label class="control-label">{{appConstantsView.LABEL_TRATAMIENTO}}</label>
+                                    <div class="form-group">
+                                        <div class="col-lg-3 col-sm-3" style="width: 200px;padding-left: 0px;">
+                                            <label class="radio-inline" style="padding-left: 0px;">
+                                                <span class="{{campCtrl.nuevaActividad.tratamientoActividad==='individual'?'selected-check':'selected-uncheck'}}">
+                                                    <input type="radio" id="tratamientoActividad" 
+                                                           name="tratamientoActividad" 
+                                                           value="individual"  
+                                                           class="input-radio"
+                                                           ng-model="campCtrl.nuevaActividad.tratamientoActividad" 
+                                                           ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada || campCtrl.esvisibleevento.disabledFechas">
+                                                    <i class="glyph-icon icon-circle"></i>
+                                                </span>  
+                                            </label>
+                                            <label>{{appConstantsView.LABEL_INDIVIDUAL}}</label>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-3" style="width: 200px;padding-left: 0px;">
+                                            <label class="radio-inline" style="padding-left: 0px;">
+                                                <span class=" {{campCtrl.nuevaActividad.tratamientoActividad===$owner.appConstantsView.LABEL_GRUPAL?'selected-check':'selected-uncheck'}}">
+                                                    <input type="radio" 
+                                                           id="tratamientoActividad" 
+                                                           name="tratamientoActividad" 
+                                                           value="appConstantsView.LABEL_GRUPAL"  
+                                                           class="input-radio"
+                                                           ng-model="campCtrl.nuevaActividad.tratamientoActividad" 
+                                                           ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada || campCtrl.esvisibleevento.disabledFechas">
+                                                    <i class="glyph-icon icon-circle"></i>
+                                                </span>
+                                            </label>
+                                            <label>{{appConstantsView.LABEL_GRUPAL}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{appConstantsView.LABEL_ESTADO}}</label><label class="text-danger">*</label>
+                                        <select ng-options="estado.codigo as estado.valor for estado in campCtrl.listaEstadoActividad | orderBy:'valor'" name="selectEstadoActividad"
+                                                id="selectEstadoActividad" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada"
+                                                validation="required" class="form-control" ng-model="campCtrl.nuevaActividad.estadoActividad"> 
+                                            <option ng-if="campCtrl.listaEstadoActividad.length >= appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="descripcionActividad" class="control-label">{{appConstantsView.LABEL_DESCRIPCION}}</label>
+                                        <textarea name="descripcionActividad" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada"
+                                                  class="form-control" ng-trim="false" id="descripcionActividad" rows="4" cols="50" maxlength="250" style="overflow-y: scroll; height: 100px;resize: none;"
+                                                  ng-model="campCtrl.nuevaActividad.descripcionActividad"></textarea>
+                                        <span class="pull-right"> {{250 - campCtrl.nuevaActividad.descripcionActividad.length}} de 250</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6" ng-if="campCtrl.nuevaActividad.tipoActividad === 109">
+                                    <div class="form-group">
+                                        <label for="nombreEncuesta" class="control-label">{{appConstantsView.LABEL_NOMBRE}} Encuesta</label>
+                                        <input type="text" id="nombreEncuesta" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada"
+                                               class="form-control text-uppercase" name="nombreEncuesta" mask='H' restrict="reject" repeat="50" ng-model="campCtrl.nuevaActividad.nombreEncuesta">
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <uib-tabset active="0" justify="false">
+                                <uib-tab index="0" heading="Seguimiento">
+                                    <div class="float-right">
+                                        <a href="" class="btn btn-sm btn-info icon-tool-add" ng-click="campCtrl.onAbrirPopupSeguimiento()" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle"
+                                           style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                                            <div class="glyph-icon">
+                                                <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.BOTON_AGREGAR}}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="dataTables_length" id="datatable-example_length">
+                                                <label>
+                                                    <select ng-model="campCtrl.displaySeguimiento" 
+                                                            ng-init="campCtrl.displaySeguimiento = campCtrl.displaySeguimiento || campCtrl.options[appConstantsView.CERO].value"
+                                                            ng-options="option.value as option.name for option in campCtrl.options">
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table object-table data="campCtrl.nuevaActividad.listaSeguimientos" display="campCtrl.displaySeguimiento" headers="Comentario,Autor,Fecha,Opciones"
+                                           fields="descripcion,nombreUsuario,fechaString" sorting="compound" selected-model="campCtrl.report.selectedSeguimiento"
+                                           editable="false" search="separate" resize="false" select="false">
+                                        <tbody>
+                                            <tr>
+                                                <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;">{{::item.descripcion}}</td>
+                                                <td>{{::item.nombreUsuario}}</td>
+                                                <td>{{::item.fechaString}}</td>
+                                                <td class="text-center opciones-table">
+                                                    <a class="btn btn-primary btn-tools-table" title="Ver detalle" ng-click="$owner.campCtrl.onVerDetalleSeguimiento(item)">
+                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <tfoot>
+                                            <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.campCtrl.nuevaActividad.listaSeguimientos.length !== $owner.appConstantsView.CERO">
+                                                <td colspan="7">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                            </tr>
+                                            <tr ng-if="$owner.campCtrl.nuevaActividad.listaSeguimientos.length === $owner.appConstantsView.CERO">
+                                                <td colspan="7">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                            </tr>
+                                        </tfoot>
+                                        </tbody>
+                                    </table>
+                                </uib-tab>
+                                <uib-tab index="1" heading="Publico Objetivo" ng-if="(campCtrl.nuevaActividad.tipoActividad === 110 || campCtrl.nuevaActividad.tipoActividad === 111)">
+                                    <div ng-if="campCtrl.esvisibleevento.publico" style="height: 93px" class="content-box border-top border-blue">
+                                        <h3 class="mensajeError clearfix title-resumen-blue">
+                                            <div class="col-xs-12">
+                                                <strong>{{appConstantsView.LABEL_TEN_CUENTA}}</strong><br/>
+                                                <small class="content">Para registrar el seguimiento del publico objetivo, primero debe guardar la actividad y luego proceder a realizar el seguimiento</small>
+                                            </div>
+                                        </h3>
+                                    </div>
+                                    <div class="float-right" ng-if="campCtrl.nuevaActividad.tipoActividad === 111 && campCtrl.nuevaActividad.tratamientoActividad === $owner.appConstantsView.LABEL_GRUPAL">
+                                        <a href="" class="btn btn-sm btn-info icon-tool-add" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle"
+                                           ng-click="campCtrl.onOpenModalEmailMasivo()" style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                                            <div class="glyph-icon">
+                                                <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">Notificar Masivo</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="dataTables_length" id="datatable-example_length">
+                                                <label>
+                                                    <select ng-model="campCtrl.displayPublicosobjetivos" 
+                                                            ng-init="campCtrl.displayPublicosobjetivos = campCtrl.displayPublicosobjetivos || campCtrl.options[appConstantsView.CERO].value"
+                                                            ng-options="option.value as option.name for option in campCtrl.options">
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table object-table data="campCtrl.lstpublicosobjetivos" display="campCtrl.displayPublicosobjetivos" headers="Nombre Completo, Email, Teléfono,Celular, Programa,Periodo,Etapa Proceso, Opciones"
+                                           fields="nombrecompleto,email,telefono,programa,periodo,estado" sorting="compound" selected-model="campCtrl.report.selected"
+                                           editable="false" search="separate" resize="false">
+                                        <tbody>
+                                            <tr>
+                                                <td style="word-wrap: break-word;" class="text-uppercase">{{::item.nombrecompleto}}</td>
+                                                <td>{{::item.email}}</td>
+                                                <td style="max-width: 18em" class="text-uppercase">{{::item.telefono}}</td>
+                                                <td style="max-width: 18em" class="text-uppercase">{{::item.celular}}</td>
+                                                <td style="word-wrap: break-word;" class="text-uppercase">{{item.programa}}</td>
+                                                <td style="word-wrap: break-word;" class="text-uppercase">{{item.periodo}}</td>
+                                                <td style="text-align: center" class="text-uppercase"><span class="{{item.style}}">{{item.estado}}</span></td>
+                                                <td style="width: 50px; height: 50px; vertical-align: middle;" class="text-center">
+                                                    <a class="btn btn-success btn-tools-table" title="Seguimiento de llamadas" ng-click="$owner.campCtrl.onAbrirPopupSeguimientoLlamadas(item)"
+                                                       ng-hide="{{$owner.campCtrl.nuevaActividad.tipoActividad === 111}}">
+                                                        <i class="glyphicon glyphicon-phone-alt"></i>
+                                                    </a>
+                                                    <a class="btn btn-success btn-tools-table" title="Enviar email a contacto" ng-click="$owner.campCtrl.onAbrirPopupSeguimientoEmail(item)"
+                                                       ng-disabled="$owner.campCtrl.esvisible.eseditable || $owner.campCtrl.esvisibleevento.disabledDetalle" ng-hide="{{$owner.campCtrl.nuevaActividad.tipoActividad === 110||($owner.campCtrl.nuevaActividad.tipoActividad === 111 && $owner.campCtrl.nuevaActividad.tratamientoActividad === $owner.appConstantsView.LABEL_GRUPAL)}}">
+                                                        <i class="glyphicon glyphicon-envelope"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <tfoot>
+                                            <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.campCtrl.contactosseleccionados.length !== $owner.appConstantsView.CERO">
+                                                <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                            </tr>
+                                            <tr ng-if="$owner.campCtrl.contactosseleccionados.length === $owner.appConstantsView.CERO">
+                                                <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                            </tr>
+                                        </tfoot>
+                                        </tbody>
+                                    </table>
+                                </uib-tab>
+                            </uib-tabset>
+                            <div class="button-pane">
+                                <input type="submit" class="btn btn-success" ng-hide="campCtrl.esvisibleevento.disabledDetalle || campCtrl.esvisible.estadoFinalizada"
+                                       ng-if="!campCtrl.esvisible.eseditable" ng-click="campCtrl.onGuardarActividad()" value="Guardar">
+                            </div>
+                        </form>
+                        <div id="modalSeguimiento" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <form method="POST" novalidate name="formAgregarSeguimiento">
+                                    <div class="modal-content" style="height: 300px">
+                                        <div class="modal-header">
+                                            <button ng-click="campCtrl.onCerrarPopupSeguimiento()" type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                                            <h4 class="modal-title">{{campCtrl.tituloModal}} Seguimiento</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea name="descripcionListaSeguimiento" class="form-control" ng-trim="false" rows="4" cols="50" max-length="500" style="overflow-y: scroll; height: 150px;resize: none;"
+                                                      ng-model="campCtrl.nuevaActividad.seguimiento" ng-disabled="campCtrl.campodisable" validation="required" validation-error-to="seguimientoError"></textarea>
+                                            <span class="pull-left validation text-danger" id="seguimientoError"></span>
+                                            <span class="pull-right"> {{500 - campCtrl.nuevaActividad.seguimiento.length}} de 500</span>
+                                        </div>
+                                        <div class="modal-footer btnCenter" style="margin-top: 5px" ng-if="!campCtrl.campodisable">
+                                            <input class="btn btn-success" type="submit" ng-click="campCtrl.onGuardarSeguimiento()" value="Agregar Seguimiento">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="modalSeguimientoLlamadas" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <form method="POST" novalidate name="formAgregarSeguimientoLlamada">
+                                    <div class="modal-content" style="height: 300px">
+                                        <div class="content-box">
+                                            <div class="modal-header">
+                                                <button ng-click="campCtrl.onCerrarPopupSeguimientoLlamadas()" type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                                                <h4 class="modal-title">{{campCtrl.tituloModal}} Seguimiento Llamadas </h4>
+                                                <h4 class="modal-title text-uppercase">{{campCtrl.nuevoSeguimiento.nombrecompleto}}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <textarea name="descripcionListaSeguimientoLlamada" class="form-control" ng-trim="false" rows="4" cols="75" max-length="750"
+                                                          style="overflow-y: scroll; height: 150px;resize: none;" ng-model="campCtrl.nuevaActividad.seguimientoLlamada" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle"
+                                                          validation="required" validation-error-to="seguimientoError"></textarea>
+                                                <span class="pull-left validation text-danger" id="seguimientoError"></span>
+                                                <span class="pull-right"> {{750 - campCtrl.nuevaActividad.seguimientoLlamada.length}} de 750</span>
+                                                <br/>
+                                                <div class="float-right">
+                                                    <input class="btn btn-success" ng-disabled="campCtrl.esvisible.eseditable || campCtrl.esvisibleevento.disabledDetalle" type="submit"
+                                                           ng-click="campCtrl.onGuardarSeguimientoLlamada()" value="Agregar Seguimiento">
+                                                </div>
+                                                <br/>
+                                            </div>
+                                            <div class="modal-footer btnCenter" style="margin-top: 5px" ng-if="!campCtrl.campodisable">
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <div class="content-box">
+                                                        <div class="button-pane button-pane-top">
+                                                            <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                                                <button class="btn btn-xs btn-info icon-tool-add" data-toggle="collapse" data-target="#lista2">
+                                                                    <i class="glyphicon glyphicon-collapse-down"></i>
+                                                                </button> {{appConstantsView.BUTTON_SEGUIMIENTO_LLAMADAS}} </h3>
+                                                        </div>
+                                                        <div class="content-box-wrapper collapse" id="lista2">
+                                                            <div class="panel-body">
+                                                                <table object-table data="campCtrl.nuevaActividad.listaSeguimientosLlamadasContacto" display="4" headers="Comentario,Autor,Fecha,Opciones"
+                                                                       fields="descripcion,nombreUsuario,fechaString" sorting="compound" selected-model="campCtrl.report.selectedSeguimiento"
+                                                                       editable="false" search="separate" resize="false" select="false">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;">{{::item.descripcion}}</td>
+                                                                            <td>{{::item.nombreUsuario}}</td>
+                                                                            <td>{{::item.fechaString}}</td>
+                                                                            <td class="text-center opciones-table">
+                                                                                <a class="btn btn-primary btn-tools-table" title="Ver detalle" ng-click="$owner.campCtrl.onVerDetalleSeguimientoLlamadas(item)">
+                                                                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <tfoot>
+                                                                        <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.campCtrl.nuevaActividad.listaSeguimientosLlamadasContacto.length !== $owner.appConstantsView.CERO">
+                                                                            <td colspan="7">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                                                        </tr>
+                                                                        <tr ng-if="$owner.campCtrl.nuevaActividad.listaSeguimientosLlamadasContacto.length === $owner.appConstantsView.CERO">
+                                                                            <td colspan="7">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="modalEmailIndividual" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <form method="POST" novalidate name="formNotificarContactoIndividual">
+                                    <div class="modal-content" style="height: 200px">
+                                        <div class="modal-header">
+                                            <button ng-click="campCtrl.onCloseModalEmailIndividual()" type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                                            <h4 class="modal-title">{{campCtrl.tituloModal}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="font-style: italic; opacity: 1;display: block">¿Desea enviar notificación al contacto seleccionado ?</p>
+                                        </div>
+                                        <div class="modal-footer btnCenter" style="margin-top: 5px" ng-if="!campCtrl.campodisable">
+                                            <input class="btn btn-primary" type="submit" value="Aceptar" ng-click="campCtrl.onNotificarIndividual()" />
+                                            <input class="btn btn-danger" type="submit" value="Cancelar" ng-click="campCtrl.onCloseModalEmailIndividual()" id="btnCancelModalIndividual"
+                                                   />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="modalNotificacionMasivo" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <form method="POST" novalidate name="formNotificarContactoMasivo">
+                                    <div class="modal-content" style="height: 200px">
+                                        <div class="modal-header">
+                                            <button ng-click="campCtrl.onCloseModalEmailMasivo()" type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                                            <h4 class="modal-title">{{campCtrl.tituloModal}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="font-style: italic; opacity: 1;display: block">¿Desea enviar notificación a todos los contactos ?</p>
+                                        </div>
+                                        <div class="modal-footer btnCenter" style="margin-top: 5px" ng-if="!campCtrl.campodisable">
+                                            <input class="btn btn-primary" type="submit" value="Aceptar" ng-click="campCtrl.onNotificarMasivo()" />
+                                            <input class="btn btn-danger" type="submit" value="Cancelar" ng-click="campCtrl.onCloseModalEmailMasivo()" id="btnCancelModalIndividual"
+                                                   />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>-->

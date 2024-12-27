@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+  <div ng-controller="inscripcionV2Ctrl as inspCtrl">
+    <div class="content-box">
+      <div class="button-pane button-pane-top">
+        <div class="float-left">
+          <h3 class="text-uppercase content-box-header-title btn-sm">INSCRIPCIÓN CURSOS</h3>
+        </div>
+        <div class="float-right" ng-controller="menuCtrl as mCtrl">
+          <a ng-click="mCtrl.onListarOPciones('/#/inscripcionapp')" class="btn btn-sm btn-info icon-tool-add back-button"
+              data-animation="flipOutX"
+              style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+              <div class="glyph-icon">
+                  <i class="glyphicon glyphicon-arrow-left"></i><span
+                      class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+              </div>
+          </a>
+      </div>
+        <div class="float-right" ng-if="inspCtrl.visible.ocultarbotonsalir">
+          <a href="#/pagainscripcion" ng-click="inspCtrl.onSalir()" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+            <div class="glyph-icon">
+              <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_SALIR}}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="panel-default">
+        <div class="panel-body">
+          <form method="POST" name="forminscripcioncurso" novalidate>
+            <div class="row">
+              <div class="col-lg-6 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}</label><label class="text-danger">*</label>
+                  <input type="text"
+                         class="form-control text-uppercase"
+                         name="nombreInforPersonal"
+                         mask='H'
+                         restrict="reject"
+                         repeat="100"
+                         ng-model="inspCtrl.nuevaInscripcionInicialV2.periodo"
+                         ng-disabled="true"
+                         validation="required">
+                </div>
+                </div>
+              <div class="col-lg-6 col-sm-6">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">Sede</label><label class="text-danger">*</label>
+                  <ui-select name="sede"
+                             ng-model="inspCtrl.nuevaInscripcionInicialV2.sede"
+                             class="form-control"
+                             ng-change="inspCtrl.findCursos()">
+                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombre}}</ui-select-match>
+                    <ui-select-choices  repeat="sede.id as sede in inspCtrl.sedes | filter: {nombre: $select.search}">
+                      <small ng-bind="sede.nombre"></small>
+                    </ui-select-choices>
+                  </ui-select>
+                  <span  class="validation text-danger"></span>
+                  <input type="text"
+                         name="fakeInputIdTipoConvenio"
+                         class="hidden"
+                         ng-model="inspCtrl.nuevaInscripcionInicialV2.sede"
+                         validation="required"
+                          />
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">Curso</label><label class="text-danger">*</label>
+                  <ui-select name="curso"
+                             ng-model="inspCtrl.nuevaInscripcionInicialV2.curso"
+                             class="form-control"
+                             on-select="inspCtrl.onChangeSelectPrograma();">
+                    <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombrePrograma}}</ui-select-match>
+                    <ui-select-choices  repeat="curso in inspCtrl.cursos | filter: {nombrePrograma: $select.search}">
+                      <small ng-bind="curso.nombrePrograma"></small>
+                    </ui-select-choices>
+                  </ui-select>
+                  <span  class="validation text-danger"></span>
+                  <input type="text"
+                         name="fakeInputIdTipoConvenio"
+                         class="hidden"
+                         ng-model="inspCtrl.nuevaInscripcionInicialV2.curso"
+                         validation="required"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 col-sm-6">
+                  <div class="form-group">
+                      <label class="control-label">{{appConstantsView.LABEL_MODALIDAD}}</label><label class="text-danger">*</label>
+                      <ui-select name="modalidad" 
+                                 ng-model="inspCtrl.nuevaInscripcionInicialV2.modalidadDTO" 
+                                 class="form-control" 
+                                 on-select="inspCtrl.onChangeSelectModalidad();">
+                          <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreModalidad}}</ui-select-match>
+                          <ui-select-choices  repeat="modalidad in inspCtrl.lstmodalidad | filter: {nombreModalidad: $select.search}">
+                              <small ng-bind="modalidad.nombreModalidad"></small>
+                          </ui-select-choices>
+                      </ui-select>
+                      <span id="errorIdModalidad" class="validation text-danger"></span>
+                      <input type="text" 
+                             name="fakeInputIdModalidad"
+                             class="hidden" 
+                             ng-model="inspCtrl.nuevaInscripcionInicialV2.modalidadDTO" 
+                             validation="required" 
+                             validation-error-to="errorIdModalidad"/>
+                  </div>
+              </div>
+              <div class="col-lg-6 col-sm-6">
+                  <div class="form-group">
+                      <label class="control-label">{{appConstantsView.LABEL_HORARIO}}</label><label class="text-danger">*</label>
+                      <ui-select name="horario" 
+                                 ng-disabled="inspCtrl.visible.disableSelectHorario" 
+                                 ng-model="inspCtrl.nuevaInscripcionInicialV2.horarioDTO" 
+                                 class="form-control"
+                                 on-select="inspCtrl.onChangeSelectHorario();">
+                          <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreHorario}}</ui-select-match>
+                          <ui-select-choices  repeat="horario in inspCtrl.lsthorario | filter: {nombreHorario: $select.search}">
+                              <small ng-bind="horario.nombreHorario"></small>
+                          </ui-select-choices>
+                      </ui-select>
+                      <span id="errorIdHorario" class="validation text-danger"></span>
+                      <input type="text" 
+                             name="fakeInputIdHorario"
+                             class="hidden" 
+                             ng-model="inspCtrl.nuevaInscripcionInicialV2.horarioDTO" 
+                             validation="required" 
+                             validation-error-to="errorIdHorario"/>
+                  </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 col-sm-6">
+                <div class="form-group">
+                <label class="control-label">{{appConstantsView.LABEL_TIPO_DOCUMENTO}}</label><label class="text-danger">*</label>
+                <select class="form-control"
+                        ng-model="inspCtrl.nuevaInscripcionInicialV2.aspirante.tipoDocumento"
+                        name="tipodocInicioInscripcion"
+                        validation="required"
+                        ng-options="tipodoc.codigo as tipodoc.valor for tipodoc in inspCtrl.lsttipodocumentos | orderBy:'valor'">
+                  <option ng-if="inspCtrl.lsttipodocumentos.length >= appConstantsView.CERO" value="" selected="tipodoc.codigo">{{appConstantsView.SELECCION_SELECT}}</option>
+                </select>
+              </div>
+              </div>
+              <div class="col-lg-6 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">Numero de documento</label><label class="text-danger">*</label>
+                  <input type="text"
+                         class="form-control text-uppercase"
+                         name="nombreInforPersonal"
+                         mask='H'
+                         restrict="reject"
+                         repeat="100"
+                         ng-model="inspCtrl.nuevaInscripcionInicialV2.aspirante.numeroDocumento"
+                         ng-blur="inspCtrl.findPreinscripcion()"
+                         validation="required">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">Nombres</label><label class="text-danger">*</label>
+                  <input type="text"
+                         class="form-control text-uppercase"
+                         name="nombreInforPersonal"
+                         mask='H'
+                         restrict="reject"
+                         repeat="100"
+                         ng-model="inspCtrl.nuevaInscripcionInicialV2.aspirante.nombre"
+                         validation="required">
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">Apellidos</label><label class="text-danger">*</label>
+                  <input type="text"
+                         class="form-control text-uppercase"
+                         name="apellidoInforPersonal"
+                         mask='H'
+                         restrict="reject"
+                         repeat="100"
+                         ng-model="inspCtrl.nuevaInscripcionInicialV2.aspirante.apellido"
+                         validation="required">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">Email</label><label class="text-danger">*</label>
+                  <input type="text"
+                         id="emailper"
+                         class="form-control"
+                         placeholder="ejemplo@correo.com" 
+                         name="emailper"
+                         restrict="reject"
+                         ng-model="inspCtrl.nuevaInscripcionInicialV2.aspirante.email"
+                         validation="email|required">
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">Celular</label><label class="text-danger">*</label>
+                  <input type="text"
+                         class="form-control "
+                         mask="9"
+                         repeat="20"
+                         restrict="reject"
+                         name="celular"
+                         ng-model="inspCtrl.nuevaInscripcionInicialV2.aspirante.celular"
+                         validation="required">
+                </div>
+              </div>
+            </div>
+            <br/>
+            <div class="button-pane">
+              <input type="submit" class="btn"
+                    style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1;"
+                    ng-click="inspCtrl.send()"
+                    value="Ingresar">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <br/>
+</div>

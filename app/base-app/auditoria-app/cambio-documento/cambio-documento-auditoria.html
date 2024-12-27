@@ -1,0 +1,72 @@
+<style>
+    .info-icon-tool {
+        padding: 5px;
+    }
+</style>
+<script src="../../../js/main-app.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="reportesCtrl as reportesCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">Auditoria</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Auditoria Cambio Documento</h3>
+            <div class="float-right" style="margin-right: 10px" ng-controller="menuCtrl as mCtrl">
+                <a  ng-click="mCtrl.onListarOPciones('/#/auditoria')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+                <button type="submit" class="tile-box tile-box-shortcut btn-success classReport"
+                        ng-json-export-excel 
+                        data="reportesCtrl.listEstudiantesMayoriaEdad"
+                        report-fields="{
+                        estudiante:'Estudiante',
+                        telefono:'Telefono',
+                        celular:'Celular',
+                        edad:'Edad'
+                        }"
+                        filename=" 'Listado Mayor Edad' " 
+                        title="Listado Mayor Edad"
+                        >
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Exportar</button>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <table object-table class="hover-column" 
+                       data="reportesCtrl.listEstudiantesMayoriaEdad" 
+                       display="10" 
+                       headers="estudiante,telefono,celular,edad"
+                       fields="estudiante,telefono,celular,edad"
+                       sorting="compound" 
+                       editable="false" 
+                       search="separate" 
+                       resize="false">
+                    <tbody>
+                        <tr>
+                            <td>{{::item.estudiante}}</td>
+                            <td>{{::item.telefono}}</td>
+                            <td>{{::item.celular}}</td>
+                            <td>{{::item.edad}}</td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.reportesCtrl.listEstudiantesMayoriaEdad.length !== $owner.appConstantsView.CERO">
+                            <td colspan="2">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                        </tr>
+                        <tr ng-if="$owner.reportesCtrl.listEstudiantesMayoriaEdad.length === $owner.appConstantsView.CERO">
+                            <td colspan="2">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

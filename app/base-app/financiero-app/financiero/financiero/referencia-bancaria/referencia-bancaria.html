@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<script src="../../../js/papaparse.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="referenciaCtrl as referenciaCtrl">
+    <h2>Registro de pagos bancarios</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Registrar Pagos</h3>
+            <div class="float-right">
+                <a href="#/"  class="btn btn-sm btn-info icon-tool-add back-button"
+                   data-animation="flipOutX" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+
+                <input type="submit" 
+                       ng-show="referenciaCtrl.listadoEstudianteArchivo.length > 0"
+                       class="btn" 
+                       style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1;" 
+                       ng-click="referenciaCtrl.onGuardar()" value="Guardar">
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+
+                <label class="control-label">Subir Archivo</label>
+                <div class="input-group" >
+                    <input type="file" id="files"  class="form-control" accept=".csv" required />
+                    <span class="input-group-btn" >
+                        <button ng-click="referenciaCtrl.onCargarArchivo()" class="btn btn-primary">Cargar Archivo</button> 
+                    </span>
+                </div>
+
+                <table object-table class="hover-column" 
+                       data="referenciaCtrl.listadoEstudianteArchivo"
+                       headers="Código Banco, Tipo Documento, Documento, Referencia, Valor, fecha Pago"
+                       fields="codigoBanco,tipoDocumento,documento,referencia,valorPagado,fechaPago" 
+                       sorting="compound" 
+                       search="separate" 
+                       editable="false" 
+                       resize="false">
+                    <tbody>
+                        <tr>
+                            <td>{{::item.codigoBanco}}</td>
+                            <td>{{::item.tipoDocumento}}</td>
+                            <td>{{::item.documento}}</td>
+                            <td>{{::item.referencia}}</td>
+                            <td class="money text-right">{{::item.valorPagado|currency}}</td>
+                            <td>{{::item.fechaPago}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr ng-if="$owner.referenciaCtrl.listadoEstudianteArchivo.length === $owner.appConstantsView.CERO">
+                            <td colspan="3">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+

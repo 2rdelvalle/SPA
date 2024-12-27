@@ -1,0 +1,219 @@
+<div id="page-title" ng-controller="liquidarMatriculaSinDescuentoCtrl as liqMatCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.LIQUIDAR_MATRICULA}}</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_BUSQUEDA_CODIGO}}</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a  ng-click="mCtrl.onListarOPciones('/#/financiero')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <form role="form" name="formConsultarEstudiante" novalidate>
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_CODIGO}}<label class="text-danger">*</label></label>
+                                <div class="input-group">
+                                    <input type="text" id="codigoIdentificacion" name="codigoIdentificacion" class="form-control" ng-model="liqMatCtrl.nuevoLiquidarMatricula.codigoEstudianteCampo"
+                                           validation="required" validation-error-to="myErrorId" ng-keyup="liqMatCtrl.onPresionarEnter($event)"
+                                           ng-change="liqMatCtrl.onLimpiar()" mask="9" min="3" repeat="15" restrict="reject">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary"
+                                                type="button"
+                                                ng-click="liqMatCtrl.onConsultarEstudiante()">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                                <span id="myErrorId" class="validation text-danger"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <form method="POST" name="formConsultarPrograma" novalidate>
+                            <div class="form-group" ng-if="liqMatCtrl.listaProgramas.length > appConstantsView.UNO">
+                                <label class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}<label class="text-danger">*</label></label>
+                                <select ng-options="item as item.programa for item in liqMatCtrl.listaProgramas" name="selectListaProgramas" id="selectListaProgramas"
+                                        class="form-control" ng-model="liqMatCtrl.nuevoLiquidarMatricula.idProgramaSelected" ng-change="liqMatCtrl.onCambiarPrograma()"
+                                        validation="required">
+                                    <option ng-if="liqMatCtrl.listaProgramas.length > appConstantsView.UNO" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="content-box" ng-if="liqMatCtrl.liquidarMatriculaAux.onDeshabilitar">
+                    <h3 class="content-box-header bg-default">
+                        {{appConstantsView.TITLE_INFO_ESTUDIANTE}}
+                    </h3>
+                    <div class="content-box-wrapper">
+
+                        <div class="row" ng-show="liqMatCtrl.mostrarInputBecado">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">Información Adicional</label>
+                                    <div class="input-group" >
+                                        <input type="text" id="becado"  ng-disabled="true" class="form-control" name="becado" value="BECADO" >
+
+                                        <span class="input-group-btn" style="position: static" >
+                                            <button 
+                                                class="btn btn-info btn-group-plus" title="Ver Detalle"
+                                                ng-click="liqMatCtrl.onMostrarModal('modalListadoDescuento')" ><i class="glyphicon glyphicon-eye-open"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                    <input type="text" id="nombreEstudiante" ng-disabled="true" class="form-control" name="nombre" ng-model="liqMatCtrl.nuevoLiquidarMatricula.nombresCompleto">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="seccional" class="control-label">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                    <input type="text" id="identificacionEstudiante" ng-disabled="true" class="form-control" name="seccional" ng-model="liqMatCtrl.nuevoLiquidarMatricula.documentoCompleto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="periActua" class="control-label">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="periActua" ng-model="liqMatCtrl.nuevoLiquidarMatricula.periodoActual">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="program" class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="program" ng-model="liqMatCtrl.nuevoLiquidarMatricula.programaNombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nivelforma" class="control-label">{{appConstantsView.LABEL_NIVEL_FORMACION}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="nivelforma" ng-model="liqMatCtrl.nuevoLiquidarMatricula.nivelFormacion">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="jornad" class="control-label">{{appConstantsView.LABEL_MODALIDAD}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="jornad" ng-model="liqMatCtrl.nuevoLiquidarMatricula.modalidad">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="semest" class="control-label">{{appConstantsView.LABEL_HORARIO}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="semest" ng-model="liqMatCtrl.nuevoLiquidarMatricula.horario">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="semest" class="control-label">{{appConstantsView.LABEL_SEMESTRE}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="semest" ng-model="liqMatCtrl.nuevoLiquidarMatricula.semestre">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-box" ng-if="liqMatCtrl.liquidarMatriculaAux.onDeshabilitar">
+                    <h3 class="content-box-header bg-default">
+                        {{appConstantsView.DETALLE_MATRICULA}}
+                    </h3>
+
+                    <table object-table class="hover-column" display = "10" id="listaModulo" data="liqMatCtrl.nuevoLiquidarMatricula.listaModulos"
+                           headers="Nº,Módulo,Vencimiento,Valor,Estado"
+                           fields="index,nombreModulo,vencimiento,valorModulo,estado"
+                           selected-model="liqMatCtrl.report.selectedModulo"
+                           sorting="false" editable="false" search="false"
+                           resize="false" select="multiply">
+                        <tbody>
+                            <tr class="{{::item.estado === 'LIQUIDADO'?'disabled':''}}" ng-click="$owner.liqMatCtrl.onCalcularTotal(ifSelected(item), item); setSelected(item)" >
+                                <td>{{$index + 1}}</td>
+                                <td>{{::item.nombreModulo}}</td>
+                                <td>{{::item.vencimiento| date: 'dd/MM/yyyy'}}</td>
+                                <td>{{::item.valorModulo|currency}}</td>
+                                <td>{{::item.estado}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr ng-show="$filtered.length !== $owner.appConstantsView.CERO">
+                                <td colspan="3"  class="text-right"><strong> Total {{$owner.liqMatCtrl.nuevoLiquidarMatricula.total| currency}}</strong></td>
+                            </tr>
+                            <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.liqMatCtrl.nuevoLiquidarMatricula.listaModulos.length !== $owner.appConstantsView.CERO">
+                                <td colspan="3">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                            </tr>
+                            <tr ng-show="$owner.liqMatCtrl.nuevoLiquidarMatricula.listaModulos.length === $owner.appConstantsView.CERO">
+                                <td colspan="3">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+
+
+                    <div id="botonGuardar" class="button-pane" ng-if="liqMatCtrl.report.selectedModulo.length > appConstantsView.CERO">
+                        <input class="btn btn-success" type="submit" value="Generar" ng-click="liqMatCtrl.onGuardar()">
+                    </div>
+
+                    <div id="modalListadoDescuento" class="modal fade " role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button  type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                                    <h4 class="modal-title">Listado de Liquidaciones con Descuento</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <table object-table class="hover-column" data="liqMatCtrl.listaDescuentosEstudiante" headers="Estudiante,Referencia,Valor Total,Valor Descuento,Valor Liquidado,Porcentaje de Descuento,Estado,Fecha Liquidación"
+                                               fields="estudiante,referencia,valorTotalSinDescuento,valorDescuento,valorLiquidado,porcentajeDescuento,estadoLiquidacion,fechaLiquidacion" sorting="compound" editable="false" search="false" resize="false">
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{::item.estudiante}}</td>
+                                                    <td>{{::item.referencia}}</td>
+                                                    <td class="money text-right">{{::item.valorTotalSinDescuento|currency}}</td>
+                                                    <td class="money text-right">{{::item.valorDescuento|currency}}</td>
+                                                    <td class="money text-right">{{::item.valorLiquidado|currency}}</td>
+                                                    <td>{{::item.porcentajeDescuento}}%</td>
+                                                    <td>{{::item.estadoLiquidacion}}</td>
+                                                    <td>{{::item.fechaLiquidacion}}</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr ng-if="$owner.GDCtrl.listaDescuentosEstudiante.length === $owner.appConstantsView.CERO">
+                                                    <td colspan="3">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="button-pane" ng-if="GDCtrl.listaDescuentosEstudiante.length > appConstantsView.CERO">
+                                    <input class="btn btn-success" type="submit" value="Generar" ng-click="GDCtrl.onGuardar()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+<style>
+    .custom-tags.ng-pristine .tags,.custom-tags.ng-invalid .tags {
+        box-shadow: inset 1px 1px 3px #f6f6f6;
+        border: #dfe8f1 solid 1px;
+    }
+
+    a.tooltip-content > span:hover > i {
+        visibility: visible;
+        opacity: 1;
+        z-index: 100;
+    }
+
+    a.tooltip-content > span > i {
+        width: 300px;
+    }
+</style>
+
+<script type="text/ng-template" id="helpMe.directiveHTML">
+    <span class="glyphicon glyphicon-info-sign" ng-show="showHelpText">
+    <i data-ng-bind="helpText"></i>
+    </span>
+</script>
+
+<div id="page-title" ng-controller="EntidadesBancariasRecaudosCtrl as ebrCtrl">
+    <h2>   </h2>
+    <p></p>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">{{ebrCtrl.entidadBancariaRecaudoAuxiliar.titleWindow}}</h3>
+            </div>
+            <div class="float-right">
+                <a href="#/banco" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <form method="POST" name="formRegisEntidadesBancarias" novalidate>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="codigo" class="control-label pull-left">{{appConstantsView.LABEL_CODIGO}}</label><label class="text-danger pull-left">*</label>
+                                    <input type="text" id="codigo" class="form-control text-uppercase" name="codigo" ng-model="ebrCtrl.nuevoEntidadBancariaRecaudo.codigoBanco"
+                                           ng-disabled="ebrCtrl.entidadBancariaRecaudoAuxiliar.disabledCodeField" ng-trim="false"
+                                           validation="required" maxlength="10"  mask="X" repeat="10"   restrict="reject" >
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label pull-left">{{appConstantsView.LABEL_NOMBRE}}</label><label class="text-danger pull-left">*</label>
+                                    <input type="text" id="nombre" class="form-control text-uppercase" name="nombre" ng-model="ebrCtrl.nuevoEntidadBancariaRecaudo.nombreBanco"
+                                           ng-disabled="ebrCtrl.entidadBancariaRecaudoAuxiliar.disabled" validation="required" mask="t" repeat="50"  restrict="reject">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_ABREVIATURA}}</label>
+                                    <input type="text" id="abreviatura" class="form-control text-uppercase" name="abreviatura" ng-model="ebrCtrl.nuevoEntidadBancariaRecaudo.abreviaturaBanco"
+                                           ng-disabled="ebrCtrl.entidadBancariaRecaudoAuxiliar.disabled" 
+                                           mask="c" repeat="5"  restrict="reject">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_NUMERO_CUENTA}}</label><label class="text-danger pull-left">*</label>
+                                    <input type="text" id="numerocuenta" maxlength="100" class="form-control" name="numerocuenta" ng-model="ebrCtrl.nuevoEntidadBancariaRecaudo.numeroCuentaBanco"
+                                           ng-disabled="ebrCtrl.entidadBancariaRecaudoAuxiliar.disabled" ng-trim="false" validation="required"
+                                           mask="9" repeat="16"  restrict="reject">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_DIRECCION}}</label><label class="text-danger pull-left">*</label>
+                                    <input type="text" id="direccion" class="form-control text-uppercase" name="direccion" 
+                                           ng-model="ebrCtrl.nuevoEntidadBancariaRecaudo.direccionBanco" maxlength="70"
+                                           ng-disabled="ebrCtrl.entidadBancariaRecaudoAuxiliar.disabled" validation="required">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_TELEFONO}}</label><label class="text-danger pull-left">*</label>
+                                     <input type="text" id="telefono" class="form-control text-uppercase" name="telefono" 
+                                           ng-model="ebrCtrl.nuevoEntidadBancariaRecaudo.telefonoBanco" mask="(9)9999999" restrict="reject"
+                                           validation="required" placeholder="(9)-9999 999"
+                                        ng-disabled="ebrCtrl.entidadBancariaRecaudoAuxiliar.disabled"
+                                        ng-blur="ebrCtrl.validaTellenonoNit()">
+                                     <span ng-if="ebrCtrl.visible.validaTelefono" class="validation text-danger">{{appConstantsView.CAMPO_8DIGITOS}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">Representante Legal</label>
+                                    <input type="text" id="representantelegal" class="form-control text-uppercase" name="representantelegal"
+                                           ng-model="ebrCtrl.nuevoEntidadBancariaRecaudo.representanteLegalBanco" ng-disabled="ebrCtrl.entidadBancariaRecaudoAuxiliar.disabled"
+                                           ng-trim="false" >
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">NIT</label><label class="text-danger pull-left">*</label>
+                                    <input type="text" id="nit" max-length="11" class="form-control" name="nit"
+                                           ng-model="ebrCtrl.nuevoEntidadBancariaRecaudo.nitBanco" mask="999999999-9" restrict="reject"
+                                         validation="required"  placeholder="_________-_" 
+                                         ng-disabled="ebrCtrl.entidadBancariaRecaudoAuxiliar.disabled"
+                                         ng-blur="ebrCtrl.validaTellenonoNit()">
+                                    <span ng-if="ebrCtrl.visible.validaNit" class="validation text-danger">{{appConstantsView.CAMPO_10DIGITOS}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="ebrCtrl.entidadBancariaRecaudoAuxiliar.disabledestado">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_ESTADO}}</label><label class="text-danger pull-left">*</label>
+                                    <select ng-options="estado.codigo as estado.valor for estado in ebrCtrl.listEstado " name="estado" id="estado" class="form-control"
+                                            ng-model="ebrCtrl.nuevoEntidadBancariaRecaudo.estadoBanco" ng-disabled="ebrCtrl.entidadBancariaRecaudoAuxiliar.disabled"
+                                            validation="required:alt=Seleccione un estado">
+                                        <option ng-if="ebrCtrl.listEstado.length > appConstantsView.UNO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-pane">
+                            <input class="btn btn-success" type="submit" value="Guardar" ng-click="ebrCtrl.onGuardar()" ng-show="ebrCtrl.entidadBancariaRecaudoAuxiliar.showEditBtn">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

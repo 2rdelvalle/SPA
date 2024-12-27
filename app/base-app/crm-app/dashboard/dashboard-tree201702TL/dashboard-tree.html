@@ -1,0 +1,175 @@
+<div class="row">
+    <div class="float-left" style="margin-left: 10px">
+        <h2 style="line-height: 30px;">TOTAL MATRICULADOS</h2>
+    </div>
+    <div class="float-right" style="margin-right: 10px" ng-controller="menuCtrl as mCtrl">
+        <a ng-click="mCtrl.onListarOPciones('/#/dashboard-interno')"
+            class="btn btn-sm btn-info icon-tool-add back-button"
+            style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+            <div class="glyph-icon">
+                <i class="glyphicon glyphicon-arrow-left"></i><span
+                    class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="row" ng-controller="DashboardTreeCtrl as dCtrl">
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+                {{appConstantsView.TITLE_CRITERIOS_BUSQUEDA}}</h3>
+            <a href="" ng-json-export-excel data="dCtrl.listaMatriculados" report-fields="{
+               periodo_academico:'Período',
+               horario:'Horario',
+               programa:'Programa',
+               semestre:'Semestre',
+               cantidad:'Cantidad',
+               valor:'Valor'
+               }" filename=" 'Listado totales por programa' " title="Listado totales por programa" data-style="dark"
+                data-theme="bg-white"
+                class="float-right btn btn-sm btn-success icon-tool-add back-button {{dCtrl.listaMatriculados.length === appConstantsView.CERO?'disabled':' '}}"
+                data-animation="flipOutX" style="color: #ffffff; border: 0px solid #dfe8f1;">
+                <div class="glyph-icon">
+                    <i class="glyphicon glyphicon-print"></i><span
+                        class="info-icon-tool">{{appConstantsView.BOTON_IMPRIMIR}}</span>
+                </div>
+            </a>
+        </div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                        <label for="selectNivelFormacion" class="control-label pull-left">Nivel de Formación</label>
+                        <select class="form-control" ng-model="dCtrl.dashboardTree.nivelFormacion" validation="required"
+                            name="selectNivelFormacion" id="selectNivelFormacion"
+                            ng-options="nivel.id as nivel.nombreNivelFormacion for nivel in dCtrl.listaNivelesFormacion| orderBy:'nombreNivelFormacion'"
+                            ng-change="dCtrl.onCambiarSelectNivelFormacion()">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                        <label for="valorPeriodoAcademico" class="control-label pull-left">Periodo Academico</label>
+                        <select
+                            ng-options="periodoAcademico.id as periodoAcademico.nombrePeriodoAcademico for periodoAcademico in dCtrl.listaPeriodoAcademicos"
+                            name="valorPeriodoAcademico" id="valorPeriodoAcademico" class="form-control"
+                            ng-model="dCtrl.dashboardTree.periodoAcademico"
+                            ng-change="dCtrl.onCambiarSelectPeriodoAcademico()">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-box-wrapper">
+
+        <uib-tabset justify="false">
+            <uib-tab index="0" heading="Arbol Cantidades">
+                <div class="panel-body">
+                    <table object-table class="hover-column" data="dCtrl.listaMatriculados" display="15"
+                        headers="Período,Horario,Programa,Semestre,Cantidad Pagado, Valor"
+                        fields="periodo_academico,horario,programa,semestre,cantidad,valor" sorting="compound"
+                        editable="false" search="separate" resize="false" select="multiply"
+                        add-filter="| filter:$owner.all">
+                        <tbody>
+                            <tr style="height: 60px;">
+                                <td>{{::item.periodo_academico}}</td>
+                                <td>{{::item.horario}}</td>
+                                <td>{{::item.programa}}</td>
+                                <td>{{::item.semestre}}</td>
+                                <td>{{::item.cantidad}}</td>
+                                <td class="money">{{::item.valor| currency}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align: center" class="money">
+                                    {{$owner.dCtrl.getTotalMatriculados($filtered)}}</td>
+                                <td style="text-align: center" class="money">
+                                    {{$owner.dCtrl.getTotalPagado($filtered) | currency}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </uib-tab>
+            <uib-tab index="1" heading="Cantidades Educación Continuada">
+
+                <div class="button-pane button-pane-top">
+                    <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+                        {{appConstantsView.TITLE_CRITERIOS_BUSQUEDA}}</h3>
+                    <a href="" ng-json-export-excel data="dCtrl.listaMatriculados" report-fields="{
+                               programa:'Programa',
+                               horario:'Horario',
+                               semestre:'Semestre',
+                               cantidad:'Cantidad',
+                               programaEc:'Educación Continua',
+                               cantidadEc:'Cantidad Continua'
+                               }" filename=" 'Listado totales por programa' " title="Listado totales por programa x Ec"
+                        data-style="dark" data-theme="bg-white"
+                        class="float-right btn btn-sm btn-success icon-tool-add back-button {{dCtrl.listaMatriculadosEC.length === appConstantsView.CERO?'disabled':' '}}"
+                        data-animation="flipOutX" style="color: #ffffff; border: 0px solid #dfe8f1;">
+                        <div class="glyph-icon">
+                            <i class="glyphicon glyphicon-print"></i><span
+                                class="info-icon-tool">{{appConstantsView.BOTON_IMPRIMIR}}</span>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="panel-body">
+                    <table object-table class="hover-column" data="dCtrl.listaMatriculadosEC" display="15"
+                        headers="Programa,Horario,Semestre,Cantidad,Porgrama EC,Cantidad Ec"
+                        fields="programa,horario,semestre,cantidad,programaEc,cantidadEc" sorting="compound"
+                        editable="false" search="separate" resize="false" select="multiply"
+                        add-filter="| filter:$owner.all">
+                        <tbody>
+                            <tr style="height: 60px;">
+                                <td>{{::item.programa}}</td>
+                                <td>{{::item.horario}}</td>
+                                <td>{{::item.semestre}}</td>
+                                <td>{{::item.cantidad}}</td>
+                                <td>{{::item.programaEc}}</td>
+                                <td>{{::item.cantidadEc}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align: center" class="money">
+                                    {{$owner.dCtrl.getTotalMatriculados($filtered)}}</td>
+                                <td></td>
+                                <td style="text-align: center" class="money">
+                                    {{$owner.dCtrl.getTotalMatriculadosEc($filtered)}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+
+    </div>
+</div>
+<br>
+
+<!--<div class="row">
+     Skip! Not important 
+    <ul class="nav nav-tabs">
+        <li ng-click="models.activeTab = 'OutSide'"
+            ng-class="{active: models.activeTab === 'OutSide' || !models.activeTab}">
+            <a style="cursor:pointer;">Filtro por Campos</a>
+        </li>
+        <li ng-click="models.activeTab = 'InSide'"
+            ng-class="{active: models.activeTab === 'InSide'}">
+            <a style="cursor:pointer;">Filtro por Columnas</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" ng-include="'/base-app/crm-app/dashboard/dashboard-tree/dashboard-tree-code.html'" /></div>
+</div>-->

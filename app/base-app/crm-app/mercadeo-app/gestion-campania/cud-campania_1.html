@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<div ng-controller="campaniaCtrl as campCtrl">
+    <h2 >{{appConstantsView.TITLE_CAMPANAS}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">{{campCtrl.esvisible.titulo}} - Responsable Actual: {{campCtrl.nuevaCampania.responsable}}</h3>
+            </div>
+            <div class="float-right">
+                <a href="#/crm-mercadeo-gestion-campania" 
+                   ng-click="campCtrl.onLimpiarCampania()" 
+                   class="btn btn-sm btn-info icon-tool-add back-button" 
+                   style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="panel-default">
+            <div class="panel-body">
+                <form method="POST" name="formgeneralcampania" novalidate>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label><label class="text-danger">*</label>
+                                <input ng-disabled="campCtrl.esvisible.eseditable" type="text" id="nombre" class="form-control text-uppercase" 
+                                       name="nombre" mask='H' restrict="reject" 
+                                       repeat="50" ng-model="campCtrl.nuevaCampania.nombre"  
+                                       validation="required">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_TIPO}}</label><label class="text-danger">*</label>
+                                <select  ng-options="tipo.id as tipo.nombre for tipo in campCtrl.lsttipocampanias| orderBy:'nombre'" 
+                                         name="selectTipo" id="selectTipo" 
+                                         ng-disabled="campCtrl.esvisible.eseditable"
+                                         validation="required" class="form-control"
+                                         ng-model="campCtrl.nuevaCampania.tipo">
+                                    <option ng-if="campCtrl.lsttipocampanias.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="row">
+                        <div id="fechaCampaña" class="input-daterange input-group">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_FECHA_INICIO}}</label><label class="text-danger">*</label>
+                                    <div id="fecha-inicio" class="input-group date">
+                                        <input id="fechainicio" name="fechainicio" validation="required"
+                                               mask="39/19/9999" restrict="reject"  readonly="true" ng-disabled="campCtrl.esvisible.eseditable"
+                                               placeholder="dd/mm/aaaa" type="text" ng-model="campCtrl.nuevaCampania.fechainicio"
+                                               validation-error-to="validacionFechaInicial"
+                                               class="form-control date text-left"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                    <span id="validacionFechaInicial" class="validation text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_FECHA_FIN}}</label><label class="text-danger">*</label>
+                                    <div id="fecha-fin" class="input-group date">
+                                        <input id="fechafin" name="fechafin" validation="required"
+                                               mask="39/19/9999" restrict="reject" readonly="true" ng-disabled="campCtrl.esvisible.eseditable"
+                                               placeholder="dd/mm/aaaa" type="text" ng-model="campCtrl.nuevaCampania.fechafin"
+                                               validation-error-to="validacionFechaFin"
+                                               class="form-control date text-left"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                    <span id="validacionFechaFin" class="validation text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">    
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="presupuesto" class="control-label">{{appConstantsView.TITLE_PRESUPUESTO}}</label><label class="text-danger">*</label>
+                                <div class="input-group fecha-inicio">
+                                    <span class="input-group-addon">
+                                        $
+                                    </span>
+                                    <input ng-disabled="campCtrl.esvisible.eseditable" type="text" 
+                                           id="presupuesto" class="form-control money" placeholder='000,000,000' 
+                                           maxlength="15" name="presupuesto"  validation-error-to="validacionPresupuesto"
+                                           ng-model="campCtrl.nuevaCampania.presupuesto" ui-money-mask="0" 
+                                           restrict="reject" validation="required">                                  
+                                </div>
+                                <span id="validacionPresupuesto" class="validation text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label pull-left">{{appConstantsView.LABEL_RESPONSABLE}}</label><label class="text-danger pull-left">*</label>
+                                <select ng-options="item.usuario as item.funcionario for item in campCtrl.usuarioRol| orderBy:'funcionario'" 
+                                        name="responsable" id="responsable" class="form-control"
+                                        ng-model="campCtrl.nuevaCampania.responsable" validation="required">
+                                    <option ng-if="campCtrl.usuarioRol.length > appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">{{appConstantsView.LABEL_ESTADO}}</label><label class="text-danger">*</label>
+                                <select  ng-options="estado.codigo as estado.valor for estado in campCtrl.listavalor| orderBy:'valor'" 
+                                         name="selectEstado" id="selectEstado" 
+                                         ng-disabled="campCtrl.esvisible.eseditable"
+                                         debounce="5000"
+                                         validation="required" class="form-control"
+                                         ng-model="campCtrl.nuevaCampania.estado" > 
+                                    <option ng-if="campCtrl.lsttipocampanias.length >= appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcioncampañia" class="control-label">{{appConstantsView.LABEL_DESCRIPCION}}</label><label class="text-danger">*</label>
+                                <textarea class="form-control" max-length="250" style="resize: vertical;height: 60px;max-height: 100px"
+                                          validation="required" validation-error-to="validacionDescripcion"
+                                          name="descripcioncampañia"ng-disabled="campCtrl.esvisible.eseditable"
+                                          id="descripcioncampañia" ng-model="campCtrl.nuevaCampania.descripcion"></textarea>
+                                <div>
+                                    <span id="validacionDescripcion" class="validation text-danger"></span>
+                                    <span class ="pull-right"> {{250 - campCtrl.nuevaCampania.descripcion.length}} de 250</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <div class="button-pane" ng-if="campCtrl.esvisible.renderedbutton">
+                    <input type="submit" class="btn" style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1;" ng-click="campCtrl.onGuardar()" value="Guardar">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../../../../styles/assets/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" type="text/javascript"></script>
+    <script>
+                                            $("#fechainicio").focus(function () {
+                                        value = $("#fechainicio").val();
+                                    });
+                                            $("#fechainicio").blur(function () {
+                                        $("#fechainicio").val(value);
+                                    });
+                                            $("#fechafin").focus(function () {
+                                        value = $("#fechafin").val();
+                                    });
+                                            $("#fechafin").blur(function () {
+                                        $("#fechafin").val(value);
+                                    });
+    </script>

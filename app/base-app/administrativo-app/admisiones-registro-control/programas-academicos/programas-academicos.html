@@ -1,0 +1,97 @@
+<style>
+    .info-icon-tool {
+        padding: 5px;
+    }
+</style>
+<script src="../../../../../styles/assets/dotdotdot/src/jquery.dotdotdot.js" type="text/javascript"></script>
+
+<div id="page-title" ng-controller="programasAcademicosCtrl as PACtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">Programas Académicos</h2>
+        </div>
+        <div class="float-right" style="margin-right: 10px">
+
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Listado de Programas Académicos</h3>
+            <div class="float-right"   ng-controller="menuCtrl as mCtrl">
+                <a href="/#/programas-academicos-gestion" ng-click="PACtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add"
+                   style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.BOTON_AGREGAR}}</span>
+                    </div>
+                </a>
+                <a ng-click="PACtrl.cancelarInterval(); mCtrl.onListarOPciones('/#/admin-registro-control')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="PACtrl.display"
+                                        ng-init="PACtrl.display = PACtrl.display || PACtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in PACtrl.options">
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <table object-table class="hover-column" data="PACtrl.lista" display="PACtrl.display" 
+                            headers="Código,Nombre,Nivel Formación,Modalidad,Sede,Tipo,Estado,Opciones"
+                           fields="codigoPrograma,nombrePrograma,nombreNivelFormacion,nombreModalidad,sede,tipoPrograma,estado" sorting="compound"
+                           selected-model="PACtrl.report.selected" editable="false" search="separate" resize="false" select="multiply"
+                           add-filter="| filter:$owner.all">
+                        <tbody>
+                            <tr>
+                                <td>{{::item.codigoPrograma}}</td>
+                                <td>
+                                    <div class="wrapping-text">{{::item.nombrePrograma}}</div>
+                                </td>
+                                <td>{{::item.nombreNivelFormacion}}</td>
+                                <td>{{::item.nombreModalidad}}</td>
+                                <td>{{::item.sede}}</td>
+                                <td>{{::item.tipoPrograma}}</td>
+                                <td>{{::item.estado}}</td>
+                                <td class="opciones-table text-center">
+                                    <a ng-click="$owner.PACtrl.onClickToView(item)" href="">
+                                        <button title="Ver detalle" class="btn btn-primary btn-tools-table">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                        </button>
+                                    </a>
+                                    <a ng-click="$owner.PACtrl.onClickToEditar(item);" href="">
+                                        <button title="Modificar" class="btn btn-info btn-tools-table">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                    </a>
+                                    <button title="Eliminar" class="btn btn-danger btn-tools-table" ng-click="$owner.PACtrl.onClickToDelete(item)">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        <tfoot>
+                            <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.PACtrl.lista.length !== $owner.appConstantsView.CERO">
+                                <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                            </tr>
+                            <tr ng-if="$owner.PACtrl.lista.length === $owner.appConstantsView.CERO">
+                                <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                            </tr>
+                        </tfoot>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

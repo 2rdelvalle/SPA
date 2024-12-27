@@ -1,0 +1,71 @@
+<style>
+    .info-icon-tool {
+        padding: 5px;
+    }
+</style>
+<script src="../../../js/main-app.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="campaniaCtrl as campCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">Auditoria</h2>
+        </div>
+        <div class="float-right" style="margin-right: 10px">
+
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Auditoria Convenio</h3>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="form form-horizontal">
+                        <div class="col-xs-1 col-sm-3">
+                            <label for="periodo" class="control-label">{{appConstantsView.LABEL_PERIODO_ACTUAL}}</label><label class="text-danger">*</label>
+                        </div>
+                        <div class="col-lg-8 col-sm-6">
+                            <ui-select name="periodo" ng-model="campCtrl.idPeriodo" ng-change="campCtrl.onChangePeriodoAcademico()"  class="form-control" >
+                                <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombre}}</ui-select-match>
+                                <ui-select-choices repeat="periodo in campCtrl.listadoPeriodos | filter: {nombre: $select.search}">
+                                    <div ng-bind-html="periodo.nombre"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                
+                <table object-table class="hover-column" 
+                       data="campCtrl.listDashCantidadConvenios" 
+                       display="10" 
+                       headers="Convenio,Cantidad"
+                       fields="nombreConvenio,cantidad" 
+                       sorting="compound" 
+                       selected-model="campCtrl.report.selected"
+                       editable="false" 
+                       search="separate" 
+                       resize="false">
+                    <tbody>
+                        <tr>
+                            <td>{{::item.nombreConvenio}}</td>
+                            <td>{{::item.cantidad}}</td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.campCtrl.listDashCantidadConvenios.length !== $owner.appConstantsView.CERO">
+                            <td colspan="2">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                        </tr>
+                        <tr ng-if="$owner.campCtrl.listDashCantidadConvenios.length === $owner.appConstantsView.CERO">
+                            <td colspan="2">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

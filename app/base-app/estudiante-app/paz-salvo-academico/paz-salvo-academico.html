@@ -1,0 +1,362 @@
+<div id="page-title" ng-controller="PazSalvoAcademicoCtrl as psaCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">notas estudiante</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Notas por periodo academico</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/menu-estudiante')"
+                    class="btn btn-sm btn-info icon-tool-add back-button" data-animation="flipOutX"
+                    style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span
+                            class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+                            {{appConstantsView.CONSULTA_ESTUDIANTE}}</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <form method="POST" name="buscarEstudiante" novalidate>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label">{{appConstantsView.LABEL_CODIGO_ESTUDIANTIL}}</label>
+                                        <div class="input-group">
+                                            <input id="inputCodigo" type="text" validation="required" mask="9"
+                                                restrict="reject" repeat="15" ng-model="psaCtrl.identificacionConsultar"
+                                                class="form-control" name="inputCodigo"
+                                                validation-error-to="errorConsultaSolicitud">
+                                            <span class="input-group-btn" style="position: static">
+                                                <button type="submit" title="Consultar" id="btnCodigoConsultar"
+                                                    ng-click="psaCtrl.onConsultarEstudiante(psaCtrl.identificacionConsultar)"
+                                                    class="btn btn-primary btn-group-plus"><i
+                                                        class="glyphicon glyphicon-search"></i></button>
+                                            </span>
+                                        </div>
+                                        <span id="errorConsultaSolicitud" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divNombre">
+                                        <label for="nombre"
+                                            class="control-label pull-left">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                        <input type="text" ng-disabled="true" id="nombre" class="form-control upper"
+                                            name="nombre" ng-model="psaCtrl.estudiante.nombre">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divIdentificacion">
+                                        <label for="identificacion"
+                                            class="control-label pull-left">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                        <input type="text" ng-disabled="true" id="identificacion"
+                                            class="form-control upper" name="identificacion"
+                                            ng-model="psaCtrl.estudiante.identificacion">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="periodoAcademico"
+                                        class="control-label">{{appConstantsView.LABEL_PERIODOS_ACADEMICOS}}<label
+                                            class="text-danger">*</label></label>
+                                    <select
+                                        ng-options="item.id as item.nombrePeriodoAcademico for item in psaCtrl.listaPeriodos"
+                                        class="form-control" ng-model="psaCtrl.notaEntity.PeriodoAcademico"
+                                        ng-change="psaCtrl.onConsultarProgramas(psaCtrl.notaEntity.PeriodoAcademico)"
+                                        name="periodoAcademico" id="periodoAcademico" validation="required">
+                                        <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="programaAcademico"
+                                        class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}<label
+                                            class="text-danger">*</label></label>
+                                    <select ng-options="item as item.nombrePrograma for item in psaCtrl.listaProgramas"
+                                        class="form-control" ng-model="psaCtrl.notaEntity.programaAcademico"
+                                        ng-change="psaCtrl.onConsultarNotas(psaCtrl.notaEntity.programaAcademico.id)"
+                                        ng-disabled="psaCtrl.notaEntity.PeriodoAcademico === null
+                                                                        || psaCtrl.notaEntity.PeriodoAcademico === undefined
+                                                                        || psaCtrl.notaEntity.PeriodoAcademico === ''"
+                                        name="programaAcademico" id="programaAcademico" validation="required">
+                                        <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <uib-tabset justify="false">
+            <uib-tab index="0" heading="Academico">
+                <div class="panel-body">
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <table object-table class="hover-column" display="psaCtrl.display"
+                                    data="psaCtrl.listaNotas"
+                                    headers="Asignatura,Nota 1,Nota 2,Nota 3,Nota Habilitacion ,Nota Definitiva"
+                                    fields="nombreModulo,nota1,nota2,nota3,notaHabilitacion,notaDefinitiva"
+                                    sorting="compound" selected-model="psaCtrl.report.selected" editable="false"
+                                    search="false" resize="false" select="false">
+                                    <tbody>
+                                        <tr style="height: 60px;">
+                                            <td>{{::item.nombreModulo}}</td>
+                                            <td>{{::item.nota1}}</td>
+                                            <td>{{::item.nota2}}</td>
+                                            <td>{{::item.nota3}}</td>
+                                            <td>{{::item.notaHabilitacion}}</td>
+                                            <td>{{::item.notaDefinitiva}} </td>
+                                            <td ng-hide="true">{{$owner.psaCtrl.filtrados = $filtered}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr
+                                            ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.psaCtrl.listaNotas.length !== $owner.appConstantsView.CERO">
+                                            <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                        </tr>
+                                        <tr ng-if="$owner.psaCtrl.listaNotas.length === $owner.appConstantsView.CERO">
+                                            <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="col-md-2" ng-hide="psaCtrl.notaEntity.programaAcademico === null
+                                                || psaCtrl.notaEntity.programaAcademico === undefined
+                                                || psaCtrl.notaEntity.programaAcademico === ''
+                                                || psaCtrl.listaNotas === null
+                                                || psaCtrl.listaNotas === undefined">
+                                <a href="" title="Exportar Paz y Salvo Academico"
+                                    class="tile-box tile-box-shortcut btn-primary"
+                                    ng-click="psaCtrl.onGenerarReporte()">
+                                    <div class="tile-header">
+                                        Imprimir
+                                    </div>
+                                    <div class="tile-content-wrapper">
+                                        <i class="glyph-icon icon-print"></i>
+                                    </div>
+                                </a>
+
+                                <a href="" title="Exportar Certificado Notas"
+                                    class="tile-box tile-box-shortcut btn-primary"
+                                    ng-click="psaCtrl.onGenerarReporteCertificadoNotasModal(2)">
+                                    <div class="tile-header">
+                                        Certificado Notas
+                                    </div>
+                                    <div class="tile-content-wrapper">
+                                        <i class="glyph-icon icon-print"></i>
+                                    </div>
+                                </a>
+                                <a href="" title="Exportar Certificado Estudio"
+                                    class="tile-box tile-box-shortcut btn-primary"
+                                    ng-click="psaCtrl.onGenerarReporteCertificadoNotasModal(3)">
+                                    <div class="tile-header">
+                                        Certificado Estudio
+                                    </div>
+                                    <div class="tile-content-wrapper">
+                                        <i class="glyph-icon icon-print"></i>
+                                    </div>
+                                </a>
+                                <a href="" title="Exportar Certificado paz y salvo"
+                                    class="tile-box tile-box-shortcut btn-primary"
+                                    ng-click="psaCtrl.onGenerarReporteCertificadoNotasModal(4)">
+                                    <div class="tile-header">
+                                        Certificado Paz y salvo especifico
+                                    </div>
+                                    <div class="tile-content-wrapper">
+                                        <i class="glyph-icon icon-print"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="1" heading="Financiero">
+                <div class="panel-body">
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <table object-table class="hover-column" display="psaCtrl.display"
+                                    data="psaCtrl.listaPazSalvoFinanciero"
+                                    headers="#,Programa,Ciclo Aprobado,Ciclo Autorizado,Obsevración,Fecha Creación,Usuario Creación"
+                                    fields="id,nombreProgramaAcademico,cicloAprobado,cicloAutorizado,observacion,fechaCreacion,usuarioCreacion"
+                                    sorting="compound" editable="false" search="false" resize="false" select="false">
+                                    <tbody>
+                                        <tr style="height: 60px;">
+                                            <td>{{::item.id}}</td>
+                                            <td>{{::item.nombreProgramaAcademico}}</td>
+                                            <td>{{::item.cicloAprobado}}</td>
+                                            <td>{{::item.cicloAutorizado}}</td>
+                                            <td>{{::item.observacion}}</td>
+                                            <td>{{::item.fechaCreacion  | date:'dd/MM/yyyy' }}</td>
+                                            <td>{{::item.usuarioCreacion}}</td>
+                                            <td ng-hide="true">{{$owner.psaCtrl.filtrados = $filtered}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr
+                                            ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.psaCtrl.listaPazSalvoFinanciero.length !== $owner.appConstantsView.CERO">
+                                            <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                        </tr>
+                                        <tr
+                                            ng-if="$owner.psaCtrl.listaPazSalvoFinanciero.length === $owner.appConstantsView.CERO">
+                                            <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="col-md-2" ng-hide="psaCtrl.notaEntity.programaAcademico.debe > 0">
+                                <a href="" title="Exportar Paz y Salvo Financiero"
+                                    class="tile-box tile-box-shortcut btn-primary"
+                                    ng-click="psaCtrl.onGenerarReporteCertificadoFinanciero(7)">
+                                    <div class="tile-header">
+                                        Imprimir
+                                    </div>
+                                    <div class="tile-content-wrapper">
+                                        <i class="glyph-icon icon-print"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+
+    <div id="myModal2" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Detalle Certificado Notas</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="ciclo" class="control-label pull-left">Ciclo</label>
+                                <input type="text" id="nombre" class="form-control upper" name="nombre"
+                                    ng-model="psaCtrl.informacionAux.ciclo">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="ciclo" class="control-label pull-left">Jornada</label>
+                                <input type="text" id="nombre" class="form-control upper" name="nombre"
+                                    ng-model="psaCtrl.informacionAux.jornada">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="duracion" class="control-label pull-left">Duración Programa</label>
+                                <input type="text" id="duracion" class="form-control upper" name="duracion"
+                                    ng-model="psaCtrl.informacionAux.duracionPrograma">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="ihp" class="control-label pull-left">Intensidad Horaria Programa
+                                    (Horas)</label>
+                                <input type="text" id="ihp" class="form-control upper" name="ihp"
+                                    ng-model="psaCtrl.informacionAux.duracionProgramaHoras">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="iphs" class="control-label pull-left">Intensidad Horaria Programa (Horas
+                                    Semanales)</label>
+                                <input type="text" id="iphs" class="form-control upper" name="iphs"
+                                    ng-model="psaCtrl.informacionAux.duracionProgramaHorasSemanales">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12" ng-show="psaCtrl.opcionReporte === 4">
+                            <div class="form-group">
+                                <label for="iphs" class="control-label pull-left">Resolución</label>
+                                <input type="text" id="resolucion" class="form-control upper" name="resolucion"
+                                    ng-model="psaCtrl.informacionAux.resolucion">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer btnCenter" style="padding-right: 125px;">
+                    <input class="btn btn-primary" type="submit" value="Generar"
+                        ng-click="psaCtrl.onGenerarReporteCertificadoNotas()" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModalFinanciero" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Detalle Paz y Salvo</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="cicloAprobado" class="control-label pull-left">Ciclo Aprobado</label>
+                                <input type="text" id="cicloAprobado" class="form-control upper" name="cicloAprobado"
+                                    ng-model="psaCtrl.informacionAux.cicloAprobado">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="cicloAutorizado" class="control-label pull-left">Ciclo Autorizado</label>
+                                <input type="text" id="cicloAutorizado" class="form-control upper"
+                                    name="cicloAutorizado" ng-model="psaCtrl.informacionAux.cicloAutorizado">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="ciclo" class="control-label pull-left">Unidades de Aprendizaje</label>
+                                <input type="text" id="unidades" class="form-control upper" name="unidades"
+                                    ng-model="psaCtrl.informacionAux.unidadesAprendizaje">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="observacionF" class="control-label pull-left">Observacion</label>
+                                <input type="text" id="observacionF" class="form-control upper" name="observacionF"
+                                    ng-model="psaCtrl.informacionAux.observacion">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="botonGuardar" class="button-pane">
+                        <button type="button" class="btn btn-success"
+                            ng-click="psaCtrl.onGenerarPazSalvoFinanciero()">Generar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

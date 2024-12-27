@@ -1,0 +1,681 @@
+<script src="../../../../styles/assets/widgets/popover/popover.js" type="text/javascript"></script>
+<script src="../../../../js/main-app.js" type="text/javascript"></script>
+<style>
+    .panel {
+        padding: 10px;
+        border-width: 1px 0 0 0;
+        border-style: solid;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .btn-consultar-inscritos {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
+
+    .btn-consultar-inscritos:hover {
+        color: #fff;
+        background-color: #5B90BD;
+        border-color: #2e6da4;
+    }
+
+    @media screen and (max-width: 1135px) {
+        .table-scroll-x {
+            overflow-x: scroll;
+        }
+    }
+
+    .panel-content{
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .profile-box .list-group.list-group-separator.row {
+        padding: 0px !important;
+    }
+
+</style>
+<div id="page-title" ng-controller="estadoFinancieroCtrl as estadoFCrtl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.TITLE_ESTADO_FINANCIERO}}</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.LABEL_HISTORIAL_FINANCIERO_ESTUDIANTE}}</h3>
+            <div class="float-right"   ng-controller="menuCtrl as mCtrl">
+                <a  ng-click="mCtrl.onListarOPciones('/#/financiero')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.CONSULTA_ESTUDIANTE}}</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <form method="POST" name="buscarEstudiante" novalidate>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{appConstantsView.LABEL_CODIGO_ESTUDIANTIL}}</label>
+                                        <div class="input-group">
+                                            <input id="inputCodigo" type="text" validation="required" mask="9" restrict="reject" repeat="15" ng-model="estadoFCrtl.identificacionConsultar"
+                                                   class="form-control" name="inputCodigo" validation-error-to="errorConsultaSolicitud">
+                                            <span class="input-group-btn" style="position: static">
+                                                <button type="submit" title="Consultar" id="btnCodigoConsultar" ng-click="estadoFCrtl.onConsultarEstudiante(estadoFCrtl.identificacionConsultar)"  class="btn btn-primary btn-group-plus" ><i class="glyphicon glyphicon-search"></i></button>
+                                            </span>
+                                        </div>
+                                        <span id="errorConsultaSolicitud" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divNombre">
+                                        <label for="nombre" class="control-label pull-left">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                        <input type="text" ng-disabled="true" id="nombre" class="form-control upper" name="nombre" ng-model="estadoFCrtl.estudiante.nombre"
+                                               validation="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divIdentificacion">
+                                        <label for="identificacion" class="control-label pull-left">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                        <input type="text" ng-disabled="true" id="identificacion" class="form-control upper" name="identificacion" ng-model="estadoFCrtl.estudiante.identificacion"
+                                               validation="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--                            <div class="row">
+                                                            <div class="col-lg-6 col-sm-6">
+                                                                <div class="form-group" id="divSemestre">
+                                                                    <label for="semestre" class="control-label pull-left">{{appConstantsView.LABEL_SEMESTRE}}</label>
+                                                                    <input type="text" ng-disabled="true" id="semestre" class="form-control upper" name="semestre" ng-model="estadoFCrtl.estudiante.semestre"
+                                                                           validation="required">
+                                                                </div>
+                                                            </div>
+                                                        </div>-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="col-md-12" >
+                    <div class="panel-layout row">
+                        <div class="panel-box col-xs-12 col-sm-6">
+                            <div class="panel-content">
+                                <div class="center-vertical">
+                                    <span style="font-size: 19px;">Resumen Total de Liquidaciones  |  {{appConstantsView.NUMERO_LIQUIDACION}}: {{estadoFCrtl.numeroLiquidaciones}} </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-box col-xs-12 col-sm-6 bg-primary">
+                            <div class="panel-content">
+                                <div class="text-right" style="padding-bottom: 6px;" >
+                                    <div  class="tl-label bs-label label-danger">{{appConstantsView.PENDIENTES}}: {{estadoFCrtl.totalNumeroLiqudacionesPendientes}}</div>
+                                </div>
+                                <div class="text-right" style="padding-bottom: 6px;" >
+                                    <div class="tl-label bs-label label-success"> {{appConstantsView.PAGADAS}} : {{estadoFCrtl.totalNumeroLiqudacionesPagas}}</div>           
+                                </div>
+                                <div class="text-right" >
+                                    <div  class="tl-label bs-label label-black" > Anuladas: {{estadoFCrtl.totalNumeroLiqudacionesAnuladas}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-repeat="periodo in estadoFCrtl.solicitudesEstudianteLiqudaciones" class="row">
+                        <div class="content-box col-md-12">
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-left text-uppercase content-box-header-title  btn-xs">
+                                    <button class="btn btn-xs btn-info icon-tool-add" id="btnListadoPeriodos" data-toggle="collapse" data-target="#Pe{{periodo.nombrePeriodoAcademico}}">
+                                        <i class="glyphicon glyphicon-collapse-down" ></i>
+                                    </button>  {{periodo.nombrePeriodoAcademico}}
+                                </h3>
+                                <h3 class="float-right text-uppercase content-box-header-title  btn-xs">
+                                    <ul class="list-group list-group-separator row list-group-icons">
+                                        <li>
+                                            <div  class="tl-label bs-label label-danger">{{appConstantsView.PENDIENTES}}: {{periodo.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPendientes}}</div> 
+                                            <div  class="tl-label bs-label label-success" > {{appConstantsView.PAGADAS}}: {{periodo.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPagadas}}</div>
+                                            <div  class="tl-label bs-label label-black" > Anuladas : {{periodo.valoresTotalesLiquidacionesDTO.numeroLiquidacionesAnuladas}}</div>
+                                        </li>
+                                    </ul>
+                                </h3>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="content-box-wrapper collapse" id="Pe{{periodo.nombrePeriodoAcademico}}">
+                                <div class="col-md-12" style="padding-top: 6px;" ng-repeat="programa in periodo.programa">
+                                    <div class="profile-box content-box ">
+                                        <div class="content-box-header clearfix bg-primary">
+                                            <div class="user-details">
+                                                {{programa.nombrePrograma}} 
+                                                <span> 
+                                                    <ul class="list-group list-group-separator row list-group-icons">
+                                                        <li>
+                                                            <div  class="tl-label bs-label label-danger"> {{appConstantsView.PENDIENTES}}: {{programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPendientes}}</div> 
+                                                            <div  class="tl-label bs-label label-success" > {{appConstantsView.PAGADAS}}: {{programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPagadas}}</div>
+                                                            <div  class="tl-label bs-label label-black" > Anuladas: {{programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesAnuladas}}</div>
+                                                        </li>
+                                                    </ul>
+                                                </span> 
+
+                                                <span>{{appConstantsView.NUMERO_LIQUIDACION}}: {{programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPagadas
+                                                            + programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPendientes
+                                                            + programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesAnuladas}} 
+                                                </span> 
+                                                <a class="btn btn-abs btn-success collapsed" title="" 
+                                                   id="btnListadoPrograma{{programa.nombrePrograma.replace(':', '').split(' ').join('')}}{{periodo.nombrePeriodoAcademico}}"
+                                                   data-toggle="collapse" data-target="#Pro{{programa.nombrePrograma.replace(':', '').split(' ').join('')}}{{periodo.nombrePeriodoAcademico}}">
+                                                    <i class="glyph-icon icon-money"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="collapse" id="Pro{{programa.nombrePrograma.replace(':', '').split(' ').join('')}}{{periodo.nombrePeriodoAcademico}}">
+                                            <ul class="list-group list-group-separator row list-group-icons">
+                                                <li class="col-md-12" style="padding-top: 6px;">
+                                                    <table object-table class="hover-column"
+                                                           display=10 data="programa.liquidacion" 
+                                                           headers="Número de Referencia, Concepto, Fecha Vencimiento,  Estado,Valor Liquidado, Abonado, Saldo,Opciones"
+                                                           fields="referencia,detallesLiquidaciones[0].nombreConcepto,fechaLimitePago,valorLiquidado,estadoLiquidacion, saldoAbonado, saldoPendiente,,"
+                                                           search="false" sorting="compound"
+                                                           selected-model="estadoFCrtl.report.selected"
+                                                           editable="false" resize="false"
+                                                           select="false" id="obj-table-hisotiral_vigentes">
+                                                        <tbody>
+                                                            <tr style="height: 60px;">
+                                                                <td style="text-align: center">{{::item.referencia}}</td>
+                                                                <td style="text-align: center">{{::item.detallesLiquidaciones[0].nombreConcepto === 'SOLICITUD_CREDITO' ? item.conceptoSolicitudCredito : item.detallesLiquidaciones[0].nombreConcepto}}</td>
+                                                                <td style="text-align: center">{{::item.fechaLimitePago| date:'dd/MM/yyyy'}}</td>
+                                                                <td style="text-align: center"><span class="{{item.estadoLiquidacion === 'ABIERTA' ? 'bs-label label-danger' :  item.estadoLiquidacion === 'ANULADA' ?  'bs-label label-black' : 'bs-label label-success'}}">{{::item.estadoLiquidacion}}</span></td>
+                                                                <td style="text-align: center" class="money">{{::item.valorLiquidado| currency}}</td>
+                                                                <td style="text-align: center; background-color: #29b765;color: white;" class="money">{{::item.saldoAbonado| currency}}</td>
+                                                                <td style="text-align: center; background-color: {{item.saldoPendiente > 0 ? '#cf4436' : '#29b765'}};color: {{item.saldoPendiente > 0 ? 'white' : 'white'}}" class="money">{{::item.saldoPendiente| currency}}</td>
+                                                                <td class="text-center opciones-table">
+                                                                    <button class="btn btn-primary btn-tools-table" title="Ver Detalle" ng-click="$owner.estadoFCrtl.ModalLiquidacion(item)">
+                                                                        <i class="glyphicon glyphicon-eye-open "></i>
+                                                                    </button>
+                                                                    <button class="btn btn-primary btn-tools-table" title="Ver Detalle Recibos" ng-click="$owner.estadoFCrtl.modalHistoricoRecibos(item.listadoRecibos)">
+                                                                        <i class="glyphicon glyphicon-paperclip "></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td ng-hide="true">{{$owner.hisotiralCrtl.filtrados = $filtered}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td style="text-align: center">Totales</td>
+                                                                <td style="text-align: center" class="money">{{$owner.estadoFCrtl.getTotalValorLiquidado($filtered) | currency}}</td>
+                                                                <td style="text-align: center" class="money">{{$owner.estadoFCrtl.getTotalSaldoAbonado($filtered) | currency}}</td>
+                                                                <td style="text-align: center" class="money">{{$owner.estadoFCrtl.getTotalSaldoPendiente($filtered) | currency}}</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="content-box-wrapper" ng-hide="estadoFCrtl.solicitudesEstudiante.length === appConstantsView.CERO">
+                    <div class="example-box-wrapper">
+                        <div class="row">
+                            <div class="col-md-12" style="cursor: pointer;">
+                                <i ng-click="estadoFCrtl.mostar(estadoFCrtl.seMuestra)">
+                                    <div class="tile-box tile-box-alt bg-primary">
+                                        <div class="tile-header">
+                                            <span style="font-size: 19px;">Créditos</span>
+                                            <div class="text-right">
+                                                {{appConstantsView.NUMERO_CREDITOS}} {{estadoFCrtl.numeroCreditos}} 
+                                            </div>
+                                        </div>
+                                        <div class="tile-content-wrapper">
+                                            <i class="glyph-icon icon-money"></i>
+                                            <div class="tile-content">
+                                                <span> {{appConstantsView.TOTAL_CREDITOS}}</span>
+                                                <span class="money">{{estadoFCrtl.totalCreditos| currency}}</span>
+                                            </div>
+                                            <br>
+                                            <div class="tile-content">
+                                                <span>{{appConstantsView.TOTAL_PAGOS}}</span>
+                                                <span class="money">{{estadoFCrtl.totalPagoC| currency}}</span>
+                                            </div>
+                                        </div>
+                                        <a class="tile-footer tooltip-button" data-placement="bottom" title="" data-original-title="ver Crédito(s)">
+                                            <div ng-hide="!estadoFCrtl.seMuestra">
+                                                {{appConstantsView.VER_DETALLES}}
+                                                <i class="glyph-icon icon-arrow-down" ></i>
+                                            </div>
+                                            <div ng-hide="estadoFCrtl.seMuestra">
+                                                {{appConstantsView.OCULTAR_DETALLES}} 
+                                                <i class="glyph-icon icon-arrow-up"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </i>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+                <div class="content-box-wrapper" ng-hide="estadoFCrtl.seMuestra">
+                    <div ng-repeat="credito in estadoFCrtl.solicitudesEstudiante" class="col-md-4" style="margin-top: 10px;">  
+                        <div  style="cursor: pointer;" title="Ver detalle Crédito">
+                            <i ng-click="estadoFCrtl.ModalUsuario(credito)">
+                                <div class="tile-box bg-blue">
+                                    <div class="tile-header">
+                                        {{appConstantsView.SOLICITUD_CREDITO}}{{credito.numeroSolicitud}} 
+                                    </div>
+                                    <div class="tile-content-wrapper tile-box-shortcut ">
+                                        <i class="glyph-icon icon-money"></i>
+                                        <div class="tile-content" style=" height: 40px">
+                                            <span>{{appConstantsView.TOTAL_CREDITO}} </span>
+                                            <span class="money">{{credito.valorFinanciar| currency}}</span>
+                                        </div>
+                                        <br>
+                                        <div class="tile-content" style=" height: 40px">
+                                            <span>{{appConstantsView.TOTAL_PAGOS}}</span>
+                                            <span class="money">{{credito.totalPago| currency}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--            <div class="panel-body">
+                            <div class="content-box-wrapper" ng-hide="estadoFCrtl.solicitudesEstudianteLiqudaciones.length === appConstantsView.CERO">
+                                <div class="example-box-wrapper">
+                                    <div class="row">
+                                        <div class="col-md-12" style="cursor: pointer;">
+                                            <i ng-click="estadoFCrtl.mostarPe(estadoFCrtl.seMuestraPe, estadoFCrtl.solicitudesEstudianteLiqudaciones)">
+                                                <div class="tile-box tile-box-alt bg-primary">
+                                                    <div class="tile-header">
+                                                        <span style="font-size: 19px;">{{appConstantsView.LIQUIDACION}}</span>
+                                                        <div class="text-right">
+                                                            {{appConstantsView.NUMERO_LIQUIDACION}}: {{estadoFCrtl.numeroLiquidaciones}} 
+                                                        </div>
+                                                        <div class="text-right" style="padding-bottom: 6px;" >
+                                                            <div  class="tl-label bs-label label-danger">{{appConstantsView.PENDIENTES}}</div>   : {{estadoFCrtl.totalNumeroLiqudacionesPendientes}} 
+                                                        </div>
+                                                        <div class="text-right"  style="padding-bottom: 6px;" >
+                                                            <div  class="tl-label bs-label label-info" > {{appConstantsView.PAGADAS}} </div>: {{estadoFCrtl.totalNumeroLiqudacionesPagas}} 
+                                                        </div>
+                                                        <div class="text-right" >
+                                                            <div  class="tl-label bs-label label-black" > Anuladas </div>: {{estadoFCrtl.totalNumeroLiqudacionesAnuladas}} 
+                                                        </div>
+                                                    </div>
+                                                    <div class="tile-content-wrapper">
+                                                        <i class="glyph-icon icon-money"></i>
+                                                        <br>
+                                                        <div class="tile-content">
+                                                            <span> {{appConstantsView.TOTAL_PENDIENTES}}</span>
+                                                            <span class="money">{{estadoFCrtl.totalLiqudacionesPendientes| currency}}</span>
+                                                        </div>
+                                                        <br>
+                                                        <div class="tile-content">
+                                                            <span>{{appConstantsView.TOTAL_PAGOS}}</span>
+                                                            <span class="money">{{estadoFCrtl.totalLiqudacionesPagas| currency}}</span>
+                                                        </div>
+                                                        <br>
+                                                        <div class="tile-content">
+                                                            <span>Total Anuladas</span>
+                                                            <span class="money">{{estadoFCrtl.totalLiquidacionesAnuladas| currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <a class="tile-footer tooltip-button" data-placement="bottom" title="" data-original-title="ver Liquidaciones(s)">
+                                                        <div ng-hide="!estadoFCrtl.seMuestraPe">
+                                                            {{appConstantsView.VER_DETALLES}}
+                                                            <i class="glyph-icon icon-arrow-down" ></i>
+                                                        </div>
+                                                        <div ng-hide="estadoFCrtl.seMuestraPe">
+                                                            {{appConstantsView.OCULTAR_DETALLES}} 
+                                                            <i class="glyph-icon icon-arrow-up"></i>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                            <div class="content-box-wrapper" ng-hide="estadoFCrtl.seMuestraPe">
+                                <div ng-repeat="periodo in estadoFCrtl.periodos" class="col-md-12" style="margin-top: 10px;">  
+            
+                                    <div class="example-box-wrapper">
+                                        <div class="row">
+                                            <div class="col-md-12" style="cursor: pointer;">
+                                                <i ng-click="estadoFCrtl.mostarPro(estadoFCrtl.seMuestraPro, periodo.programa)">
+                                                    <div class="tile-box tile-box-alt bg-primary">
+                                                        <div class="tile-header">
+                                                            <span style="font-size: 19px;">Periodo {{periodo.nombrePeriodoAcademico}}</span>
+                                                            <div class="text-right">
+                                                                {{appConstantsView.NUMERO_LIQUIDACION}}: {{periodo.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPagadas
+                                                                            + periodo.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPendientes
+                                                                            + periodo.valoresTotalesLiquidacionesDTO.numeroLiquidacionesAnuladas}} 
+                                                            </div>
+                                                            <div class="text-right" style="padding-bottom: 6px;" >
+                                                                <div  class="tl-label bs-label label-danger">{{appConstantsView.PENDIENTES}}</div>: {{periodo.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPendientes}}  
+                                                            </div>
+                                                            <div class="text-right"  style="padding-bottom: 6px;" >
+                                                                <div  class="tl-label bs-label label-info" > {{appConstantsView.PAGADAS}} </div>: {{periodo.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPagadas}} 
+                                                            </div>
+                                                            <div class="text-right" >
+                                                                <div  class="tl-label bs-label label-info" > Anuladas </div>: {{periodo.valoresTotalesLiquidacionesDTO.numeroLiquidacionesAnuladas}} 
+                                                            </div>
+                                                        </div>
+                                                        <div class="tile-content-wrapper">
+                                                            <i class="glyph-icon icon-money"></i>
+                                                            <br>
+                                                            <div class="tile-content">
+                                                                <span> {{appConstantsView.TOTAL_PENDIENTES}}</span>
+                                                                <span class="money">{{periodo.valoresTotalesLiquidacionesDTO.totalLiquidacionesPendientes| currency}}</span>
+                                                            </div>
+                                                            <br>
+                                                            <div class="tile-content">
+                                                                <span>{{appConstantsView.TOTAL_PAGOS}}</span>
+                                                                <span class="money">{{periodo.valoresTotalesLiquidacionesDTO.totalLiquidacionesPagadas| currency}}</span>
+                                                            </div>
+                                                            <br>
+                                                            <div class="tile-content">
+                                                                <span>Total Anuladas</span>
+                                                                <span class="money">{{periodo.valoresTotalesLiquidacionesDTO.totalLiquidacionesAnuladas| currency}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <a class="tile-footer tooltip-button" data-placement="bottom" title="" data-original-title="ver Liquidaciones(s)">
+                                                            <div ng-hide="!estadoFCrtl.seMuestraPro">
+                                                                {{appConstantsView.VER_DETALLES}}
+                                                                <i class="glyph-icon icon-arrow-down" ></i>
+                                                            </div>
+                                                            <div ng-hide="estadoFCrtl.seMuestraPro">
+                                                                {{appConstantsView.OCULTAR_DETALLES}} 
+                                                                <i class="glyph-icon icon-arrow-up"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </i>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="content-box-wrapper" ng-hide="estadoFCrtl.seMuestraPro">
+                                        <div ng-repeat="programa in periodo.programa" class="col-md-12" style="margin-top: 10px;">  
+                                            <div class="example-box-wrapper">
+                                                <div class="row">
+                                                    <div class="col-md-12" style="cursor: pointer;">
+                                                        <i ng-click="estadoFCrtl.mostarL(estadoFCrtl.seMuestraL, programa.liquidacion)">
+                                                            <div class="tile-box tile-box-alt bg-primary">
+                                                                <div class="tile-header">
+                                                                    <span style="font-size: 19px;">{{programa.nombrePrograma}}</span>
+                                                                    <div class="text-right">
+                                                                        {{appConstantsView.NUMERO_LIQUIDACION}}: {{programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPagadas
+                                                                                    + programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPendientes
+                                                                                    + programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesAnuladas}} 
+                                                                    </div>
+                                                                    <div class="text-right" style="padding-bottom: 6px;" >
+                                                                        <div  class="tl-label bs-label label-danger">{{appConstantsView.PENDIENTES}}</div>: {{programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPendientes}}  
+                                                                    </div>
+                                                                    <div class="text-right"  style="padding-bottom: 6px;" >
+                                                                        <div  class="tl-label bs-label label-info" > {{appConstantsView.PAGADAS}} </div>: {{programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesPagadas}} 
+                                                                    </div>
+                                                                    <div class="text-right" >
+                                                                        <div  class="tl-label bs-label label-info" > Anuladas </div>: {{programa.valoresTotalesLiquidacionesDTO.numeroLiquidacionesAnuladas}} 
+                                                                    </div>
+                                                                </div>
+                                                                <div class="tile-content-wrapper">
+                                                                    <i class="glyph-icon icon-money"></i>
+                                                                    <br>
+                                                                    <div class="tile-content">
+                                                                        <span> {{appConstantsView.TOTAL_PENDIENTES}}</span>
+                                                                        <span class="money">{{programa.valoresTotalesLiquidacionesDTO.totalLiquidacionesPendientes| currency}}</span>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="tile-content">
+                                                                        <span>{{appConstantsView.TOTAL_PAGOS}}</span>
+                                                                        <span class="money">{{programa.valoresTotalesLiquidacionesDTO.totalLiquidacionesPagadas| currency}}</span>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="tile-content">
+                                                                        <span>Total Anuladas</span>
+                                                                        <span class="money">{{programa.valoresTotalesLiquidacionesDTO.totalLiquidacionesAnuladas| currency}}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <a class="tile-footer tooltip-button" data-placement="bottom" title="" data-original-title="ver Liquidaciones(s)">
+                                                                    <div ng-hide="!estadoFCrtl.seMuestraL">
+                                                                        {{appConstantsView.VER_DETALLES}}
+                                                                        <i class="glyph-icon icon-arrow-down" ></i>
+                                                                    </div>
+                                                                    <div ng-hide="estadoFCrtl.seMuestraL">
+                                                                        {{appConstantsView.OCULTAR_DETALLES}} 
+                                                                        <i class="glyph-icon icon-arrow-up"></i>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </i>
+                                                    </div>
+                                                </div>
+                                            </div>  
+            
+                                            <div class="content-box-wrapper" ng-hide="estadoFCrtl.seMuestraL">
+                                                <div ng-repeat="liquida in programa.liquidacion" class="col-md-4" style="margin-top: 10px;">  
+                                                    <div  style="cursor: pointer;" title="Concepto: {{liquida.nombreConcepto}}">
+                                                        <i ng-click="estadoFCrtl.ModalLiquidacion(liquida)">
+                                                            <div class="{{estadoFCrtl.estadoLiquidacionesStyle(liquida.estadoLiquidacion, liquida.estadoDetalleLiquidacion)}} tile-box-alt">
+                                                                <div class="tile-header">
+                                                                    {{appConstantsView.REFERENCIA_PAGO}}: {{liquida.referencia}} 
+                                                                </div>
+                                                                <div class="tile-content-wrapper tile-box-shortcut">
+                                                                    <i class="glyph-icon icon-money"></i>
+                                                                    <div class="tile-content" style=" height: 80px">
+                                                                        <span style="font-size: 12px;">{{appConstantsView.CONCEPTO}}</span>
+                                                                        <span> {{liquida.detallesLiquidaciones[0].nombreConcepto}}</span>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="tile-content">
+                                                                        <span>{{appConstantsView.TOTAL}}</span>
+                                                                        <span class="money">{{liquida.valorLiquidado| currency}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>
+                        </div>-->
+        </div>
+    </div>
+
+
+
+
+
+    <!--    <div class="content-box">
+            <h3 class="content-box-header bg-primary">
+                <span style="font-size: 19px;">Resumen Total de Liquidaciones  |  {{appConstantsView.NUMERO_LIQUIDACION}}: {{estadoFCrtl.numeroLiquidaciones}} </span>
+            </h3>
+            <div class="panel-layout row">
+    
+                            <div class="panel-box col-xs-4 bg-green">
+                                <div class="panel-content">
+                
+                                    <i class="glyph-icon icon-money"></i>
+                                </div>
+                            </div>
+    
+                <div class="panel-box col-xs-12 ">
+                    <div class="content-box-wrapper">
+                    <div class="panel-content">
+                        <div class="text-right" style="padding-bottom: 6px;" >
+                            <div  class="tl-label bs-label label-danger">{{appConstantsView.PENDIENTES}}: {{estadoFCrtl.totalNumeroLiqudacionesPendientes}} | <span> {{appConstantsView.TOTAL_PENDIENTES}}</span>
+                                <span class="money">{{estadoFCrtl.totalLiqudacionesPendientes| currency}}</span></div>    
+                        </div>
+                        <div class="text-right" style="padding-bottom: 6px;" >
+                            <div class="tl-label bs-label label-info"> {{appConstantsView.PAGADAS}} : {{estadoFCrtl.totalNumeroLiqudacionesPagas}} | <span>{{appConstantsView.TOTAL_PAGOS}}</span><span class="money"> : {{estadoFCrtl.totalLiqudacionesPagas| currency}}</span></div>           
+                        </div>
+                        <div class="text-right" >
+                            <div  class="tl-label bs-label label-black" > Anuladas: {{estadoFCrtl.totalNumeroLiqudacionesAnuladas}} |  <span>Total Anuladas</span>
+                                <span class="money">{{estadoFCrtl.totalLiquidacionesAnuladas| currency}}</span></div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+
+
+
+
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            Modal content
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">{{appConstantsView.DETALLE_SOLICITUD}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="formDetalleSolicitud" name="formDetalleSolicitud" novalidate>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="nombre" class="control-label pull-left">{{appConstantsView.LABEL_NUMERO_SOLICITUD}}</label>
+                                <input id="numero" type="text" ng-disabled="true" ng-model="estadoFCrtl.numeroSolicitudAmortizacion" class="form-control">
+                            </div>
+                            <div class="col-sm-12">
+                                <table object-table class="hover-column" display=h isotiralCrtl.display data="estadoFCrtl.tablaAmortizacionDetalle" headers="Cuotas,Fecha de Vencimiento,Préstamo,Interés,Amortización,Cuota Fija,Saldo,Estado"
+                                       fields="cuota,fecha,prestamo,interes,amortizacion,cuotaFija,saldoRestante,estadoAmortizacion"
+                                       search="false" sorting="compound" editable="false" resize="false">
+                                    <tbody>
+                                        <tr style="height: 60px;">
+                                            <td>{{::item.cuota}}</td>
+                                            <td>{{::item.fecha}}</td>
+                                            <td class="money">{{::item.prestamo| currency}}</td>
+                                            <td class="money">{{::item.interes| currency}}</td>
+                                            <td class="money">{{::item.amortizacion| currency}}</td>
+                                            <td class="money">{{::item.cuotaFija| currency}}</td>
+                                            <td class="money">{{::item.saldoRestante| currency}}</td>
+                                            <td><span class="{{$owner.estadoFCrtl.onEstadoEstiloAmorti(item.estadoAmortizacion)}}">{{::item.estadoAmortizacion}}</span></td>
+                                            <td ng-hide="true">{{$owner.estadoFCrtl.filtrados = $filtered}}</td>
+                                        </tr>
+                                    <tfoot>
+                                        <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.estadoFCrtl.solicitudesEstudiante.length !== $owner.appConstantsView.CERO">
+                                            <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                        </tr>
+                                        <tr ng-if="$owner.estadoFCrtl.solicitudesEstudiante.length === $owner.appConstantsView.CERO">
+                                            <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                        </tr>
+                                    </tfoot>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal2" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Detalle Liquidación</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table object-table class="hover-column" display=10 data="estadoFCrtl.tablaLiquidacionDetalle" headers="Fecha de Vencimiento,valor"
+                                   fields="fechaLimitePago,valorLiquidado"
+                                   search="false" sorting="compound" editable="false" resize="false">
+                                <tbody>
+                                    <tr style="height: 60px;">
+                                        <td>{{::item.fechaLimitePago}}</td>
+                                        <td class="money">{{::item.valorLiquidado| currency}}</td>
+                                        <td ng-hide="true">{{$owner.estadoFCrtl.filtrados = $filtered}}</td>
+                                    </tr>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.estadoFCrtl.tablaLiquidacionDetalle.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.estadoFCrtl.tablaLiquidacionDetalle.length === $owner.appConstantsView.CERO">
+                                        <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal3" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Detalle Recibos de Pago</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table object-table class="hover-column" 
+                                   display=5 data="estadoFCrtl.tablaHistorialRecibos" 
+                                   headers="Referencia, Forma Pago, Fecha Pago, Estado, Valor"
+                                   fields="numero, fechaPago, estadoRecibo, valorPagado"
+                                   search="false" sorting="compound" editable="false" resize="false">
+                                <tbody>
+                                    <tr style="height: 60px;">
+                                        <td style="text-align: center">{{::item.numero}}</td>
+                                        <td style="text-align: center">{{::item.metodoPago}}</td>
+                                        <td style="text-align: center">{{::item.fechaPago| date:'dd/MM/yyyy'}}</td>
+                                        <td style="text-align: center"><span class="{{item.estadoRecibo === 'ACTIVO' ? 'bs-label label-success' : 'bs-label label-black'}}">{{::item.estadoRecibo}}</span></td>
+                                        <td style="text-align: center" class="money">{{::item.valorPagado| currency}}</td>
+                                        <td ng-hide="true">{{$owner.estadoFCrtl.filtrados = $filtered}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+    $('#inputCodigo').keyup(function () {
+    if ($(this).val().length !== 0)
+            $('.btnCodigoConsultar').prop('disabled', false);
+    else
+            $('.btnCodigoConsultar').prop('disabled', true);
+    });
+    });</script>

@@ -1,0 +1,365 @@
+<style>
+    .altoImp {
+        height: 92px !Important;
+    }
+
+    li > .col-sm-3 > .active 
+    {
+        color: #555555;
+        background-color: red;  
+    } 
+</style>
+<div id="page-title" ng-controller="aplazamientoCtrl as aplazaCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">GESTIONAR MATRICULAS ESTUDIANTE</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <div class="float-left">
+                <h3 class="text-uppercase content-box-header-title btn-sm">GESTIONAR APLAZAMIENTO</h3>
+            </div>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/gestion-admitidos')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                    <form role="form" name="formConsultarEstudiante" novalidate>
+                        <div class="form-group">
+                            <label class="control-label">{{appConstantsView.LABEL_CODIGO}}<label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <input type="text" id="codigoIdentificacion" name="codigoIdentificacion" class="form-control" ng-model="aplazaCtrl.nuevoLiquidarMatricula.codigoEstudianteCampo"
+                                       validation="required" validation-error-to="myErrorId" ng-keyup="aplazaCtrl.onPresionarEnter($event)"
+                                       ng-change="aplazaCtrl.onLimpiar()" mask="9" min="3" repeat="15" restrict="reject">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary"
+                                            type="button"
+                                            ng-click="aplazaCtrl.onConsultarEstudiante()">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <span id="myErrorId" class="validation text-danger"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <form method="POST" name="formConsultarPrograma" novalidate>
+                        <div class="form-group" ng-if="aplazaCtrl.listaProgramas.length > appConstantsView.UNO">
+                            <label class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}<label class="text-danger">*</label></label>
+                            <select ng-options="item as item.programa for item in aplazaCtrl.listaProgramas" name="selectListaProgramas" id="selectListaProgramas"
+                                    class="form-control" ng-model="aplazaCtrl.nuevoLiquidarMatricula.idProgramaSelected" ng-change="aplazaCtrl.onCambiarPrograma()"
+                                    validation="required">
+                                <option ng-if="aplazaCtrl.listaProgramas.length > appConstantsView.UNO" value="" selected>{{appConstantsView.SELECCION_SELECT}}</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="content-box" ng-if="aplazaCtrl.liquidarMatriculaAux.onDeshabilitar">
+                <h3 class="content-box-header bg-default">
+                    {{appConstantsView.TITLE_INFO_ESTUDIANTE}}
+                </h3>
+                <div class="content-box-wrapper">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                <input type="text" id="nombreEstudiante" ng-disabled="true" class="form-control" name="nombre" ng-model="aplazaCtrl.nuevoLiquidarMatricula.nombresCompleto">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="seccional" class="control-label">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                <input type="text" id="identificacionEstudiante" ng-disabled="true" class="form-control" name="seccional" ng-model="aplazaCtrl.nuevoLiquidarMatricula.documentoCompleto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="program" class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                                <input type="text" id="responsable" ng-disabled="true" class="form-control" name="program" ng-model="aplazaCtrl.nuevoLiquidarMatricula.programaNombre">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="horario" class="control-label">{{appConstantsView.LABEL_HORARIO}}</label>
+                                <input type="text" id="horario" ng-disabled="true" class="form-control" name="semest" ng-model="aplazaCtrl.nuevoLiquidarMatricula.horario">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="grupos" class="control-label">{{appConstantsView.LABEL_PERIODO_ACTUAL}}</label>
+                                <select ng-options="periodo as periodo.nombre for periodo in aplazaCtrl.listadoPeriodos| orderBy:'nombre'" class="form-control"
+                                        ng-model="aplazaCtrl.idPeriodo" 
+                                        ng-change="aplazaCtrl.onBuscarGruposByModulo(); aplazaCtrl.onConsultarNotas()"
+                                        id="periodoe" name="periodoe" >
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table object-table class="hover-column" 
+                                   display="10" 
+                                   data="aplazaCtrl.listaNotas" 
+                                   headers="Asignatura,Estado,Nota 1,Nota 2,Nota 3,Nota Habilitacion,Nota Definitiva,Aplazar"
+                                   fields="nombreModulo,estadoMatricula,nota1,nota2,nota3,notaHabilitacion,notaDefinitiva," 
+                                   sorting="compound" selected-model="aplazaCtrl.report.selected" editable="false" search="false"
+                                   resize="false" select="false">
+                                <tbody>
+                                    <tr style="height: 60px;">                                       
+                                        <td>{{::item.nombreModulo}}</td>
+                                        <td>{{::item.estadoMatricula}}</td>
+                                        <td>{{::item.nota1}}</td>
+                                        <td>{{::item.nota2}}</td>
+                                        <td>{{::item.nota3}}</td>
+                                        <td>{{::item.notaHabilitacion}}</td>
+                                        <td>{{::item.notaDefinitiva}} </td>
+                                        <td ng-hide="true">{{$owner.aplazaCtrl.filtrados = $filtered}}</td>
+                                        <td class="text-center opciones-table">
+                                            <a class="btn btn-primary btn-tools-table"
+                                               ng-hide="{{item.estadoMatricula === 'APLAZADO'}}"
+                                               title="Aplazar" 
+                                               ng-click="$owner.aplazaCtrl.onAplazar(item)">
+                                                APLAZAR
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.aplazaCtrl.listaNotas.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.aplazaCtrl.listaNotas.length === $owner.appConstantsView.CERO">
+                                        <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>                        
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDatos" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Detalle Aplazar</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="content-box">
+                        <div class="button-pane button-pane-top">
+                            <div class="float-left">
+                                <h3 class="text-uppercase content-box-header-title btn-sm">Aplazar Modulo</h3>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="nombre" class="control-label">Módulo</label>
+                                        <input type="text" id="nombreEstudiante" 
+                                               ng-disabled="true" 
+                                               class="form-control" 
+                                               name="nombre" 
+                                               ng-model="aplazaCtrl.verDetalleAplazar.nombreModulo">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="descripcion" class="control-label">Motivo de Aplazamiento</label>                  
+                                        <textarea class="form-control" 
+                                                  ng-model="aplazaCtrl.verDetalleAplazar.observacion">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-pane">
+                                <input class="btn btn-success" 
+                                       type="submit" 
+                                       value="Aplazar"
+                                       ng-click="aplazaCtrl.onGuardar()">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--<script src="../../../../styles/assets/widgets/popover/popover.js" type="text/javascript"></script>
+<script src="../../../../js/main-app.js" type="text/javascript"></script>
+<style>
+    .panel {padding: 10px;border-width: 1px 0 0 0;border-style: solid;border-top-left-radius: 0;border-top-right-radius: 0;}
+    .btn-consultar-inscritos {color: #fff;background-color: #337ab7;border-color: #2e6da4;}
+    .btn-consultar-inscritos:hover {color: #fff;background-color: #5B90BD;border-color: #2e6da4; }
+    @media screen and (max-width: 1135px) {.table-scroll-x {overflow-x: scroll;}}
+</style>
+<div id="page-title" ng-controller="aplazamientoCtrl as aplazaCtrl">
+    <h2>{{appConstantsView.APLAZAR_MODULO}}</h2>
+    <p></p>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.APLAZAR_MODULO}}</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/gestion-admitidos')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_CONSULTA_EST}}</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <form method="POST" name="buscarEstudiante" novalidate>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{appConstantsView.LABEL_CODIGO_ESTUDIANTIL}}</label>
+                                        <div class="input-group">
+                                            <input id="inputCodigo" type="text" validation="required" mask="9" restrict="reject" repeat="15" ng-model="aplazaCtrl.identificacionConsultar"
+                                                   class="form-control" name="inputCodigo" validation-error-to="errorConsultaSolicitud" ng-keyup="aplazaCtrl.onKeyUpCleanField()">
+                                            <span class="input-group-btn" style="position: static">
+                                                <button type="submit"
+                                                        title="Consultar"
+                                                        id="btnCodigoConsultar"
+                                                        ng-click="aplazaCtrl.onConsultarEstudiante()"
+                                                        class="btn btn-primary btn-group-plus" >
+                                                    <i class="glyphicon glyphicon-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <span id="errorConsultaSolicitud" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divNombre">
+                                        <label for="nombre" class="control-label pull-left">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                        <input type="text" ng-disabled="true" id="nombre"
+                                               class="form-control text-uppercase"
+                                               name="nombre"
+                                               ng-model="aplazaCtrl.estudiante.nombre"
+                                               validation="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divIdentificacion">
+                                        <label for="identificacion" class="control-label pull-left">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                        <input type="text" ng-disabled="true" id="identificacion" class="form-control upper" name="identificacion" ng-model="aplazaCtrl.estudiante.identificacion"
+                                               validation="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <form method="POST" id="formDetalleSolicitud" name="formDetalleSolicitud" novalidate>
+                    <div class="row" ng-show="aplazaCtrl.formHidden">
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="button-pane button-pane-top">
+                                <h3 class="float-left text-uppercase content-box-header-title btn-sm">Datos del Estudiante</h3>
+                            </div>
+                            <div class="content-box">
+                                <div class="clearfix"></div>
+                                <div class="content-box-wrapper" >
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label><label class="text-danger">*</label>
+                                                    <select ng-options="tipodoc as tipodoc.nombre for tipodoc in aplazaCtrl.listadoProgramasEstudiante" 
+                                                            class="form-control"
+                                                            name="idPrograma"
+                                                            ng-change="aplazaCtrl.onChangePrograma()"
+                                                            ng-model="aplazaCtrl.verDetalle.idProgramaSelect">
+                                                        <option ng-if="aplazaCtrl.listadoProgramasEstudiante.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="identificacion" class="control-label pull-left">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                                    <input id="identificacion" type="text" ng-disabled="true" ng-model="aplazaCtrl.verDetalle.tipoDocumentoConcat" class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="nombre" class="control-label pull-left">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                                    <input id="nombre" type="text" ng-disabled="true" ng-model="aplazaCtrl.verDetalle.estudianteNombre" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="semestre" class="control-label pull-left">{{appConstantsView.LABEL_SEMESTRE}}</label>
+                                                    <input id="semestre" type="text" ng-disabled="true" ng-model="aplazaCtrl.verDetalle.semestre" class="form-control">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button-pane">
+                                    <input type="submit" class="btn" 
+                                           style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1; " 
+                                           ng-click="aplazaCtrl.onGuardarAplazamiento()"
+                                           ng-show="aplazaCtrl.btnHideGuardar"
+                                           value="Guardar">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+    $('#inputCodigo').keyup(function () {
+    if ($(this).val().length !== 0)
+            $('.btnCodigoConsultar').prop('disabled', false);
+    else
+            $('.btnCodigoConsultar').prop('disabled', true);
+    });
+    });</script>-->

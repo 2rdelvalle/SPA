@@ -1,0 +1,189 @@
+<div id="page-title" ng-controller="egresosCtrl as ECtrl">
+    <style>
+        li.uib-tab.nav-item.active>a,
+        li.uib-tab.nav-item.active>a:hover,
+        li.uib-tab.nav-item>a:hover {
+            text-decoration: none !important;
+        }
+
+        .formasPago {
+            font-size: 25px !important;
+            float: none !important;
+            margin-top: 5px;
+            margin-left: 0px !important;
+            line-height: 30px;
+        }
+
+        .mensajeError {
+            margin: -1px -1px 0;
+            padding: 15px;
+            border-color: transparent;
+            height: 50px;
+        }
+    </style>
+    <script src="../../../../../styles/assets/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+    <div style="height: 93px" class="content-box border-top border-blue" ng-hide="!ECtrl.egresosAuxiliar.cajaSinAbrir">
+        <h3 class="mensajeError clearfix title-resumen-blue">
+            <div class="col-xs-12">
+                <strong>{{appConstantsView.LABEL_TEN_CUENTA}}</strong><br/>
+                <small class="content">{{appConstantsView.SMALL_NO_PUEDE_REGISTRAR_EGRESO}} <a style="color: #5bccf6" href="/#/apertura-cierre-caja">{{appConstantsView.A_HASTA_APERTURES_CAJA}}</a>{{appConstantsView.A_TU_USUARIO}}</small>
+            </div>
+        </h3>
+    </div>
+
+    <div style="height: 93px" class="content-box border-top border-blue" ng-hide="!ECtrl.egresosAuxiliar.cajaEnCero">
+        <h3 class="mensajeError clearfix title-resumen-blue">
+            <div class="col-xs-12">
+                <strong>{{appConstantsView.LABEL_TEN_CUENTA}}</strong><br/>
+                <small class="content">{{appConstantsView.SMALL_CAJA_NO_POSEE_DINERO}}</small>
+            </div>
+        </h3>
+    </div>
+
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.H2_EGERESO_CAJA}}</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.H3_REGISTRAR_EGRESO}}</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+  
+                <a ng-click="mCtrl.onListarOPciones('/#/tesoreria');ECtrl.cancelarInterval()"  class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="content-box-wrapper">
+            <div class="row">
+                <div class="float-right">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="nombreCaja" class="control-label">{{appConstantsView.LABEL_CAJA}}</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <input type="text" class="form-control" ng-disabled="true" name="nombreCaja" ng-model="ECtrl.egresosEntity.nombreCaja" id="nombreCaja"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="fechaPago" class="control-label">{{appConstantsView.LABEL_FECHA_HORA}}</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyph-icon icon-calendar"></i>
+                                </span>
+                                <span current-time="ECtrl.format" class="form-control" ng-disabled="true" name="fechaPago" ng-model="ECtrl.egresosEntity.fechaPago"
+                                      id="fechaPago"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.H3_DETALLE_EGRESO}}</h3>
+                        <div class="float-right">
+                            <span title="Pago con Efectivo"> <i class="glyph-icon icon-linecons-money formasPago" style="color: green"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <form method="POST" novalidate name="formAgregarEgresos">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="tipoMoneda" class="control-label">Moneda <label class="text-danger">*</label></label>
+                                            <select ng-options="tipo.codigo as tipo.valor for tipo in ECtrl.listaTiposMoneda" name="tipoMoneda" id="tipoMoneda" validation="required"
+                                                    class="form-control" ng-model="ECtrl.egresosEntity.tipoMoneda" ng-disabled="ECtrl.egresosAuxiliar.onDisabled"
+                                                    validation="required"> 
+                                                <option ng-if="ECtrl.listaTiposMoneda.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="monto" class="control-label">{{appConstantsView.LABEL_MONTO}} <label class="text-danger">*</label></label>
+                                            <div class="input-group">
+                                                <span class=" input-group-addon ">
+                                                    $
+                                                </span>
+                                                <input type="text" maxlength="15" ui-money-mask="0" class="form-control money" id="monto" ng-disabled="ECtrl.egresosAuxiliar.onDisabled"
+                                                       ng-model="ECtrl.egresosEntity.monto" name="monto" validation="required" validation-error-to="mensajeError">
+                                            </div>
+                                            <span class="validation text-danger" id="mensajeError"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="conceptoDescuento" class="control-label">{{appConstantsView.LABEL_CONCEPTO_EGRESO}} <label class="text-danger">*</label></label>
+                                            <select ng-options="item.id as item.nombre for item in ECtrl.listaConceptoDescuento" name="conceptoDescuento" id="conceptoDescuento"
+                                                    validation="required" class="form-control" ng-model="ECtrl.egresosEntity.conceptoDescuento"
+                                                    ng-disabled="ECtrl.egresosAuxiliar.onDisabled"> 
+                                                <option ng-if="ECtrl.listaTiposMoneda.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="totalCaja" class="control-label">{{appConstantsView.LABEL_TOTAL_CAJA}} <label class="text-danger">*</label></label>
+                                            <div class="input-group">
+                                                <span class=" input-group-addon ">
+                                                    $
+                                                </span>
+                                                <input type="text" maxlength="15" ui-money-mask="0" class="form-control money" id="totalCaja" ng-disabled="true" ng-model="ECtrl.egresosEntity.totalCaja"
+                                                       name="totalCaja">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="descripcion" class="control-label">{{appConstantsView.LABEL_DESCRIPCION}} <label class="text-danger">*</label></label>
+                                            <textarea class="form-control descripcion" max-length="60" ng-trim="false" id="descripcion" style="resize:none" name="id"
+                                                      row="6" ng-model="ECtrl.egresosEntity.descripcion" ng-disabled="ECtrl.egresosAuxiliar.onDisabled"
+                                                      validation="required"></textarea>
+                                            <span class="pull-right">{{60 - ECtrl.egresosEntity.descripcion.length}} de 60</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="beneficiario" class="control-label">{{appConstantsView.LABEL_BENEFICIARIO}} <label class="text-danger">*</label></label>
+                                            <input type="text" maxlength="50" 
+                                                   mask='p' repeat='50' restrict='reject'
+                                                   class="form-control text-uppercase" id="beneficiario" 
+                                                   ng-disabled="ECtrl.egresosAuxiliar.onDisabled" 
+                                                   ng-model="ECtrl.egresosEntity.beneficiario"
+                                                   name="beneficiario"
+                                                   validation="required">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row" ng-hide="ECtrl.egresosAuxiliar.cajaEnCero || ECtrl.egresosAuxiliar.cajaSinAbrir">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="button-pane">
+                            <input class="btn btn-success" type="submit" ng-click="ECtrl.onGuardarEgreso()" value="Guardar">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

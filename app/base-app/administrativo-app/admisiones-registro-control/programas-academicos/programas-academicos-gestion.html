@@ -1,0 +1,315 @@
+<div id="page-title" ng-controller="programasAcademicosCtrl as PACtrl">
+
+
+    <h2>Programas Académicos</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{PACtrl.programasAcademicosVisor.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/programas-academicos" ng-click="PACtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add back-button"
+                   data-animation="flipOutX" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <form method="POST" novalidate name="formAgregarPrograma">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nivelFormacion" class="control-label">{{appConstantsView.LABEL_NIVEL_FORMACION}}<label class="text-danger">*</label></label>
+                                <select ng-options="item.id as item.nombreNivelFormacion for item in PACtrl.listaNivelFormacion| orderBy:'nombreNivelFormacion'"
+                                        class="form-control" ng-model="PACtrl.programasAcademicosEntity.nivelFormacion" name="nivelFormacion"
+                                        ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" id="nivelFormacion" validation="required">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="areaConocimiento" class="control-label">Área de Desempeño<label class="text-danger">*</label></label>
+                                <select ng-options="item.codigo as item.valor for item in PACtrl.listaAreaConocimiento| orderBy:'valor' " class="form-control"
+                                        ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" ng-model="PACtrl.programasAcademicosEntity.areaConocimiento"
+                                        name="areaConocimiento" id="areaConocimiento" validation="required">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="codigo" class="control-label">Codígo de Resolución<label class="text-danger">*</label></label>
+                                <input class="text-uppercase form-control"  mask="X" repeat="10"
+                                       restrict="reject" id="codigo" name="codigo" ng-model="PACtrl.programasAcademicosEntity.codigo"
+                                       validation="required">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}<label class="text-danger">*</label></label>
+                                <input type="text" class="text-uppercase form-control" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar"
+                                       id="nombre" name="nombre" ng-model="PACtrl.programasAcademicosEntity.nombrePrograma"
+                                       validation="required" mask="p" repeat="100" restrict="reject">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="registroCalificado" class="control-label">Registro Calificado<label class="text-danger">*</label></label>
+                                <input type="text" class="form-control" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitarCodigos" id="registroCalificado"
+                                       name="registroCalificado" mask="9" repeat="10" restrict="reject" ng-model="PACtrl.programasAcademicosEntity.registroCalificado"
+                                       validation="required">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="codigoSnies" class="control-label">Código SNIES<label class="text-danger">&nbsp;</label></label>
+                                <input type="text" class="form-control" repeat="10" mask="9" restrict="reject" id="codigoSnies" name="codigoSnies" ng-model="PACtrl.programasAcademicosEntity.codigoSnies"
+                                       ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitarCodigos">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="facultad" class="control-label">Facultad<label class="text-danger">*</label></label>
+                                <select ng-options="item.id as item.nombreFacultad for item in PACtrl.listaFacultades| orderBy:'nombreFacultad'" class="form-control"
+                                        ng-model="PACtrl.programasAcademicosEntity.facultad" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar"
+                                        name="facultad" id="facultad" validation="required">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                      <div class="col-lg-6 col-sm-6" ng-hide="PACtrl.programasAcademicosVisor.onDeshabilitarCampoUniversidad">
+                        <div class="form-group">
+                          <label for="universidad" class="control-label">Sede<label class="text-danger">*</label></label>
+                          <select ng-options="item.id as item.ciudad for item in PACtrl.listaUniversidades" class="form-control" required ng-model="PACtrl.programasAcademicosEntity.idUniversidad"
+                                  ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" name="universidad" id="universidad" validation="{{PACtrl.programasAcademicosVisor.onDeshabilitarValidacion}}"
+                                  ng-selected="{{item.nombre === 'Activo'}}">
+                            <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label" for="modalidad">{{appConstantsView.LABEL_MODALIDAD}}<label class="text-danger">*</label></label>
+                          <ui-select multiple ng-model="PACtrl.programasAcademicosEntity.modalidad" ng-required="true" theme='bootstrap' sortable="true" close-on-select="false" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar"
+                                     ng-change="PACtrl.onChangeModalidad()">
+                            <ui-select-match>{{$item.valor}}</ui-select-match>
+                            <ui-select-choices repeat="item.codigo as item in PACtrl.listaModalidades | filter: {valor: $select.search}">
+                              <div ng-bind-html="item.valor"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span ng-if="PACtrl.visible.validaModalidad" class="validation text-danger">{{appConstantsView.ERROR_CAMPO_REQUERIDO}}</span>
+                        </div>
+                      </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label" for="horario">{{appConstantsView.LABEL_HORARIO}}<label class="text-danger">*</label></label>
+                                <ui-select multiple ng-model="PACtrl.programasAcademicosEntity.horarios" ng-required="true" theme='bootstrap' sortable="true" close-on-select="false" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar"
+                                           ng-change="PACtrl.onChangeHorario()">
+                                    <ui-select-match>{{$item.valor}}</ui-select-match>
+                                    <ui-select-choices repeat="item.codigo as item in PACtrl.listaHorario | filter: {valor: $select.search}">
+                                        <div ng-bind-html="item.valor"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span ng-if="PACtrl.visible.validaHorario" class="validation text-danger">{{appConstantsView.ERROR_CAMPO_REQUERIDO}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6" ng-hide="PACtrl.programasAcademicosVisor.onDeshabilitarCampoEstado">
+                            <div class="form-group">
+                                <label for="estado" class="control-label">{{appConstantsView.LABEL_ESTADO}}<label class="text-danger">*</label></label>
+                                <select ng-options="item.valor as item.valor for item in PACtrl.listaEstados" class="form-control" required ng-model="PACtrl.programasAcademicosEntity.estado"
+                                        ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" name="estado" id="estado" validation="{{PACtrl.programasAcademicosVisor.onDeshabilitarValidacion}}"
+                                        ng-selected="{{item.nombre === 'Activo'}}">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="nombreCongreso" class="control-label">Nombre de Congreso</label>
+                                <input type="text" class="text-uppercase form-control" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar"
+                                       id="nombreCongreso" name="nombreCongreso" ng-model="PACtrl.programasAcademicosEntity.nombreCongreso">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="tipoPrograma" class="control-label">Tipo</label>
+                                <!--input type="text" class="text-uppercase form-control" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar"
+                                       id="tipoPrograma" name="tipoPrograma" ng-model="PACtrl.programasAcademicosEntity.tipoPrograma"-->
+                                <select class="form-control" required 
+                                        ng-model="PACtrl.programasAcademicosEntity.tipoPrograma"
+                                       ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" 
+                                       name="tipoPrograma" id="tipoPrograma" 
+                                       validation="{{PACtrl.programasAcademicosVisor.onDeshabilitarValidacion}}">
+                                   <option value="TECNICO_LABORAL">TECNICO LABORAL</option>
+                                   <option value="CURSO">CURSO</option>
+                                   <option value="CONGRESO">CONGRESO</option>
+                                   <option value="SEMINARIO">SEMINARIO</option>
+                                   <option value="DIPLOMADO">DIPLOMADO</option>
+                               </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <uib-tabset  active="PACtrl.programasAcademicosVisor.active" justify="false">
+                    <uib-tab index="0" heading="INFORMACIÓN GENERAL" class="tab-detalle">
+                        <ng-form method="POST" novalidate name="formAgregarInformacionGeneral">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fechaResolucion" class="control-label">Fecha de Resolución de Aprobación</label>
+                                        <div class="input-group date">
+                                            <input name="fechaResolucion" validation="pattern=/(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)/:alt=La fecha debe estar en formato dd/mm/yyyy"
+                                                   mask="39/19/9999" restrict="reject" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar"
+                                                   placeholder="dd/mm/aaaa" type="text" ng-model="PACtrl.programasAcademicosEntity.fechaResolucion"
+                                                   class="form-control date"  ng-init="PACtrl.scrits()" readonly="true"
+                                                   validation-error-to="fechaResolucion"><span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i></span>
+                                        </div>
+                                        <span id="fechaResolucion" class="validation text-danger"></span>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="vigencia" class="control-label">{{appConstantsView.LABEL_VIGENCIA}}</label>
+                                        <input type="text" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" name="vigencia" mask="9999" restrict="reject"
+                                               ng-model="PACtrl.programasAcademicosEntity.vigencia" class="form-control spinner-input" id="vigencia">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="titulo" class="control-label">Título que otorga</label>
+                                        <input type="text" maxlength="100" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" mask="p" repeat="100" restrict="reject"
+                                               class="text-uppercase form-control" id="titulo" name="titulo" ng-model="PACtrl.programasAcademicosEntity.titulo">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="reconocimiento">Reconocimiento MEN</label>
+                                        <select ng-options="item.codigo as item.valor for item in PACtrl.listaReconocimiento" class="form-control" ng-model="PACtrl.programasAcademicosEntity.reconocimiento"
+                                                name="reconocimiento" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" id="reconocimiento">
+                                            <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="creditos" class="control-label">Total Créditos Académicos</label>
+                                        <input type="text" mask="999" restrict="reject" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" name="creditos"
+                                               ng-model="PACtrl.programasAcademicosEntity.creditos" class="form-control spinner-input" id="creditos">
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-form>
+
+                    </uib-tab>
+                    <uib-tab index="1" heading="CONFIGURACIÓN">
+                        <ng-form method="POST" novalidate name="formConfiguracion">
+                            <div class="row"  ng-init="PACtrl.scrits()">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="maximoAlumnosAdmitidos" class="control-label">Máximo de alumnos a admitir</label>
+                                        <input type="text" mask="999" restrict="reject" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" name="maximoAlumnosAdmitidos"
+                                               ng-model="PACtrl.programasAcademicosEntity.maximoAlumnosAdmitidos" class="form-control spinner-input" id="maximoAlumnosAdmitidos">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="inscripcion" class="control-label">¿Paga Inscripción?</label>
+                                    </div>
+
+                                    <input bs-switch
+                                           class="form-control  col-xs-12"
+                                           name="inscripcion" id="inscripcion"
+                                           ng-model="PACtrl.programasAcademicosEntity.inscripcion"
+                                           type="checkbox"
+                                           switch-active="{{!PACtrl.programasAcademicosVisor.onDeshabilitar}}"
+                                           ng-true-value="'SI'"
+                                           ng-false-value="'NO'"
+                                           switch-on-text="SI"
+                                           switch-off-text="NO"
+                                           >
+
+                                </div>
+                            </div>
+                        </ng-form>
+                    </uib-tab>
+                    <uib-tab index="2" heading="NIVEL">
+                        <ng-form method="POST" novalidate name="formNivel">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="duracion" class="control-label">{{appConstantsView.LABEL_NIVEL}}</label><label class="text-danger">*</label>
+                                        <input type="text" ng-disabled="PACtrl.programasAcademicosVisor.onDeshabilitar" class="form-control spinner-input" repeat="2" mask="9"
+                                               restrict="reject" id="duracion" name="duracion" ng-model="PACtrl.programasAcademicosEntity.duracion"
+                                               ng-change="PACtrl.CreaLista()" readonly="true"
+                                               validation="required" validation-error-to="nivel" ng-init="PACtrl.scrits()">
+                                        <span id="nivel" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="back-cover table-scroll-x">
+                                    <table class="table table-hover table-condensed dias">
+                                        <thead>
+                                            <tr style="font-weight: bold">
+                                                <th style="width:40%">Niveles</th>
+                                                <th style="width:60%">Número de Módulos</th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="item in PACtrl.programasAcademicosEntity.listaNiveles">
+                                            <td style="text-align:center; vertical-align: middle;">
+                                                {{appConstantsView.LABEL_NIVEL}}: {{item.idNivel}}
+                                            </td>
+                                            <td style="min-width: 200px;">
+                                                <div class="input-group" >
+                                                    <input type="text" style="text-align: center" id="inputHid{{item.idNivel}}" ng-model="item.cantidadModulos" ng-keyup="PACtrl.changeSubtotal(item)" class="form-control" mask="99" onfocus="false" restrict="reject"  ng-focus="PACtrl.focusCampo(item)" ng-disabled="!PACtrl.disabledInput" >
+                                                    <span class="input-group-btn">
+                                                        <button title="Modificar" id="btnComd{{item.idNivel}}"  ng-click="PACtrl.mostrarCampo(item)" ng-show="!PACtrl.disabledInput" class="btn btn-primary btn-group-plus" ng-disabled="PACtrl.confiProgramaAuxiliar.onDeshabilitar" ><i class="glyphicon glyphicon-edit"></i></button>
+                                                        <button title="Guardar" id="btnCheck{{item.idNivel}}" style="display: none;" type="submit" class="btn btn-primary btn-group-plus" ng-click="PACtrl.ocultarCampo(item.idNivel)">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </ng-form>
+                    </uib-tab>
+                </uib-tabset>
+            </form>
+            <div class=" button-pane">
+                <button type="submit " class="btn btn-success " ng-hide="PACtrl.programasAcademicosVisor.onDeshabilitar
+                        "ng-click="PACtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../styles/assets/widgets/input-switch/inputswitch.js" type="text/javascript"></script>
+    <script src="../../../../styles/assets/widgets/input-switch/inputswitch-alt.js" type="text/javascript"></script>
+    <script src="../../../../styles/assets/widgets/uniform/uniform-demo.js" type="text/javascript"></script>
+    <script src="../../../../styles/assets/widgets/timepicker/timepicker.js" type="text/javascript"></script>
+</div>

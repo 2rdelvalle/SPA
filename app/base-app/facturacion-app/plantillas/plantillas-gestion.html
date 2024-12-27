@@ -1,0 +1,197 @@
+<div id="page-title" ng-controller="plantillaCtrl as PCtrl">
+    <h2>Plantillas</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{PCtrl.plantillaVisor.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/plantillas" ng-click="PCtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add back-button" data-animation="flipOutX"
+                    style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="content-box">
+                <div class="button-pane button-pane-top">
+                    <div class="float-left">
+                        <h3 class="text-uppercase content-box-header-title btn-sm">Configuración de Conceptos</h3>
+                    </div>
+                </div>
+                <form method="POST" novalidate name="formAgregarPlantilla">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="codigo" class="control-label">{{appConstantsView.LABEL_CODIGO}}<label class="text-danger">*</label></label>
+                                    <input name="codigo" id="codigo" ng-disabled="PCtrl.plantillaVisor.onDeshabilitarCodigo" class="text-uppercase form-control"
+                                        type="text" ng-model="PCtrl.plantillaEntity.codigo" mask="T" repeat="10" restrict="reject"
+                                        validation="required">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">Nombre de Plantilla <label class="text-danger">*</label></label>
+                                    <input class="text-uppercase form-control" type="text" ng-disabled="PCtrl.plantillaVisor.onDeshabilitar" name="nombre" ng-model="PCtrl.plantillaEntity.nombre"
+                                        validation="required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipoPlantilla" class="control-label">Tipo de Plantilla <label class="text-danger">*</label></label>
+                                    <select ng-options="item.codigo as item.valor for item in PCtrl.listaTiposPlantilla" class="form-control"
+                                        ng-model="PCtrl.plantillaEntity.tipoPlantilla" ng-disabled="true"
+                                        name="tipoPlantilla" id="tipoPlantilla" validation="required">
+                                        <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6" ng-if="!PCtrl.plantillaVisor.conceptoFacturacionVerEditar">
+                                <div class="form-group">
+                                    <label for="conceptoFacturacion" class="control-label">{{appConstantsView.LABEL_CONCEPTO_FACTURACION}}<label class="text-danger">*</label></label>
+                                    <select ng-options="item.id as item.codigo + ' - ' + item.nombre for item in PCtrl.plantillaEntity.listaConceptosFacturacion" class="form-control"
+                                        ng-model="PCtrl.plantillaEntity.conceptoFacturacion" ng-disabled="PCtrl.plantillaVisor.onDeshabilitar"
+                                        ng-change="PCtrl.getIdConceptoFacturacion(PCtrl.plantillaEntity.conceptoFacturacion)"
+                                        name="conceptoFacturacion" id="conceptoFacturacion" validation="required">
+                                        <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6" ng-if="PCtrl.plantillaVisor.conceptoFacturacionVerEditar">
+                                <div class="form-group">
+                                    <label for="conceptoFacturacion" class="control-label">{{appConstantsView.LABEL_CONCEPTO_FACTURACION}}<label>&#8203</label></label>
+                                    <input class="text-uppercase form-control" type="text" ng-disabled="PCtrl.plantillaVisor.onDeshabilitarCodigo" name="nombre" ng-model="PCtrl.plantillaEntity.conceptoFacturacion"
+                                        validation="required">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="formatoNumeracionLiteral" class="control-label">Formato de Numeración <label class="text-danger">*</label></label>
+                                    <a hi-help-text="numeracion" class="tooltip-content"></a>
+                                    <div class="row">
+                                        <div class="col-lg-5 col-sm-5 col-xs-5">
+                                            <input name="formatoNumeracionLiteral" placeholder="abc" id="formatoNumeracionLiteral" ng-disabled="PCtrl.plantillaVisor.onDeshabilitar"
+                                                class="text-uppercase form-control" type="text" ng-model="PCtrl.plantillaEntity.formatoNumeracionLiteral"
+                                                mask="@" repeat="3" restrict="reject" validation="required">
+                                        </div>
+                                        <div class="col-lg-2 col-sm-2 col-xs-2">
+                                            <input name="separador" id="separador" ng-disabled="true" class="text-center form-control" type="text" value="----">
+                                        </div>
+                                        <div class="col-lg-5 col-sm-5 col-xs-5">
+                                            <input name="formatoNumeracionNumero" placeholder="123" id="formatoNumeracionNumero" ng-disabled="PCtrl.plantillaVisor.onDeshabilitar"
+                                                class="text-uppercase form-control" type="text" ng-model="PCtrl.plantillaEntity.formatoNumeracionNumero"
+                                                mask="9" repeat="3" restrict="reject" validation="required">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="formaPago" class="control-label">Forma de Pago <label class="text-danger">*</label></label>
+                                    <ui-select multiple ng-model="PCtrl.plantillaEntity.formaPago" ng-required="true" theme='bootstrap' sortable="true" close-on-select="false"
+                                        ng-disabled="PCtrl.plantillaVisor.onDeshabilitar" ng-change="PCtrl.seleccionFormaPago()" ng-blur="PCtrl.seleccionFormaPago()" id="formaPago" name="formaPago">
+                                        <ui-select-match>{{$item.valor}}</ui-select-match>
+                                        <ui-select-choices repeat="item.codigo as item in PCtrl.listaFormasPago | filter: {valor: $select.search}">
+                                            <div ng-bind-html="item.valor"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span ng-if="PCtrl.plantillaVisor.mensajeError" class="validation text-danger">{{appConstantsView.ERROR_CAMPO_REQUERIDO}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="leyenda" class="control-label">Descripción <label class="text-danger">&#32</label></label>
+                                    <textarea class="form-control" style="resize: none;overflow-x:scroll" max-length="250" name="leyenda" id="leyenda" ng-disabled="PCtrl.plantillaVisor.onDeshabilitar"
+                                        ng-model="PCtrl.plantillaEntity.leyenda"></textarea>
+                                    <span class="pull-right">{{250 - PCtrl.plantillaEntity.leyenda.length}} de 250</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="content-box">
+                <div class="button-pane button-pane-top">
+                    <div class="float-left">
+                        <h3 class="text-uppercase content-box-header-title btn-sm">Detalle de Conceptos Asociados</h3>
+                    </div>
+                </div>
+                <form method="POST" novalidate name="formAgregarConceptoAsociado">
+                    <div class="content-box-wrapper">
+                        <div class="row" ng-if="!PCtrl.plantillaVisor.onDeshabilitar" ng-hide="PCtrl.listaConceptosAsociados.length===0">
+                            <div class="col-lg-6 col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label for="conceptosAsociados" class="control-label">{{appConstantsView.LABEL_CONCEPTOS_ASOCIADOS}}</label>
+                                    <select ng-options="item as item.nombre for item in PCtrl.plantillaEntity.listaConceptosAsociados" class="form-control" ng-disabled="!PCtrl.plantillaEntity.conceptoFacturacion"
+                                        ng-model="PCtrl.plantillaEntity.conceptosAsociados" name="conceptosAsociados" id="conceptosAsociados"
+                                        validation="required" ng-change="PCtrl.getIdIndexConceptoAsociado(PCtrl.plantillaEntity.conceptosAsociados)">
+                                    <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-xs-6" style="padding-top: 5px" ng-hide="!PCtrl.plantillaEntity.conceptoFacturacion">
+                                <div class="form-group">
+                                    <br>
+                                    <a href="" ng-click="PCtrl.onAgregarConceptoAsociado()" id="botonAgregar" name="botonAgregar" class="btn btn-sm btn-info icon-tool-add"
+                                        style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;height: 34px;">
+                                        <div class="glyph-icon">
+                                            <i class="glyphicon glyphicon-plus" style="top:4px;right:-1px"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table object-table class="hover-column" data="PCtrl.plantillaEntity.listaConceptosAsociadosConfig" display="PCtrl.display"
+                                headers="Concepto Asociado,Opciones" fields="nombreConceptoAsociado" sorting="compound" selected-model="PCtrl.report.selected"
+                                editable="false" search="separate" resize="false" select="multiply" add-filter="| filter:$owner.all">
+                                <tbody>
+                                    <tr>
+                                        <td>{{::item.nombreConceptoAsociado}}</td>
+                                        <td class="opciones-table text-center">
+                                            <div ng-hide="$owner.PCtrl.plantillaVisor.onDeshabilitar">
+                                                <button class="btn btn-danger btn-tools-table" ng-disabled="PCtrl.plantillaVisor.onDeshabilitar" title="Eliminar" ng-click="$owner.PCtrl.onClickToDeleteAsociado($index,item)">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tfoot>
+                                        <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.PCtrl.plantillaEntity.listaConceptosAsociadosConfig.length !== $owner.appConstantsView.CERO">
+                                            <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                        </tr>
+                                        <tr ng-show="$owner.PCtrl.plantillaEntity.listaConceptosAsociadosConfig.length === $owner.appConstantsView.CERO">
+                                            <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                        </tr>
+                                    </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="button-pane" ng-if="!PCtrl.plantillaVisor.onDeshabilitar">
+                <button type="submit" class="btn btn-success " ng-click="PCtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="helpMe.directiveHTML">
+        <span class="glyphicon glyphicon-info-sign"
+        ng-show="showHelpText">
+        <i data-ng-bind="helpText"></i>
+        </span>
+    </script> 
+</div>

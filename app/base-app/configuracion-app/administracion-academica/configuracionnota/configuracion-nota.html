@@ -1,0 +1,138 @@
+<style>
+    .validation-select{
+        margin-top: -10px;
+    }
+</style>
+<div id="page-title" ng-controller="ConfiguracionNotaCtrl as congiNotaCtrl">
+    <h2>Configuración Notas</h2>
+    <p></p>
+    <br>
+    <div class="content-box">        
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm ">Configuración de Porcentajes de Notas</h3>
+            <div class="float-right">
+                <a href="/#/administracion-academica" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">     
+                <div class="row">
+                    <form  method="POST"  name="formConfiguracionNota" novalidate>
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="porcentaje" class="control-label">Porcentaje Nota 1</label><label class="text-danger">*</label>
+                                    <div class="input-group">
+                                        <input type="text"  id="porcentaje"  class="form-control porcentaje"  placeholder='99.99%' 
+                                               name="porcentaje" 
+                                               restrict="reject" ui-percentage-mask ui-percentage-value maxlength="8"
+                                               ng-model="congiNotaCtrl.nota_1"
+                                               ng-blur=" congiNotaCtrl.onChangeNota_1()"
+                                               ng-change=" congiNotaCtrl.onChangeNota_1()"
+                                               validation="required" validation-error-to="errorPorcentaje">
+                                        <span class="input-group-addon">
+                                            %
+                                        </span>
+                                    </div>
+                                    <span id="errorPorcentaje" class="validation text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="porcentaje" class="control-label">Porcentaje Nota 2</label><label class="text-danger">*</label>
+                                    <div class="input-group">
+                                        <input type="text"  id="porcentaje2"  class="form-control porcentaje"  placeholder='99.99%' 
+                                               name="porcentaje2" 
+                                               ng-disabled="congiNotaCtrl.disableNota2"
+                                               restrict="reject" ui-percentage-mask ui-percentage-value maxlength="8"
+                                               ng-model="congiNotaCtrl.nota_2"
+                                               ng-blur=" congiNotaCtrl.onChangeNota_2()"
+                                               ng-change="congiNotaCtrl.onChangeNota_2()"
+                                               validation="required" validation-error-to="errorPorcentaje_2">
+                                        <span class="input-group-addon">
+                                            %
+                                        </span>
+                                    </div>
+                                    <span id="errorPorcentaje_2" class="validation text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="porcentaje" class="control-label">Porcentaje Nota 3</label><label class="text-danger">*</label>
+                                    <div class="input-group">
+                                        <input type="text"  id="porcentaje3"  class="form-control porcentaje"  placeholder='99.99%' 
+                                               name="porcentaje3" 
+                                               ng-disabled="true"
+                                               restrict="reject" ui-percentage-mask ui-percentage-value maxlength="8"
+                                               ng-model="congiNotaCtrl.nota_3"
+                                               ng-blur=" congiNotaCtrl.onChangeNota_3()"
+                                               ng-change="congiNotaCtrl.onChangeNota_3()"
+                                               validation="required" validation-error-to="errorPorcentaje_3">
+                                        <span class="input-group-addon">
+                                            %
+                                        </span>
+                                    </div>
+                                    <span id="errorPorcentaje_3" class="validation text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>                       
+
+                        <div class="row">
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="porcentaje" class="control-label">Porcentaje Nota Definitiva</label><label class="text-danger">*</label>
+                                    <div class="input-group">
+                                        <input type="text"  id="porcentaje4"  class="form-control porcentaje"  placeholder='99.99%' 
+                                               name="porcentaje4" 
+                                               ng-disabled="congiNotaCtrl.disableNotaH"
+                                               restrict="reject" ui-percentage-mask ui-percentage-value maxlength="8"
+                                               ng-model="congiNotaCtrl.nota_H"
+                                               ng-blur=" congiNotaCtrl.onChangeNotaHabilitacion()"
+                                               ng-change=" congiNotaCtrl.onChangeNotaHabilitacion()"
+                                               validation="required" validation-error-to="errorPorcentaje_h">
+                                        <span class="input-group-addon">
+                                            %
+                                        </span>
+                                    </div>
+                                    <span id="errorPorcentaje_h" class="validation text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="porcentaje" class="control-label">Porcentaje Nota Habilitacion</label><label class="text-danger">*</label>
+                                    <div class="input-group">
+                                        <input type="text"  id="porcentaje5"  class="form-control porcentaje"  placeholder='99.99%' 
+                                               name="porcentaje5" 
+                                               ng-disabled="true"
+                                               restrict="reject" ui-percentage-mask ui-percentage-value maxlength="8"
+                                               ng-model="congiNotaCtrl.nota_D"
+                                               validation="required" validation-error-to="errorPorcentaje_d">
+                                        <span class="input-group-addon">
+                                            %
+                                        </span>
+                                    </div>
+                                    <span id="errorPorcentaje_d" class="validation text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="button-pane">
+                            <input type="submit" class="btn btn-success"  value="Guardar" ng-click="congiNotaCtrl.onSubmitForm()">
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<style>
+    .info-icon-tool{padding: 5px;}
+    a.tooltip-content > span:hover > i{
+        visibility: visible;opacity: 1;z-index: 100;}
+    @media screen and (max-width: 1135px){
+        .table-scroll-x {overflow-x: scroll;}
+        a.tooltip-content > span > i:before, span > i:after {
+            content: "";position: absolute;border-bottom: 10px solid transparent;
+            border-right: 10px solid transparent;
+            top: 100%;left: 85%;margin-left: 5px;
+            transform: rotate(-90deg);}
+        a.tooltip-content > span > i {height: 85px;top: -75px;left: -1586%;}
+    }
+</style>
+<div id="page-title" ng-controller="UsuarioEstudianteCtrl as UserEstudianteCtrl">
+    <h2>Usuario</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{UserEstudianteCtrl.usuarioVisor.titulo}}</h3>
+            <div class="float-right">
+                <a href="#/usuario-estudiante" ng-click="UserEstudianteCtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add back-button" data-animation="flipOutX"
+                   style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <form method="POST" novalidate name="formAgregarUsuario">
+                <uib-tabset active="UserEstudianteCtrl.usuarioVisor.active" justify="false">
+                    <uib-tab index="0" heading="Datos Basicos" class="tab-detalle">
+                        <form method="POST" novalidate name="formfantasma"></form>
+                        <form method="POST" novalidate name="formAgregarInformacionGeneral" ng-init="UserEstudianteCtrl.scrits()">
+                            <div class="row" style="padding-bottom: 17px">
+                                <div class="col-lg-7 col-sm-7 float-right" style="margin-top: 25px;">
+                                    <div ng-if="UserEstudianteCtrl.usuarioEntity.activarCamara"  ng-hide="UserEstudianteCtrl.usuarioEntity.foto">
+                                        <div class="alert alert-error ng-scope" ng-show="webcamError">
+                                            <span>{{appConstantsView.ERROR_CAMARA}}</span>
+                                        </div>
+                                        <webcam channel="channel" 
+                                                on-streaming="onSuccess()" 
+                                                on-error="onError(err)" 
+                                                on-stream="onStream(stream)" 
+                                                style="width: 200px; height: 150px;"
+                                                ></webcam>
+                                        <button ng-click="makeSnapshot()" class="btn btn-success glyph-icon icon-bullseye" title="Capturar" style=" width: 200px;"></button>
+                                        <canvas id="snapshot"  class="flipH" width="200" height="150" ng-hide="true"></canvas>
+                                    </div>
+                                    <fieldset>
+                                        <div class="input-group">
+                                            <img ng-show="myForm.file.$valid"
+                                                 ngf-thumbnail="UserEstudianteCtrl.usuarioEntity.foto" class="thumb input-group" id="foto"style="width: 200px; height: 150px;">
+                                            <div class="form-control" title="Subir imagen"
+                                                 ngf-select ng-model="UserEstudianteCtrl.usuarioEntity.foto" name="file" 
+                                                 accept="image/*"
+                                                 ngf-max-size="1MB"
+                                                 ng-hide="UserEstudianteCtrl.usuarioEntity.activarCamara || UserEstudianteCtrl.usuarioEntity.foto"
+                                                 ngf-model-invalid="errorFile"
+                                                 style="width: 200px; height: 150px; background-image: url(../../../images/silueta.png);background-size: 197px 100%; cursor: pointer"
+                                                 ng-change="UserEstudianteCtrl.uploadPhoto(UserEstudianteCtrl.usuarioEntity.foto)"
+                                                 ></div>
+                                        </div> 
+                                        <span ng-hide="UserEstudianteCtrl.usuarioEntity.subirfoto">
+                                            <div class="btn btn-success" ng-click="UserEstudianteCtrl.TomarFoto()" ng-hide="UserEstudianteCtrl.usuarioEntity.activarCamara" title="Tomar una foto" style=" width: 200px;"><i class="glyphicon glyphicon-camera"></i></div>
+                                            <div class="btn btn-danger " ng-click="UserEstudianteCtrl.usuarioEntity.foto = null" ng-show="UserEstudianteCtrl.usuarioEntity.foto" title="Quitar" style=" width: 200px;"><i class="glyphicon glyphicon-remove"></i></div>
+                                        </span>
+                                        <span ng-hide="!UserEstudianteCtrl.usuarioEntity.subirfoto">
+                                            <div class="btn btn-success" ng-click="UserEstudianteCtrl.TomarFoto()" ng-hide="UserEstudianteCtrl.usuarioEntity.activarCamara" title="Tomar una foto" style="width: 100px;"><i class="glyphicon glyphicon-camera"></i></div>
+                                            <div class="btn btn-danger " ng-click="UserEstudianteCtrl.quitarAchivo()" ng-show="UserEstudianteCtrl.usuarioEntity.foto" title="Quitar" ng-style="{'width': width}"><i class="glyphicon glyphicon-remove"></i></div>
+                                        </span>
+                                        <i class="text-danger" ng-show="myForm.file.$error.maxSize">{{appConstantsView.LABEL_TAMANO_MAXIMO_PERMITIDO}} {{errorFile.size / 1000000|number:1}}</i>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{appConstantsView.LABEL_TIPO_DOCUMENTO}}</label><label class="text-danger">*</label>
+                                        <select ng-options="tipodoc.codigo as tipodoc.valor for tipodoc in UserEstudianteCtrl.lsttipodocumentos" name="tipodoc" id="tipodoc"
+                                                validation="required" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" class="form-control" ng-model="UserEstudianteCtrl.usuarioEntity.idTipoIdentificacion">
+                                            <option ng-if="UserEstudianteCtrl.lsttipodocumentos.length >= appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="numerodocumento" class="control-label">{{appConstantsView.LABEL_NUMERO_DOCUMENTO}}</label><label class="text-danger">*</label>
+                                        <input type="text" id="responsable" class="form-control" mask="9" repeat="20" restrict="reject" name="numerodocumento" ng-model="UserEstudianteCtrl.usuarioEntity.identificacion"
+                                               ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" validation="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRES}}</label><label class="text-danger">*</label>
+                                        <input type="text" id="lugarexpedicion" class="form-control text-uppercase" name="nombre" mask='H' restrict="reject" repeat="100"
+                                               ng-model="UserEstudianteCtrl.usuarioEntity.nombre" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" validation="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="apellido" class="control-label">{{appConstantsView.LABEL_APELLIDOS}}</label><label class="text-danger">*</label>
+                                        <input type="text" id="lugarexpedicion" class="form-control text-uppercase" name="apellido" mask='H' restrict="reject" repeat="100"
+                                               ng-model="UserEstudianteCtrl.usuarioEntity.apellido" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" validation="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fechanacimiento" class="control-label">{{appConstantsView.LABEL_FECHA_NACIMIENTO}}</label><label class="text-danger">*</label>
+                                        <div class="input-group date">
+                                            <span class="input-group-addon" style="cursor: pointer">
+                                                <i class="glyphicon  glyphicon-calendar"></i>
+                                            </span>
+											<input type="text" name="fechanacimiento" id="fechanacimiento" mask="39/19/9999" restrict="reject" readonly="true" placeholder="dd/mm/aaaa"
+												type="text" ng-model="UserEstudianteCtrl.usuarioEntity.fechaNacimiento" ng-change="UserEstudianteCtrl.onCalcularEdad()" class="form-control date"
+												ng-click="UserEstudianteCtrl.onFocus('#fechanacimiento')" ng-blur="UserEstudianteCtrl.onBlur('#fechanacimiento')" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar"
+												validation="required" validation-error-to="fecha" style="cursor: pointer">
+										</div>
+										<span id="fecha" class="validation text-danger"></span>
+									</div>
+								</div>
+								<div class="col-lg-6 col-sm-6">
+									<div class="form-group">
+										<label for="edad" class="control-label">{{appConstantsView.LABEL_EDAD}}</label>
+										<input type="text" id="lugarexpedicion" ng-disabled="true" class="form-control" name="edad" ng-model="UserEstudianteCtrl.usuarioEntity.edad">
+										<!--<span id="erroredad" ng-if="UserEstudianteCtrl.visible.validaedad" class="validation text-danger pull-left">{{appConstantsView.ERROR_CAMPO_REQUERIDO}}</span>-->
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6 col-sm-6">
+									<div class="form-group">
+										<label class="control-label">{{appConstantsView.LABEL_ESTADO_CIVIL}}</label><label class="text-danger">*</label>
+										<select ng-options="ecivil.codigo as ecivil.valor for ecivil in UserEstudianteCtrl.lstestadocivil" name="ecivil" id="ecivil" validation="required"
+											class="form-control" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" ng-model="UserEstudianteCtrl.usuarioEntity.idEstadoCivil">
+                                            <option ng-if="UserEstudianteCtrl.lstestadocivil.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="generoinfo" class="control-label">{{appConstantsView.LABEL_GENERO}}</label><label class="text-danger">*</label>
+                                        <select ng-options="genero.codigo as genero.valor for genero in UserEstudianteCtrl.lstgenero" name="generoinfo" id="generoinfo" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar"
+                                                class="form-control" validation="required" ng-model="UserEstudianteCtrl.usuarioEntity.idGenero">
+                                            <option ng-if="UserEstudianteCtrl.lstgenero.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="email" class="control-label">{{appConstantsView.LABEL_EMAIL}}</label><label class="text-danger">*</label>
+                                        <input type="text" id="email" placeholder="ejemplo@correo.com" class="form-control" maxlength="50" name="email" ng-model="UserEstudianteCtrl.usuarioEntity.email"
+                                               ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" validation="required|email">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="telefono" class="control-label">{{appConstantsView.LABEL_TELEFONO}}</label><label class="text-danger">*</label>
+                                        <input type="text" id="telefono" placeholder="(9)-9999 999" class="form-control" mask="(9)-9999 999" clean="true" restrict="reject"
+                                               name="telefono" ng-model="UserEstudianteCtrl.usuarioEntity.telefono" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" ng-blur="UserEstudianteCtrl.validarTel()">
+                                        <div ng-if='UserEstudianteCtrl.visible.validotelefonosize'>
+                                            <div class="text-danger pull-left">{{UserEstudianteCtrl.visible.validoTelmessage}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="direccion" class="control-label">{{appConstantsView.LABEL_DIRECCION}}</label><label class="text-danger">*</label>
+                                        <input type="text" id="direccion" class="form-control" maxlength="50" name="direccion" ng ng-model="UserEstudianteCtrl.usuarioEntity.direccion"
+                                               ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" validation="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="celular" class="control-label">{{appConstantsView.LABEL_CELULAR}}</label><label class="text-danger">*</label>
+                                        <input type="text" id="celular" placeholder="(999)-9999 999" class="form-control" mask="(999)-9999 999" clean="true" restrict="reject"
+                                               name="celular" ng-model="UserEstudianteCtrl.usuarioEntity.celular" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" ng-blur="UserEstudianteCtrl.validarcel()">
+                                        <div ng-if='UserEstudianteCtrl.visible.validocelsize'>
+                                            <div class="text-danger pull-left">{{UserEstudianteCtrl.visible.validocelmessage}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="cargo" class="control-label">{{appConstantsView.TITLE_CARGO}}</label><label class="text-danger">*</label>
+                                        <select ng-options="cargo.id as cargo.nombreCargo for cargo in UserEstudianteCtrl.usuarioEntity.listaCargo" name="cargo" validation="required"
+                                                id="municipionarecdacudiente" class="form-control" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" ng-model="UserEstudianteCtrl.usuarioEntity.idCargo">
+                                            <option ng-if="UserEstudianteCtrl.usuarioEntity.listaCargo.length > appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6" ng-if="!UserEstudianteCtrl.usuarioVisor.onDeshabilitarCampoEstado">
+                                    <div class="form-group">
+                                        <label class="control-label pull-left">{{appConstantsView.LABEL_ESTADO}}</label><label class="text-danger pull-left">*</label>
+                                        <select ng-options="nivel.valor as nivel.valor for nivel in UserEstudianteCtrl.listaEstados" name="estado" id="estado" class="form-control"
+                                                ng-model="UserEstudianteCtrl.usuarioEntity.estado" validation="required" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar">
+                                            <option ng-if="UserEstudianteCtrl.listaEstados.length > appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </uib-tab>
+                    <uib-tab index="1" heading="Datos de Acceso">
+                        <form method="POST" novalidate name="formConfiguracion">
+                            <div class="panel-box col-lg-8 col-sm-8" style="width: 1048px;">
+                                <div class="content-box col-lg-6 col-sm-6 float-right">
+                                    <h3 class="text-uppercase content-box-header-title btn-sm" style="text-align: center">{{UserEstudianteCtrl.usuarioVisor.user}}</h3>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="titulo" class="control-label">{{appConstantsView.USUARIO_SISTEMA}}</label><label class="text-danger">*</label>
+                                                    <input type="text" id="usuarioSistema" class="form-control" name="usuarioSistema" validation="required" mask='H' restrict="reject"
+                                                           repeat="100" ng-model="UserEstudianteCtrl.usuarioEntity.usuarioSistema" ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitarUser">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">{{appConstantsView.CONTRASENA}} </label>
+                                                    <a hi-help-text="contrasenha" class="tooltip-content"></a>
+                                                    <input type="Password" id="ps1" class="form-control" name="password" validation="{{UserEstudianteCtrl.usuarioVisor.onDeshabilitarValidacion}}" ng-model="UserEstudianteCtrl.usuarioEntity.pass"
+                                                           ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" maxlength="20" max="20" min="8"
+                                                           ng-blur="UserEstudianteCtrl.validarLongitud()">
+                                                    <div ng-if='UserEstudianteCtrl.visible.validarPass'>
+                                                        <div class="text-danger pull-left">{{appConstantsView.INFO_CONTRA}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">{{appConstantsView.R_CONTRASENA}}</label>
+                                                    <a hi-help-text="contrasenha2" class="tooltip-content"></a>
+                                                    <input type="Password" id="ps2" class="form-control" name="password2" validation="{{UserEstudianteCtrl.usuarioVisor.onDeshabilitarValidacion}}" ng-model="UserEstudianteCtrl.usuarioEntity.pass2"
+                                                           ng-disabled="UserEstudianteCtrl.usuarioVisor.onDeshabilitar" ng-blur="UserEstudianteCtrl.compara()">
+                                                    <div ng-if='UserEstudianteCtrl.visible.passError'>
+                                                        <div class="text-danger pull-left">{{appConstantsView.ERROR_CONTRA}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </uib-tab>
+                </uib-tabset>
+            </form>
+            <div class=" button-pane">
+                <button type="submit" class="btn btn-success " ng-hide="UserEstudianteCtrl.usuarioVisor.onDeshabilitar
+                        " ng-click="UserEstudianteCtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../styles/assets/widgets/uniform/uniform-demo.js" type="text/javascript"></script>
+    <script src="../../../../styles/assets/widgets/timepicker/timepicker.js" type="text/javascript"></script>
+    <style>
+        .flipH {
+            -moz-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            filter: FlipH;
+        }
+    </style>
+    <script type="text/ng-template" id="helpMe.directiveHTML">
+        <span class="glyphicon glyphicon-info-sign"
+        ng-show="showHelpText">
+        <i data-ng-bind="helpText"></i>
+        </span>
+    </script>  
+</div>

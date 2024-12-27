@@ -1,0 +1,76 @@
+<script src="js/main-app.js"></script>
+<div id="page-title" ng-controller="CajaCtrl as cjCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;"> {{appConstantsView.LABEL_CAJA}}</h2>
+        </div>
+        <div class="float-right" style="margin-right: 10px">
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm"> {{appConstantsView.LISTADO_CAJAS}} </h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a href="/#/cud-caja" class="btn btn-sm btn-info icon-tool-add" ng-click="cjCtrl.onClickToAddCaja()" style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.BOTON_AGREGAR}}</span>
+                    </div>
+                </a>
+                <a ng-click="mCtrl.onListarOPciones('/#/tesoreria');cjCtrl.cancelarInterval()"class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="cjCtrl.display" 
+                                        ng-init="cjCtrl.display = cjCtrl.display || cjCtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in cjCtrl.options">
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <table object-table class="hover-column" data="cjCtrl.cajas" display="cjCtrl.display" headers="Código,Nombre,Identificador de equipo,Estado,Opciones"
+                       fields="codigo,nombre,identificacionEquipo,estado" sorting="compound" selected-model="cjCtrl.report.selected"
+                       editable="false" search="separate" resize="false" select="multiply" add-filter="| filter:$owner.all">
+                    <tbody>
+                        <tr>
+                            <td>{{::item.codigo}}</td>
+                            <td>{{::item.nombre}}</td>
+                            <td>{{::item.identificacionEquipo}}</td>
+                            <td>{{::item.estado}}</td>
+                            <td class="text-center opciones-table">
+                                <a class="btn btn-primary btn-tools-table " title="Ver detalle" ng-click="$owner.cjCtrl.onVerdetalle(item)">
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </a>
+                                <a class="btn btn-info btn-tools-table" title="Modificar" ng-click="$owner.cjCtrl.onUpdateCaja(item)">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-danger btn-tools-table" title="Eliminar" ng-click="$owner.cjCtrl.onRemoveCaja(item)">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <tfoot>
+                        <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.cjCtrl.cajas.length !== $owner.appConstantsView.CERO">
+                            <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                        </tr>
+                        <tr ng-show="$owner.cjCtrl.cajas.length === $owner.appConstantsView.CERO">
+                            <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

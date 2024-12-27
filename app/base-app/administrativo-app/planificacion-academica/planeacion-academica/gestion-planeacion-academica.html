@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<script src="../../../js/main-app.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="planeacionAcademicaCtrl as planeacionAcademiCtrl">
+    <h2>{{appConstantsView.PLANEACION_ACADEMICA}}</h2>
+    <p></p>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_LISTADO_PLANEACION_ACA}}</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a href="#/crud-planeacion-academica" class="btn btn-sm btn-info icon-tool-add" ng-click="planeacionAcademiCtrl.onClickToAddPlaneacionAcademica()" style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.BOTON_AGREGAR}}</span>
+                    </div>
+                </a>
+               <a ng-click="planeacionAcademiCtrl.cancelarInterval();mCtrl.onListarOPciones('/#/planificacion-academica')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">     
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="planeacionAcademiCtrl.display" 
+                                        ng-init="planeacionAcademiCtrl.display = planeacionAcademiCtrl.display || planeacionAcademiCtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in planeacionAcademiCtrl.options">
+                                </select> 
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                   <table  object-table class="hover-column"
+                            data = "planeacionAcademiCtrl.planeacionAcademicaList"
+                            display = "planeacionAcademiCtrl.display"
+                            headers = "Período Académico,Programa,Sede,Punto Equilibrio,Meta Matriculados,Opciones"
+                            fields = "nombrePeriodo,nombrePrograma,nombreSeccional,puntoEquilibrio,metaMatriculados"
+                            sorting = "compound"  
+                            selected-model="planeacionAcademiCtrl.report.selected"
+                            editable = "false" 
+                            search="separate"
+                            resize="false"  
+                            select="multiply">
+                        <tbody>
+                            <tr>
+                                <td>{{item.nombrePeriodo}}</td>
+                                <td>{{item.nombrePrograma}}</td>
+                                <td>{{item.nombreSeccional}}</td>
+                                <td>{{item.puntoEquilibrio}}</td>
+                                <td>{{item.metaMatriculados}}</td>
+                                <td class="text-center opciones-table">
+                                    <a class="btn btn-primary btn-tools-table" title="Ver detalle"  ng-click="$owner.planeacionAcademiCtrl.onClickToVerDetallePlaneacionAcademica(item)">
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                    </a>
+                                    <a class="btn btn-info btn-tools-table" title="Modificar"  ng-hide="{{item.idEstadoPeriodo === $owner.appConstantsView.TRECE}}"
+                                       ng-click="$owner.planeacionAcademiCtrl.onClickToUpdatePlaneacionAcademica(item)">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr ng-show="$owner.planeacionAcademiCtrl.planeacionAcademicaList.length===0">
+                               <td colspan="5">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                           </tr>
+                           <tr ng-show="$filtered.length === $owner.appConstantsView.CERO && $owner.planeacionAcademiCtrl.planeacionAcademicaList.length !== $owner.appConstantsView.CERO">
+                               <td colspan="5">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td> 
+                           </tr>
+                         </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

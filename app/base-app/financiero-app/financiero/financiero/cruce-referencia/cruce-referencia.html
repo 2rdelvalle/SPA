@@ -1,0 +1,221 @@
+<div id="page-title" ng-controller="cruceReferenciasCtrl as CRCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.TITLE_CRUCEREFERENCIAS}}</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.TITLE_BUSQUEDA_REFERENCIA}}</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/financiero')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <form role="form" name="formConsultarReferencia" class="form-horizontal" novalidate>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label pull-left">{{appConstantsView.LABEL_REFERENCIA}}<label class="text-danger">*</label></label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="text" id="codigoIdentificacion" name="codigoIdentificacion" class="form-control text-uppercase" ng-model="CRCtrl.nuevoCruce.codigoReferencia"
+                                       validation="required" validation-error-to="myErrorId" ng-keyup="CRCtrl.onPresionarEnter($event)" ng-change="CRCtrl.onCampoVacio()">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" 
+                                            type="button" 
+                                            ng-click="CRCtrl.onConsultarReferencia()">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <span id="myErrorId" class="validation text-danger"></span>
+                        </div>
+                    </div>
+                </form>
+                <div class="content-box" ng-if="CRCtrl.cruceReferenciasAux.onDeshabilitar">
+                    <h3 class="content-box-header bg-default">
+                        {{appConstantsView.TITLE_INFO_ESTUDIANTE}}   
+                    </h3>
+                    <div class="content-box-wrapper">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                    <input type="text" id="nombreEstudiante" ng-disabled="true" class="form-control" name="nombre" ng-model="CRCtrl.nuevoCruce.nombresCompleto">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="seccional" class="control-label">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                    <input type="text" id="identificacionEstudiante" ng-disabled="true" class="form-control" name="seccional" ng-model="CRCtrl.nuevoCruce.identificacion">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="periActua" class="control-label">{{appConstantsView.LABEL_PERIODO_ACTUAL}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="periActua" ng-model="CRCtrl.nuevoCruce.periodoActual">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="program" class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="program" ng-model="CRCtrl.nuevoCruce.programaNombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-lg-6 col-sm-6" >
+                                <div class="form-group">
+                                    <label for="valorMinimo" class="control-label">Valor Minimo a Cruzar</label>
+                                    <input type="text"  id="valorMinimo" ng-disabled="true" class="form-control " name="valorMinimo" ng-value="CRCtrl.valorMinimoCruzar | currency">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="valorTotal" class="control-label">Valor Total</label>
+                                    <input type="text" id="valorTotal" ng-disabled="true" class="form-control" name="valorTotal" ng-value="CRCtrl.nuevoCruce.saldo | currency">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-lg-6 col-sm-6" ng-if="CRCtrl.listaDetalleLiquidacionSupletorio.length > 0">
+                                <div class="form-group">
+                                    <label for="valorTotal" class="control-label">¿Aplica Supletorio?</label>
+                                    <input bs-switch 
+                                           class="form-control  col-xs-12" 
+                                           name="inscripcion" id="inscripcion" 
+                                           ng-model="CRCtrl.nuevoCruce.aplicaSupletorio"
+                                           switch-change="CRCtrl.onChangeAplicaSupletorio()"
+                                           type="checkbox" 
+                                           ng-true-value="'SI'"
+                                           ng-false-value="'NO'"
+                                           switch-on-text="SI"
+                                           switch-off-text="NO"
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nivelforma" class="control-label">{{appConstantsView.LABEL_NIVEL_FORMACION}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="nivelforma" ng-model="CRCtrl.nuevoCruce.nivelFormacion">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="jornad" class="control-label">{{appConstantsView.LABEL_MODALIDAD}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="jornad" ng-model="CRCtrl.nuevoCruce.modalidad">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="semest" class="control-label">{{appConstantsView.LABEL_HORARIO}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="semest" ng-model="CRCtrl.nuevoCruce.horario">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="semest" class="control-label">{{appConstantsView.LABEL_SEMESTRE}}</label>
+                                    <input type="text" id="responsable" ng-disabled="true" class="form-control" name="semest" ng-model="CRCtrl.nuevoCruce.semestre">
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-xs-12" > 
+                    <div class="content-box" ng-if="CRCtrl.listaDetalleLiquidacionBuscada.length > 0">
+                        <div class="button-pane button-pane-top">
+                            <h3 class="float-left text-uppercase content-box-header-title  btn-xs"><button class="btn btn-xs btn-info icon-tool-add" id="btnCuadreCaja"  data-toggle="collapse" data-target="#demo"><i class="glyphicon glyphicon-collapse-down" ></i></button>  Detalle de Liquidación</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="content-box-wrapper collapse" id="demo">
+
+                            <table object-table class="hover-column" data="CRCtrl.listaDetalleLiquidacionBuscada" headers="Nombre Concepto,Estado,Valor" fields="nombreConcepto,estado,valor"
+                                   sorting="compound" select="multiply" editable="false" search="false" resize="false">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">{{::item.nombreConcepto}}</td>
+                                        <td class="text-center">{{::item.estado}}</td>
+                                        <td class="money text-center">{{::item.valor|currency}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr ng-if="$owner.CRCtrl.listaDetalleLiquidacionBuscada.length === $owner.appConstantsView.CERO">
+                                        <td colspan="3">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="content-box" ng-if="CRCtrl.cruceReferenciasAux.onDeshabilitar">
+                        <h3 class="content-box-header bg-default">
+                            {{appConstantsView.LISTA_ABONOS}} 
+                            <div class="float-right text-danger" style="font-weight:bold">
+                                Valor Total {{CRCtrl.nuevoCruce.saldo|currency}}
+                            </div>
+                        </h3>
+                        <div class="row">
+                            <div class="content-box-wrapper">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="dataTables_length" id="datatable-example_length">
+                                                <label>
+                                                    <select ng-model="CRCtrl.display" 
+                                                            ng-init="CRCtrl.display = liqcCtrl.display || CRCtrl.options[appConstantsView.CERO].value"
+                                                            ng-options="option.value as option.name for option in CRCtrl.options">
+                                                    </select> 
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table object-table class="hover-column" data="CRCtrl.listaAbono" headers="Referencia,Fecha de Pago,Importe" fields="referencia,fechaPago,importe"
+                                           sorting="compound" select="multiply" editable="false" search="false" resize="false">
+
+                                        <tbody>
+                                            <tr ng-click="$owner.CRCtrl.sumaSeleccionados(ifSelected(item), item); setSelected(item)">
+                                                <td class="text-center">{{::item.referencia}}</td>
+                                                <td class="text-center">{{::item.fechaPago}}</td>
+                                                <td class="money text-center">{{::item.importe|currency}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr ng-if="$owner.CRCtrl.listaAbono.length > appConstantsView.CERO">
+                                                <td colspan="2" class="text-right text-success">
+                                                    <h4> Total</h4>
+                                                </td>
+                                                <td class="money text-center text-success">
+                                                    <h4>{{$owner.CRCtrl.nuevoCruce.total|currency}}</h4>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="$owner.CRCtrl.listaAbono.length === $owner.appConstantsView.CERO">
+                                                <td colspan="3">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="botonGuardar" class="button-pane" ng-if="CRCtrl.cruceReferenciasAux.onDeshabilitarBoton">
+                                <input class="btn btn-success" type="submit" value="Generar" ng-click="CRCtrl.onGuardar()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

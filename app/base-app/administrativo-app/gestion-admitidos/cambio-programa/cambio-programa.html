@@ -1,0 +1,312 @@
+<script src="../../../../styles/assets/widgets/popover/popover.js" type="text/javascript"></script>
+<script src="../../../../js/main-app.js" type="text/javascript"></script>
+<style>
+    .panel {padding: 10px;border-width: 1px 0 0 0;border-style: solid;border-top-left-radius: 0;border-top-right-radius: 0;}
+    .btn-consultar-inscritos {color: #fff;background-color: #337ab7;border-color: #2e6da4;}
+    .btn-consultar-inscritos:hover {color: #fff;background-color: #5B90BD;border-color: #2e6da4; }
+    @media screen and (max-width: 1135px) {.table-scroll-x {overflow-x: scroll;}}
+</style>
+<div id="page-title" ng-controller="cambioProgramaCtrl as cambioProgCrtl">
+    <h2>Cambio programa </h2>
+    <p></p>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Cambio de programa</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/gestion-admitidos')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="content-box">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">Consulta de Estudiante</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <form method="POST" name="buscarEstudiante" novalidate>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{appConstantsView.LABEL_CODIGO_ESTUDIANTIL}}</label>
+                                        <div class="input-group">
+                                            <input id="inputCodigo" 
+                                                   type="text" validation="required" mask="9" restrict="reject" repeat="15" ng-model="cambioProgCrtl.identificacionConsultar"
+                                                   class="form-control" ng-model-options="{bounce:0}" 
+                                                   name="inputCodigo" 
+                                                   validation-error-to="errorConsultaSolicitud" 
+                                                   ng-keyup="cambioProgCrtl.onKeyUpCleanField()">
+                                            <span class="input-group-btn" style="position: static">
+                                                <button type="submit"
+                                                        title="Consultar"
+                                                        id="btnCodigoConsultar"
+                                                        ng-click="cambioProgCrtl.onConsultarEstudiante(cambioProgCrtl.identificacionConsultar)"
+                                                        class="btn btn-primary btn-group-plus" >
+                                                    <i class="glyphicon glyphicon-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <span id="errorConsultaSolicitud" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divNombre">
+                                        <label for="nombre" class="control-label pull-left">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                        <input type="text" ng-disabled="true" id="nombre"
+                                               class="form-control text-uppercase"
+                                               name="nombre"
+                                               ng-model="cambioProgCrtl.estudiante.nombre"
+                                               validation="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group" id="divIdentificacion">
+                                        <label for="identificacion" class="control-label pull-left">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                        <input type="text" ng-disabled="true" id="identificacion" class="form-control upper" name="identificacion" ng-model="cambioProgCrtl.estudiante.identificacion"
+                                               validation="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="content-box" id="divDatosEstudiante">
+                    <div class="button-pane button-pane-top">
+                        <h3 class="float-left text-uppercase content-box-header-title btn-sm">Programas</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-box-wrapper">
+                        <form method="POST" name="formCambioPrograma" novalidate>
+                            <div class="row hidden">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="codeudor" class="control-label">Programa Nuevo</label>
+                                        <br/>
+                                        <input bs-switch ng-model="cambioProgCrtl.estudiante.programaNuevo"
+                                               type="checkbox" ng-true-value="true" ng-false-value="false" 
+                                               switch-on-text="si" switch-off-text="no"  id="input-sw-codeudor" class="form-control input-sw-codeudor">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"> 
+                                <div class="col-lg-6 col-sm-6">
+                                    <input type="text" id="programaHidden" class="hidden" name="programaHidden" ng-model="cambioProgCrtl.estudiante.programa"
+                                           validation-error-to="errorPrograma" 
+                                           validation="required">
+                                    <div class="form-group">
+                                        <label for="programa" class="control-label">Programas Actuales</label><label class="text-danger">*</label>
+                                        <ui-select name="programa" 
+                                                   ng-model="cambioProgCrtl.estudiante.programa" class="form-control"
+                                                   ng-change="cambioProgCrtl.onChangeProgramaActual()">
+                                            <ui-select-match ng-blur="cambioProgCrtl.onBlurValidarCampos()" placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombrePrograma}}</ui-select-match>
+                                            <ui-select-choices ui-disable-choice="programa.idPrograma === cambioProgCrtl.estudiante.programaN" 
+                                                               repeat="programa.idPrograma as programa in cambioProgCrtl.listaProgramasActuales | filter: {nombrePrograma: $select.search}">
+                                                <div ng-bind-html="programa.nombrePrograma"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span id="errorPrograma" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Modalidad Actual</label>
+                                        <input type="text"  class="form-control"  ng-disabled="true" ng-model="cambioProgCrtl.estudiante.nombreModalidad" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Horario Actual</label>
+                                        <input type="text"  class="form-control"  ng-disabled="true" ng-model="cambioProgCrtl.estudiante.nombreHorario" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6" id="programaNuevo">
+                                    <input type="text" id="programaNHidden" class="hidden" name="programaNHidden" ng-model="cambioProgCrtl.estudiante.programaN"
+                                           validation-error-to="errorProgramaN" 
+                                           validation="required">
+                                    <div class="form-group">
+                                        <label for="programaN" class="control-label">Programas</label><label class="text-danger">*</label>
+                                        <ui-select  name="programaN" ng-model="cambioProgCrtl.estudiante.programaN" class="form-control"
+                                                    ng-change="cambioProgCrtl.onSelectProgramaNuevo()">
+                                            <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombrePrograma}}</ui-select-match>
+                                            <ui-select-choices ui-disable-choice="programa.id === cambioProgCrtl.estudiante.programa" 
+                                                               repeat="programa.id as programa in cambioProgCrtl.listaProgramasNuevos | filter: {nombrePrograma: $select.search}">
+                                                <div ng-bind-html="programa.nombrePrograma"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span id="errorProgramaN" class="validation text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="panelProgramaN">
+                                <div class="row"> 
+                                    <div class="col-lg-6 col-sm-6">
+                                        <input type="text" id="modalidadHidden" class="hidden" name="modalidadHidden" ng-model="cambioProgCrtl.estudiante.modalidad"
+                                               validation-error-to="errorModalidad" 
+                                               validation="required">
+                                        <div class="form-group">
+                                            <label for="modalidad" class="control-label">Modalidad</label><label class="text-danger">*</label>
+                                            <ui-select name="modalidad" ng-change="cambioProgCrtl.onSelectModalidad()"
+                                                       ng-model="cambioProgCrtl.estudiante.modalidad" class="form-control">
+                                                <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreModalidad}}</ui-select-match>
+                                                <ui-select-choices 
+                                                    repeat="modalidad.id as modalidad in cambioProgCrtl.listaProgramasModalidades | filter: {nombreModalidad: $select.search}">
+                                                    <div ng-bind-html="modalidad.nombreModalidad"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span id="errorModalidad" class="validation text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <input type="text" id="horarioHidden" class="hidden" name="horarioHidden" ng-model="cambioProgCrtl.estudiante.horario"
+                                               validation-error-to="errorHorario" 
+                                               validation="required">
+                                        <div class="form-group">
+                                            <label for="horario" class="control-label">Horario</label><label class="text-danger">*</label>
+                                            <ui-select  name="horario" ng-disabled="cambioProgCrtl.disableHorario"  ng-model="cambioProgCrtl.estudiante.horario" class="form-control">
+                                                <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.nombreHorario}}</ui-select-match>
+                                                <ui-select-choices 
+                                                    repeat="horario.id as horario in cambioProgCrtl.listaProgramasHorarios | filter: {nombreHorario: $select.search}">
+                                                    <div ng-bind-html="horario.nombreHorario"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span id="errorHorario" class="validation text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row hide">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <input type="text" id="nivelHidden" class="hidden" name="nivelHidden" ng-model="cambioProgCrtl.estudiante.nivel">
+                                        <div class="form-group">
+                                            <label for="nivel" class="control-label">Nivel</label><label class="text-danger">*</label>
+                                            <ui-select  name="nivel" ng-model="cambioProgCrtl.estudiante.nivel" class="form-control">
+                                                <ui-select-match placeholder="{{appConstantsView.SELECCION_SELECT}}">{{$select.selected.idNivel}}</ui-select-match>
+                                                <ui-select-choices 
+                                                    repeat="nivel.id as nivel in cambioProgCrtl.listaProgramasNiveles | filter: {idNivel: $select.search}">
+                                                    <div ng-bind-html="nivel.idNivel"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span id="errorNivel" class="validation text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="clearfix"></div>
+                        <div class="button-pane">
+                            <input type="submit" class="btn" style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1;" ng-click="cambioProgCrtl.onGuardar()"
+                                   value="Guardar" ng-if="!cambioProgCrtl.visible.hayPeriodo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Detalle Liquidación</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="formDetalleSolicitud" name="formDetalleSolicitud" novalidate>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="content-box">
+                                    <div class="button-pane button-pane-top">
+                                        <h3 class="float-left text-uppercase content-box-header-title btn-xs">
+                                            <button class="btn btn-xs btn-info icon-tool-add"  data-toggle="collapse" data-target="#demo">
+                                                <i class="glyphicon glyphicon-collapse-down"></i>
+                                            </button> Detalle Estudiante</h3>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="content-box-wrapper collapse" id="demo">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="pAcademico" class="control-label pull-left">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}</label>
+                                                        <input id="pAcademico" type="text" ng-disabled="true" ng-model="cambioProgCrtl.verDetalle.periodoAcademico" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="identificacion" class="control-label pull-left">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                                        <input id="identificacion" type="text" ng-disabled="true" ng-model="cambioProgCrtl.verDetalle.tipoDocumentoConcat" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="nombre" class="control-label pull-left">{{appConstantsView.LABEL_NOMBRE}}</label>
+                                                        <input id="nombre" type="text" ng-disabled="true" ng-model="cambioProgCrtl.verDetalle.estudianteNombre" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="codigo" class="control-label pull-left">{{appConstantsView.LABEL_CODIGO}}</label>
+                                                        <input id="codigo" type="text" ng-disabled="true" ng-model="cambioProgCrtl.verDetalle.codigo" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="programa" class="control-label pull-left">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                                                        <input id="programa" type="text" ng-disabled="true" ng-model="cambioProgCrtl.verDetalle.programa" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="semestre" class="control-label pull-left">{{appConstantsView.LABEL_SEMESTRE}}</label>
+                                                        <input id="semestre" type="text" ng-disabled="true" ng-model="cambioProgCrtl.verDetalle.semestre" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="seccional" class="control-label pull-left">{{appConstantsView.LABEL_SECCIONAL}}</label>
+                                                        <input id="seccional" type="text" ng-disabled="true" ng-model="cambioProgCrtl.verDetalle.seccional" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="telefono" class="control-label pull-left">{{appConstantsView.LABEL_TELEFONO}}</label>
+                                                        <input id="telefono" type="text" ng-disabled="true" ng-model="cambioProgCrtl.verDetalle.estudianteTelefono" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+    $('#inputCodigo').keyup(function () {
+    if ($(this).val().length !== 0)
+            $('.btnCodigoConsultar').prop('disabled', false);
+    else
+            $('.btnCodigoConsultar').prop('disabled', true);
+    });
+    });</script>

@@ -1,0 +1,78 @@
+<script src="../../js/main-app.js"></script>
+<div id="page-title" ng-controller="modulosCtrl as MCtrl">
+    <h2 style="line-height: 30px;">{{appConstantsView.LABEL_MODULOS}}</h2>
+<br>
+<div class="content-box">
+    <div class="button-pane button-pane-top">
+        <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{MCtrl.modulosVisor.titulo}}</h3>
+        <div class="float-right">
+            <a href="#/modulos" ng-click="MCtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add back-button" data-animation="flipOutX"
+                style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+<div class="glyph-icon">
+    <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+</div>
+</a>
+</div>
+</div>
+<div class="clearfix"></div>
+<div class="content-box-wrapper">
+    <form method="POST" novalidate name="formAgregarModulos">
+        <fieldset ng-disabled="MCtrl.modulosVisor.onDeshabilitar">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="codigo" class="control-label">{{appConstantsView.LABEL_CODIGO}}<label class="text-danger">*</label></label>
+                            <input class="text-uppercase form-control" ng-disabled="MCtrl.modulosVisor.onDeshabilitar || MCtrl.modulosVisor.onDeshabilitarCodigo"
+                                type="text" id="codigo" name="codigo" mask="T" repeat="10" restrict="reject" ng-model="MCtrl.modulosEntity.codigo"
+                                validation="required">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="nombre" class="control-label">{{appConstantsView.LABEL_NOMBRE}}<label class="text-danger">*</label></label>
+                            <input class="text-uppercase form-control" maxlength="100" ng-disabled="MCtrl.modulosVisor.onDeshabilitar" type="text" required
+                                id="nombre" name="nombre" ng-model="MCtrl.modulosEntity.nombre" validation="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="transversal" class="control-label">Transversal<label class="text-danger">*</label></label>
+                            <div class="input-group">
+                                <br>
+                                <input bs-switch class="form-control col-xs-12 transversal" name="transversal" id="transversal" ng-model="MCtrl.modulosEntity.transversal"
+                                    type="checkbox" ng-true-value="'SI'" ng-false-value="'NO'" switch-on-text="SI"
+                                    switch-off-text="NO" switch-active="{{!MCtrl.modulosVisor.onDeshabilitar}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="!MCtrl.modulosVisor.onOcultar">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="fechaRegistro" class="control-label">{{appConstantsView.LABEL_FECHA_HORA_REGISTRO}}<label class="text-danger">&nbsp;</label></label>
+                            <input class="text-uppercase form-control" ng-disabled="true" type="text" id="fechaRegistro" name="fechaRegistro" ng-model="MCtrl.modulosEntity.fechaRegistro">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="estado" class="control-label">{{appConstantsView.LABEL_ESTADO}}<label class="text-danger">*</label></label>
+                            <select ng-options="item.valor as item.valor for item in MCtrl.listaEstados" class="form-control" ng-model="MCtrl.modulosEntity.estado"
+                                ng-disabled="MCtrl.modulosVisor.onDeshabilitar" name="estado" id="estado" validation="required">
+                                        <option value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-pane" ng-if="!MCtrl.modulosVisor.onDeshabilitar">
+                    <button type="submit" class="btn btn-success" ng-click="MCtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</div>
+</div>

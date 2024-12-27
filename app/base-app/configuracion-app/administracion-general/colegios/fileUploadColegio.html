@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<style>
+    .progress.active .progress-bar {
+        -webkit-transition: none !important;
+        transition: none !important;
+    }
+</style>
+
+<script src="js/main-app.js"></script>
+<div id="page-title" ng-controller="colegioCtrl as colegioCtrl">
+
+    <h2>INSTITUCIONES</h2>
+    <p></p>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">ADJUNTAR ARCHIVO</h3>
+            <div class="float-right">
+                <a href="#/institucion" ng-click="colegioCtrl.onVolver()" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body"> 
+                <div class="row">
+                    <form method="POST" name="myForm" novalidate id="myForm">
+                        <fieldset>
+                            <div class="row">
+                                <div class="alert alert-notice">
+                                    <div class="bg-blue alert-icon" style="border-radius: 30px;">
+                                        <i class="glyph-icon icon-info"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title" style="font-size: 15px; font-weight: bolder">Ten en cuenta!</div>
+                                        El archivo plano debe seguir la estructura indicada <a href="../../../../base-app/configuracion-app/administracion-general/colegios/ejemploInstituciones.xls" title="Link" >AQUÍ
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-sm-12">
+
+                                    <div class="form-group">
+                                        <label class="control-label pull-left">Subir Archivo .CSV</label><span class="text-danger pull-left">*</span>
+                                        <!--                                        <input type="file" ngf-select ng-model="picFile" name="file"    
+                                                                                       accept="image/* .csv" ngf-max-size="1MB" required 
+                                                                                       ngf-model-invalid="errorFile" >-->
+                                        <input type="file" class="form-control"  ngf-select ng-model="picFile" name="file"    
+                                               accept=".csv" ngf-max-size="1MB" required 
+                                               ngf-model-invalid="errorFile">
+                                    </div>
+                                    <!--<i ng-show="myForm.file.$error.required">*required</i><br>-->
+                                    <i class="text-danger" ng-show="myForm.file.$error.maxSize">{{appConstantsView.LABEL_TAMANO_MAXIMO_PERMITIDO}} {{errorFile.size / 1000000|number:1}}MB</i>
+
+                                </div>
+
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="form-group">
+                                        <span ng-show="picFile.result">Carga Completa {{picFile.progress}}%</span>
+                                        <div class="progress progress-striped active " ng-show="picFile.progress >= 0" style="width:{{picFile.progress}}%">
+                                            <div class="progress-bar progress-bar-success" style="width:{{picFile.progress}}%"  ng-bind="picFile.progress + '%'" >   
+                                            </div> 
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="button-pane">
+                                <button class="btn btn-success" ng-disabled="!myForm.$valid"  ng-click="colegioCtrl.uploadPic(picFile)"><i class="glyphicon glyphicon-upload"></i>Subir</button>
+                                <button class="btn btn-danger" ng-click="picFile = null" ng-show="picFile">  <i class="glyphicon glyphicon-remove"></i>Remover</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

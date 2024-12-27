@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<div id="page-title" ng-controller="UsuarioCtrl as UserCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.USUARIO}}</h2>
+        </div>
+        <div class="float-right" style="margin-right: 10px">
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{appConstantsView.LISTADO_USUARIO}}</h3>
+            <div class="float-right">
+                <a href="/#/cud-usuario" ng-click="UserCtrl.onLimpiarRegistro()" class="btn btn-sm btn-info icon-tool-add" style="background-color: #00bca4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-plus"></i><span class="info-icon-tool text-capitalize">{{appConstantsView.BOTON_AGREGAR}}</span>
+                    </div>
+                </a>
+                <a href="#/funcionario" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="datatable-example_length">
+                            <label>
+                                <select ng-model="UserCtrl.display" 
+                                        ng-init="UserCtrl.display = UserCtrl.display || UserCtrl.options[appConstantsView.CERO].value"
+                                        ng-options="option.value as option.name for option in UserCtrl.options">
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <table object-table class="hover-column" data="UserCtrl.listaUsuario" display="UserCtrl.display" 
+                        headers="Nombre,Identificación,Cargo,Sede,Estado,Opciones"
+                        fields="nombreCompleto,identificacionConTipo,nombreCargo,sede,estado" sorting="compound" selected-model="UserCtrl.report.selected"
+                        editable="false" search="separate" resize="false" select="multiply" add-filter="| filter:$owner.all">
+                        <tbody>
+                            <tr>
+                                <td>{{item.nombreCompleto}}</td>
+                                <td>{{item.identificacionConTipo}}</td>
+                                <td>{{item.nombreCargo}}</td>
+                                <td>{{item.sede}}</td>
+                                <td>{{item.estado}}</td>
+                                <td class="opciones-table text-center">
+                                    <a ng-click="$owner.UserCtrl.onClickToView(item)" href="">
+                                        <button title="Ver detalle" class="btn btn-primary btn-tools-table">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                        </button>
+                                    </a>
+                                    <a ng-click="$owner.UserCtrl.onClickToEditar(item);" href="">
+                                        <button title="Modificar" class="btn btn-info btn-tools-table"> 
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                    </a>
+                                    <a ng-click="$owner.UserCtrl.onGestionarContrato(item);" href="">
+                                        <button title="Contrato" class="btn btn-danger btn-tools-table"> 
+                                            <i class="glyphicon glyphicon-paperclip"></i>
+                                        </button>
+                                    </a>
+                                    <a ng-click="$owner.UserCtrl.onListarContratos(item);" href="">
+                                        <button title="Listado de Contratos" class="btn btn-danger btn-tools-table"> 
+                                            <i class="glyphicon glyphicon-list"></i>
+                                        </button>
+                                    </a>
+                                    <a ng-click="$owner.UserCtrl.onAsignarTurnos(item);" href="">
+                                        <button title="Asignar Turno Modulo" class="btn btn-danger btn-tools-table"> 
+                                            <i class="glyphicon glyphicon-play"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.UserCtrl.listaUsuario.length !== $owner.appConstantsView.CERO">
+                                <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                            </tr>
+                            <tr ng-if="$owner.UserCtrl.listaUsuario.length === $owner.appConstantsView.CERO">
+                                <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalGestionarContrato" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!--Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" ng-click="UserCtrl.onCloseModal()" 
+                            class="close" 
+                            data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Detalle Contrato</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="content-box">
+                        <div class="panel-body">
+                            <form method="POST" novalidate name="formFechaBusqueda">
+                                <div id="fechaCampanha" class="input-daterange input-group">
+                                    <div class="col-lg-2 col-sm-2"></div>
+                                    <div class="col-lg-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label pull-left">Fecha Inicio</label>
+                                            <div id="fecha-inicio" class="input-group date">
+                                                <input id="fechaBusqueda" name="fechaBusqueda" style="text-align: left;" 
+                                                       mask="39/19/9999" 
+                                                       restrict="reject"
+                                                       readonly="true" 
+                                                       placeholder="dd/mm/aaaa" 
+                                                       type="text" 
+                                                       ng-model="UserCtrl.usuarioEntityContrato.fechaInicio"
+                                                       validation-error-to="validacionFechaBusqueda" 
+                                                       class="form-control date" 
+                                                       validation="required">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                            <span id="validacionFechaBusqueda" class="validation text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label pull-left">Fecha Fin</label>
+                                            <div id="fecha-fin" class="input-group date">
+                                                <input id="fechaBusqueda2" 
+                                                       name="fechaBusqueda2" 
+                                                       style="text-align: left;" 
+                                                       mask="39/19/9999" 
+                                                       restrict="reject" 
+                                                       readonly="true" 
+                                                       placeholder="dd/mm/aaaa" 
+                                                       type="text" 
+                                                       ng-model="UserCtrl.usuarioEntityContrato.fechaFin"
+                                                       validation-error-to="validacionFechaBusqueda2" 
+                                                       class="form-control date" 
+                                                       validation="required">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                            <span id="validacionFechaBusqueda2" class="validation text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="cargo" class="control-label">{{appConstantsView.TITLE_CARGO}}</label><label class="text-danger">*</label>
+                                        <select ng-options="cargo as cargo.nombreCargo for cargo in UserCtrl.usuarioEntity.listaCargo" 
+                                                name="cargo" 
+                                                validation="required"
+                                                id="cargo" 
+                                                class="form-control" 
+                                                ng-disabled="UserCtrl.usuarioVisor.onDeshabilitar" 
+                                                ng-model="UserCtrl.usuarioEntityContrato.cargoE">
+                                            <option ng-if="UserCtrl.usuarioEntity.listaCargo.length > appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre" class="control-label">Salario</label>
+                                        <input class="text-uppercase form-control" 
+                                               type="text" 
+                                               name="nombre" 
+                                               id="nombre-usuario"
+                                               ng-model="UserCtrl.usuarioEntityContrato.salario">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-pane" >
+                        <button type="submit" class="btn btn-success" 
+                                ng-click="UserCtrl.guardarContrato()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalListarContratos" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!--Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" ng-click="UserCtrl.onCloseModal()" 
+                            class="close" 
+                            data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Listado de Contratos</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="content-box">
+                        <div class="panel-body">
+
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">Funcionario</label>
+                                    <input class="text-uppercase form-control" 
+                                           type="text" 
+                                           ng-disabled="true"
+                                           name="nombre" 
+                                           id="nombre2"
+                                           ng-model="UserCtrl.nombreCompleto">
+                                </div>
+                            </div>
+
+                            <table object-table 
+                                   class="hover-column" 
+                                   data="UserCtrl.listContratos" 
+                                   display="10" 
+                                   headers="Fecha Inicio,Fecha Fin,Cargo,Salario"
+                                   fields="fechaInicio,fechaFin,cargo,salario" sorting="compound"
+                                   editable="false" 
+                                   search="separate" 
+                                   resize="false" 
+                                   select="multiply" 
+                                   add-filter="| filter:$owner.all">
+                                <tbody>
+                                    <tr>
+                                        <td>{{item.fechaInicio}}</td>
+                                        <td>{{item.fechaFin}}</td>
+                                        <td>{{item.cargo}}</td>
+                                        <td>{{item.salario}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.UserCtrl.listaUsuario.length !== $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                                    </tr>
+                                    <tr ng-if="$owner.UserCtrl.listaUsuario.length === $owner.appConstantsView.CERO">
+                                        <td colspan="6">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <!--                    <div class="button-pane" >
+                                            <button type="submit" class="btn btn-success" 
+                                                    ng-click="UserCtrl.guardarContrato()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                                        </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalAsignarTurno" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!--Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" ng-click="UserCtrl.onCloseModal()" 
+                            class="close" 
+                            data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Listado de Contratos</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="content-box">
+                        <div class="panel-body">
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">Funcionario</label>
+                                    <input class="text-uppercase form-control" 
+                                           type="text" 
+                                           ng-disabled="true"
+                                           name="nombre" 
+                                           id="nombrefuncionario"
+                                           ng-model="UserCtrl.nombreCompleto">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">Número Módulo</label>
+                                    <input class="text-uppercase form-control" 
+                                           type="text" 
+                                           name="modulo" 
+                                           id="nModulo"
+                                           ng-model="UserCtrl.usuarioTurno.numeroModulo">
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label">Ubicación</label>
+                                    <input class="text-uppercase form-control" 
+                                           type="text" 
+                                           name="ubicacion" 
+                                           id="ubicacion"
+                                           ng-model="UserCtrl.usuarioTurno.ubicacion">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-pane" >
+                        <button type="submit" class="btn btn-success" 
+                                ng-click="UserCtrl.onGuardarModuloTurno()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

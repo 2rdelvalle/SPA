@@ -1,0 +1,376 @@
+<script src="../../../../js/main-app.js" type="text/javascript"></script>
+<div id="page-title" ng-controller="movCajaCtrl as movCCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">Historial Movimiento de Caja</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left content-box-header-title btn-sm">{{appConstantsView.LABEL_CONSULTA_MOVIMIENTO_CAJA}}
+            </h3>
+            <div class="float-right" style="margin-right: 10px" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/auditoria')"
+                    class="btn btn-sm btn-info icon-tool-add back-button"
+                    style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span
+                            class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <form novalidate name="formFechaBusqueda">
+                        <div id="fechaCampanha" class="input-daterange input-group">
+                            <div class="col-lg-2 col-sm-2"></div>
+                            <div class="col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_FECHA}}</label>
+                                    <div id="fecha-inicio" class="input-group date">
+                                        <input id="fechaBusqueda" name="fechaBusqueda" style="text-align: left;"
+                                            mask="39/19/9999" restrict="reject" readonly="true" placeholder="dd/mm/aaaa"
+                                            type="text" ng-model="movCCtrl.movCajaEntityBus.fechaBusqueda"
+                                            validation-error-to="validacionFechaBusqueda" class="form-control date"
+                                            validation="required">
+                                        <span class="input-group-addon"><i
+                                                class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                    <span id="validacionFechaBusqueda" class="validation text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label pull-left">{{appConstantsView.LABEL_FECHA}}</label>
+                                    <div id="fecha-fin" class="input-group date">
+                                        <input id="fechaBusqueda2" name="fechaBusqueda2" style="text-align: left;"
+                                            mask="39/19/9999" restrict="reject" readonly="true" placeholder="dd/mm/aaaa"
+                                            type="text" ng-model="movCCtrl.movCajaEntityBus.fechaBusqueda2"
+                                            validation-error-to="validacionFechaBusqueda2" class="form-control date"
+                                            validation="required">
+                                        <span class="input-group-addon"><i
+                                                class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                    <span id="validacionFechaBusqueda2" class="validation text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-2"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="button-pane">
+                <button class="btn btn-info" ng-click="movCCtrl.cargarMovCajas()">Consultar</button>
+
+                <button ng-show="movCCtrl.listadoMovCaja.length !== appConstantsView.CERO" class="btn btn-success"
+                    ng-click="movCCtrl.onExportarListado()">
+                    <i class="fa fa-file-excel-o"></i> Exportar Listado Completo
+                </button>
+
+                <button class="btn btn-success hidden" id="btnExportar" ng-json-export-excel
+                    data="movCCtrl.listadoMovCajaAux" report-fields="{
+                        nombreEstudiante:'Nombre Estudiante',
+                        codigoEstudiante:'Código',
+                        referenciaLiquidacion:'Referencia Liquidación',
+                        numero:'Numero de Pago',
+                        estadoRecibo:'Estado Recibo',
+                        estadoLiquidacion:'Estado Liquidacion',
+                        nombrePrograma:'Programa',
+                        nombreConceptoFact:'Concepto',
+                        fechaPago:'Fecha de Pago',
+                        valorPagado:'Valor',
+                        nombreCajero:'Cajero'
+                        }" filename=" 'listado-moviento-caja' " title="Exportar listado general a formato csv">
+                    <i class="fa fa-file-excel-o"></i> Exportar Listado Completo
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">
+                {{appConstantsView.LABEL_HISTORIAL_MOVIMIENTOS_CAJA}}</h3>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">Cajero</label>
+                            <select ng-options="cajero as cajero for cajero in movCCtrl.listadoCajeros"
+                                name="cajero" id="cajero"
+                                class="form-control"
+                                ng-change="movCCtrl.onChangeCajero()"
+                                ng-model="movCCtrl.cajero">
+                                <option ng-if="movCCtrl.listadoCajeros.length >= appConstantsView.CERO" value="">
+                                    {{appConstantsView.SELECCION_SELECT}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <table object-table class="hover-column" data="movCCtrl.listadoMovCajaAux" display="10"
+                    headers="Recibo de Pago,Concepto de Facturación,Valor Pagado,Cajero,Estado Recibo, Estado Liquidacion,Codigo de Estudiante,Nombre de Estudiante,Opciones"
+                    fields="numero,nombreConceptoFact,valorPagado,nombreCajero,estadoRecibo,estadoLiquidacion,codigoEstudiante,nombreEstudiante,"
+                    sorting="compound" editable="false" search="separate" resize="false">
+                    <tbody>
+                        <tr>
+                            <td>{{::item.numero}}</td>
+                            <td>{{::item.nombreConceptoFact}}</td>
+                            <td style="text-align: center" class="money">{{::item.valorPagado| currency}}</td>
+                            <td>{{::item.nombreCajero}}</td>
+                            <td>{{::item.estadoRecibo}}</td>
+                            <td>{{::item.estadoLiquidacion}}</td>
+                            <td>{{::item.codigoEstudiante}}</td>
+                            <td>{{::item.nombreEstudiante}}</td>
+                            <td class="opciones-table text-center">
+                                <button ng-click="$owner.movCCtrl.onClickToView(item)"
+                                    class="btn btn-primary btn-tools-table" title="Ver Detalle">
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </button>
+                                <!--                                <button ng-click="$owner.movCCtrl.onGenerarReporte(item)" class="btn btn-info btn-tools-table" title="Descargar Reporte"> 
+                                    <i class="glyphicon glyphicon-print"></i>
+                                </button>-->
+                            </td>
+                            <!--<td ng-hide="true">{{$owner.movCCtrl.filtrados = $filtered}}</td>-->
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align: center" class="money">
+                                {{$owner.movCCtrl.getTotalPagado($filtered) | currency}}</td>
+                            <td colspan="5"></td>
+                        </tr>
+                        <tr
+                            ng-if="$filtered.length === $owner.appConstantsView.CERO && $owner.movCCtrl.listadoMovCaja.length !== $owner.appConstantsView.CERO">
+                            <td colspan="8">{{$owner.appConstantsView.SIN_COINCIDENCIAS}}</td>
+                        </tr>
+                        <tr ng-if="$owner.movCCtrl.listadoMovCaja.length === $owner.appConstantsView.CERO">
+                            <td colspan="8">{{$owner.appConstantsView.SIN_REGISTROS}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDatos" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Detalle Recibos de Pago</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="content-box">
+                        <div class="button-pane button-pane-top">
+                            <div class="float-left">
+                                <h3 class="text-uppercase content-box-header-title btn-sm">
+                                    {{appConstantsView.LABEL_INFO_GENERAL_MOVIMIENTO}} </h3>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="caja" class="control-label">{{appConstantsView.LABEL_CAJA}}</label>
+                                        <input name="caja" id="caja" ng-disabled="true"
+                                            class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.caja">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="ubicacion"
+                                            class="control-label">{{appConstantsView.LABEL_UBICACION}}</label>
+                                        <input name="ubicacion" id="ubicacion" ng-disabled="true"
+                                            class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.ubicacion">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="cajero"
+                                            class="control-label">{{appConstantsView.LABEL_NOMBRE_CAJERO}}</label>
+                                        <input class="text-uppercase form-control" type="text" ng-disabled="true"
+                                            name="cajero" ng-model="movCCtrl.movCajaEntity.cajero">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="idCajero"
+                                            class="control-label">{{appConstantsView.LABEL_IDENTIFICACION}}</label>
+                                        <input name="idCajero" id="idCajero" ng-disabled="true"
+                                            class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.idCajero">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fechaLiquidacion"
+                                            class="control-label">{{appConstantsView.LABEL_FECHA_LIQUIDACION}}</label>
+                                        <input class="text-uppercase form-control" type="text" ng-disabled="true"
+                                            name="fechaLiquidacion" ng-model="movCCtrl.movCajaEntity.fechaLiquidacion">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fechaPago"
+                                            class="control-label">{{appConstantsView.LABEL_FECHA_PAGO}}</label>
+                                        <input name="fechaPago" id="fechaPago" ng-disabled="true"
+                                            class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.fechaPago">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="consecutivo"
+                                            class="control-label">{{appConstantsView.LABEL_CONSECUTIVO}}</label>
+                                        <input name="consecutivo" id="consecutivo" ng-disabled="true"
+                                            class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.consecutivo">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="reciboPago"
+                                            class="control-label">{{appConstantsView.LABEL_RECIBO_PAGO}}</label>
+                                        <input class="text-uppercase form-control" type="text" ng-disabled="true"
+                                            name="reciboPago" ng-model="movCCtrl.movCajaEntity.reciboPago">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="concepto"
+                                            class="control-label">{{appConstantsView.LABEL_CONCEPTO_FACTURACION}}</label>
+                                        <input name="concepto" id="concepto" ng-disabled="true"
+                                            class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.concepto">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="claseConcepto"
+                                            class="control-label">{{appConstantsView.LABEL_CLASE_CONCEPTO}}</label>
+                                        <input class="text-uppercase form-control" type="text" ng-disabled="true"
+                                            name="claseConcepto" ng-model="movCCtrl.movCajaEntity.claseConcepto">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="referenciaLiquidacion"
+                                            class="control-label">{{appConstantsView.LABEL_REFERENCIA_LIQUIDACION}}</label>
+                                        <input name="referenciaLiquidacion" id="referenciaLiquidacion"
+                                            ng-disabled="true" class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.referenciaLiquidacion">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="valor"
+                                            class="control-label">{{appConstantsView.LABEL_VALOR}}</label>
+                                        <input name="valor" id="valor" ng-disabled="true"
+                                            class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.valor">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="estadoLiquidacion"
+                                            class="control-label">{{appConstantsView.LABEL_ESTADO_LIQUIDACION}}</label>
+                                        <input class="text-uppercase form-control" type="text" ng-disabled="true"
+                                            name="estadoLiquidacion"
+                                            ng-model="movCCtrl.movCajaEntity.estadoLiquidacion">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="estadoRecibo"
+                                            class="control-label">{{appConstantsView.LABEL_ESTADO_RECIBO}}</label>
+                                        <input class="text-uppercase form-control" type="text" ng-disabled="true"
+                                            name="estadoRecibo" ng-model="movCCtrl.movCajaEntity.estadoRecibo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-box">
+                        <div class="button-pane button-pane-top">
+                            <div class="float-left">
+                                <h3 class="text-uppercase content-box-header-title btn-sm">
+                                    {{appConstantsView.TITLE_INFO_ESTUDIANTE}} </h3>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombreEstudiante"
+                                            class="control-label">{{appConstantsView.LABEL_NOMBRE_ESTUDIANTE}}</label>
+                                        <input name="nombreEstudiante" id="nombreEstudiante" ng-disabled="true"
+                                            class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.nombreEstudiante">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="codigoEstudiante"
+                                            class="control-label">{{appConstantsView.LABEL_CODIGO}}</label>
+                                        <input name="codigoEstudiante" id="codigoEstudiante" ng-disabled="true"
+                                            class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.codigoEstudiante">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="periodo"
+                                            class="control-label">{{appConstantsView.LABEL_PERIODO_ACADEMICO}}</label>
+                                        <input class="text-uppercase form-control" type="text" ng-disabled="true"
+                                            name="periodo" ng-model="movCCtrl.movCajaEntity.periodo">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="programa"
+                                            class="control-label">{{appConstantsView.LABEL_PROGRAMA_ACADEMICO}}</label>
+                                        <input name="codigo" id="codigo" ng-disabled="true"
+                                            class="text-uppercase form-control" type="text"
+                                            ng-model="movCCtrl.movCajaEntity.programa">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-pane">
+                        <input class="btn btn-info" type="submit" value="Imprimir" title="Descargar Reporte"
+                            ng-click="movCCtrl.onGenerarReporte(movCCtrl.movCajaEntity)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

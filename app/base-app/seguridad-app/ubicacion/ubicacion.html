@@ -1,0 +1,33 @@
+<div id="page-title" ng-controller="ubicacionCtrl as UCtrl">
+    <div class="row">
+        <div class="float-left" style="margin-left: 10px">
+            <h2 style="line-height: 30px;">{{appConstantsView.LABEL_UBICACION}}</h2>
+        </div>
+    </div>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">Ubicación Actual</h3>
+            <div class="float-right" ng-controller="menuCtrl as mCtrl">
+                <a ng-click="mCtrl.onListarOPciones('/#/seguridad')" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4;cursor: pointer; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <ng-map default-style="true" center="current-location" zoom="16" draggable="true">
+                    <info-window position="current-location">
+                        <span>
+                            <center><strong>Zabud Technologies</strong></center>
+                            Coordenadas: {{UCtrl.latitud | limitTo: 10}}, {{UCtrl.longitud | limitTo: 10}}<br>
+                            <center>IP: {{UCtrl.miIP}}</center>
+                        </span>
+                    </info-window>
+                </ng-map>
+            </div>
+        </div>
+    </div>
+</div>

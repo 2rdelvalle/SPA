@@ -1,0 +1,60 @@
+<div id="page-title" ng-controller=" facultadCtrl as facultCtrl">
+    <h2>Facultades</h2>
+    
+    <br>
+    
+    <div class="content-box">
+       <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{facultCtrl.FacultadAuxiliar.titulo}}</h3>
+            <div class="float-right">
+                <a href="/#/facultad" ng-click="facultCtrl.onLimpiar()" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left" ></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="clearfix"></div>
+             <div class="content-box-wrapper">
+            <div class="panel-body">     
+                <div class="row">
+        <form  method="POST" novalidate name="formRegistrarFacultad" >
+              <div class="row">
+                   <div class="form-group">
+                      <div class="col-lg-6 col-sm-6">
+                          <label class="control-label">{{appConstantsView.LABEL_CODIGO}}<span class="text-danger">*</span></label>
+                          <input  validation="required" mask="X" repeat="10"   restrict="reject" 
+                                  class="form-control" name="Código"  maxlength="10" 
+                                  ng-disabled="facultCtrl.FacultadAuxiliar.disableVerDetalle || facultCtrl.FacultadAuxiliar.disableCodigo"
+                                  ng-model="facultCtrl.facultadEntity.codigoFacultad" 
+                                  onblur="this.value = this.value.toUpperCase();"  
+                                  onkeyup="javascript:this.value = this.value.toUpperCase();">
+                      </div>
+                 
+                      <div class="col-lg-6 col-sm-6">
+                          <label class="control-label" >{{appConstantsView.LABEL_NOMBRE}} <span class="text-danger">*</span></label>
+                          <input  validation="required" 
+                                  name="Nombre"   mask="H" repeat="50"   restrict="reject"
+                                  maxlength="50" class="form-control"  
+                                  ng-disabled="facultCtrl.FacultadAuxiliar.disableVerDetalle"
+                                  ng-model="facultCtrl.facultadEntity.nombreFacultad" 
+                                  onblur="this.value = this.value.toUpperCase();"  
+                                  onkeyup="javascript:this.value = this.value.toUpperCase();">
+                          
+                      </div>
+                  </div>
+                 
+              </div>  
+             <br>
+                    <div class="button-pane">
+                         <button type="submit" class="btn btn-success"  ng-click="facultCtrl.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+                        
+                     </div>
+             </form>
+                </div>
+            </div>
+          </div>
+    </div>
+ 
+ </div>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<div id="page-title" ng-controller="RolCtrller as rolCtrller">
+    <h2>{{appConstantsView.ROLES}}</h2>
+    <br>
+    <div class="content-box">
+        <div class="button-pane button-pane-top">
+            <h3 class="float-left text-uppercase content-box-header-title btn-sm">{{rolCtrller.rolAuxiliar.titulo}}</h3>
+            <div class="float-right">
+                <a href="/#/roles" ng-click="rolCtrller.onLimpiar()" class="btn btn-sm btn-info icon-tool-add back-button" style="background-color: #0096D4; color: #ffffff; border: 0px solid #dfe8f1;">
+                    <div class="glyph-icon">
+                        <i class="glyphicon glyphicon-arrow-left"></i><span class="info-icon-tool">{{appConstantsView.BOTON_VOLVER}}</span>
+                    </div>
+                </a>
+                <input type="submit" ng-click="rolCtrller.onAgregarModuloMenu('modalModuloMenu')" class="collapse-link btn btn-sm btn-success " ng-disabled="true" value="Agregar Modulo">
+                <input type="submit" ng-click="rolCtrller.onEliminarModulo('modalEliminarMenuModulo')" class="collapse-link btn btn-sm btn-danger " ng-disabled="true"  ng-show="rolCtrller.mostarBtnAgregarModulo"  value="Eliminar Menú">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-box-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    <form method="POST" name="formRegistrarRol" novalidate>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_CODIGO}}<span class="text-danger">*</span></label>
+                                    <input validation="required" mask="X" repeat="20" restrict="reject" class="form-control text-uppercase" name="Código" maxlength="20"
+                                           ng-disabled="rolCtrller.rolAuxiliar.disableCodigo" ng-model="rolCtrller.rolEntity.codigoRol">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_NOMBRE}} <span class="text-danger">*</span></label>
+                                    <input validation="required" name="Nombre" mask="H" repeat="50" restrict="reject" maxlength="50" class="form-control text-uppercase"
+                                           ng-disabled="rolCtrller.rolAuxiliar.disableVerDetalle" ng-model="rolCtrller.rolEntity.nombreRol">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6" ng-if="!rolCtrller.rolAuxiliar.onDeshabilitarCampoEstado">
+                                <div class="form-group">
+                                    <label class="control-label">{{appConstantsView.LABEL_ESTADO}}<label class="text-danger">*</label></label>
+                                    <select ng-options="nivel.valor as nivel.valor for nivel in rolCtrller.listaEstados" name="estado" id="estado" class="form-control"
+                                            ng-model="rolCtrller.rolEntity.estado" validation="required">
+                                        <option ng-if="rolCtrller.listaEstados.length > appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6 col-sm-6" ng-if="!usuarioRolCtrller.usaurioRolAuxiliar.onDeshabilitarCampoEstado">
+                                <div class="form-group">
+                                    <label class="control-label" for="modulos">Módulos disponibles<label class="text-danger">*</label></label>
+                                    <select ng-options="item as item.nombre for item in rolCtrller.Modulos| orderBy:'nombre'" name="modulo" id="modulo" class="form-control"
+                                            ng-model="rolCtrller.modulo" ng-change="rolCtrller.onShowMenu()">
+                                        <option ng-if="rolCtrller.Modulos.length > appConstantsView.CERO" value="">{{appConstantsView.SELECCION_SELECT}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="button-pane">
+                                <input type="submit" ng-click="rolCtrller.onAgregarModulo('modalAgregarMenuModulo')" ng-show="rolCtrller.mostarBtnAgregarModulo" class="collapse-link btn btn-sm btn-success " value="Agregar Menú">
+                            </div>
+                        </div>
+                        <div class="content-box">
+                            <div class="clearfix"></div>
+                            <div class="content-box-wrapper">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-sm-12" >
+                                            <div class="col-lg-4 col-sm-4" >
+                                                <label class="control-label">Módulo</label>
+                                                <div class="form-group">
+                                                    <input class="form-control" ng-model="rolCtrller.bagSearch">
+                                                </div>
+                                                <div class="form-group">
+                                                    <div
+                                                        ivh-treeview="rolCtrller.moduloList"
+                                                        ivh-treeview-filter="rolCtrller.bagSearch"
+                                                        ivh-treeview-twistie-leaf-tpl="'*'"
+                                                        ivh-treeview-expand-to-depth="2">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-4" >
+                                                <label class="control-label">Ayudas</label>
+                                                <div class="form-group">
+                                                    <input class="form-control" ng-model="rolCtrller.bagSearch1">
+                                                </div>
+                                                <div class="form-group">
+                                                    <div
+                                                        ivh-treeview="rolCtrller.bagAyudas"
+                                                        ivh-treeview-filter="rolCtrller.bagSearch1"
+                                                        ivh-treeview-twistie-leaf-tpl="'*'"
+                                                        ivh-treeview-expand-to-depth="2">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-4" >
+                                                <label class="control-label">Atajos</label>
+                                                <div class="form-group">
+                                                    <input class="form-control" ng-model="rolCtrller.bagSearch2">
+                                                </div>
+                                                <div class="form-group">
+                                                    <div
+                                                        ivh-treeview="rolCtrller.bagAtajos"
+                                                        ivh-treeview-filter="rolCtrller.bagSearch2"
+                                                        ivh-treeview-twistie-leaf-tpl="'*'"
+                                                        ivh-treeview-expand-to-depth="2">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div> 
+                            </div> 
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="button-pane">
+        <button type="submit" class="btn btn-success" ng-click="rolCtrller.onSubmitForm()">{{appConstantsView.BOTON_GUARDAR}}</button>
+    </div>
+
+    <div id="modalAgregarMenuModulo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button  type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Agregar Menú</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row" >
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Seleccione Submenú</label><label class="text-danger">*</label>
+                                <select ng-options="subMenu1 as subMenu1.label for subMenu1 in rolCtrller.subMenuAgregar_1" 
+                                        class="form-control"
+                                        name="idSubMenu1"
+                                        ng-change="rolCtrller.onChangeNivel1()"
+                                        ng-model="rolCtrller.idNivel1">
+                                    <option ng-if="rolCtrller.subMenuAgregar_1.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Seleccione Submenú</label><label class="text-danger">*</label>
+                                <select ng-options="subMenu2 as subMenu2.label for subMenu2 in rolCtrller.subMenuAgregar_2" 
+                                        class="form-control"
+                                        name="idSubMenu2"
+                                        ng-change="rolCtrller.onChangeNivel2()"
+                                        ng-model="rolCtrller.idNivel2">
+                                    <option ng-if="rolCtrller.subMenuAgregar_2.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" ng-show="rolCtrller.mostrarNivel2">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Seleccione tipo de menú</label><label class="text-danger">*</label>
+                                <select ng-options="tipoNota as tipoNota.opcion for tipoNota in rolCtrller.opcionesAregarModulo" 
+                                        class="form-control"
+                                        name="idTipoConsulta"
+                                        ng-change="rolCtrller.onChangeOpcion(); rolCtrller.onValidarCampos()"
+                                        ng-model="rolCtrller.idOpcion">
+                                    <option ng-if="rolCtrller.opcionesAregarModulo.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+
+                            <div class="row" ng-show="rolCtrller.mostrarInputModuloNuevo"> 
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Label</label><label class="text-danger">*</label>
+                                        <input type="text"
+                                               class="form-control" 
+                                               name="label"
+                                               ng-change="rolCtrller.onValidarCampos()"
+                                               restrict="reject"
+                                               ng-model="rolCtrller.label">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Ruta</label><label class="text-danger">*</label>
+                                        <input type="text"
+                                               class="form-control" 
+                                               name="ruta"
+                                               restrict="reject"
+                                               ng-change="rolCtrller.onValidarCampos()"
+                                               ng-model="rolCtrller.ruta">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Seleccione icono</label><label class="text-danger">*</label>
+                                        <select ng-options="tipoNota.opcion as tipoNota.opcion for tipoNota in rolCtrller.opcionesClase" 
+                                                class="form-control"
+                                                name="idTipoClase"
+                                                ng-change="rolCtrller.onChangeClase(tipoNota); rolCtrller.onValidarCampos()"
+                                                ng-model="rolCtrller.idClase">
+                                            <option ng-if="rolCtrller.opcionesClase.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-6">
+                                    <div style="margin-top: 10px; cursor: pointer">
+                                        <a title="aa" class="tile-box tile-box-shortcut btn-primary">
+                                            <div class="tile-header">
+                                                {{rolCtrller.label}}
+                                            </div>
+                                            <div class="tile-content-wrapper">
+                                                <i class="{{rolCtrller.idClase}}"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-pane">
+                        <input class="btn btn-success" id="btnAceptarNotaMasiva" type="submit" 
+                               value="Aceptar"
+                               data-dismiss="modal"
+                               ng-show="rolCtrller.btnBooleanMostrar"
+                               ng-click="rolCtrller.onGuardar()"
+                               style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1; width: 83px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modalModuloMenu" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button  type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Agregar Modulo</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Label</label><label class="text-danger">*</label>
+                                <input type="text"
+                                       class="form-control" 
+                                       name="label"
+                                       ng-change="rolCtrller.onValidarCampos()"
+                                       restrict="reject"
+                                       ng-model="rolCtrller.label">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Ruta</label><label class="text-danger">*</label>
+                                <input type="text"
+                                       class="form-control" 
+                                       name="ruta"
+                                       restrict="reject"
+                                       ng-change="rolCtrller.onValidarCampos()"
+                                       ng-model="rolCtrller.ruta">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Seleccione icono</label><label class="text-danger">*</label>
+                                <select ng-options="tipoNota.opcion as tipoNota.opcion for tipoNota in rolCtrller.opcionesClaseModulo" 
+                                        class="form-control"
+                                        name="idTipoClase"
+                                        ng-change="rolCtrller.onChangeClase(tipoNota); rolCtrller.onValidarCampos()"
+                                        ng-model="rolCtrller.idClase">
+                                    <option ng-if="rolCtrller.opcionesClaseModulo.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <ul id="sidebar-menu" style="margin-bottom: 0px !important">
+                                <li>
+                                    <a style="cursor: pointer" >
+                                        <i class="{{rolCtrller.idClase}}"></i>
+                                        <h4>{{rolCtrller.label}}</h4>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="button-pane">
+                    <input class="btn btn-success" id="btnAceptarNotaMasiva" type="submit" 
+                           value="Aceptar"
+                           data-dismiss="modal"
+                           ng-click="rolCtrller.onGuardarModulo()"
+                           style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1; width: 83px">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modalEliminarMenuModulo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button  type="button" class="close" data-dismiss="modal">{{appConstantsView.CERRAR_MODAL}}</button>
+                    <h4 class="modal-title">Agregar Menú</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row" >
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Seleccione Submenú</label><label class="text-danger">*</label>
+                                <select ng-options="subMenu1 as subMenu1.label for subMenu1 in rolCtrller.subMenuAgregar_1" 
+                                        class="form-control"
+                                        name="idSubMenu1"
+                                        ng-change="rolCtrller.onChangeNivel1Eliminar()"
+                                        ng-model="rolCtrller.idNivel1"
+                                        ng-disabled="true">
+                                    <option ng-if="rolCtrller.subMenuAgregar_1.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Seleccione Submenú</label><label class="text-danger">*</label>
+                                <select ng-options="subMenu2 as subMenu2.label for subMenu2 in rolCtrller.subMenuAgregar_2" 
+                                        class="form-control"
+                                        name="idSubMenu2"
+                                        ng-change="rolCtrller.onChangeNivel2Eliminar()"
+                                        ng-model="rolCtrller.idNivel2">
+                                    <option ng-if="rolCtrller.subMenuAgregar_2.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Seleccione Submenú</label><label class="text-danger">*</label>
+                                <select ng-options="subMenu3 as subMenu3.label for subMenu3 in rolCtrller.subMenuAgregar_3" 
+                                        class="form-control"
+                                        name="idSubMenu3"
+                                        ng-change="rolCtrller.onChangeNivel3Eliminar()"
+                                        ng-model="rolCtrller.idNivel3">
+                                    <option ng-if="rolCtrller.subMenuAgregar_2.length >= appConstantsView.CERO" value="" >{{appConstantsView.SELECCION_SELECT}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    
+
+                    <div class="button-pane">
+                        <input class="btn btn-success" id="btnAceptarNotaMasiva" type="submit" 
+                               value="Aceptar"
+                               data-dismiss="modal"
+                               ng-click="rolCtrller.onEliminarMenu()"
+                               style="background-color: #00bca4;color: #ffffff;border: 0px solid #dfe8f1; width: 83px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
